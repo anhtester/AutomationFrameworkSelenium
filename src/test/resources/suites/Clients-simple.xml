@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="RegressionTests">
+
+    <test name="Chrome execution ClientsTest">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="anhtester.com.projects.website.crm.testcases.ClientModelTest"/>
+        </classes>
+    </test>
+
+</suite>

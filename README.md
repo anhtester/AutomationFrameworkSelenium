@@ -1,2 +1,1 @@
-# SeleniumFrameworkTestNG
-Selenium Framework build by Anh Tester
+# Selenium Java with TestNG Framework and Parallel execution
