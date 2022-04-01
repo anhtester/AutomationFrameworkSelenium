@@ -1,12 +1,9 @@
 package anhtester.com.projects.website.crm.testcases;
 
-import anhtester.com.common.BaseTest;
 import anhtester.com.common.BaseWeb;
 import anhtester.com.driver.DriverManager;
-import anhtester.com.driver.TargetFactory;
 import anhtester.com.helpers.ExcelHelpers;
 import anhtester.com.helpers.Helpers;
-import anhtester.com.manager.BrowserFactory;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;

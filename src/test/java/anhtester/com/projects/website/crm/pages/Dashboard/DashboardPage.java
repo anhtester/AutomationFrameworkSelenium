@@ -14,7 +14,7 @@ public class DashboardPage extends CommonPage {
 
     public DashboardPage()
     {
-        object = new ObjectRepository("src/test/resources/objects.crm/locators.properties");
+        object = new ObjectRepository("src/test/resources/objects.crm/crm_locators.properties");
     }
 
     public String pageText = "Project Timeline";

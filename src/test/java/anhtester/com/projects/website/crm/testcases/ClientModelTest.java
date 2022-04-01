@@ -34,8 +34,8 @@ public class ClientModelTest extends BaseWeb {
         SignIn();
     }
 
-    @Test(priority = 1, description = "Add ClientModel")
-    @Step("Add ClientModel")
+    @Test(priority = 1, description = "Add new Client")
+    @Step("Add new Client")
     public void AddClient() {
         webUI.waitForPageLoaded();
         clientPage = dashboardPage.openClientPage();
@@ -44,17 +44,17 @@ public class ClientModelTest extends BaseWeb {
         clientPage.addClient();
     }
 
-    @Test(priority = 2, description = "Search ClientModel")
-    @Step("Search ClientModel")
+    @Test(priority = 2, description = "Search Client")
+    @Step("Search Client")
     public void SearchClient() {
         webUI.waitForPageLoaded();
         clientPage = dashboardPage.openClientPage();
         webUI.waitForPageLoaded();
         clientPage.openClientTabPage();
-        // Search lần 1
+        // Search the first
         clientPage.enterDataSearchClient("Anh Tester Com 05");
         webUI.checkContainsSearchTableByColumn(2, "Anh Tester Com 05");
-        // Search lần 2
+        // Search the second
         clientPage.enterDataSearchClient("Phamiliar Tech");
         webUI.checkContainsSearchTableByColumn(2, "Phamiliar Tech");
     }

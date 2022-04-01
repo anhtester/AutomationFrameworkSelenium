@@ -1,6 +1,6 @@
 package anhtester.com.projects.website.crm.testcases;
 
-import anhtester.com.common.BaseTest;
+import anhtester.com.common.BaseWeb;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
@@ -14,13 +14,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
-public class TestQRCode extends BaseTest {
+public class TestQRCode extends BaseWeb {
 
     WebDriver driver = null;
 
     @BeforeClass
     public void setupBrowser() {
-        driver = getDriver();
+        driver = new BaseWeb().createBrowser("chrome");
     }
 
     @Test

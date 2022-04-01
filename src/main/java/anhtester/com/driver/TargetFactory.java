@@ -3,8 +3,6 @@ package anhtester.com.driver;
 import anhtester.com.enums.Target;
 import anhtester.com.exceptions.TargetNotValidException;
 import anhtester.com.utils.Log;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -21,9 +19,11 @@ public class TargetFactory {
 
         switch (target) {
             case LOCAL:
+                //Create new driver from Enum setup in BrowserFactory class
                 webdriver = BrowserFactory.valueOf(browser.toUpperCase()).createDriver();
                 break;
             case REMOTE:
+                //Create new driver on Cloud (Selenium Grid, Docker) from method below
                 webdriver = createRemoteInstance(BrowserFactory.valueOf(browser.toUpperCase()).getOptions());
                 break;
             default:

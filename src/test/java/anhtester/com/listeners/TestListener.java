@@ -57,12 +57,12 @@ public class TestListener implements ITestListener {
     public void onTestFailure(ITestResult iTestResult) {
         Log.error(getTestName(iTestResult) + " test is failed.");
 
-        //Allure ScreenShotRobot and Screenshot custom
+        //Allure report screenshot file and log
         Log.info("Screenshot for test case: " + getTestName(iTestResult));
-        AllureManager.saveScreenshotPNG(DriverManager.getDriver());
-        //Save a log on Allure report.
+        AllureManager.takeScreenshotToAttachOnAllureReport();
         AllureManager.saveTextLog(getTestName(iTestResult) + " failed and screenshot taken!");
 
+        //Extent report screenshot file and log
         ExtentTestManager.addScreenShot(Status.FAIL, getTestName(iTestResult));
         ExtentTestManager.logMessage(Status.FAIL, getTestDescription(iTestResult));
     }

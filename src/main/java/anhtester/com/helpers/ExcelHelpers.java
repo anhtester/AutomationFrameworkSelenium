@@ -15,7 +15,6 @@ import org.apache.poi.ss.util.CellAddress;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.jetbrains.annotations.NotNull;
 
 public class ExcelHelpers {
 
@@ -229,7 +228,7 @@ public class ExcelHelpers {
         return data;
     }
 
-    public static @NotNull String getTestCaseName(String sTestCase) throws Exception {
+    public static String getTestCaseName(String sTestCase) throws Exception {
         String value = sTestCase;
         try {
             int posi = value.indexOf("@");

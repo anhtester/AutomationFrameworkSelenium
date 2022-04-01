@@ -24,7 +24,7 @@ public class SignInPage extends CommonPage {
 //    private By signInBtn = By.xpath("//button[normalize-space()='Sign in']");
 
     public SignInPage() {
-        object = new ObjectRepository("src/test/resources/objects.crm/locators.properties");
+        object = new ObjectRepository("src/test/resources/objects.crm/crm_locators.properties");
     }
 
     public DashboardPage signIn(String email, String password) {

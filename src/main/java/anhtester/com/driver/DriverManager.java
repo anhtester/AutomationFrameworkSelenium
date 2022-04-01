@@ -21,7 +21,7 @@ public class DriverManager {
 
     public static void quit() {
         DriverManager.driver.get().quit();
-        driver.remove();
+        DriverManager.driver.remove();
     }
 
     public static String getInfo() {

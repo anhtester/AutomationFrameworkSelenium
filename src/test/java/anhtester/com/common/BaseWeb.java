@@ -10,8 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.testng.annotations.*;
 
-import static anhtester.com.config.ConfigurationManager.configuration;
-
 @Listeners({TestListener.class})
 public class BaseWeb {
 
@@ -32,14 +30,14 @@ public class BaseWeb {
         webUI = new WebUI();
     }
 
+    @AfterMethod(alwaysRun = true)
+    public void closeDriver() {
+        DriverManager.quit();
+    }
+
     public WebDriver createBrowser(@Optional("chrome") String browser) {
         WebDriver driver = ThreadGuard.protect(new TargetFactory().createInstance(browser));
         DriverManager.setDriver(driver);
         return DriverManager.getDriver();
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void closeDriver() {
-        DriverManager.quit();
     }
 }
