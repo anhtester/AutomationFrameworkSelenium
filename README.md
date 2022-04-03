@@ -1,1 +1,1 @@
-# Automation Framework Selenium building by Anh Tester
+# Automation Framework Selenium Java with TestNG building by Anh Tester
