@@ -15,13 +15,12 @@ import org.testng.annotations.*;
 @Listeners({TestListener.class})
 public class BaseTest {
 
-    public WebUI webUI = null;
+    public WebUI webUI;
 
     @BeforeSuite
     public void beforeSuite() {
         AllureManager.setAllureEnvironmentInformation();
         PropertiesHelpers.loadAllFiles();
-        ExcelHelpers.setExcelFile("src/test/resources/" + FrameworkConstants.EXCEL_DATA_PATH, "SignIn");
     }
 
     @Parameters("browser")
@@ -30,6 +29,7 @@ public class BaseTest {
         WebDriver driver = ThreadGuard.protect(new TargetFactory().createInstance(browser));
         DriverManager.setDriver(driver);
         webUI = new WebUI();
+        ExcelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_PATH_FULL, "SignIn");
     }
 
     @AfterMethod(alwaysRun = true)

@@ -4,7 +4,6 @@ import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.enums.AuthorType;
 import anhtester.com.enums.CategoryType;
-import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.utils.BrowserInfoUtils;
 import anhtester.com.utils.IconUtils;
 import anhtester.com.utils.ReportUtils;
@@ -108,7 +107,7 @@ public final class ExtentReportManager {
     }
 
     public static void pass(String message) {
-        System.out.println("ExtentReportManager class: " + ExtentTestManager.getExtentTest());
+        //System.out.println("ExtentReportManager class: " + ExtentTestManager.getExtentTest());
         ExtentTestManager.getExtentTest().pass(message);
     }
 
@@ -139,6 +138,5 @@ public final class ExtentReportManager {
     public static void info(String message) {
         ExtentTestManager.getExtentTest().info(message);
     }
-
 
 }

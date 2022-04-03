@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2022.
+ * Automation Framework Selenium - Anh Tester
+ */
+
 package anhtester.com.constants;
 
 import anhtester.com.helpers.Helpers;
@@ -19,6 +24,7 @@ public final class FrameworkConstants {
 
     public static final String PROJECT_PATH = Helpers.getCurrentDir();
     public static final String EXCEL_DATA_PATH = PropertiesHelpers.getValue("excelDataFilePath");
+    public static final String EXCEL_DATA_PATH_FULL = PropertiesHelpers.getValue("excelDataFilePathFull");
 
     public static final String BASE_URL = PropertiesHelpers.getValue("base_url");
     public static final String REMOTE_URL = PropertiesHelpers.getValue("remote_url");

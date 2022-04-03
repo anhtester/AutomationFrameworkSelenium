@@ -4,6 +4,7 @@ import anhtester.com.config.ConfigFactory;
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.enums.Browser;
+import anhtester.com.utils.OSInfoUtils;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
 import com.google.common.collect.ImmutableMap;
 import io.qameta.allure.Attachment;
@@ -32,13 +33,12 @@ public class AllureManager {
 
     @Attachment(value = "Failed test screenshot", type = "image/png")
     public static byte[] takeScreenshotToAttachOnAllureReport() {
-        System.out.println(((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES));
         return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
-    @Attachment(value = "Browser information", type = "text/plain")
+    @Attachment(value = "Browser Information", type = "text/plain")
     public static String addBrowserInformationOnAllureReport() {
-        return DriverManager.getInfo();
+        return OSInfoUtils.getOSInfo();
     }
 
     //Text attachments for Allure

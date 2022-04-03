@@ -17,10 +17,11 @@ import org.testng.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 import static anhtester.com.constants.FrameworkConstants.*;
 
-public class TestListener implements ITestListener, ISuiteListener {
+public class TestListener implements ITestListener, ISuiteListener, IInvokedMethodListener  {
 
     static int count_totalTCs;
     static int count_passedTCs;
@@ -37,12 +38,23 @@ public class TestListener implements ITestListener, ISuiteListener {
     }
 
     @Override
+    public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
+        //System.out.println(method.getTestMethod().getMethodName());
+    }
+
+    @Override
+    public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
+        //System.out.println(method.getTestMethod().getMethodName());
+    }
+
+    @Override
     public void onStart(ISuite iSuite) {
         Log.info("Start suite testing for " + iSuite.getName());
         iSuite.setAttribute("WebDriver", DriverManager.getDriver());
         //Gọi hàm startRecord video trong CaptureHelpers class
         CaptureHelpers.startRecord(iSuite.getName());
         ExtentReportManager.initReports();
+        ExtentReportManager.createTest("Before Steps setup");
     }
 
     @Override
@@ -68,7 +80,7 @@ public class TestListener implements ITestListener, ISuiteListener {
                 .getAnnotation(FrameworkAnnotation.class).category());
         ExtentReportManager.addDevices();
 
-        ExtentReportManager.info(BOLD_START + IconUtils.getOSIcon() + "  &  " + IconUtils.getBrowserIcon() + " --------- "
+        ExtentReportManager.info(BOLD_START + IconUtils.getOSIcon() + " "
                 + BrowserOSInfoUtils.getOS_Browser_BrowserVersionInfo() + BOLD_END);
     }
 
@@ -78,14 +90,9 @@ public class TestListener implements ITestListener, ISuiteListener {
         count_passedTCs = count_passedTCs + 1;
 
         AllureManager.takeScreenshotToAttachOnAllureReport();
+        Allure.addAttachment("Browser Info", AllureManager.addBrowserInformationOnAllureReport());
         //ExtentReports log operation for passed tests.
         ExtentReportManager.logMessage(Status.PASS, getTestDescription(iTestResult));
-    }
-
-    @Attachment(value = "Failed test screenshot", type = "image/png")
-    public byte[] takeScreenshotToAttachOnAllureReport() {
-        System.out.println(((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES));
-        return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
     @Override
@@ -98,9 +105,7 @@ public class TestListener implements ITestListener, ISuiteListener {
         //Allure report screenshot file and log
         Log.info("Allure Screenshot for test case: " + getTestName(iTestResult));
 
-        byte[] screenShot = ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
-        Allure.getLifecycle().addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", screenShot);
-        //AllureManager.takeScreenshotToAttachOnAllureReport();
+        AllureManager.takeScreenshotToAttachOnAllureReport();
         //takeScreenshotToAttachOnAllureReport();
         //AllureManager.saveTextLog(getTestName(iTestResult) + " failed and screenshot taken!");
 
@@ -114,7 +119,7 @@ public class TestListener implements ITestListener, ISuiteListener {
         Log.warn(getTestName(iTestResult) + " test is skipped.");
         count_skippedTCs = count_skippedTCs + 1;
 
-        ExtentReportManager.logMessage(Status.SKIP, getTestName(iTestResult) + " test is skipped.");
+        //ExtentReportManager.logMessage(Status.SKIP, getTestName(iTestResult) + " test is skipped.");
     }
 
     @Override

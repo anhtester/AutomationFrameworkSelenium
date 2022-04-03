@@ -26,7 +26,7 @@ public final class BrowserInfoUtils {
     public static String getBrowserVersionInfo() {
 //        Capabilities capabilities = ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities();
 //        return capabilities.getBrowserVersion();
-        return "Version 100 (64-bit)";
+        return "";
     }
 
 }

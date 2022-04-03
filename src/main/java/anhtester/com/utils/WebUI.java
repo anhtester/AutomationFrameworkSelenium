@@ -344,7 +344,7 @@ public class WebUI {
 
     public boolean verifyAlertPresent(int timeOut) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, timeOut);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
             wait.until(ExpectedConditions.alertIsPresent());
             return true;
         } catch (Throwable error) {
@@ -548,12 +548,13 @@ public class WebUI {
 
     public void getToUrl(String URL) {
         DriverManager.getDriver().get(URL);
-        ExtentReportManager.pass(ICON_Navigate_Right + " Get to : " + BOLD_START + BASE_URL + BOLD_END);
+        ExtentReportManager.pass(ICON_Navigate_Right + " Open URL : " + BOLD_START + BASE_URL + BOLD_END);
     }
 
     public void navigateToUrl(String URL) {
         DriverManager.getDriver().get(URL);
-        ExtentReportManager.pass(ICON_Navigate_Right + " Navigate to : " + BOLD_START + BASE_URL + BOLD_END);
+        DriverManager.getDriver().navigate().to(URL);
+        ExtentReportManager.pass(ICON_Navigate_Right + " Navigate to URL: " + BOLD_START + BASE_URL + BOLD_END);
     }
 
     /**
@@ -587,7 +588,7 @@ public class WebUI {
     public void clickElement(By by) {
         WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         elementWaited.click();
-        ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clicked" + FrameworkConstants.BOLD_END + " on the object.");
+        ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clicked" + FrameworkConstants.BOLD_END + " on the object " + by.toString());
     }
 
     /**
@@ -693,7 +694,7 @@ public class WebUI {
     //    Wait Element
     public void waitForElementVisible(By by, int timeOut) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, timeOut);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
             wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         } catch (Throwable error) {
             Assert.fail("Hết thời gian chờ Element hiển thị.");
@@ -702,7 +703,7 @@ public class WebUI {
 
     public void waitForElementClickable(By by, int timeOut) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, timeOut);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
             wait.until(ExpectedConditions.elementToBeClickable(findWebElement(by)));
         } catch (Throwable error) {
             Assert.fail("Hết thời gian chờ Element sẵn sàng để Click.");
@@ -711,7 +712,7 @@ public class WebUI {
 
     public void waitForElementPresent(By by, int timeOut) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, timeOut);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
         } catch (Throwable error) {
             Assert.fail("Hết thời gian chờ Element tồn tại.");
@@ -720,7 +721,7 @@ public class WebUI {
 
     public boolean verifyElementAttributeValue(By by, String attribute, String value, int timeOut) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, timeOut);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
             wait.until(ExpectedConditions.attributeToBe(by, attribute, value));
             return true;
         } catch (Throwable error) {
@@ -731,7 +732,7 @@ public class WebUI {
 
     public boolean verifyElementHasAttribute(By by, String attribute, int timeOut) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, timeOut);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
             wait.until(ExpectedConditions.attributeToBeNotEmpty(findWebElement(by), attribute));
             return true;
         } catch (Throwable error) {

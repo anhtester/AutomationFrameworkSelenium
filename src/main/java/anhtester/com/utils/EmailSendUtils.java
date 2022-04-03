@@ -6,6 +6,7 @@ import anhtester.com.mail.EmailAttachmentsSender;
 import javax.mail.MessagingException;
 
 import static anhtester.com.constants.FrameworkConstants.PROJECT_NAME;
+import static anhtester.com.constants.FrameworkConstants.REPORT_TITLE;
 import static anhtester.com.mail.EmailConfig.*;
 
 public class EmailSendUtils {
@@ -50,7 +51,7 @@ public class EmailSendUtils {
 
         return "<html>\r\n" + "\r\n" + " \r\n" + "\r\n"
                 + "        <body> \r\n<table class=\"container\" align=\"center\" style=\"padding-top:20px\">\r\n<tr align=\"center\"><td colspan=\"4\"><h2>"
-                + PROJECT_NAME + "</h2></td></tr>\r\n<tr><td>\r\n\r\n"
+                + REPORT_TITLE + "</h2></td></tr>\r\n<tr><td>\r\n\r\n"
                 + "       <table style=\"background:#67c2ef;width:120px\" >\r\n"
                 + "                     <tr><td style=\"font-size: 36px\" class=\"value\" align=\"center\">"
                 + count_totalTCs + "</td></tr>\r\n"

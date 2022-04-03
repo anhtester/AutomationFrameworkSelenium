@@ -14,8 +14,7 @@ public final class BrowserOSInfoUtils {
     }
 
     public static String getOS_Browser_BrowserVersionInfo() {
-        return OSInfoUtils.getOSInfo() + " & " + BrowserInfoUtils.getBrowserInfo() + " - "
-                + BrowserInfoUtils.getBrowserVersionInfo();
+        return OSInfoUtils.getOSInfo();
     }
 
 }

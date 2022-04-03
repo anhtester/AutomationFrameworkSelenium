@@ -68,11 +68,11 @@ public class TestSimpleCode {
     public void TestPropertiesFile() {
         //  Handle Properties file
         Helpers.logConsole(PropertiesHelpers.getValue("browser"));
-        Helpers.logConsole(PropertiesHelpers.getValue("url"));
+        Helpers.logConsole(PropertiesHelpers.getValue("base_url"));
         Helpers.logConsole(PropertiesHelpers.getValue("author"));
         Helpers.logConsole(PropertiesHelpers.getValue("projectName"));
         PropertiesHelpers.setFile("src/test/resources/config/datatest.properties");
-        PropertiesHelpers.setValue("url", "https://anhtetser.com");
+        PropertiesHelpers.setValue("base_url", "https://anhtetser.com");
     }
 
     @Test
