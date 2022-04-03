@@ -29,8 +29,8 @@ public final class ExtentReportManager {
             extentReports.attachReporter(spark);
             spark.config().setTheme(Theme.STANDARD);
             spark.config().setDocumentTitle("AT Report");
-            spark.config().setReportName(FrameworkConstants.EXTENT_REPORT_NAME);
-            extentReports.setSystemInfo("Framework Name", FrameworkConstants.EXTENT_REPORT_NAME);
+            spark.config().setReportName(FrameworkConstants.REPORT_TITLE);
+            extentReports.setSystemInfo("Framework Name", FrameworkConstants.REPORT_TITLE);
             extentReports.setSystemInfo("Author", FrameworkConstants.AUTHOR);
         }
     }
