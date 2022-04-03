@@ -1,18 +1,31 @@
 package anhtester.com.listeners;
 
+import anhtester.com.annotations.FrameworkAnnotation;
+import anhtester.com.config.ConfigFactory;
+import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.report.AllureManager;
-import anhtester.com.utils.Log;
+import anhtester.com.report.ExtentReportManager;
+import anhtester.com.utils.*;
 import anhtester.com.helpers.CaptureHelpers;
-import anhtester.com.report.ExtentTestManager;
 import com.aventstack.extentreports.Status;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Attachment;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.testng.*;
 
-import static anhtester.com.report.ExtentManager.getExtentReports;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class TestListener implements ITestListener {
+import static anhtester.com.constants.FrameworkConstants.*;
+
+public class TestListener implements ITestListener, ISuiteListener {
+
+    static int count_totalTCs;
+    static int count_passedTCs;
+    static int count_skippedTCs;
+    static int count_failedTCs;
 
     public String getTestName(ITestResult result) {
         return result.getTestName() != null ? result.getTestName()
@@ -24,18 +37,21 @@ public class TestListener implements ITestListener {
     }
 
     @Override
-    public void onStart(ITestContext iTestContext) {
-        Log.info("Start testing for " + iTestContext.getName());
-        iTestContext.setAttribute("WebDriver", DriverManager.getDriver());
+    public void onStart(ISuite iSuite) {
+        Log.info("Start suite testing for " + iSuite.getName());
+        iSuite.setAttribute("WebDriver", DriverManager.getDriver());
         //Gọi hàm startRecord video trong CaptureHelpers class
-        CaptureHelpers.startRecord(iTestContext.getName());
+        CaptureHelpers.startRecord(iSuite.getName());
+        ExtentReportManager.initReports();
     }
 
     @Override
-    public void onFinish(ITestContext iTestContext) {
-        Log.info("End testing " + iTestContext.getName());
+    public void onFinish(ISuite iSuite) {
+        Log.info("End suite testing " + iSuite.getName());
         //Kết thúc và thực thi Extents Report
-        getExtentReports().flush();
+        ExtentReportManager.flushReports();
+        ZipUtils.zip();
+        EmailSendUtils.sendEmail(count_totalTCs, count_passedTCs, count_failedTCs, count_skippedTCs);
         //Gọi hàm stopRecord video trong CaptureHelpers class
         CaptureHelpers.stopRecord();
     }
@@ -43,39 +59,67 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestStart(ITestResult iTestResult) {
         Log.info(getTestName(iTestResult) + " test is starting...");
-        ExtentTestManager.startTest(iTestResult.getName(), getTestDescription(iTestResult));
+        count_totalTCs = count_totalTCs + 1;
+
+        ExtentReportManager.createTest(iTestResult.getName(), getTestDescription(iTestResult));
+        ExtentReportManager.addAuthors(iTestResult.getMethod().getConstructorOrMethod().getMethod()
+                .getAnnotation(FrameworkAnnotation.class).author());
+        ExtentReportManager.addCategories(iTestResult.getMethod().getConstructorOrMethod().getMethod()
+                .getAnnotation(FrameworkAnnotation.class).category());
+        ExtentReportManager.addDevices();
+
+        ExtentReportManager.info(BOLD_START + IconUtils.getOSIcon() + "  &  " + IconUtils.getBrowserIcon() + " --------- "
+                + BrowserOSInfoUtils.getOS_Browser_BrowserVersionInfo() + BOLD_END);
     }
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
         Log.info(getTestName(iTestResult) + " test is passed.");
+        count_passedTCs = count_passedTCs + 1;
+
+        AllureManager.takeScreenshotToAttachOnAllureReport();
         //ExtentReports log operation for passed tests.
-        ExtentTestManager.logMessage(Status.PASS, getTestDescription(iTestResult));
+        ExtentReportManager.logMessage(Status.PASS, getTestDescription(iTestResult));
+    }
+
+    @Attachment(value = "Failed test screenshot", type = "image/png")
+    public byte[] takeScreenshotToAttachOnAllureReport() {
+        System.out.println(((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES));
+        return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         Log.error(getTestName(iTestResult) + " test is failed.");
+        count_failedTCs = count_failedTCs + 1;
+
+        CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
 
         //Allure report screenshot file and log
-        Log.info("Screenshot for test case: " + getTestName(iTestResult));
-        AllureManager.takeScreenshotToAttachOnAllureReport();
-        AllureManager.saveTextLog(getTestName(iTestResult) + " failed and screenshot taken!");
+        Log.info("Allure Screenshot for test case: " + getTestName(iTestResult));
+
+        byte[] screenShot = ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
+        Allure.getLifecycle().addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", screenShot);
+        //AllureManager.takeScreenshotToAttachOnAllureReport();
+        //takeScreenshotToAttachOnAllureReport();
+        //AllureManager.saveTextLog(getTestName(iTestResult) + " failed and screenshot taken!");
 
         //Extent report screenshot file and log
-        ExtentTestManager.addScreenShot(Status.FAIL, getTestName(iTestResult));
-        ExtentTestManager.logMessage(Status.FAIL, getTestDescription(iTestResult));
+        ExtentReportManager.addScreenShot(Status.FAIL, getTestName(iTestResult));
+        ExtentReportManager.logMessage(Status.FAIL, getTestDescription(iTestResult));
     }
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
         Log.warn(getTestName(iTestResult) + " test is skipped.");
-        ExtentTestManager.logMessage(Status.SKIP, getTestName(iTestResult) + " test is skipped.");
+        count_skippedTCs = count_skippedTCs + 1;
+
+        ExtentReportManager.logMessage(Status.SKIP, getTestName(iTestResult) + " test is skipped.");
     }
 
     @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
         Log.error("Test failed but it is in defined success ratio " + getTestName(iTestResult));
-        ExtentTestManager.logMessage("Test failed but it is in defined success ratio " + getTestName(iTestResult));
+        ExtentReportManager.logMessage("Test failed but it is in defined success ratio " + getTestName(iTestResult));
     }
 }

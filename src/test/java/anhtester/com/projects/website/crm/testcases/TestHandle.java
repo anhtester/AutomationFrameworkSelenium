@@ -1,6 +1,6 @@
 package anhtester.com.projects.website.crm.testcases;
 
-import anhtester.com.common.BaseWeb;
+import anhtester.com.common.BaseTest;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.helpers.ExcelHelpers;
 import anhtester.com.helpers.Helpers;
@@ -40,8 +40,8 @@ public class TestHandle {
 
     @BeforeMethod
     public void Setup() {
-        driver = new BaseWeb().createBrowser("chrome"); //Cách khởi tạo thứ 1
-//        new BaseWeb().createDriver("chrome"); //Cách khởi tạo thứ 2
+        driver = new BaseTest().createBrowser("chrome"); //Cách khởi tạo thứ 1
+//        new BaseTest().createDriver("chrome"); //Cách khởi tạo thứ 2
 //        driver = DriverManager.getDriver();
         webUI = new WebUI();
     }
@@ -156,7 +156,7 @@ public class TestHandle {
         driver.get("https://pos.anhtester.com/login");
         webUI.waitForPageLoaded();
         driver.findElement(By.xpath("//td[normalize-space()='user01@anhtester.com']")).click();
-        driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
+        driver.findElement(By.xpath("//button[normalize-space()='SignIn']")).click();
         driver.findElement(By.xpath("//a[@role='button']")).click();
         //driver.findElement(By.xpath("//span[normalize-space()='Sale']")).click();
         webUI.waitForPageLoaded();
@@ -216,9 +216,9 @@ public class TestHandle {
     @DataProvider(name = "login")
     public Object[][] login() throws Exception {
 
-        System.out.println(ExcelHelpers.getTableArray(Helpers.getCurrentDir() + "src/test/resources/SignInDataExcel.xlsx", "Login", 1));
+        System.out.println(ExcelHelpers.getTableArray(Helpers.getCurrentDir() + "src/test/resources/SignInDataExcel.xlsx", "SignIn", 1));
 
-        Object[][] testObjArray = new Object[][]{ExcelHelpers.getTableArray(Helpers.getCurrentDir() + "src/test/resources/SignInDataExcel.xlsx", "Login", 1)};
+        Object[][] testObjArray = new Object[][]{ExcelHelpers.getTableArray(Helpers.getCurrentDir() + "src/test/resources/SignInDataExcel.xlsx", "SignIn", 1)};
 
         //Object[][] testObjArray = new Object[][]{{"admin02@malinator.com", "123456"}, {"tbl01@malinator.com", "123456"}};
         System.out.println(testObjArray);

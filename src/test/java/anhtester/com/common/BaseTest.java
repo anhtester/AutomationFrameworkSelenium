@@ -1,5 +1,7 @@
 package anhtester.com.common;
 
+import anhtester.com.constants.FrameworkConstants;
+import anhtester.com.helpers.ExcelHelpers;
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.listeners.TestListener;
 import anhtester.com.driver.DriverManager;
@@ -11,7 +13,7 @@ import org.openqa.selenium.support.ThreadGuard;
 import org.testng.annotations.*;
 
 @Listeners({TestListener.class})
-public class BaseWeb {
+public class BaseTest {
 
     public WebUI webUI = null;
 
@@ -19,6 +21,7 @@ public class BaseWeb {
     public void beforeSuite() {
         AllureManager.setAllureEnvironmentInformation();
         PropertiesHelpers.loadAllFiles();
+        ExcelHelpers.setExcelFile("src/test/resources/" + FrameworkConstants.EXCEL_DATA_PATH, "SignIn");
     }
 
     @Parameters("browser")
@@ -26,7 +29,6 @@ public class BaseWeb {
     public void createDriver(@Optional("chrome") String browser) {
         WebDriver driver = ThreadGuard.protect(new TargetFactory().createInstance(browser));
         DriverManager.setDriver(driver);
-
         webUI = new WebUI();
     }
 

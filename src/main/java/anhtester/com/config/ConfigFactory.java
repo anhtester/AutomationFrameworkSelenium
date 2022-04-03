@@ -2,12 +2,12 @@ package anhtester.com.config;
 
 import org.aeonbits.owner.ConfigCache;
 
-public class ConfigurationManager {
+public class ConfigFactory {
 
-    private ConfigurationManager() {
+    private ConfigFactory() {
     }
 
-    public static Configuration configuration() {
+    public static Configuration getConfig() {
         return ConfigCache.getOrCreate(Configuration.class);
     }
 }

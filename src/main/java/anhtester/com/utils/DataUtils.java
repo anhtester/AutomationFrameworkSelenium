@@ -1,10 +1,15 @@
-package anhtester.com.helpers;
+/*
+ * Copyright (c) 2022.
+ * Automation Framework Selenium - Anh Tester
+ */
+
+package anhtester.com.utils;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.UUID;
 
-public class RandomData {
+public class DataUtils {
 
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static SecureRandom random = new SecureRandom();

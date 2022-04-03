@@ -1,38 +1,39 @@
 package anhtester.com.report;
 
+import anhtester.com.config.ConfigFactory;
+import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
+import anhtester.com.enums.Browser;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
 import com.google.common.collect.ImmutableMap;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 
-import static anhtester.com.config.ConfigurationManager.configuration;
-import static org.openqa.selenium.OutputType.BYTES;
+import static anhtester.com.config.ConfigFactory.getConfig;
 
 public class AllureManager {
 
-    private AllureManager() {
+    public AllureManager() {
     }
 
     public static void setAllureEnvironmentInformation() {
         AllureEnvironmentWriter.allureEnvironmentWriter(
                 ImmutableMap.<String, String>builder().
-                        put("Test URL", configuration().url()).
-                        put("Target execution", configuration().target()).
-                        put("Global timeout", String.valueOf(configuration().timeout())).
-                        put("Headless mode", String.valueOf(configuration().headless())).
-                        put("Faker locale", configuration().faker()).
-                        put("Local browser", configuration().browser()).
-                        put("Grid URL", configuration().gridUrl()).
-                        put("Grid port", configuration().gridPort()).
+                        put("Test URL", FrameworkConstants.BASE_URL).
+                        put("Target Execution", FrameworkConstants.TARGET).
+                        put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT)).
+                        put("Headless Dode", FrameworkConstants.HEADLESS).
+                        put("Local Browser", String.valueOf(Browser.CHROME)).
+                        put("Remote URL", FrameworkConstants.REMOTE_URL).
+                        put("Remote Port", FrameworkConstants.REMOTE_PORT).
                         build());
     }
 
     @Attachment(value = "Failed test screenshot", type = "image/png")
     public static byte[] takeScreenshotToAttachOnAllureReport() {
-        return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(BYTES);
+        System.out.println(((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES));
+        return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
     @Attachment(value = "Browser information", type = "text/plain")
@@ -53,9 +54,24 @@ public class AllureManager {
     }
 
     //Text attachments for Allure
-    @Attachment(value = "Page screenshot", type = "image/png")
-    public static byte[] saveScreenshotPNG(WebDriver driver) {
-        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-    }
+//    @Attachment(value = "Page screenshot", type = "image/png")
+//    public static byte[] saveScreenshotPNG() {
+//        File file = new File("Screenshots");
+//        BufferedImage bufferedImage = null;
+//        try {
+//            bufferedImage = ImageIO.read(file);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        byte[] image = null;
+//        try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+//            ImageIO.write(bufferedImage, "png", bos);
+//            image = bos.toByteArray();
+//        } catch (Exception e) { }
+//
+//        // if decoding is not necessary just return image
+//        return image != null ? Base64.getMimeDecoder().decode(image) : null;
+//    }
 
 }

@@ -5,7 +5,7 @@ import anhtester.com.utils.WebUI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class CommonPage extends AbstractPageObject {
+public class CommonPage {
 
     public WebUI webUI;
 

@@ -1,7 +1,8 @@
 package anhtester.com.utils;
 
-import anhtester.com.config.Constants;
+import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
+import anhtester.com.report.ExtentReportManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
@@ -21,6 +22,9 @@ import java.time.Duration;
 import java.util.*;
 import java.util.List;
 
+import static anhtester.com.constants.FrameworkConstants.*;
+import static anhtester.com.constants.FrameworkConstants.BOLD_END;
+
 public class WebUI {
 
     private WebDriver driver;
@@ -30,13 +34,11 @@ public class WebUI {
     private Select select;
     private WebDriverWait wait;
     private JavascriptExecutor js;
-    public static final int IMPLICIT_WAIT = Constants.IMPLICIT_WAIT;
-    public static final int PAGE_LOAD_TIMEOUT = Constants.PAGE_LOAD_TIMEOUT;
 
     public WebUI() {
         driver = DriverManager.getDriver();
         logConsole(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(IMPLICIT_WAIT), Duration.ofMillis(500));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
         js = (JavascriptExecutor) driver;
         action = new Actions(driver);
         try {
@@ -46,7 +48,7 @@ public class WebUI {
         }
     }
 
-    public JavascriptExecutor getJsExecutor(){
+    public JavascriptExecutor getJsExecutor() {
         js = (JavascriptExecutor) driver;
         return js;
     }
@@ -204,7 +206,6 @@ public class WebUI {
     }
 
     public boolean verifyPageTitle(String pageTitle) {
-        waitForPageLoaded();
         return getPageTitle().equals(pageTitle);
     }
 
@@ -545,6 +546,16 @@ public class WebUI {
         return findWebElement(by);
     }
 
+    public void getToUrl(String URL) {
+        DriverManager.getDriver().get(URL);
+        ExtentReportManager.pass(ICON_Navigate_Right + " Get to : " + BOLD_START + BASE_URL + BOLD_END);
+    }
+
+    public void navigateToUrl(String URL) {
+        DriverManager.getDriver().get(URL);
+        ExtentReportManager.pass(ICON_Navigate_Right + " Navigate to : " + BOLD_START + BASE_URL + BOLD_END);
+    }
+
     /**
      * Điền giá trị vào ô Text
      *
@@ -552,9 +563,9 @@ public class WebUI {
      * @param value giá trị cần điền vào ô text
      */
     public void setText(By by, String value) {
-        waitForPageLoaded();
         WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         elementWaited.sendKeys(value);
+        ExtentReportManager.pass(FrameworkConstants.BOLD_START + value + FrameworkConstants.BOLD_END + " value is successfully passed in textbox.");
     }
 
     /**
@@ -563,9 +574,9 @@ public class WebUI {
      * @param by element dạng đối tượng By
      */
     public void clearText(By by) {
-        waitForPageLoaded();
         WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         elementWaited.clear();
+        ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clear" + FrameworkConstants.BOLD_END + " value in textbox successfully.");
     }
 
     /**
@@ -574,9 +585,9 @@ public class WebUI {
      * @param by element dạng đối tượng By
      */
     public void clickElement(By by) {
-        waitForPageLoaded();
         WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         elementWaited.click();
+        ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clicked" + FrameworkConstants.BOLD_END + " on the object.");
     }
 
     /**
@@ -585,7 +596,6 @@ public class WebUI {
      * @param by element dạng đối tượng By
      */
     public void clickElementWithJs(By by) {
-        waitForPageLoaded();
         //Đợi đến khi element đó tồn tại
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         //Scroll to element với Js
@@ -755,9 +765,10 @@ public class WebUI {
         };
 
         try {
-            wait = new WebDriverWait(driver, PAGE_LOAD_TIMEOUT);
+            wait = new WebDriverWait(driver, Duration.ofSeconds(FrameworkConstants.WAIT_PAGE_LOADED));
             wait.until(jQueryLoad);
             wait.until(jsLoad);
+            ExtentReportManager.info("Page loaded");
         } catch (Throwable error) {
             Assert.fail("Quá thời gian load trang.");
         }

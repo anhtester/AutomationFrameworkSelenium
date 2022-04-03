@@ -1,5 +1,7 @@
 package anhtester.com.driver;
 
+import anhtester.com.config.ConfigFactory;
+import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.exceptions.HeadlessNotSupportedException;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.DriverManagerType;
@@ -15,11 +17,9 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
-import org.openqa.selenium.remote.AbstractDriverOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
-import static anhtester.com.config.ConfigurationManager.configuration;
 import static java.lang.Boolean.TRUE;
 
 public enum BrowserFactory {
@@ -38,7 +38,7 @@ public enum BrowserFactory {
             chromeOptions.addArguments(START_MAXIMIZED);
             chromeOptions.addArguments("--disable-infobars");
             chromeOptions.addArguments("--disable-notifications");
-            chromeOptions.setHeadless(configuration().headless());
+            chromeOptions.setHeadless(Boolean.valueOf(FrameworkConstants.HEADLESS));
 
             return chromeOptions;
         }
@@ -54,7 +54,7 @@ public enum BrowserFactory {
         public FirefoxOptions getOptions() {
             FirefoxOptions firefoxOptions = new FirefoxOptions();
             firefoxOptions.addArguments(START_MAXIMIZED);
-            firefoxOptions.setHeadless(configuration().headless());
+            firefoxOptions.setHeadless(Boolean.valueOf(FrameworkConstants.HEADLESS));
 
             return firefoxOptions;
         }
@@ -70,7 +70,7 @@ public enum BrowserFactory {
         public EdgeOptions getOptions() {
             EdgeOptions edgeOptions = new EdgeOptions();
             edgeOptions.addArguments(START_MAXIMIZED);
-            edgeOptions.setHeadless(configuration().headless());
+            edgeOptions.setHeadless(Boolean.valueOf(FrameworkConstants.HEADLESS));
 
             return edgeOptions;
         }
@@ -87,7 +87,7 @@ public enum BrowserFactory {
             SafariOptions safariOptions = new SafariOptions();
             safariOptions.setAutomaticInspection(false);
 
-            if (TRUE.equals(configuration().headless()))
+            if (TRUE.equals(ConfigFactory.getConfig().headless()))
                 throw new HeadlessNotSupportedException(safariOptions.getBrowserName());
 
             return safariOptions;
@@ -107,7 +107,7 @@ public enum BrowserFactory {
             operaOptions.addArguments("--disable-infobars");
             operaOptions.addArguments("--disable-notifications");
 
-            if (TRUE.equals(configuration().headless()))
+            if (TRUE.equals(Boolean.valueOf(FrameworkConstants.HEADLESS)))
                 throw new HeadlessNotSupportedException(operaOptions.getBrowserName());
 
             return operaOptions;
@@ -127,7 +127,7 @@ public enum BrowserFactory {
             internetExplorerOptions.takeFullPageScreenshot();
             internetExplorerOptions.introduceFlakinessByIgnoringSecurityDomains();
 
-            if (TRUE.equals(configuration().headless()))
+            if (TRUE.equals(Boolean.valueOf(FrameworkConstants.HEADLESS)))
                 throw new HeadlessNotSupportedException(internetExplorerOptions.getBrowserName());
 
             return internetExplorerOptions;

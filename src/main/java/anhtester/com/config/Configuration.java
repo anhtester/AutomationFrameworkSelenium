@@ -8,8 +8,8 @@ import org.aeonbits.owner.Config.LoadType;
 @Config.Sources({
         "system:properties",
         "classpath:config.properties",
-        "classpath:local.properties",
-        "classpath:grid.properties"})
+})
+
 public interface Configuration extends Config {
 
     @Key("target")
@@ -21,18 +21,19 @@ public interface Configuration extends Config {
     @Key("headless")
     Boolean headless();
 
-    @Key("base.url")
-    String url();
+    @Key("base_url")
+    String baseUrl();
 
     @Key("timeout")
     int timeout();
 
-    @Key("grid.url")
+    @Key("remote.url")
     String gridUrl();
 
-    @Key("grid.port")
+    @Key("remote.port")
     String gridPort();
 
     @Key("faker.locale")
     String faker();
+
 }

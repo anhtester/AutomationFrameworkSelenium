@@ -1,5 +1,8 @@
 package anhtester.com.helpers;
 
+import anhtester.com.constants.FrameworkConstants;
+import anhtester.com.utils.Log;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -53,7 +56,7 @@ public class CaptureHelpers extends ScreenRecorder {
     // Hàm Start record video
     public static void startRecord(String methodName) {
         //Tạo thư mục để lưu file video vào
-        File file = new File("./" + PropertiesHelpers.getValue("exportVideoPath") + "/" + methodName + "/");
+        File file = new File("./" + FrameworkConstants.ExportVideoPath + "/" + methodName + "/");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screenSize.width;
         int height = screenSize.height;
@@ -93,15 +96,23 @@ public class CaptureHelpers extends ScreenRecorder {
 
     public static void captureScreenshot(WebDriver driver, String screenName) {
         try {
-            Reporter.log("Driver for Screenshot: " + driver);
+            String path = Helpers.getCurrentDir() + FrameworkConstants.ExportCapturePath;
+            File file = new File(path);
+            if (!file.exists()) {
+                Log.info("No Folder: " + path);
+                file.mkdir();
+                Log.info("Folder created: " + file);
+            }
+
+            Log.info("Driver for Screenshot: " + driver);
             // Tạo tham chiếu của TakesScreenshot
             TakesScreenshot ts = (TakesScreenshot) driver;
             // Gọi hàm capture screenshot - getScreenshotAs
             File source = ts.getScreenshotAs(OutputType.FILE);
             // result.getName() lấy tên của test case xong gán cho tên File chụp màn hình
-            FileHandler.copy(source, new File("./" + PropertiesHelpers.getValue("exportCapturePath") + "/" + screenName + "_" + dateFormat.format(new Date()) + ".png"));
-            System.out.println("Screenshot taken: " + screenName);
-            Reporter.log("Screenshot taken current URL: " + driver.getCurrentUrl(), true);
+            FileUtils.copyFile(source, new File(path + "/" + screenName + "_" + dateFormat.format(new Date()) + ".png"));
+            Log.info("Screenshot taken: " + screenName);
+            Log.info("Screenshot taken current URL: " + driver.getCurrentUrl());
         } catch (Exception e) {
             System.out.println("Exception while taking screenshot: " + e.getMessage());
         }
