@@ -1,12 +1,12 @@
 package anhtester.com.utils;
 
 import anhtester.com.constants.FrameworkConstants;
-import anhtester.com.mail_JAVA_API.EmailAttachmentsSender;
+import anhtester.com.mail.EmailAttachmentsSender;
 
 import javax.mail.MessagingException;
 
 import static anhtester.com.constants.FrameworkConstants.PROJECT_NAME;
-import static anhtester.com.mail_JAVA_API.EmailConfig.*;
+import static anhtester.com.mail.EmailConfig.*;
 
 public class EmailSendUtils {
 

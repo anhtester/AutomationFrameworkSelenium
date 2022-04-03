@@ -70,9 +70,9 @@ public class TestSimpleCode {
         Helpers.logConsole(PropertiesHelpers.getValue("browser"));
         Helpers.logConsole(PropertiesHelpers.getValue("url"));
         Helpers.logConsole(PropertiesHelpers.getValue("author"));
-        Helpers.logConsole(PropertiesHelpers.getValue("reportName"));
-        PropertiesHelpers.setFile("src/test/resources/datatest.properties");
-        PropertiesHelpers.setValue("base.url", "https://anhtetser.com");
+        Helpers.logConsole(PropertiesHelpers.getValue("projectName"));
+        PropertiesHelpers.setFile("src/test/resources/config/datatest.properties");
+        PropertiesHelpers.setValue("url", "https://anhtetser.com");
     }
 
     @Test

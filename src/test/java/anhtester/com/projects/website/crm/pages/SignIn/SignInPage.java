@@ -28,6 +28,7 @@ public class SignInPage extends CommonPage {
     }
 
     public DashboardPage signIn(String email, String password) {
+        System.out.println("WebUI: " + webUI);
         webUI.waitForPageLoaded();
         Assert.assertTrue(webUI.verifyPageUrl(pageUrl), "The url of Sign in page not match.");
         Assert.assertTrue(webUI.verifyPageTitle(pageTitle), "Tiêu đề trang sign in chưa đúng");

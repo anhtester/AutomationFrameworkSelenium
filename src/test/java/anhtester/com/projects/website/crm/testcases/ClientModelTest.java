@@ -28,10 +28,12 @@ public class ClientModelTest extends BaseTest {
 
     @Step("SignIn to CRM system")
     public void SignIn() {
-        ExcelHelpers.setCellData(DecodeUtils.encrypt("123456"), 3,2);
+        ExcelHelpers.setCellData(DecodeUtils.encrypt("123456"), 3, 2);
+        System.out.println("Get Data Excel: " + ExcelHelpers.getCellData(3, 2));
+        System.out.println("Get Data Excel Decode: " + DecodeUtils.decrypt(ExcelHelpers.getCellData(3, 2)));
         DriverManager.getDriver().get(FrameworkConstants.BASE_URL);
         signInPage = new SignInPage();
-        dashboardPage = signInPage.signIn(ExcelHelpers.getCellData(3, 2), DecodeUtils.decrypt(ExcelHelpers.getCellData(3, 2)));
+        dashboardPage = signInPage.signIn(ExcelHelpers.getCellData(3, 1), DecodeUtils.decrypt(ExcelHelpers.getCellData(3, 2)));
     }
 
     @BeforeMethod
@@ -47,17 +49,17 @@ public class ClientModelTest extends BaseTest {
 
     }
 
-    @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.VOTHAIAN},
-            category = {CategoryType.SANITY, CategoryType.REGRESSION})
-    @Test(priority = 1, description = "Add new Client")
-    @Step("Add new Client")
-    public void AddClient() {
-        webUI.waitForPageLoaded();
-        clientPage = dashboardPage.openClientPage();
-        webUI.waitForPageLoaded();
-        clientPage.openClientTabPage();
-        clientPage.addClient();
-    }
+//    @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.VOTHAIAN},
+//            category = {CategoryType.SANITY, CategoryType.REGRESSION})
+//    @Test(priority = 1, description = "Add new Client")
+//    @Step("Add new Client")
+//    public void AddClient() {
+//        webUI.waitForPageLoaded();
+//        clientPage = dashboardPage.openClientPage();
+//        webUI.waitForPageLoaded();
+//        clientPage.openClientTabPage();
+//        clientPage.addClient();
+//    }
 //
 //    @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.AUTOMATION},
 //            category = {CategoryType.SANITY, CategoryType.REGRESSION})

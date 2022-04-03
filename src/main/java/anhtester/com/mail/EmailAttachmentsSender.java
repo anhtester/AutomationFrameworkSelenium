@@ -1,4 +1,4 @@
-package anhtester.com.mail_JAVA_API;
+package anhtester.com.mail;
 
 import javax.mail.*;
 import javax.mail.internet.*;

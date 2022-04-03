@@ -765,7 +765,6 @@ public class WebUI {
         };
 
         try {
-            wait = new WebDriverWait(driver, Duration.ofSeconds(FrameworkConstants.WAIT_PAGE_LOADED));
             wait.until(jQueryLoad);
             wait.until(jsLoad);
             ExtentReportManager.info("Page loaded");
