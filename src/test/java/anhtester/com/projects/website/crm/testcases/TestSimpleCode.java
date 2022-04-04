@@ -1,22 +1,18 @@
 package anhtester.com.projects.website.crm.testcases;
 
+import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.helpers.*;
 import anhtester.com.helpers.PropertiesHelpers;
-import anhtester.com.models.LoginModel;
 import anhtester.com.utils.DateUtils;
 import anhtester.com.utils.DecodeUtils;
 import anhtester.com.utils.Log;
 import org.testng.annotations.Test;
 
-import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
 
-//@Listeners(TestListener.class)
 public class TestSimpleCode {
 
     @Test
@@ -27,15 +23,16 @@ public class TestSimpleCode {
     }
 
     @Test
-    public void testGetPropertiesFile() {
-        //PropertiesHelpers.setFile("src/test/resources/datatest.properties");
+    public void testGetAndSetPropertiesFile() {
+        //PropertiesHelpers.setFile("src/test/resources/config/datatest.properties");
         PropertiesHelpers.loadAllFiles();
-        System.out.println(PropertiesHelpers.getValue("hongthai"));
+        System.out.println(PropertiesHelpers.getValue("browser"));
+        System.out.println(PropertiesHelpers.getValue("emailAdmin"));
 
-        PropertiesHelpers.setFile("src/test/resources/datatest.properties");
-        PropertiesHelpers.setValue("abc", "AN123");
+//        PropertiesHelpers.setFile("src/test/resources/config/datatest.properties");
+//        PropertiesHelpers.setValue("abc", "AN123");
 
-        Log.info("testGetPropertiesFile");
+        Log.info("testGetAndSetPropertiesFile");
     }
 
     @Test
@@ -71,8 +68,8 @@ public class TestSimpleCode {
         Helpers.logConsole(PropertiesHelpers.getValue("base_url"));
         Helpers.logConsole(PropertiesHelpers.getValue("author"));
         Helpers.logConsole(PropertiesHelpers.getValue("projectName"));
-        PropertiesHelpers.setFile("src/test/resources/config/datatest.properties");
-        PropertiesHelpers.setValue("base_url", "https://anhtetser.com");
+//        PropertiesHelpers.setFile("src/test/resources/config/datatest.properties");
+//        PropertiesHelpers.setValue("base_url", "https://anhtetser.com");
     }
 
     @Test
@@ -99,28 +96,9 @@ public class TestSimpleCode {
 
     @Test()
     public void testExcelFile() throws Exception {
-        //System.out.println(ExcelHelpers.getDataArray(Helpers.getCurrentDir() + "src/test/resources/SignInDataExcel.xlsx", "SignIn", 0, 1));
-        //System.out.println(ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + "src/test/resources/SignInDataExcel.xlsx", "SignIn", 1, 2));
-        System.out.println(ExcelHelpers.getDataReflection(Helpers.getCurrentDir() + "src/test/resources/SignInDataExcel.xlsx", "SignIn", 1, 2));
+        System.out.println(ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH_FULL, "SignIn", 1, 2));
+        //System.out.println(ExcelHelpers.getDataReflection(Helpers.getCurrentDir() + "src/test/resources/testdatafile/ClientsDataExcel.xlsx", "SignIn", 1, 2));
 
-    }
-
-    public static Map<String, Object> addDataObjectIntoParameter(Object obj) {
-        Map<String, Object> map = new HashMap<>();
-        for (Field field : obj.getClass().getDeclaredFields()) {
-            field.setAccessible(true);
-            try {
-                map.put(field.getName(), field.get(obj));
-            } catch (Exception ignored) {
-            }
-        }
-        return map;
-    }
-
-    @Test
-    public void testReflection(){
-        LoginModel loginModel = new LoginModel();
-        System.out.println(addDataObjectIntoParameter(loginModel));
     }
 
     @Test

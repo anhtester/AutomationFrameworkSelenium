@@ -1,6 +1,7 @@
 package anhtester.com.projects.website.crm.testcases;
 
 import anhtester.com.common.BaseTest;
+import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.helpers.ExcelHelpers;
 import anhtester.com.helpers.Helpers;
@@ -32,7 +33,6 @@ import java.util.Set;
 public class TestHandle {
 
     WebDriver driver;
-    WebUI webUI;
     DatabaseHelpers databaseHelpers;
     SignInPage signInPage;
     DashboardPage dashboardPage;
@@ -43,25 +43,24 @@ public class TestHandle {
         driver = new BaseTest().createBrowser("chrome"); //Cách khởi tạo thứ 1
 //        new BaseTest().createDriver("chrome"); //Cách khởi tạo thứ 2
 //        driver = DriverManager.getDriver();
-        webUI = new WebUI();
     }
 
     @Test
     public void handleZoomInZoomOut() {
         driver.get("https://anhtester.com");
-        webUI.sleep(1);
+        WebUI.sleep(1);
         //driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL,Keys.ADD));
         //driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL,Keys.SUBTRACT));
-        webUI.getJsExecutor().executeScript("document.body.style.zoom = '80%';");
-        webUI.sleep(1);
+        WebUI.getJsExecutor().executeScript("document.body.style.zoom = '80%';");
+        WebUI.sleep(1);
     }
 
     @Test
     public void handleNotificationsBrowser() {
-        WebDriver driver = new ChromeDriver(webUI.notificationsBlock());
+        WebDriver driver = new ChromeDriver(WebUI.notificationsBlock());
         driver.manage().window().maximize();
         driver.get("https://oto.com.vn/mua-ban-xe");
-        webUI.sleep(4);
+        WebUI.sleep(4);
         driver.close();
     }
 
@@ -74,12 +73,12 @@ public class TestHandle {
         By fromElement2 = By.xpath("(//li[@id='fourth'])[2]");
         By toElement2 = By.xpath("(//div[@id='shoppingCart4']//div)[1]");
 
-        //webUI.switchToFrameByElement(toElement);
-        //webUI.scrollToElement(toElement);
-        webUI.dragAndDrop(fromElement1, toElement1);
-        webUI.sleep(1);
-        webUI.dragAndDropElement(fromElement2, toElement2);
-        webUI.sleep(2);
+        //WebUI.switchToFrameByElement(toElement);
+        //WebUI.scrollToElement(toElement);
+        WebUI.dragAndDrop(fromElement1, toElement1);
+        WebUI.sleep(1);
+        WebUI.dragAndDropElement(fromElement2, toElement2);
+        WebUI.sleep(2);
     }
 
     @Test
@@ -88,51 +87,51 @@ public class TestHandle {
         By fromElement1 = By.xpath("//a[normalize-space()='BANK']");
         By toElement1 = By.xpath("(//div[@id='shoppingCart1']//div)[1]");
 
-        int X1 = webUI.findWebElement(fromElement1).getLocation().getX();
-        int Y1 = webUI.findWebElement(fromElement1).getLocation().getY();
-        webUI.logConsole(X1 + " , " + Y1);
+        int X1 = WebUI.findWebElement(fromElement1).getLocation().getX();
+        int Y1 = WebUI.findWebElement(fromElement1).getLocation().getY();
+        WebUI.logConsole(X1 + " , " + Y1);
 
-        int X2 = webUI.findWebElement(toElement1).getLocation().getX();
-        int Y2 = webUI.findWebElement(toElement1).getLocation().getY();
-        webUI.logConsole(X2 + " , " + Y2);
+        int X2 = WebUI.findWebElement(toElement1).getLocation().getX();
+        int Y2 = WebUI.findWebElement(toElement1).getLocation().getY();
+        WebUI.logConsole(X2 + " , " + Y2);
 
-        //webUI.switchToFrameByElement(toElement);
-        //webUI.scrollToElement(toElement);
-        webUI.dragAndDropOffset(fromElement1, -402, 246); //Nhớ là Tính từ vị trí click chuột đầu tiên
-        webUI.sleep(2);
+        //WebUI.switchToFrameByElement(toElement);
+        //WebUI.scrollToElement(toElement);
+        WebUI.dragAndDropOffset(fromElement1, -402, 246); //Nhớ là Tính từ vị trí click chuột đầu tiên
+        WebUI.sleep(2);
     }
 
     @Test
     public void handleHighLightElement() {
         driver.get("https://hrm.anhtester.com/");
         By button = By.xpath("//button[@type='submit']");
-        webUI.highLightElement(button); //Tô màu viền đỏ cho Element trên website
-        webUI.verifyElementAttributeValue(button, "type", "submit", 10);
-        webUI.waitForElementClickable(button, 5);
-        webUI.sleep(2);
+        WebUI.highLightElement(button); //Tô màu viền đỏ cho Element trên website
+        WebUI.verifyElementAttributeValue(button, "type", "submit", 10);
+        WebUI.waitForElementClickable(button, 5);
+        WebUI.sleep(2);
     }
 
     @Test
     public void handleUploadFile() {
         driver.get("https://demoqa.com/upload-download");
-        webUI.waitForPageLoaded();
-        webUI.sleep(1);
+        WebUI.waitForPageLoaded();
+        WebUI.sleep(1);
 
         //Cách 1 sendKeys link từ source
-        webUI.uploadFileSendkeys(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src/test/resources/DOCX_File_01.docx");
+        WebUI.uploadFileSendkeys(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src/test/resources/DOCX_File_01.docx");
 
         //Cách 2 mở form local máy nên file là trong ổ đĩa máy tính
-        webUI.uploadFileForm(By.xpath("//input[@id='uploadFile']"), "D:\\Document.csv");
+        WebUI.uploadFileForm(By.xpath("//input[@id='uploadFile']"), "D:\\Document.csv");
 
-        webUI.sleep(3);
+        WebUI.sleep(3);
     }
 
     @Test
     public void handleTable1() {
         Log.info("handleTable1");
         driver.get("https://colorlib.com/polygon/notika/data-table.html");
-        webUI.waitForPageLoaded();
-        System.out.println(webUI.getValueTableByColumn(2));
+        WebUI.waitForPageLoaded();
+        System.out.println(WebUI.getValueTableByColumn(2));
     }
 
     @Test
@@ -146,7 +145,7 @@ public class TestHandle {
         // Search cột 2 Title
         projectPage.searchByValue(dataSearch1);
         projectPage.checkContainsSearchTableByColumn(2, dataSearch1);
-        // Search cột 3 ClientModel
+        // Search cột 3 Client
         projectPage.searchByValue(dataSearch2);
         projectPage.checkContainsSearchTableByColumn(3, dataSearch2);
     }
@@ -154,16 +153,16 @@ public class TestHandle {
     @Test
     public void handlePrintPopup() throws AWTException {
         driver.get("https://pos.anhtester.com/login");
-        webUI.waitForPageLoaded();
+        WebUI.waitForPageLoaded();
         driver.findElement(By.xpath("//td[normalize-space()='user01@anhtester.com']")).click();
         driver.findElement(By.xpath("//button[normalize-space()='SignIn']")).click();
         driver.findElement(By.xpath("//a[@role='button']")).click();
         //driver.findElement(By.xpath("//span[normalize-space()='Sale']")).click();
-        webUI.waitForPageLoaded();
+        WebUI.waitForPageLoaded();
         driver.findElement(By.xpath("//a[normalize-space()='Manage Sale']")).click();
         driver.findElement(By.xpath("//span[normalize-space()='Print']")).click();
 
-        webUI.sleep(1);
+        WebUI.sleep(1);
 
         Set<String> windowHandles = driver.getWindowHandles();
         if (!windowHandles.isEmpty()) {
@@ -173,14 +172,14 @@ public class TestHandle {
         //driver.switchTo().window(driver.getWindowHandles().toArray()[1].toString());
         Robot robotClass = new Robot();
         robotClass.keyPress(KeyEvent.VK_TAB);
-        webUI.sleep(1);
+        WebUI.sleep(1);
         robotClass.keyPress(KeyEvent.VK_ENTER);
 
         driver.switchTo().window(driver.getWindowHandles().toArray()[0].toString());
 //        if (!windowHandles.isEmpty()) {
 //            driver.switchTo().window((String) windowHandles.toArray()[windowHandles.size() - 1]);
 //        }
-        webUI.sleep(2);
+        WebUI.sleep(2);
     }
 
     @Test
@@ -211,29 +210,6 @@ public class TestHandle {
         Uninterruptibles.sleepUninterruptibly(Duration.ofSeconds(3));
         String successFullyLoggedInText = driver.findElement(By.xpath("//p")).getText();
         Assert.assertEquals(successFullyLoggedInText, "Congratulations! You must have the proper credentials.");
-    }
-
-    @DataProvider(name = "login")
-    public Object[][] login() throws Exception {
-
-        System.out.println(ExcelHelpers.getTableArray(Helpers.getCurrentDir() + "src/test/resources/SignInDataExcel.xlsx", "SignIn", 1));
-
-        Object[][] testObjArray = new Object[][]{ExcelHelpers.getTableArray(Helpers.getCurrentDir() + "src/test/resources/SignInDataExcel.xlsx", "SignIn", 1)};
-
-        //Object[][] testObjArray = new Object[][]{{"admin02@malinator.com", "123456"}, {"tbl01@malinator.com", "123456"}};
-        System.out.println(testObjArray);
-        return (testObjArray);
-    }
-
-    @Test(dataProvider = "login")
-    public void loginDataProviderExcelArray(String Username, String Password) {
-        System.out.println(Username);
-        System.out.println(Password);
-
-        driver.get("http://demoqa.com/login");
-        driver.findElement(By.id("userName")).sendKeys(Username);
-        driver.findElement(By.id("password")).sendKeys(Password);
-        driver.findElement(By.id("login")).click();
     }
 
     @AfterMethod

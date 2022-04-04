@@ -10,9 +10,7 @@ import org.testng.Assert;
 
 import java.util.Hashtable;
 
-public class SignInPage extends CommonPage {
-
-    private ObjectRepository object;
+public class SignInPage {
 
     private String pageUrl = "/signin";
     private String pageText = "";
@@ -24,28 +22,26 @@ public class SignInPage extends CommonPage {
 //    private By signInBtn = By.xpath("//button[normalize-space()='Sign in']");
 
     public SignInPage() {
-        object = new ObjectRepository("src/test/resources/objects.crm/crm_locators.properties");
     }
 
     public DashboardPage signIn(String email, String password) {
-        System.out.println("WebUI: " + webUI);
-        webUI.waitForPageLoaded();
-        Assert.assertTrue(webUI.verifyPageUrl(pageUrl), "The url of Sign in page not match.");
-        Assert.assertTrue(webUI.verifyPageTitle(pageTitle), "Tiêu đề trang sign in chưa đúng");
-        webUI.setText(object.getLocator("SigninPage.email"), email);
-        webUI.setText(object.getLocator("SigninPage.passwordInput"), password);
-        webUI.clickElement(object.getLocator("SigninPage.signInBtn"));
+        WebUI.waitForPageLoaded();
+        Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of Sign in page not match.");
+        Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "Tiêu đề trang sign in chưa đúng");
+        WebUI.setText(ObjectRepository.getLocator("SigninPage.email"), email);
+        WebUI.setText(ObjectRepository.getLocator("SigninPage.passwordInput"), password);
+        WebUI.clickElement(ObjectRepository.getLocator("SigninPage.signInBtn"));
 
         return new DashboardPage();
     }
 
     public DashboardPage signInWithDataProvider(Hashtable<String, String> data) {
-        webUI.waitForPageLoaded();
-        Assert.assertTrue(webUI.verifyPageUrl(pageUrl), "The url of Sign in page not match.");
-        Assert.assertTrue(webUI.verifyPageTitle(pageTitle), "Tiêu đề trang sign in chưa đúng");
-        webUI.setText(object.getLocator("SigninPage.email"), data.get("email"));
-        webUI.setText(object.getLocator("SigninPage.passwordInput"), data.get("password"));
-        webUI.clickElement(object.getLocator("SigninPage.signInBtn"));
+        WebUI.waitForPageLoaded();
+        Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of Sign in page not match.");
+        Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "Tiêu đề trang sign in chưa đúng");
+        WebUI.setText(ObjectRepository.getLocator("SigninPage.email"), data.get("email"));
+        WebUI.setText(ObjectRepository.getLocator("SigninPage.passwordInput"), data.get("password"));
+        WebUI.clickElement(ObjectRepository.getLocator("SigninPage.signInBtn"));
 
         return new DashboardPage();
     }

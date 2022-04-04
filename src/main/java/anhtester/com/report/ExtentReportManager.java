@@ -10,6 +10,7 @@ import anhtester.com.utils.ReportUtils;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.Markup;
+import com.aventstack.extentreports.model.Media;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.openqa.selenium.OutputType;
@@ -106,6 +107,10 @@ public final class ExtentReportManager {
         ExtentTestManager.getExtentTest().log(status, message);
     }
 
+    public static void logMessage(Status status, Object message) {
+        ExtentTestManager.getExtentTest().log(status, (Throwable) message);
+    }
+
     public static void pass(String message) {
         //System.out.println("ExtentReportManager class: " + ExtentTestManager.getExtentTest());
         ExtentTestManager.getExtentTest().pass(message);
@@ -117,6 +122,10 @@ public final class ExtentReportManager {
 
     public static void fail(String message) {
         ExtentTestManager.getExtentTest().fail(message);
+    }
+
+    public static void fail(Object message) {
+        ExtentTestManager.getExtentTest().fail((String) message);
     }
 
     public static void fail(Markup message) {

@@ -1,5 +1,8 @@
 package anhtester.com.helpers;
 
+import anhtester.com.utils.Log;
+import io.qameta.allure.Step;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,11 +17,13 @@ public class PropertiesHelpers {
     private static FileOutputStream out;
     private static String relPropertiesFilePathDefault = "src/test/resources/config/config.properties";
 
+    @Step("Loaded all properties files")
     public static Properties loadAllFiles() {
         LinkedList<String> files = new LinkedList<>();
         // Add tất cả file Properties vào đây theo mẫu
         files.add("src/test/resources/config/config.properties");
         files.add("src/test/resources/config/datatest.properties");
+        files.add("src/test/resources/objects.crm/crm_locators.properties");
 
         try {
             properties = new Properties();
@@ -30,6 +35,7 @@ public class PropertiesHelpers {
                 tempProp.load(file);
                 properties.putAll(tempProp);
             }
+            Log.info("Loaded all properties files.");
             return properties;
         } catch (IOException ioe) {
             return new Properties();

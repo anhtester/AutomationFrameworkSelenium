@@ -8,6 +8,7 @@ import org.aeonbits.owner.Config.LoadType;
 @Config.Sources({
         "system:properties",
         "classpath:config.properties",
+        "classpath:datatest.properties",
 })
 
 public interface Configuration extends Config {
@@ -24,13 +25,10 @@ public interface Configuration extends Config {
     @Key("base_url")
     String baseUrl();
 
-    @Key("timeout")
-    int timeout();
-
-    @Key("remote.url")
+    @Key("remote_url")
     String gridUrl();
 
-    @Key("remote.port")
+    @Key("remote_port")
     String gridPort();
 
     @Key("faker.locale")

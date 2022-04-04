@@ -21,7 +21,7 @@ import java.util.Arrays;
 
 import static anhtester.com.constants.FrameworkConstants.*;
 
-public class TestListener implements ITestListener, ISuiteListener, IInvokedMethodListener  {
+public class TestListener implements ITestListener, ISuiteListener, IInvokedMethodListener {
 
     static int count_totalTCs;
     static int count_passedTCs;
@@ -54,7 +54,6 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         //Gọi hàm startRecord video trong CaptureHelpers class
         CaptureHelpers.startRecord(iSuite.getName());
         ExtentReportManager.initReports();
-        ExtentReportManager.createTest("Before Steps setup");
     }
 
     @Override
@@ -70,7 +69,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        Log.info(getTestName(iTestResult) + " test is starting...");
+        Log.info("Test case: " + getTestName(iTestResult) + " test is starting...");
         count_totalTCs = count_totalTCs + 1;
 
         ExtentReportManager.createTest(iTestResult.getName(), getTestDescription(iTestResult));
@@ -86,40 +85,39 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
-        Log.info(getTestName(iTestResult) + " test is passed.");
+        Log.info("Test case: " + getTestName(iTestResult) + " is passed.");
         count_passedTCs = count_passedTCs + 1;
 
-        AllureManager.takeScreenshotToAttachOnAllureReport();
-        Allure.addAttachment("Browser Info", AllureManager.addBrowserInformationOnAllureReport());
+        AllureManager.saveTextLog("Test case: " + getTestName(iTestResult) + " is passed.");
         //ExtentReports log operation for passed tests.
-        ExtentReportManager.logMessage(Status.PASS, getTestDescription(iTestResult));
+        ExtentReportManager.logMessage(Status.PASS, "Test case: " + getTestName(iTestResult) + " is passed.");
     }
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-        Log.error(getTestName(iTestResult) + " test is failed.");
+        Log.error("Test case: " + getTestName(iTestResult) + " is failed.");
         count_failedTCs = count_failedTCs + 1;
 
         CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
 
         //Allure report screenshot file and log
-        Log.info("Allure Screenshot for test case: " + getTestName(iTestResult));
+        Log.error("FAIL !! Screenshot for test case: " + getTestName(iTestResult));
+        Log.error(iTestResult.getThrowable());
 
         AllureManager.takeScreenshotToAttachOnAllureReport();
-        //takeScreenshotToAttachOnAllureReport();
-        //AllureManager.saveTextLog(getTestName(iTestResult) + " failed and screenshot taken!");
 
         //Extent report screenshot file and log
         ExtentReportManager.addScreenShot(Status.FAIL, getTestName(iTestResult));
-        ExtentReportManager.logMessage(Status.FAIL, getTestDescription(iTestResult));
+        ExtentReportManager.logMessage(Status.FAIL, "Test case: " + getTestName(iTestResult) + " is failed.");
+        ExtentReportManager.logMessage(Status.FAIL, iTestResult.getThrowable());
     }
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
-        Log.warn(getTestName(iTestResult) + " test is skipped.");
+        Log.warn("Test case: " + getTestName(iTestResult) + " is skipped.");
         count_skippedTCs = count_skippedTCs + 1;
 
-        //ExtentReportManager.logMessage(Status.SKIP, getTestName(iTestResult) + " test is skipped.");
+        ExtentReportManager.logMessage(Status.SKIP, "Test case: " + getTestName(iTestResult) + " is skipped.");
     }
 
     @Override

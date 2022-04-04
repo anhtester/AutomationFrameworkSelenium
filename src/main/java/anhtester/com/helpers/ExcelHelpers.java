@@ -2,18 +2,13 @@ package anhtester.com.helpers;
 
 import java.awt.Color;
 import java.io.*;
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
-import anhtester.com.models.LoginModel;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import anhtester.com.utils.Log;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.util.CellAddress;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelHelpers {
@@ -57,9 +52,10 @@ public class ExcelHelpers {
                 columns.put(cell.getStringCellValue(), cell.getColumnIndex());
             });
 
+            Log.info("Set Excel file " + ExcelPath + " and selected Sheet: " + SheetName);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
-
         }
     }
 
@@ -178,55 +174,55 @@ public class ExcelHelpers {
         return data;
     }
 
-    public static Object[][] getDataReflection(String ExcelPath, String SheetName, int startRow, int endRow) {
-
-        Object[][] data = null;
-        try {
-
-            File f = new File(ExcelPath);
-
-            if (!f.exists()) {
-                f.createNewFile();
-                System.out.println("File doesn't exist, so created!");
-            }
-
-            fis = new FileInputStream(ExcelPath);
-            wb = new XSSFWorkbook(fis);
-            sh = wb.getSheet(SheetName);
-
-            int rows = getRowCount();
-            int columns = getColumnCount();
-            System.out.println("Row: " + rows + " - Column: " + columns);
-            data = new Object[endRow - startRow][1];
-            Hashtable<String, String> table = null;
-
-            LoginModel loginModel = new LoginModel();
-
-            for (int rowNums = startRow; rowNums < endRow; rowNums++) {
-                table = new Hashtable<String, String>();
-                for (int colNum = 0; colNum < columns; colNum++) {
-
-                    Field nameField = loginModel.getClass().getDeclaredField(getCellData(0, colNum));
-                    nameField.setAccessible(true);
-                    nameField.set(loginModel, getCellData(rowNums, colNum));
-
-                    table.put(getCellData(0, colNum), getCellData(rowNums, colNum));
-                    data[rowNums - startRow][0] = table;
-                }
-            }
-            System.out.println(loginModel.getEmail() + "-" + loginModel.getPassword());
-            System.out.println(data);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return data;
-    }
+//    public static Object[][] getDataReflection(String ExcelPath, String SheetName, int startRow, int endRow) {
+//
+//        Object[][] data = null;
+//        try {
+//
+//            File f = new File(ExcelPath);
+//
+//            if (!f.exists()) {
+//                f.createNewFile();
+//                System.out.println("File doesn't exist, so created!");
+//            }
+//
+//            fis = new FileInputStream(ExcelPath);
+//            wb = new XSSFWorkbook(fis);
+//            sh = wb.getSheet(SheetName);
+//
+//            int rows = getRowCount();
+//            int columns = getColumnCount();
+//            System.out.println("Row: " + rows + " - Column: " + columns);
+//            data = new Object[endRow - startRow][1];
+//            Hashtable<String, String> table = null;
+//
+//            SignIn signIn = new SignIn();
+//
+//            for (int rowNums = startRow; rowNums < endRow; rowNums++) {
+//                table = new Hashtable<String, String>();
+//                for (int colNum = 0; colNum < columns; colNum++) {
+//
+//                    Field nameField = signIn.getClass().getDeclaredField(getCellData(0, colNum));
+//                    nameField.setAccessible(true);
+//                    nameField.set(signIn, getCellData(rowNums, colNum));
+//
+//                    table.put(getCellData(0, colNum), getCellData(rowNums, colNum));
+//                    data[rowNums - startRow][0] = table;
+//                }
+//            }
+//            System.out.println(signIn.getEmail() + "-" + signIn.getPassword());
+//            System.out.println(data);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (NoSuchFieldException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//        return data;
+//    }
 
     public static String getTestCaseName(String sTestCase) throws Exception {
         String value = sTestCase;

@@ -25,6 +25,14 @@ public class Log {
         Log.error(message);
     }
 
+    public static void error (Object message) {
+        Log.error(message);
+    }
+
+    public static void error (Object message, Throwable throwable) {
+        Log.error(message);
+    }
+
     public static void error (String message, Throwable throwable) {
         Log.error(message);
     }

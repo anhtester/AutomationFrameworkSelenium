@@ -1,19 +1,18 @@
 package anhtester.com.projects.website.crm.pages.Clients;
 
-import anhtester.com.helpers.ExcelHelpers;
-import anhtester.com.helpers.PropertiesHelpers;
-import anhtester.com.projects.website.crm.pages.CommonPage;
+import anhtester.com.models.Client;
+import anhtester.com.utils.WebUI;
 import org.openqa.selenium.By;
 
-public class ClientPage extends CommonPage {
+public class ClientPage {
 
     public ClientPage() {
     }
 
-    public String pageText = "ClientModel";
+    public String pageText = "Client";
     public String pageUrl = "/clients";
 
-    //ClientModel Element
+    //Client Element
     private By clientTab = By.xpath("//ul[@id='client-tabs']//li[2]");
     private By addClientBtn = By.xpath("//a[normalize-space()='Add client']");
     private By companyNameInput = By.xpath("//input[@id='company_name']");
@@ -26,37 +25,36 @@ public class ClientPage extends CommonPage {
     private By zipInput = By.xpath("//input[@id='zip']");
     private By countryInput = By.xpath("//input[@id='country']");
     private By phoneInput = By.xpath("//input[@id='phone']");
+    public By saveDialogBtn = By.xpath("//div[@id='ajaxModalContent']//button[normalize-space()='Save']");
+    public By searchInput = By.xpath("//input[@placeholder='Search']");
 
 
     public void openClientTabPage() {
-        webUI.sleep(1);
-        webUI.clickElement(clientTab);
+        WebUI.sleep(1);
+        WebUI.clickElement(clientTab);
     }
 
-    public void addClient() {
-        ExcelHelpers.setExcelFile(PropertiesHelpers.getValue("excelClients"), "AddClient");
-
-        webUI.clickElement(addClientBtn);
-        webUI.setText(companyNameInput, ExcelHelpers.getCellData(1, "company_name"));
-        webUI.clickElement(ownerSelect);
-        webUI.setText(ownerSearchInput, ExcelHelpers.getCellData(1, "owner"));
-        webUI.clickElement(ownerFirstItemSelect);
-        webUI.setText(addressInput, ExcelHelpers.getCellData(1, "address"));
-        webUI.setText(cityInput, ExcelHelpers.getCellData(1, "city"));
-        webUI.setText(stateInput, ExcelHelpers.getCellData(1, "state"));
-        webUI.setText(zipInput, ExcelHelpers.getCellData(1, "zip"));
-        webUI.setText(countryInput, ExcelHelpers.getCellData(1, "country"));
-        webUI.setText(phoneInput, ExcelHelpers.getCellData(1, "phone"));
-//        validateuiHelpers.clickElement(closeDialogBtn);
-        webUI.clickElement(saveDialogBtn);
-        webUI.setText(searchInput, ExcelHelpers.getCellData(1, "company_name"));
-        webUI.checkContainsSearchTableByColumn(2, ExcelHelpers.getCellData(1, "company_name"));
+    public void addClient(Client clientData) {
+        WebUI.clickElement(addClientBtn);
+        WebUI.setText(companyNameInput, clientData.getCompanyName());
+        WebUI.clickElement(ownerSelect);
+        WebUI.setText(ownerSearchInput, clientData.getOwner());
+        WebUI.clickElement(ownerFirstItemSelect);
+        WebUI.setText(addressInput, clientData.getAddress());
+        WebUI.setText(cityInput, clientData.getCity());
+        WebUI.setText(stateInput, clientData.getState());
+        WebUI.setText(zipInput, clientData.getZip());
+        WebUI.setText(countryInput, clientData.getCountry());
+        WebUI.setText(phoneInput, clientData.getPhone());
+        WebUI.clickElement(saveDialogBtn);
+        WebUI.setText(searchInput, clientData.getCompanyName());
+        WebUI.checkContainsSearchTableByColumn(2, clientData.getCompanyName());
     }
 
     public void enterDataSearchClient(String value) {
-        webUI.moveToElement(searchInput);
-        webUI.clearText(searchInput);
-        webUI.setText(searchInput, value);
+        WebUI.moveToElement(searchInput);
+        WebUI.clearText(searchInput);
+        WebUI.setText(searchInput, value);
     }
 
 }

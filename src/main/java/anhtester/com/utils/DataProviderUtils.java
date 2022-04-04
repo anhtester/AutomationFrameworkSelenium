@@ -1,6 +1,9 @@
 package anhtester.com.utils;
 
 import anhtester.com.constants.FrameworkConstants;
+import anhtester.com.helpers.ExcelHelpers;
+import anhtester.com.helpers.Helpers;
+import anhtester.com.models.Client;
 import anhtester.com.models.SignIn;
 import io.github.sskorol.core.DataSupplier;
 import io.github.sskorol.data.TestDataReader;
@@ -11,67 +14,81 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
+import static java.util.Arrays.asList;
+
 public final class DataProviderUtils {
 
-    /**
-     * Private constructor to avoid external instantiation
-     */
     private DataProviderUtils() {
     }
 
-//	private static List<Map<String, String>> list =	new ArrayList<>();
+    @Test(dataProvider = "getDataSignInSupplierFromExcel")
+    public void test2(SignIn signInData) {
+        System.out.println("signInData.testCaseName = " + signInData.getTestCaseName());
+        System.out.println("signInData.username = " + signInData.getEmail());
+        System.out.println("signInData.password = " + signInData.getPassword());
+        System.out.println("signInData.expectedTitle = " + signInData.getExpectedTitle());
+        System.out.println("signInData.expectedError = " + signInData.getExpectedError());
 
-//	@DataProvider(parallel=false)
-//	public static Object[] getData(Method m) {
-//		String testname = m.getName();
-//
-//		if(list.isEmpty()) {
-//			list = ExcelUtils.getTestDetails("");
-//			System.out.println(list);
-//		}
-//		List<Map<String, String>> smalllist = new ArrayList<>(list);
-//
-//		Predicate<Map<String,String>> isTestNameNotMatching = map ->!map.get("testname").equalsIgnoreCase(testname);
-//		Predicate<Map<String,String>> isExecuteColumnNo = map -> map.get("execute").equalsIgnoreCase("no");
-//
-//		smalllist.removeIf(isTestNameNotMatching.or(isExecuteColumnNo));
-//		return smalllist.toArray();
-//
-//	}
+    }
 
-    @Test(dataProvider = "getLoginDataSupplier")
-    public void test1(SignIn testData) {
-        System.out.println("-----------------------------");
-        System.out.println("testData.testCaseName = " + testData.getTestCaseName());
-        System.out.println("testData.username = " + testData.getEmail());
-        System.out.println("testData.password = " + testData.getPassword());
-        System.out.println("testData.expectedTitle = " + testData.getExpectedTitle());
-        System.out.println("testData.expectedError = " + testData.getExpectedError());
+    @Test(dataProvider = "getDataClientSupplierFromExcel")
+    public void testAddClient(Client clientData) {
+        System.out.println("clientData.TestCaseName = " + clientData.getTestCaseName());
+        System.out.println("clientData.CompanyName = " + clientData.getCompanyName());
+        System.out.println("clientData.OWNER = " + clientData.getOwner());
+        System.out.println("clientData.Address = " + clientData.getAddress());
+        System.out.println("clientData.CITY = " + clientData.getCity());
+        System.out.println("clientData.STATE = " + clientData.getState());
+
     }
 
     //@DataProvider --> Return type -> Object[][] or Object[]
     //@DataSupplier //--> It can read any file (CSV, xlsx, JSON, YAMLDataSupplierTest)
     //@DataSupplier(runInParallel = true)
-    @DataSupplier(runInParallel = true, name = "getSignInDataSupplier")
-    public StreamEx<SignIn> getData(Method method) {
-
+    @DataSupplier(runInParallel = true, name = "getDataSignInSupplierFromExcel")
+    public StreamEx<SignIn> getDataSignInSupplierFromExcel(Method method) {
+        String methodName = method.getName().trim();
+        System.out.println(methodName);
         return TestDataReader.use(XlsxReader.class)
                 .withTarget(SignIn.class)
                 //By default, it looks for files in src/test/resources directory
-                .withSource(FrameworkConstants.EXCEL_DATA_PATH)
-                .read()
-                //  .filter(testData -> testData.getTestCaseName().equalsIgnoreCase("titleValidationTest"));
+                .withSource("testdatafile/ClientsDataExcel.xlsx")
+                .read();
+                //.filter(testData -> testData.getTestCaseName().trim().equalsIgnoreCase(methodName));
 
-                // Using Java reflection -> Getting method name and use it for filtering
-                .filter(testData -> testData.getTestCaseName().equalsIgnoreCase(method.getName()));
     }
 
-    @DataProvider(name = "loginDataTest")
-    public static Object[][] loginDataTest() {
-        return new Object[][]{
-                //Email, Password, Expected Error Message
-                {"admin02@mailinator.com", "123456", "Invalid credentials"}
-        };
+    @DataSupplier(runInParallel = true, name = "getDataClientSupplierFromExcel")
+    public StreamEx<Client> getDataClientSupplierFromExcel(Method method) {
+        String methodName = method.getName().trim();
+        System.out.println(methodName);
+        return TestDataReader.use(XlsxReader.class)
+                .withTarget(Client.class)
+                .withSource("testdatafile/ClientsDataExcel.xlsx")
+                .read();
+                //.filter(testData -> testData.getTestCaseName().trim().equalsIgnoreCase(methodName));
+    }
+
+    @DataSupplier(name = "getDataSignInFromExampleData", flatMap = true)
+    public static StreamEx getDataSignInFromExampleData() {
+        return StreamEx.of(
+                asList("admin02@mailinator.com", "123456", "Invalid credentials"),
+                asList("tld01@mailinator.com", "123456", "Invalid credentials")
+        );
+    }
+
+    @DataProvider(name = "SignInData")
+    public Object[][] getSignInData() {
+        Object[][] data = ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH_FULL, "SignIn", 2, 4);
+        System.out.println(data);
+        return data;
+    }
+
+    @DataProvider(name = "ClientData")
+    public Object[][] getClientData() {
+        Object[][] data = ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH_FULL, "Client", 1, 2);
+        System.out.println(data);
+        return data;
     }
 
 }

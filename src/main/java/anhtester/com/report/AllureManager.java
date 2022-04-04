@@ -4,6 +4,7 @@ import anhtester.com.config.ConfigFactory;
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.enums.Browser;
+import anhtester.com.utils.Log;
 import anhtester.com.utils.OSInfoUtils;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
 import com.google.common.collect.ImmutableMap;
@@ -11,7 +12,7 @@ import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
-import static anhtester.com.config.ConfigFactory.getConfig;
+import static org.openqa.selenium.OutputType.BYTES;
 
 public class AllureManager {
 
@@ -33,7 +34,12 @@ public class AllureManager {
 
     @Attachment(value = "Failed test screenshot", type = "image/png")
     public static byte[] takeScreenshotToAttachOnAllureReport() {
-        return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
+        try {
+            return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(BYTES);
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
+        return new byte[0];
     }
 
     @Attachment(value = "Browser Information", type = "text/plain")
@@ -52,26 +58,5 @@ public class AllureManager {
     public static String attachHtml(String html) {
         return html;
     }
-
-    //Text attachments for Allure
-//    @Attachment(value = "Page screenshot", type = "image/png")
-//    public static byte[] saveScreenshotPNG() {
-//        File file = new File("Screenshots");
-//        BufferedImage bufferedImage = null;
-//        try {
-//            bufferedImage = ImageIO.read(file);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        byte[] image = null;
-//        try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
-//            ImageIO.write(bufferedImage, "png", bos);
-//            image = bos.toByteArray();
-//        } catch (Exception e) { }
-//
-//        // if decoding is not necessary just return image
-//        return image != null ? Base64.getMimeDecoder().decode(image) : null;
-//    }
 
 }

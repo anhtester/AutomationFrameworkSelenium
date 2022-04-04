@@ -6,8 +6,15 @@ import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.listeners.TestListener;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.driver.TargetFactory;
+import anhtester.com.projects.website.crm.pages.Clients.ClientPage;
+import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
+import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import anhtester.com.report.AllureManager;
+import anhtester.com.report.ExtentReportManager;
+import anhtester.com.report.ExtentTestManager;
+import anhtester.com.utils.DecodeUtils;
 import anhtester.com.utils.WebUI;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.testng.annotations.*;
@@ -15,12 +22,11 @@ import org.testng.annotations.*;
 @Listeners({TestListener.class})
 public class BaseTest {
 
-    public WebUI webUI;
-
     @BeforeSuite
     public void beforeSuite() {
         AllureManager.setAllureEnvironmentInformation();
-        PropertiesHelpers.loadAllFiles();
+        PropertiesHelpers.loadAllFiles(); //Config and Locators
+        ExcelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_PATH_FULL, "SignIn");
     }
 
     @Parameters("browser")
@@ -28,8 +34,7 @@ public class BaseTest {
     public void createDriver(@Optional("chrome") String browser) {
         WebDriver driver = ThreadGuard.protect(new TargetFactory().createInstance(browser));
         DriverManager.setDriver(driver);
-        webUI = new WebUI();
-        ExcelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_PATH_FULL, "SignIn");
+        ExtentReportManager.createTest("SETUP STEPS BEFORE !!!");
     }
 
     @AfterMethod(alwaysRun = true)
@@ -42,4 +47,5 @@ public class BaseTest {
         DriverManager.setDriver(driver);
         return DriverManager.getDriver();
     }
+
 }

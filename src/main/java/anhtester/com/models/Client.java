@@ -1,44 +1,66 @@
 package anhtester.com.models;
 
-public class ClientModel {
+import com.creditdatamw.zerocell.annotation.Column;
+import com.creditdatamw.zerocell.annotation.RowNumber;
+import io.github.sskorol.data.Sheet;
+import lombok.Data;
 
+@Sheet(name = "Client")
+@Data
+public class Client {
+
+    @RowNumber
+    private int row;
+
+    @Column(name = "TESTCASENAME", index = 0)
+    private String testCaseName;
+
+    @Column(name = "COMPANY_NAME", index = 1)
     private String companyName;
+
+    @Column(name = "OWNER", index = 2)
     private String owner;
+
+    @Column(name = "ADDRESS", index = 3)
     private String address;
+
+    @Column(name = "CITY", index = 4)
     private String city;
+
+    @Column(name = "STATE", index = 5)
     private String state;
+
+    @Column(name = "ZIP", index = 6)
     private String zip;
+
+    @Column(name = "COUNTRY", index = 7)
     private String country;
+
+    @Column(name = "PHONE", index = 8)
     private String phone;
+
+    @Column(name = "WEBSITE", index = 9)
     private String website;
+
+    @Column(name = "VAT", index = 10)
     private Integer vat;
+
+    @Column(name = "CLIENT_GROUP", index = 11)
     private String clientGroup;
 
-    public ClientModel(String companyName,
-                       String owner,
-                       String address,
-                       String city,
-                       String state,
-                       String zip,
-                       String country,
-                       String phone,
-                       String website,
-                       Integer vat,
-                       String clientGroup) {
+    @Column(name = "STATUS", index = 12)
+    private String status;
 
-        super();
-        this.companyName = companyName;
-        this.owner = owner;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.country = country;
-        this.phone = phone;
-        this.website = website;
-        this.vat = vat;
-        this.clientGroup = clientGroup;
+    public int getRow() {
+        return row;
+    }
 
+    public String getTestCaseName() {
+        return testCaseName;
+    }
+
+    public void setTestCaseName(String testCaseName) {
+        this.testCaseName = testCaseName;
     }
 
     public String getCompanyName() {
@@ -127,5 +149,9 @@ public class ClientModel {
 
     public void setClientGroup(String clientGroup) {
         this.clientGroup = clientGroup;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

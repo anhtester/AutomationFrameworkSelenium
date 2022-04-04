@@ -4,7 +4,6 @@ import anhtester.com.driver.DriverManager;
 import anhtester.com.utils.WebUI;
 import anhtester.com.projects.website.crm.pages.CommonPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -22,14 +21,14 @@ public class ProjectPage extends CommonPage {
     private By searchInput = By.xpath("//input[@type='search']");
 
     public void searchByValue(String value) {
-        webUI.clearText(searchInput);
-        webUI.setText(searchInput, value);
-        webUI.sleep(1);
+        WebUI.clearText(searchInput);
+        WebUI.setText(searchInput, value);
+        WebUI.sleep(1);
     }
 
     public void checkContainsSearchTableByColumn(int column, String value) {
         List<WebElement> totalRows = DriverManager.getDriver().findElements(By.xpath("//tbody/tr"));
-        webUI.sleep(1);
+        WebUI.sleep(1);
         System.out.println("");
         System.out.println("Số kết quả cho từ khóa (" + value + "): " + totalRows.size());
 
@@ -44,7 +43,7 @@ public class ProjectPage extends CommonPage {
 
     public void displayValueTableByColumn(int column) {
         List<WebElement> totalRows = DriverManager.getDriver().findElements(By.xpath("//tbody/tr"));
-        webUI.sleep(1);
+        WebUI.sleep(1);
         System.out.println("");
         System.out.println("Số kết quả cho cột (" + column + "): " + totalRows.size());
 

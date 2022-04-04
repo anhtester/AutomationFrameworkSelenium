@@ -92,7 +92,7 @@ public enum BrowserFactory {
             SafariOptions safariOptions = new SafariOptions();
             safariOptions.setAutomaticInspection(false);
 
-            if (TRUE.equals(ConfigFactory.getConfig().headless()))
+            if (TRUE.equals(Boolean.valueOf(FrameworkConstants.HEADLESS)))
                 throw new HeadlessNotSupportedException(safariOptions.getBrowserName());
 
             return safariOptions;

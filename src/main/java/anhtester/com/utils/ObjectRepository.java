@@ -1,5 +1,6 @@
 package anhtester.com.utils;
 
+import anhtester.com.helpers.PropertiesHelpers;
 import org.openqa.selenium.By;
 
 import java.io.FileInputStream;
@@ -8,28 +9,19 @@ import java.util.Properties;
 
 public class ObjectRepository {
 
-    private Properties prop;
-
-    public ObjectRepository(String objectFilePath) {
-        prop = new Properties();
-
-        try {
-            FileInputStream fis = new FileInputStream(objectFilePath);
-            try {
-                prop.load(fis);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            fis.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public By getLocator(String elementName) {
+    public static By getLocator(String elementName) {
 
         // retrieve the specified object from the object list in properties file
-        String locator = prop.getProperty(elementName);
+        String locator = PropertiesHelpers.getValue(elementName);
+
+        if (locator.equals("") || locator.isEmpty()) {
+            Log.info("The Locator " + elementName + " does not exist !!");
+            try {
+                throw new Exception("The Locator " + elementName + " does not exist !!");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         // extract the locator type and value from the object
         String locatorType = locator.split(":")[0];

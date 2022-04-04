@@ -2,13 +2,13 @@
 
 <suite name="Regression Tests" parallel="tests" thread-count="2">
 
-    <test name="Client Test">
+    <test name="Sign In Test">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="anhtester.com.projects.website.crm.testcases.ClientTest">
-<!--                <methods>-->
-<!--                    <include name="testSearchClient" />-->
-<!--                </methods>-->
+            <class name="anhtester.com.projects.website.crm.testcases.SignInTest">
+                <methods>
+                    <include name="SignInTestDataSupplierFromClassDefine" />
+                </methods>
             </class>
         </classes>
     </test>
