@@ -14,7 +14,7 @@
    
    
 ## **YÊU CẦU HỆ THỐNG**
-- **JDK 15, 16** (15.0.2, 16.0.2) (not run with 8, 17, 18)
+- **JDK 11, 15, 16** (not run with 8, 17, 18)
 - Chrome Browser, Edge Browser
 - Setup **Allure**:
    https://mvnrepository.com/artifact/io.qameta.allure/allure-java-commons
@@ -25,6 +25,9 @@
    ![image](https://user-images.githubusercontent.com/87883620/161661705-b8706957-5a26-4faf-8ddf-2f9aef78418e.png)
 
 - **IntelliJ** is the best choice (to change JDK version)
+
+![image](https://user-images.githubusercontent.com/87883620/161707184-7ad558f2-0d7d-4851-bfd6-2796d4e46593.png)
+
 
 
 ## **HƯỚNG DẪN SỬ DỤNG CƠ BẢN**
