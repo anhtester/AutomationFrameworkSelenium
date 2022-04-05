@@ -58,6 +58,11 @@
 
 **4. Allure Report**
 
+- Open Terminal: ***allure serve target/allure-results***
+
+![image](https://user-images.githubusercontent.com/87883620/161662507-9e4dc698-e452-4b43-a4f5-9808c81419a2.png)
+
+
 - Insert **@Step("title/message")** above ***@Test*** or any ***Method*** in the project
 - (As sample picture above step 3)
 
