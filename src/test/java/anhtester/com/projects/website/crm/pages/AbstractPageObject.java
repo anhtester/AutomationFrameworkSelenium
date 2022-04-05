@@ -1,6 +1,5 @@
 package anhtester.com.projects.website.crm.pages;
 
-import anhtester.com.config.ConfigFactory;
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;

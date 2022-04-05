@@ -88,6 +88,10 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.info("Test case: " + getTestName(iTestResult) + " is passed.");
         count_passedTCs = count_passedTCs + 1;
 
+        if(screenshot_passed_steps.equals(YES)){
+            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
+        }
+
         AllureManager.saveTextLog("Test case: " + getTestName(iTestResult) + " is passed.");
         //ExtentReports log operation for passed tests.
         ExtentReportManager.logMessage(Status.PASS, "Test case: " + getTestName(iTestResult) + " is passed.");
@@ -98,7 +102,9 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.error("Test case: " + getTestName(iTestResult) + " is failed.");
         count_failedTCs = count_failedTCs + 1;
 
-        CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
+        if(screenshot_failed_steps.equals(YES)){
+            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
+        }
 
         //Allure report screenshot file and log
         Log.error("FAIL !! Screenshot for test case: " + getTestName(iTestResult));
@@ -116,6 +122,10 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
     public void onTestSkipped(ITestResult iTestResult) {
         Log.warn("Test case: " + getTestName(iTestResult) + " is skipped.");
         count_skippedTCs = count_skippedTCs + 1;
+
+        if(screenshot_skipped_steps.equals(YES)){
+            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
+        }
 
         ExtentReportManager.logMessage(Status.SKIP, "Test case: " + getTestName(iTestResult) + " is skipped.");
     }

@@ -38,7 +38,8 @@ public class ClientTest extends BaseTest {
 
     @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.VOTHAIAN},
             category = {CategoryType.SANITY, CategoryType.REGRESSION})
-    @Test(priority = 1, description = "Add new Client",dataProvider = "getDataClientSupplierFromExcel",dataProviderClass = DataProviderUtils.class)
+    @Test(priority = 1, description = "Add new Client",dataProvider = "getDataClientSupplierFromExcel",
+            dataProviderClass = DataProviderUtils.class)
     @Step("Add new Client")
     public void testAddClient(Client clientData) {
         WebUI.waitForPageLoaded();
