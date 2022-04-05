@@ -33,7 +33,7 @@
 ## **HƯỚNG DẪN SỬ DỤNG CƠ BẢN**
 
 
-**1. Run parallel test case**
+**1. Run parallel the test case**
 - Run test case in suite XML (**src/test/resources/suites/**)
 - Run test case from Maven pom.xml file
   (**mvn clean test**)
@@ -42,7 +42,7 @@
 
 
 
-**2. Read Object web element from properties file**
+**2. Read Object web element from a properties file**
 
 ![image](https://user-images.githubusercontent.com/87883620/161658681-58f3a183-cbfd-433d-853a-927e4373f51c.png)
 
@@ -76,16 +76,19 @@
 
 
 
-**5. Send Mail after run test**
+**5. Send Mail after the run test**
 
 - Config **true/false** in config.properties
   (***src/test/resources/config/config.properties***)
-- **true** is send mail
-- Config mail on ***src/main/java/anhtester/com/mail/EmailConfig.java***
+- send_email_to_users=**true** is enable send mail
+- Config mail with email and password in ***src/main/java/anhtester/com/mail/EmailConfig.java***
+Note: enabled Allow less secure apps
 
 ![image](https://user-images.githubusercontent.com/87883620/161658851-2aa41091-ac99-45d9-a79f-aaa828052efb.png)
 
 ![image](https://user-images.githubusercontent.com/87883620/161659238-88337f69-b742-4cd7-87f2-76670519c8dd.png)
+
+![image](https://user-images.githubusercontent.com/87883620/161710836-8f3eee7c-19ba-410d-8498-5f314e6289a5.png)
 
 
 
