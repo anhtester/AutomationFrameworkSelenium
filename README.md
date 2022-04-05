@@ -1,15 +1,15 @@
 # Automation Framework Selenium Java with TestNG building by Anh Tester (VERSION 1.0)
 
 **MỘT SỐ TÍNH NĂNG CHÍNH THAM KHẢO TẠI VERSION 1.0**
-1. Run parallel test case
-2. Read Object web element from properties file
+1. Run the parallel test case
+2. Read Object web element from a properties file
 3. Extent Report
 4. Allure Report
-5. Send Mail after run test (Report infomation and HTML file attachment)
-6. Log file
+5. Send Mail after the run test (Report information and HTML file attachment)
+6. Logfile
 7. Record video and Screenshot test case for failed
 8. Read data test form Excel file (xlsx, csv, json,...) with class define fields (param: Client client)
-9. Base function in library (WebUI, Utils,...)
+9. Base function in the library (WebUI, Utils,...)
    ...etc.. (wait, dynamic xpath,...)
    
    
