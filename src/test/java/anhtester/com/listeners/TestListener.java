@@ -72,7 +72,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.info("Test case: " + getTestName(iTestResult) + " test is starting...");
         count_totalTCs = count_totalTCs + 1;
 
-        ExtentReportManager.createTest(iTestResult.getName(), getTestDescription(iTestResult));
+        ExtentReportManager.createTest(iTestResult.getName());
         ExtentReportManager.addAuthors(iTestResult.getMethod().getConstructorOrMethod().getMethod()
                 .getAnnotation(FrameworkAnnotation.class).author());
         ExtentReportManager.addCategories(iTestResult.getMethod().getConstructorOrMethod().getMethod()

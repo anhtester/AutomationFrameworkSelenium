@@ -10,7 +10,8 @@ import anhtester.com.models.Client;
 import anhtester.com.projects.website.crm.pages.Clients.ClientPage;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
-import anhtester.com.utils.DataProviderUtils;
+import anhtester.com.report.ExtentReportManager;
+import anhtester.com.data.DataProviderManager;
 import anhtester.com.utils.DecodeUtils;
 import anhtester.com.utils.WebUI;
 import io.qameta.allure.Epic;
@@ -28,8 +29,9 @@ public class ClientTest extends BaseTest {
     public ClientPage clientPage;
 
     @BeforeMethod
-    @Step("Sign In to CRM system")
+    @Step("Sign in to the CRM system")
     public void SignIn() {
+        ExtentReportManager.createTest("Sign in to the CRM system !!");
         WebUI.getToUrl(FrameworkConstants.BASE_URL);
         WebUI.waitForPageLoaded();
         signInPage = new SignInPage();
@@ -38,15 +40,15 @@ public class ClientTest extends BaseTest {
 
     @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.VOTHAIAN},
             category = {CategoryType.SANITY, CategoryType.REGRESSION})
-    @Test(priority = 1, description = "Add new Client",dataProvider = "getDataClientSupplierFromExcel",
-            dataProviderClass = DataProviderUtils.class)
+    @Test(priority = 1, description = "Add new Client", dataProvider = "getDataClientSupplierFromExcel",
+            dataProviderClass = DataProviderManager.class)
     @Step("Add new Client")
     public void testAddClient(Client clientData) {
-        WebUI.waitForPageLoaded();
+        //Client section
         clientPage = dashboardPage.openClientPage();
-        WebUI.waitForPageLoaded();
         clientPage.openClientTabPage();
         clientPage.addClient(clientData);
+
     }
 
     @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.AUTOMATION},
@@ -54,9 +56,7 @@ public class ClientTest extends BaseTest {
     @Test(priority = 2, description = "Search Client")
     @Step("Search Client")
     public void testSearchClient() {
-        WebUI.waitForPageLoaded();
         clientPage = dashboardPage.openClientPage();
-        WebUI.waitForPageLoaded();
         clientPage.openClientTabPage();
         // Search the first
         clientPage.enterDataSearchClient("Anh Tester Com 05");
@@ -64,6 +64,7 @@ public class ClientTest extends BaseTest {
         // Search the second
         clientPage.enterDataSearchClient("Phamiliar Tech");
         WebUI.checkContainsSearchTableByColumn(2, "Phamiliar Tech");
+
     }
 
     @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.VOTHAIAN},

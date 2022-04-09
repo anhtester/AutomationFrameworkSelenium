@@ -1,4 +1,9 @@
-package anhtester.com.utils;
+/*
+ * Copyright (c) 2022. Anh Tester
+ * Automation Framework Selenium
+ */
+
+package anhtester.com.data;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.helpers.ExcelHelpers;
@@ -16,9 +21,9 @@ import java.lang.reflect.Method;
 
 import static java.util.Arrays.asList;
 
-public final class DataProviderUtils {
+public final class DataProviderManager {
 
-    private DataProviderUtils() {
+    private DataProviderManager() {
     }
 
     @Test(dataProvider = "getDataSignInSupplierFromExcel")
@@ -52,9 +57,9 @@ public final class DataProviderUtils {
         return TestDataReader.use(XlsxReader.class)
                 .withTarget(SignIn.class)
                 //By default, it looks for files in src/test/resources directory
-                .withSource("testdatafile/ClientsDataExcel.xlsx")
+                .withSource(FrameworkConstants.EXCEL_DATA_PATH)
                 .read();
-                //.filter(testData -> testData.getTestCaseName().trim().equalsIgnoreCase(methodName));
+        //.filter(testData -> testData.getTestCaseName().trim().equalsIgnoreCase(methodName));
 
     }
 
@@ -64,9 +69,9 @@ public final class DataProviderUtils {
         System.out.println(methodName);
         return TestDataReader.use(XlsxReader.class)
                 .withTarget(Client.class)
-                .withSource("testdatafile/ClientsDataExcel.xlsx")
+                .withSource(FrameworkConstants.EXCEL_DATA_PATH)
                 .read();
-                //.filter(testData -> testData.getTestCaseName().trim().equalsIgnoreCase(methodName));
+        //.filter(testData -> testData.getTestCaseName().trim().equalsIgnoreCase(methodName));
     }
 
     @DataSupplier(name = "getDataSignInFromExampleData", flatMap = true)
@@ -77,14 +82,14 @@ public final class DataProviderUtils {
         );
     }
 
-    @DataProvider(name = "SignInData")
+    @DataProvider(name = "SignInDataHashTable")
     public Object[][] getSignInData() {
         Object[][] data = ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH_FULL, "SignIn", 2, 4);
         System.out.println(data);
         return data;
     }
 
-    @DataProvider(name = "ClientData")
+    @DataProvider(name = "ClientDataHashTable")
     public Object[][] getClientData() {
         Object[][] data = ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH_FULL, "Client", 1, 2);
         System.out.println(data);

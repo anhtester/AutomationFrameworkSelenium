@@ -14,11 +14,13 @@ public class ClientPage {
     public String pageUrl = "/clients";
 
     public void openClientTabPage() {
+        WebUI.waitForPageLoaded();
         WebUI.sleep(1);
         WebUI.clickElement(ObjectRepository.getLocator("clientTab"));
     }
 
     public void addClient(Client clientData) {
+        WebUI.waitForPageLoaded();
         WebUI.clickElement(ObjectRepository.getLocator("addClientBtn"));
         WebUI.setText(ObjectRepository.getLocator("companyNameInput"), clientData.getCompanyName());
         WebUI.clickElement(ObjectRepository.getLocator("ownerSelect"));

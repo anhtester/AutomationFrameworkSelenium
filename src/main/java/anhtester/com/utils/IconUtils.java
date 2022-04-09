@@ -5,6 +5,11 @@
 
 package anhtester.com.utils;
 
+import anhtester.com.constants.FrameworkConstants;
+import anhtester.com.enums.Browser;
+import anhtester.com.helpers.PropertiesHelpers;
+import org.testng.Reporter;
+
 import static anhtester.com.constants.FrameworkConstants.*;
 
 //final -> We do not want any class to extend this class
@@ -18,11 +23,17 @@ public final class IconUtils {
     }
 
     public static String getBrowserIcon() {
-        String browserInLowerCase = BrowserInfoUtils.getBrowserInfo().toLowerCase();
-        if (browserInLowerCase.contains(ICON_BROWSER_EDGE)) {
-            return ICON_BROWSER_PREFIX + ICON_BROWSER_EDGE + ICON_BROWSER_SUFFIX;
+//        String browserInLowerCase = BrowserInfoUtils.getBrowserInfo().toLowerCase();
+
+
+        if (BrowserInfoUtils.getBrowserInfo().contains(Browser.CHROME.toString())) {
+            return ICON_BROWSER_CHROME;
+        } else if (BrowserInfoUtils.getBrowserInfo().contains(Browser.EDGE.toString())) {
+            return ICON_BROWSER_EDGE;
+        } else if (BrowserInfoUtils.getBrowserInfo().contains(Browser.FIREFOX.toString())) {
+            return ICON_BROWSER_FIREFOX;
         } else {
-            return ICON_BROWSER_PREFIX + browserInLowerCase + ICON_BROWSER_SUFFIX;
+            return BrowserInfoUtils.getBrowserInfo();
         }
     }
 

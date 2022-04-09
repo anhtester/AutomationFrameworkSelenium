@@ -8,6 +8,9 @@ package anhtester.com.utils;
 import anhtester.com.driver.DriverManager;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.Reporter;
+
+import static anhtester.com.constants.FrameworkConstants.BROWSER;
 
 //final -> We do not want any class to extend this class
 public final class BrowserInfoUtils {
@@ -20,7 +23,13 @@ public final class BrowserInfoUtils {
     public static String getBrowserInfo() {
 //        Capabilities capabilities = ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities();
 //        return capabilities.getBrowserName().toUpperCase();
-        return "Chrome";
+        String browser = "";
+        if (Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browser") == null) {
+            browser = BROWSER.toUpperCase();
+        } else {
+            browser = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browser").trim().toUpperCase();
+        }
+        return browser;
     }
 
     public static String getBrowserVersionInfo() {

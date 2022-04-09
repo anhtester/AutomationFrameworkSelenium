@@ -42,7 +42,7 @@ public class TestHandle {
     public void Setup() {
         driver = new BaseTest().createBrowser("chrome"); //Cách khởi tạo thứ 1
 //        new BaseTest().createDriver("chrome"); //Cách khởi tạo thứ 2
-//        driver = DriverManager.getDriver();
+//        driver = DriverManager.getDriver(); //Get WebDriver global in ThreadLocal
     }
 
     @Test
@@ -57,11 +57,10 @@ public class TestHandle {
 
     @Test
     public void handleNotificationsBrowser() {
-        WebDriver driver = new ChromeDriver(WebUI.notificationsBlock());
+        driver = new ChromeDriver(WebUI.notificationsBlock()); //
         driver.manage().window().maximize();
         driver.get("https://oto.com.vn/mua-ban-xe");
         WebUI.sleep(4);
-        driver.close();
     }
 
     @Test
@@ -215,6 +214,9 @@ public class TestHandle {
     @AfterMethod
     public void closeDriver() {
         DriverManager.quit();
+        if (driver == null) {
+            driver.quit();
+        }
     }
 
 }

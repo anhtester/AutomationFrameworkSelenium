@@ -17,6 +17,25 @@ import java.net.URL;
 
 public class TargetFactory {
 
+    public WebDriver createInstance() {
+        Target target = Target.valueOf(FrameworkConstants.TARGET.toUpperCase());
+        WebDriver webdriver;
+
+        switch (target) {
+            case LOCAL:
+                //Create new driver from Enum setup in BrowserFactory class
+                webdriver = BrowserFactory.valueOf(FrameworkConstants.BROWSER.toUpperCase()).createDriver();
+                break;
+            case REMOTE:
+                //Create new driver on Cloud (Selenium Grid, Docker) from method below
+                webdriver = createRemoteInstance(BrowserFactory.valueOf(FrameworkConstants.BROWSER.toUpperCase()).getOptions());
+                break;
+            default:
+                throw new TargetNotValidException(target.toString());
+        }
+        return webdriver;
+    }
+
     public WebDriver createInstance(String browser) {
         Target target = Target.valueOf(FrameworkConstants.TARGET.toUpperCase());
         WebDriver webdriver;

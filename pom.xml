@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>anhtester</groupId>
-    <artifactId>com</artifactId>
+    <groupId>anhtester.com</groupId>
+    <artifactId>AutomationFrameworkSelenium</artifactId>
     <version>1.0</version>
 
     <properties>
@@ -18,7 +18,6 @@
         <selenium.version>4.1.3</selenium.version>
         <testng.version>7.4.0</testng.version>
         <webdrivermanager.version>5.1.0</webdrivermanager.version>
-        <slf4j.version>1.7.36</slf4j.version>
         <aspectjweaver.version>1.9.7</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <log4j.version>2.17.2</log4j.version>
@@ -39,8 +38,14 @@
         <google.zxing.version>3.4.1</google.zxing.version>
         <lombok.version>1.18.22</lombok.version>
         <google.guava.version>31.1-jre</google.guava.version>
+        <data.supplier.version>1.9.7</data.supplier.version>
+        <javax.mail.version>1.6.2</javax.mail.version>
+        <zip.version>1.14</zip.version>
 
-        <suite>Clients-simple</suite>
+        <!-- Suite XML path -->
+        <suite.signin.simple>src/test/resources/suites/SignIn-simple.xml</suite.signin.simple>
+        <suite.client.parallel>src/test/resources/suites/Clients-parallel.xml</suite.client.parallel>
+        <suite.client.simple>src/test/resources/suites/Clients-simple.xml</suite.client.simple>
     </properties>
 
     <dependencies>
@@ -63,21 +68,21 @@
         <dependency>
             <groupId>io.github.sskorol</groupId>
             <artifactId>test-data-supplier</artifactId>
-            <version>1.9.7</version>
+            <version>${data.supplier.version}</version>
         </dependency>
 
         <!--https://mvnrepository.com/artifact/com.sun.mail/javax.mail/		 -->
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
-            <version>1.6.2</version>
+            <version>${javax.mail.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.zeroturnaround/zt-zip -->
         <dependency>
             <groupId>org.zeroturnaround</groupId>
             <artifactId>zt-zip</artifactId>
-            <version>1.14</version>
+            <version>${zip.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
@@ -91,6 +96,13 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
@@ -154,16 +166,7 @@
             <version>${google.guava.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- https://gitbox.apache.org/repos/asf?p=maven-compiler-plugin.git;a=summary -->
-        <!-- https://maven.apache.org/plugins/-->
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
@@ -242,7 +245,7 @@
 
     </dependencies>
 
-    <!-- This profile execute the TestNG suite inside the suites folder on test/resources -->
+    <!-- This profile execute the TestNG suite inside the suites folder on test/resources/suites -->
     <profiles>
         <profile>
             <id>clients-parallel</id>
@@ -254,7 +257,7 @@
                         <version>${maven-surefire-plugin.version}</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>src/test/resources/suites/Clients-parallel.xml</suiteXmlFile>
+                                <suiteXmlFile>${suite.client.parallel}</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
@@ -272,7 +275,9 @@
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
                         <suiteXmlFiles>
-                            <suiteXmlFile>src/test/resources/suites/Clients-simple.xml</suiteXmlFile>
+                            <!-- Call Suite name global set up above -->
+                            <suiteXmlFile>${suite.client.parallel}</suiteXmlFile>
+                            <!--<suiteXmlFile>${suite.signin.simple}</suiteXmlFile>-->
                         </suiteXmlFiles>
 
                         <argLine>
@@ -284,6 +289,7 @@
                         </systemPropertyVariables>
                     </configuration>
                 </plugin>
+
                 <plugin>
                     <groupId>io.qameta.allure</groupId>
                     <artifactId>allure-maven</artifactId>

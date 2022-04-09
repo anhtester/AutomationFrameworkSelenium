@@ -16,23 +16,18 @@ public final class FrameworkConstants {
     private FrameworkConstants() {
     }
 
-
-    public static final String ASSERTION_FOR_RESPONSE_STATUS_CODE = "Assertion for Response Status Code";
-    public static final String ASSERTION_FOR_RESPONSE_HEADER = "Assertion for Response Headers";
-    public static final String ASSERTION_FOR_RESPONSE_CUSTOM_FIELD = "Assertion for Response Custom Field";
-    public static final String ASSERTION_FOR = "Assertion for ";
-
     public static final String PROJECT_PATH = Helpers.getCurrentDir();
     public static final String EXCEL_DATA_PATH = PropertiesHelpers.getValue("excelDataFilePath");
     public static final String EXCEL_DATA_PATH_FULL = PropertiesHelpers.getValue("excelDataFilePathFull");
 
+    public static final String BROWSER = PropertiesHelpers.getValue("browser");
     public static final String BASE_URL = PropertiesHelpers.getValue("base_url");
     public static final String REMOTE_URL = PropertiesHelpers.getValue("remote_url");
     public static final String REMOTE_PORT = PropertiesHelpers.getValue("remote_port");
     public static final String PROJECT_NAME = PropertiesHelpers.getValue("projectName");
     public static final String REPORT_TITLE = PropertiesHelpers.getValue("reportTitle");
     public static final String EXTENT_REPORT_NAME = PropertiesHelpers.getValue("extentReportName");
-    public static final String EXTEN_REPORT_FOLDER = PropertiesHelpers.getValue("extentReportFolder");
+    public static final String EXTENT_REPORT_FOLDER = PropertiesHelpers.getValue("extentReportFolder");
     public static final String ExportVideoPath = PropertiesHelpers.getValue("exportVideoPath");
     public static final String ExportCapturePath = PropertiesHelpers.getValue("exportCapturePath");
     public static final String AUTHOR = PropertiesHelpers.getValue("author");
@@ -50,14 +45,12 @@ public final class FrameworkConstants {
     public static final int WAIT_EXPLICIT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_EXPLICIT"));
     public static final int WAIT_PAGE_LOADED = Integer.parseInt(PropertiesHelpers.getValue("WAIT_PAGE_LOADED"));
 
-    public static final String EXTENT_REPORT_FOLDER_PATH = PROJECT_PATH + EXTEN_REPORT_FOLDER;
+    public static final String EXTENT_REPORT_FOLDER_PATH = PROJECT_PATH + EXTENT_REPORT_FOLDER;
     public static final String EXTENT_REPORT_FILE_NAME = EXTENT_REPORT_NAME + ".html";
     public static String EXTENT_REPORT_FILE_PATH = EXTENT_REPORT_FOLDER_PATH + "/" + EXTENT_REPORT_FILE_NAME;
 
-    /**
-     * Zip file of Extent Reports
-     */
-    public static final String Zipped_ExtentReports_Folder_Name = EXTEN_REPORT_FOLDER + ".zip";
+    //Zip file for Report folder
+    public static final String Zipped_ExtentReports_Folder_Name = EXTENT_REPORT_FOLDER + ".zip";
 
     public static final String TEST_DATA_XLSX_FILE = "src/test/resources/testdatafile/ClientsDataExcel.xlsx";
 
@@ -77,11 +70,11 @@ public final class FrameworkConstants {
     public static final String ICON_OS_MAC = "<i class='fa fa-apple' ></i>";
     public static final String ICON_OS_LINUX = "<i class='fa fa-linux' ></i>";
 
-//	public static final String ICON_BROWSER_OPERA = "<i class=\"fa fa-opera\" aria-hidden=\"true\"></i>";
-//	public static final String ICON_BROWSER_EDGE = "<i class=\"fa fa-edge\" aria-hidden=\"true\"></i>";
-//	public static final String ICON_BROWSER_CHROME = "<i class=\"fa fa-chrome\" aria-hidden=\"true\"></i>";
-//	public static final String ICON_BROWSER_FIREFOX = "<i class=\"fa fa-firefox\" aria-hidden=\"true\"></i>";
-//	public static final String ICON_BROWSER_SAFARI = "<i class=\"fa fa-safari\" aria-hidden=\"true\"></i>";
+	public static final String ICON_BROWSER_OPERA = "<i class=\"fa fa-opera\" aria-hidden=\"true\"></i>";
+	public static final String ICON_BROWSER_EDGE = "<i class=\"fa fa-edge\" aria-hidden=\"true\"></i>";
+	public static final String ICON_BROWSER_CHROME = "<i class=\"fa fa-chrome\" aria-hidden=\"true\"></i>";
+	public static final String ICON_BROWSER_FIREFOX = "<i class=\"fa fa-firefox\" aria-hidden=\"true\"></i>";
+	public static final String ICON_BROWSER_SAFARI = "<i class=\"fa fa-safari\" aria-hidden=\"true\"></i>";
 
     public static final String ICON_Navigate_Right = "<i class='fa fa-arrow-circle-right' ></i>";
     public static final String ICON_LAPTOP = "<i class='fa fa-laptop' style='font-size:18px'></i>";
@@ -98,7 +91,6 @@ public final class FrameworkConstants {
 
     public static final String ICON_CAMERA = "<i class=\"fa fa-camera\" aria-hidden=\"true\"></i>";
 
-    public static final String ICON_BROWSER_EDGE = "edge";
     public static final String ICON_BROWSER_PREFIX = "<i class=\"fa fa-";
     public static final String ICON_BROWSER_SUFFIX = "\" aria-hidden=\"true\"></i>";
     /* ICONS - END */

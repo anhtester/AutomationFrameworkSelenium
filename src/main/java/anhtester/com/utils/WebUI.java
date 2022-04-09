@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2022. Anh Tester
+ * Automation Framework Selenium
+ */
+
 package anhtester.com.utils;
 
 import anhtester.com.constants.FrameworkConstants;
@@ -28,6 +33,10 @@ import java.util.List;
 import static anhtester.com.constants.FrameworkConstants.*;
 import static anhtester.com.constants.FrameworkConstants.BOLD_END;
 
+/**
+ * Class chung làm thư viện xử lý sẵn với nhiều hàm custom từ Selenium và Java.
+ *  Trả về là một Class chứa các hàm Static. Gọi lại dùng bằng cách lấy tên class chấm tên hàm (WebUI.method)
+ */
 public class WebUI {
 
     public static JavascriptExecutor getJsExecutor() {
@@ -786,8 +795,8 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(jQueryLoad);
             wait.until(jsLoad);
-            ExtentReportManager.info("Page loaded");
-            AllureManager.saveTextLog("Page loaded");
+//            ExtentReportManager.info("Page loaded");
+//            AllureManager.saveTextLog("Page loaded");
         } catch (Throwable error) {
             Assert.fail("Quá thời gian load trang.");
         }
