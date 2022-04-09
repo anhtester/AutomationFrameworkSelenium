@@ -1,6 +1,6 @@
 # Automation Framework Selenium Java with TestNG building by Anh Tester (VERSION 1.0)
 
-**MỘT SỐ TÍNH NĂNG CHÍNH THAM KHẢO TẠI VERSION 1.0**
+**SOME FEATURES IN VERSION 1.0**
 1. Run the parallel test case
 2. Read Object web element from a properties file
 3. Extent Report
@@ -13,7 +13,7 @@
    ...etc.. (wait, dynamic xpath,...)
    
    
-## **YÊU CẦU HỆ THỐNG**
+## **SYSTEM REQUIREMENTS**
 - **JDK 11, 15, 16** (not run with 8, 17, 18)
 - Chrome Browser, Edge Browser
 - Setup **Allure**:
@@ -30,7 +30,7 @@
 
 
 
-## **HƯỚNG DẪN SỬ DỤNG CƠ BẢN**
+## **HOW TO USE**
 
 
 **1. Run parallel the test case**
@@ -92,9 +92,9 @@ Note: enabled Allow less secure apps
 
 
 
-**6. Log file**
+**6. Log to file**
 
-- Call: Log.info , Log.pass, Log.error,...
+- Call class: Log.info , Log.pass, Log.error,... (**Log** is a custom global class from Log4j)
  (***import anhtester.com.utils.Log.java***)
  
  ![image](https://user-images.githubusercontent.com/87883620/161657858-d333ac1d-9e7b-4c1b-baac-151a237a1fa0.png)
@@ -103,7 +103,7 @@ Note: enabled Allow less secure apps
 
 **7. Record video and Screenshot**
 
-- Setup in config.properties file
+- Setup in ***config.properties*** file
 (***src/test/resources/config/config.properties***)
   screenshot_passed_steps=yes or no
   screenshot_failed_steps=yes or no
@@ -113,10 +113,10 @@ Note: enabled Allow less secure apps
 
 
 
-**8. Read data test form Excel file**
+**8. Read data test from Excel file**
 
-- Create **DataSupplier** on ***src/main/java/anhtester/com/utils/DataProviderUtils.java***
-- Call the name of **DataSupplier** in test cases **@Test
+- Create function with annotaion **DataSupplier** on ***src/main/java/anhtester/com/utils/DataProviderUtils.java***
+- Call the name of **DataSupplier** above in the test cases as DataProvider of TestNG
 
 **9. Base function in library**
 
