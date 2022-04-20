@@ -80,7 +80,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         ExtentReportManager.addDevices();
 
         ExtentReportManager.info(BOLD_START + IconUtils.getOSIcon() + " "
-                + BrowserOSInfoUtils.getOS_Browser_BrowserVersionInfo() + BOLD_END);
+                + BrowserInfoUtils.getOSInfo() + BOLD_END);
     }
 
     @Override

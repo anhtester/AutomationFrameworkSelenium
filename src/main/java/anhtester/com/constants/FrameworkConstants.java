@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2022.
- * Automation Framework Selenium - Anh Tester
+ * Copyright (c) 2022 Anh Tester
+ * Automation Framework Selenium
  */
 
 package anhtester.com.constants;
@@ -19,6 +19,7 @@ public final class FrameworkConstants {
     public static final String PROJECT_PATH = Helpers.getCurrentDir();
     public static final String EXCEL_DATA_PATH = PropertiesHelpers.getValue("excelDataFilePath");
     public static final String EXCEL_DATA_PATH_FULL = PropertiesHelpers.getValue("excelDataFilePathFull");
+    public static final String JSON_CONFIG_FILE_PATH = Helpers.getCurrentDir() + "src/test/resources/config/config.json";
 
     public static final String BROWSER = PropertiesHelpers.getValue("browser");
     public static final String BASE_URL = PropertiesHelpers.getValue("base_url");

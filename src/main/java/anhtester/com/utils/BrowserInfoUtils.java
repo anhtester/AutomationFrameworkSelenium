@@ -38,4 +38,8 @@ public final class BrowserInfoUtils {
         return "";
     }
 
+    public static String getOSInfo() {
+        return System.getProperty("os.name").replace(" ", " ");
+    }
+
 }

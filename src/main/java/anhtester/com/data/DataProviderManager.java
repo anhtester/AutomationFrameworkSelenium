@@ -10,6 +10,7 @@ import anhtester.com.helpers.ExcelHelpers;
 import anhtester.com.helpers.Helpers;
 import anhtester.com.models.Client;
 import anhtester.com.models.SignIn;
+import anhtester.com.utils.WebUI;
 import io.github.sskorol.core.DataSupplier;
 import io.github.sskorol.data.TestDataReader;
 import io.github.sskorol.data.XlsxReader;
@@ -51,8 +52,9 @@ public final class DataProviderManager {
     //@DataSupplier //--> It can read any file (CSV, xlsx, JSON, YAMLDataSupplierTest)
     //@DataSupplier(runInParallel = true)
     @DataSupplier(runInParallel = true, name = "getDataSignInSupplierFromExcel")
-    public StreamEx<SignIn> getDataSignInSupplierFromExcel(Method method) {
+    public static StreamEx<SignIn> getDataSignInSupplierFromExcel(Method method) {
         String methodName = method.getName().trim();
+        WebUI.logConsole(methodName);
         System.out.println(methodName);
         return TestDataReader.use(XlsxReader.class)
                 .withTarget(SignIn.class)
@@ -64,7 +66,7 @@ public final class DataProviderManager {
     }
 
     @DataSupplier(runInParallel = true, name = "getDataClientSupplierFromExcel")
-    public StreamEx<Client> getDataClientSupplierFromExcel(Method method) {
+    public static StreamEx<Client> getDataClientSupplierFromExcel(Method method) {
         String methodName = method.getName().trim();
         System.out.println(methodName);
         return TestDataReader.use(XlsxReader.class)
@@ -82,15 +84,15 @@ public final class DataProviderManager {
         );
     }
 
-    @DataProvider(name = "SignInDataHashTable")
-    public Object[][] getSignInData() {
-        Object[][] data = ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH_FULL, "SignIn", 2, 4);
+    @DataProvider(name = "getSignInDataHashTable")
+    public static Object[][] getSignInData() {
+        Object[][] data = ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH_FULL, "SignIn", 1, 2);
         System.out.println(data);
         return data;
     }
 
-    @DataProvider(name = "ClientDataHashTable")
-    public Object[][] getClientData() {
+    @DataProvider(name = "getClientDataHashTable")
+    public static Object[][] getClientData() {
         Object[][] data = ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH_FULL, "Client", 1, 2);
         System.out.println(data);
         return data;

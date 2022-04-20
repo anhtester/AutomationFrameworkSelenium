@@ -11,10 +11,28 @@ import javax.annotation.Nullable;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.File;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 public final class Helpers {
+
+    public static String readFile(String file) throws IOException {
+        Charset cs = Charset.forName("UTF-8");
+        FileInputStream stream = new FileInputStream(file);
+        try {
+            Reader reader = new BufferedReader(new InputStreamReader(stream, cs));
+            StringBuilder builder = new StringBuilder();
+            char[] buffer = new char[8192];
+            int read;
+            while ((read = ((BufferedReader) reader).read(buffer, 0, buffer.length)) > 0) {
+                builder.append(buffer, 0, read);
+            }
+            return builder.toString();
+        } finally {
+            stream.close();
+        }
+    }
 
     /**
      * @return lấy đường dẫn đến thư mục nguồn source mình có thêm dấu / ở cuối luôn
@@ -59,15 +77,6 @@ public final class Helpers {
             arrayListString.add(s);
         }
         return arrayListString;
-    }
-
-    /**
-     * In ra câu message trong Console log
-     *
-     * @param object truyền vào object bất kỳ
-     */
-    public static void logConsole(@Nullable Object object) {
-        System.out.println(object);
     }
 
 }

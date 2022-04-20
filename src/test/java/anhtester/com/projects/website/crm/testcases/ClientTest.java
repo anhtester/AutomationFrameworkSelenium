@@ -28,15 +28,18 @@ public class ClientTest extends BaseTest {
     public DashboardPage dashboardPage;
     public ClientPage clientPage;
 
-    @BeforeMethod
-    @Step("Sign in to the CRM system")
-    public void SignIn() {
-        ExtentReportManager.createTest("Sign in to the CRM system !!");
-        WebUI.getToUrl(FrameworkConstants.BASE_URL);
-        WebUI.waitForPageLoaded();
+    public ClientTest() {
         signInPage = new SignInPage();
-        dashboardPage = signInPage.signIn(ExcelHelpers.getCellData(1, "EMAIL"), DecodeUtils.decrypt(ExcelHelpers.getCellData(1, "PASSWORD")));
     }
+
+//    @BeforeMethod
+//    @Step("Sign in to the CRM system")
+//    public void SignIn() {
+//        ExtentReportManager.createTest("Sign in to the CRM system !!");
+//        WebUI.getToUrl(FrameworkConstants.BASE_URL);
+//        signInPage = new SignInPage();
+//        dashboardPage = signInPage.signIn(ExcelHelpers.getCellData(1, "EMAIL"), DecodeUtils.decrypt(ExcelHelpers.getCellData(1, "PASSWORD")));
+//    }
 
     @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.VOTHAIAN},
             category = {CategoryType.SANITY, CategoryType.REGRESSION})
@@ -44,6 +47,7 @@ public class ClientTest extends BaseTest {
             dataProviderClass = DataProviderManager.class)
     @Step("Add new Client")
     public void testAddClient(Client clientData) {
+        dashboardPage = signInPage.signIn(ExcelHelpers.getCellData(1, "EMAIL"), DecodeUtils.decrypt(ExcelHelpers.getCellData(1, "PASSWORD")));
         //Client section
         clientPage = dashboardPage.openClientPage();
         clientPage.openClientTabPage();
@@ -56,6 +60,7 @@ public class ClientTest extends BaseTest {
     @Test(priority = 2, description = "Search Client")
     @Step("Search Client")
     public void testSearchClient() {
+        dashboardPage = signInPage.signIn(ExcelHelpers.getCellData(1, "EMAIL"), DecodeUtils.decrypt(ExcelHelpers.getCellData(1, "PASSWORD")));
         clientPage = dashboardPage.openClientPage();
         clientPage.openClientTabPage();
         // Search the first
@@ -72,7 +77,8 @@ public class ClientTest extends BaseTest {
     @Test(priority = 3, description = "Test Invalid Page Title")
     @Step("Test Invalid Page Title")
     public void testInvalidPageTitle() {
-        WebUI.waitForPageLoaded();
+        dashboardPage = signInPage.signIn(ExcelHelpers.getCellData(1, "EMAIL"), DecodeUtils.decrypt(ExcelHelpers.getCellData(1, "PASSWORD")));
+
         Assert.assertEquals(WebUI.getPageTitle(), "AnhTester");
 
     }

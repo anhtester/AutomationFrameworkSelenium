@@ -1,15 +1,12 @@
 package anhtester.com.report;
 
-import anhtester.com.config.ConfigFactory;
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.enums.Browser;
-import anhtester.com.utils.Log;
-import anhtester.com.utils.OSInfoUtils;
+import anhtester.com.utils.BrowserInfoUtils;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
 import com.google.common.collect.ImmutableMap;
 import io.qameta.allure.Attachment;
-import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
 import static org.openqa.selenium.OutputType.BYTES;
@@ -44,7 +41,7 @@ public class AllureManager {
 
     @Attachment(value = "Browser Information", type = "text/plain")
     public static String addBrowserInformationOnAllureReport() {
-        return OSInfoUtils.getOSInfo();
+        return BrowserInfoUtils.getOSInfo();
     }
 
     //Text attachments for Allure

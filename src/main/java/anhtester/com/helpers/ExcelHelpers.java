@@ -155,11 +155,11 @@ public class ExcelHelpers {
 
             int rows = getRowCount();
             int columns = getColumnCount();
-            System.out.println("Row: " + rows + " - Column: " + columns);
+            //System.out.println("Row: " + rows + " - Column: " + columns);
             data = new Object[endRow - startRow][1];
             Hashtable<String, String> table = null;
             for (int rowNums = startRow; rowNums < endRow; rowNums++) {
-                table = new Hashtable<String, String>();
+                table = new Hashtable<>();
                 for (int colNum = 0; colNum < columns; colNum++) {
                     // data[rowNums-2][colNum] = excel.getCellData(sheetName, colNum, rowNums);
                     table.put(getCellData(0, colNum), getCellData(rowNums, colNum));
@@ -167,7 +167,6 @@ public class ExcelHelpers {
                 }
             }
 
-            System.out.println(data);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -350,16 +349,50 @@ public class ExcelHelpers {
     }
 
     // Write data to excel sheet
-    public static void setCellData(String text, int rowNum, int colnum) {
+    public static void setCellData(String text, int rowNumber, int colNumber) {
+        try {
+            row = sh.getRow(rowNumber);
+            if (row == null) {
+                row = sh.createRow(rowNumber);
+            }
+            cell = row.getCell(colNumber);
+
+            if (cell == null) {
+                cell = row.createCell(colNumber);
+            }
+            cell.setCellValue(text);
+
+            XSSFCellStyle style = (XSSFCellStyle) wb.createCellStyle();
+            if (text == "pass" || text == "passed" || text == "Pass" || text == "Passed") {
+                style.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+            } else {
+                style.setFillForegroundColor(IndexedColors.RED.getIndex());
+            }
+            style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            style.setAlignment(HorizontalAlignment.CENTER);
+            style.setVerticalAlignment(VerticalAlignment.CENTER);
+
+            cell.setCellStyle(style);
+
+            fileOut = new FileOutputStream(excelFilePath);
+            wb.write(fileOut);
+            fileOut.flush();
+            fileOut.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void setCellData(String text, int rowNum, String columnName) {
         try {
             row = sh.getRow(rowNum);
             if (row == null) {
                 row = sh.createRow(rowNum);
             }
-            cell = row.getCell(colnum);
+            cell = row.getCell(columns.get(columnName));
 
             if (cell == null) {
-                cell = row.createCell(colnum);
+                cell = row.createCell(columns.get(columnName));
             }
             cell.setCellValue(text);
 

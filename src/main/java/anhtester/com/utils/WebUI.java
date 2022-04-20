@@ -7,6 +7,7 @@ package anhtester.com.utils;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
+import anhtester.com.enums.FailureHandling;
 import anhtester.com.report.AllureManager;
 import anhtester.com.report.ExtentReportManager;
 import io.qameta.allure.Step;
@@ -20,12 +21,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
-import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.*;
 import java.util.List;
@@ -35,9 +36,15 @@ import static anhtester.com.constants.FrameworkConstants.BOLD_END;
 
 /**
  * Class chung làm thư viện xử lý sẵn với nhiều hàm custom từ Selenium và Java.
- *  Trả về là một Class chứa các hàm Static. Gọi lại dùng bằng cách lấy tên class chấm tên hàm (WebUI.method)
+ * Trả về là một Class chứa các hàm Static. Gọi lại dùng bằng cách lấy tên class chấm tên hàm (WebUI.method)
  */
 public class WebUI {
+
+    private static SoftAssert softAssert = new SoftAssert();
+
+    public static void stopSoftAssertAll() {
+        softAssert.assertAll();
+    }
 
     public static JavascriptExecutor getJsExecutor() {
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
@@ -80,9 +87,9 @@ public class WebUI {
      *
      * @param second là số nguyên dương tương ứng số Giây
      */
-    public static void sleep(long second) {
+    public static void sleep(double second) {
         try {
-            Thread.sleep(second * 1000);
+            Thread.sleep((long) (second * 1000));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -206,22 +213,10 @@ public class WebUI {
         return DriverManager.getDriver().getPageSource().contains(text);
     }
 
-    public static boolean verifyPageLoaded(String pageUrl) {
-        waitForPageLoaded();
-        boolean res = false;
-
-        if (DriverManager.getDriver().getCurrentUrl().trim().toLowerCase().contains(pageUrl.trim().toLowerCase())) {
-            res = true;
-        } else {
-            res = false;
-            Log.info("Page " + pageUrl + " NOT loaded.");
-        }
-        return res;
-    }
-
     public static boolean verifyPageUrl(String pageUrl) {
+        waitForPageLoaded();
         Log.info("Current URL: " + DriverManager.getDriver().getCurrentUrl());
-        return DriverManager.getDriver().getCurrentUrl().contains(pageUrl);
+        return DriverManager.getDriver().getCurrentUrl().contains(pageUrl.trim());
     }
 
     //Handle dropdown select option
@@ -233,10 +228,10 @@ public class WebUI {
      * @param text giá trị cần chọn dạng Text của item
      * @return click chọn một item chỉ định với giá trị Text
      */
-    public static boolean selectOptionOther(By bys, String text) {
+    public static boolean selectOptionOther(By by, String text) {
         //Đối với dropdown động (div, li, span,...không phải dạng select option)
         try {
-            List<WebElement> elements = DriverManager.getDriver().findElements(bys);
+            List<WebElement> elements = DriverManager.getDriver().findElements(by);
 
             for (WebElement element : elements) {
                 Log.info(element.getText());
@@ -251,19 +246,19 @@ public class WebUI {
         return false;
     }
 
-    public static void selectOptionByText(By by, String Text) {
+    public static void selectOptionByText(By by, String text) {
         Select select = new Select(findWebElement(by));
-        select.selectByVisibleText(Text);
+        select.selectByVisibleText(text);
     }
 
-    public static void selectOptionByValue(By by, String Value) {
+    public static void selectOptionByValue(By by, String value) {
         Select select = new Select(findWebElement(by));
-        select.selectByValue(Value);
+        select.selectByValue(value);
     }
 
-    public static void selectOptionByIndex(By by, int Index) {
+    public static void selectOptionByIndex(By by, int index) {
         Select select = new Select(findWebElement(by));
-        select.selectByIndex(Index);
+        select.selectByIndex(index);
     }
 
     public static void verifyOptionTotal(By element, int total) {
@@ -271,25 +266,25 @@ public class WebUI {
         Assert.assertEquals(total, select.getOptions().size());
     }
 
-    public static boolean verifySelectedByText(By by, String Text) {
+    public static boolean verifySelectedByText(By by, String text) {
         Select select = new Select(findWebElement(by));
-        Log.info("Option Selected: " + select.getFirstSelectedOption().getText());
-        return select.getFirstSelectedOption().getText().equals(Text);
+        Log.info("Option Selected by text: " + select.getFirstSelectedOption().getText());
+        return select.getFirstSelectedOption().getText().equals(text);
     }
 
     public static boolean verifySelectedByValue(By by, String optionValue) {
         Select select = new Select(findWebElement(by));
-        Log.info("Option Selected: " + select.getFirstSelectedOption().getAttribute("value"));
+        Log.info("Option Selected by value: " + select.getFirstSelectedOption().getAttribute("value"));
         return select.getFirstSelectedOption().getAttribute("value").equals(optionValue);
     }
 
-    public static boolean verifySelectedByIndex(By by, int Index) {
+    public static boolean verifySelectedByIndex(By by, int index) {
         boolean res = false;
         Select select = new Select(findWebElement(by));
         int indexFirstOption = select.getOptions().indexOf(select.getFirstSelectedOption());
-        Log.info("First Option Selected Index: " + indexFirstOption);
-        Log.info("Expected Index: " + Index);
-        if (indexFirstOption == Index) {
+        Log.info("The First Option selected by index: " + indexFirstOption);
+        Log.info("Expected index: " + index);
+        if (indexFirstOption == index) {
             res = true;
         } else {
             res = false;
@@ -299,22 +294,22 @@ public class WebUI {
 
     //Handle frame iframe
 
-    public static void switchToFrameByIndex(int Index) {
+    public static void switchToFrameByIndex(int index) {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(Index));
-        //driver.switchTo().frame(Index);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(index));
+        //DriverManager.getDriver().switchTo().frame(Index);
     }
 
     public static void switchToFrameByIdOrName(String IdOrName) {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(IdOrName));
-        //driver.switchTo().frame(IdOrName);
+        //DriverManager.getDriver().switchTo().frame(IdOrName);
     }
 
     public static void switchToFrameByElement(By by) {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(by));
-        DriverManager.getDriver().switchTo().frame(findWebElement(by));
+        //DriverManager.getDriver().switchTo().frame(findWebElement(by));
     }
 
     public static void switchToMainWindow() {
@@ -375,21 +370,38 @@ public class WebUI {
             Log.info("Element existing");
         } else {
             res = false;
-            Log.info("Element not exists");
+            Log.warn("Element not exists");
         }
         return res;
     }
 
     public static boolean verifyElementText(By by, String text) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-        return getTextElement(by).equals(text);
+        return getTextElement(by).trim().equals(text.trim());
+    }
+
+    public static boolean verifyElementTextEquals(By by, String text, FailureHandling flowControl) {
+        if (flowControl.equals(FailureHandling.STOP_ON_FAILURE)) {
+            Assert.assertEquals(getTextElement(by).trim(), text.trim(), "The actual text is " + getTextElement(by).trim() + " not equals expected text " + text.trim());
+        }
+        if (flowControl.equals(FailureHandling.CONTINUE_ON_FAILURE)) {
+            softAssert.assertEquals(getTextElement(by).trim(), text.trim(), "The actual text is " + getTextElement(by).trim() + " not equals expected text " + text.trim());
+        }
+        return getTextElement(by).trim().equals(text.trim());
+    }
+
+    public static boolean verifyElementTextContains(By by, String text, FailureHandling flowControl) {
+        if (flowControl.equals(FailureHandling.STOP_ON_FAILURE)) {
+            Assert.assertTrue(getTextElement(by).trim().contains(text.trim()), "The actual text is " + getTextElement(by).trim() + " not contains expected text " + text.trim());
+        }
+        if (flowControl.equals(FailureHandling.CONTINUE_ON_FAILURE)) {
+            softAssert.assertTrue(getTextElement(by).trim().contains(text.trim()), "The actual text is " + getTextElement(by).trim() + " not contains expected text " + text.trim());
+        }
+        return getTextElement(by).trim().contains(text.trim());
     }
 
     public static boolean verifyElementToBeClickable(By by) {
         try {
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-            wait.until(ExpectedConditions.elementToBeClickable(by));
+            waitForElementClickable(by);
             return true;
         } catch (Exception e) {
             Log.info(e.getMessage());
@@ -399,8 +411,7 @@ public class WebUI {
 
     public static boolean verifyElementPresent(By by) {
         try {
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-            wait.until(ExpectedConditions.presenceOfElementLocated(by));
+            waitForElementPresent(by);
             return true;
         } catch (Exception e) {
             Log.info(e.getMessage());
@@ -449,6 +460,26 @@ public class WebUI {
         }
     }
 
+    public static void dragAndDropJS(WebElement from, WebElement to) {
+        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+        js.executeScript("function createEvent(typeOfEvent) {\n" + "var event =document.createEvent(\"CustomEvent\");\n"
+                + "event.initCustomEvent(typeOfEvent,true, true, null);\n" + "event.dataTransfer = {\n" + "data: {},\n"
+                + "setData: function (key, value) {\n" + "this.data[key] = value;\n" + "},\n"
+                + "getData: function (key) {\n" + "return this.data[key];\n" + "}\n" + "};\n" + "return event;\n"
+                + "}\n" + "\n" + "function dispatchEvent(element, event,transferData) {\n"
+                + "if (transferData !== undefined) {\n" + "event.dataTransfer = transferData;\n" + "}\n"
+                + "if (element.dispatchEvent) {\n" + "element.dispatchEvent(event);\n"
+                + "} else if (element.fireEvent) {\n" + "element.fireEvent(\"on\" + event.type, event);\n" + "}\n"
+                + "}\n" + "\n" + "function simulateHTML5DragAndDrop(element, destination) {\n"
+                + "var dragStartEvent =createEvent('dragstart');\n" + "dispatchEvent(element, dragStartEvent);\n"
+                + "var dropEvent = createEvent('drop');\n"
+                + "dispatchEvent(destination, dropEvent,dragStartEvent.dataTransfer);\n"
+                + "var dragEndEvent = createEvent('dragend');\n"
+                + "dispatchEvent(element, dragEndEvent,dropEvent.dataTransfer);\n" + "}\n" + "\n"
+                + "var source = arguments[0];\n" + "var destination = arguments[1];\n"
+                + "simulateHTML5DragAndDrop(source,destination);", from, to);
+    }
+
     public static boolean dragAndDrop(By fromElement, By toElement) {
         try {
             Actions action = new Actions(DriverManager.getDriver());
@@ -476,7 +507,7 @@ public class WebUI {
         try {
             Actions action = new Actions(DriverManager.getDriver());
             //Tính từ vị trí click chuột đầu tiên (clickAndHold)
-            action.clickAndHold(findWebElement(fromElement)).moveByOffset(X, Y).release().build().perform();
+            action.clickAndHold(findWebElement(fromElement)).pause(1).moveByOffset(X, Y).release().build().perform();
             return true;
         } catch (Exception e) {
             Log.info(e.getMessage());
@@ -547,26 +578,25 @@ public class WebUI {
     public static WebElement highLightElement(By by) {
         // draw a border around the found element
         if (DriverManager.getDriver() instanceof JavascriptExecutor) {
-            ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].style.border='3px solid red'", findWebElement(by));
-            sleep(1);
+            ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].style.border='3px solid red'", waitForElementVisible(by));
+            sleep(1.5);
         }
-        return findWebElement(by);
+        return waitForElementVisible(by);
     }
 
     @Step("Open Website")
     public static void getToUrl(String URL) {
         DriverManager.getDriver().get(URL);
-
-        logConsole(DriverManager.getDriver());
-        ExtentReportManager.pass(ICON_Navigate_Right + " Open URL : " + BOLD_START + BASE_URL + BOLD_END);
-        AllureManager.saveTextLog("Open URL: " + BASE_URL);
+        waitForPageLoaded();
+        ExtentReportManager.pass(ICON_Navigate_Right + " Open URL : " + BOLD_START + URL + BOLD_END);
+        AllureManager.saveTextLog("Open URL: " + URL);
     }
 
     public static void navigateToUrl(String URL) {
-        DriverManager.getDriver().get(URL);
         DriverManager.getDriver().navigate().to(URL);
-        ExtentReportManager.pass(ICON_Navigate_Right + " Navigate to URL: " + BOLD_START + BASE_URL + BOLD_END);
-        AllureManager.saveTextLog("Navigate to URL: " + BASE_URL);
+        waitForPageLoaded();
+        ExtentReportManager.pass(ICON_Navigate_Right + " Navigate to URL: " + BOLD_START + URL + BOLD_END);
+        AllureManager.saveTextLog("Navigate to URL: " + URL);
     }
 
     /**
@@ -577,9 +607,7 @@ public class WebUI {
      */
     @Step("Set value in textbox")
     public static void setText(By by, String value) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-        WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-        elementWaited.sendKeys(value);
+        waitForElementVisible(by).sendKeys(value);
         ExtentReportManager.pass(FrameworkConstants.BOLD_START + value + FrameworkConstants.BOLD_END + " value is successfully passed in textbox.");
         AllureManager.saveTextLog(value + " value is successfully passed in textbox.");
     }
@@ -591,9 +619,7 @@ public class WebUI {
      */
     @Step("Clear value in textbox")
     public static void clearText(By by) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-        WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-        elementWaited.clear();
+        waitForElementVisible(by).clear();
         ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clear" + FrameworkConstants.BOLD_END + " value in textbox successfully.");
         AllureManager.saveTextLog("Clear value in textbox successfully.");
     }
@@ -605,25 +631,22 @@ public class WebUI {
      */
     @Step("Clicked on the object")
     public static void clickElement(By by) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-        WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-        elementWaited.click();
+        waitForElementVisible(by).click();
         ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clicked" + FrameworkConstants.BOLD_END + " on the object " + by.toString());
         AllureManager.saveTextLog("Clicked on the object " + by.toString());
     }
 
     /**
-     * Click chuột vào Element trên web với Javascript
+     * Click chuột vào Element trên web với Javascript (click ngầm không sợ bị che)
      *
      * @param by element dạng đối tượng By
      */
     @Step("Clicked on the object by Javascript")
     public static void clickElementWithJs(By by) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         //Đợi đến khi element đó tồn tại
-        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        waitForElementPresent(by);
         //Scroll to element với Js
+        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         js.executeScript("arguments[0].scrollIntoView(true);", findWebElement(by));
         //click với js
         js.executeScript("arguments[0].click();", findWebElement(by));
@@ -641,49 +664,35 @@ public class WebUI {
      * @param by element dạng đối tượng By
      */
     public static void rightClickElement(By by) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
         Actions action = new Actions(DriverManager.getDriver());
-        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-        action.contextClick().build().perform();
+        action.contextClick(waitForElementVisible(by)).build().perform();
     }
 
     @Step("Get text object")
     public static String getTextElement(By by) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-        WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-        AllureManager.saveTextLog("Get text object: " + String.valueOf(by));
-        AllureManager.saveTextLog("===> The value is: " + elementWaited.getText());
-        return elementWaited.getText();
+        AllureManager.saveTextLog("Get text object: " + by.toString());
+        AllureManager.saveTextLog("===> The value is: " + waitForElementVisible(by).getText());
+        return waitForElementVisible(by).getText().trim();
     }
 
     public static String getAttributeElement(By by, String attributeValue) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-        WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-        return elementWaited.getAttribute(attributeValue);
+        return waitForElementVisible(by).getAttribute(attributeValue);
     }
 
     public static String getCssValueElement(By by, String cssAttribute) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-        WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-        return elementWaited.getCssValue(cssAttribute);
+        return waitForElementVisible(by).getCssValue(cssAttribute);
     }
 
     public static Dimension getSizeElement(By by) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-        WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-        return elementWaited.getSize();
+        return waitForElementVisible(by).getSize();
     }
 
     public static Point getLocationElement(By by) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-        WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-        return elementWaited.getLocation();
+        return waitForElementVisible(by).getLocation();
     }
 
     public static String getTagNameElement(By by) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-        WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-        return elementWaited.getTagName();
+        return waitForElementVisible(by).getTagName();
     }
 
     //Handle Table
@@ -707,7 +716,7 @@ public class WebUI {
     public static ArrayList getValueTableByColumn(int column) {
         List<WebElement> totalRows = DriverManager.getDriver().findElements(By.xpath("//tbody/tr"));
         sleep(1);
-        Log.info("Số kết quả cho cột (" + column + "): " + totalRows.size());
+        Log.info("Số kết quả cho cột (" + column + "): " + totalRows.size()); //Không thích ghi log thì xóa nhen
 
         ArrayList arrayList = new ArrayList<String>();
 
@@ -715,49 +724,97 @@ public class WebUI {
             boolean res = false;
             WebElement title = DriverManager.getDriver().findElement(By.xpath("//tbody/tr[" + i + "]/td[" + column + "]"));
             arrayList.add(title.getText());
-            Log.info("Dòng thứ " + i + ":" + title.getText()); //Không thích in coi chơi thì xóa nhen
+            Log.info("Dòng thứ " + i + ":" + title.getText()); //Không thích ghi log thì xóa nhen
         }
 
         return arrayList;
     }
 
     //Wait Element
-    public static WebElement waitForElementVisible(By by, int timeOut) {
+    public static WebElement waitForElementVisible(By by, long timeOut) {
         try {
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut));
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
             return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         } catch (Throwable error) {
-            Assert.fail("Hết thời gian chờ Element " + by.toString());
-            Log.error("Hết thời gian chờ Element " + by.toString());
+            Assert.fail("Hết thời gian chờ Element hiển thị. " + by.toString());
+            Log.error("Hết thời gian chờ Element hiển thị. " + by.toString());
         }
         return null;
     }
 
-    public static void waitForElementClickable(By by, int timeOut) {
+    public static WebElement waitForElementVisible(By by) {
         try {
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut));
-            wait.until(ExpectedConditions.elementToBeClickable(findWebElement(by)));
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         } catch (Throwable error) {
-            Assert.fail("Hết thời gian chờ Element sẵn sàng để Click.");
+            Assert.fail("Hết thời gian chờ Element hiển thị. " + by.toString());
+            Log.error("Hết thời gian chờ Element hiển thị. " + by.toString());
         }
+        return null;
     }
 
-    public static void waitForElementPresent(By by, int timeOut) {
+    public static WebElement waitForElementClickable(By by, long timeOut) {
         try {
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut));
-            wait.until(ExpectedConditions.presenceOfElementLocated(by));
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
+            return wait.until(ExpectedConditions.elementToBeClickable(findWebElement(by)));
         } catch (Throwable error) {
-            Assert.fail("Hết thời gian chờ Element tồn tại.");
+            Assert.fail("Hết thời gian chờ Element sẵn sàng để Click. " + by.toString());
+            Log.error("Hết thời gian chờ Element sẵn sàng để Click. " + by.toString());
         }
+        return null;
     }
 
-    public static boolean verifyElementAttributeValue(By by, String attribute, String value, int timeOut) {
+    public static WebElement waitForElementClickable(By by) {
         try {
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut));
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
+            return wait.until(ExpectedConditions.elementToBeClickable(findWebElement(by)));
+        } catch (Throwable error) {
+            Assert.fail("Hết thời gian chờ Element sẵn sàng để Click. " + by.toString());
+            Log.error("Hết thời gian chờ Element sẵn sàng để Click. " + by.toString());
+        }
+        return null;
+    }
+
+    public static WebElement waitForElementPresent(By by, long timeOut) {
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
+            return wait.until(ExpectedConditions.presenceOfElementLocated(by));
+        } catch (Throwable error) {
+            Assert.fail("Hết thời gian chờ Element tồn tại. " + by.toString());
+            Log.error("Hết thời gian chờ Element tồn tại. " + by.toString());
+        }
+        return null;
+    }
+
+    public static WebElement waitForElementPresent(By by) {
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
+            return wait.until(ExpectedConditions.presenceOfElementLocated(by));
+        } catch (Throwable error) {
+            Assert.fail("Hết thời gian chờ Element tồn tại. " + by.toString());
+            Log.error("Hết thời gian chờ Element tồn tại. " + by.toString());
+        }
+        return null;
+    }
+
+    public static boolean waitForElementHasAttribute(By by, String attribute) {
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
+            return wait.until(ExpectedConditions.attributeToBeNotEmpty(waitForElementPresent(by), attribute));
+        } catch (Throwable error) {
+            Assert.fail("Hết thời gian chờ element " + by.toString() + " tồn tại Attribute: " + attribute);
+            Log.error("Hết thời gian chờ element " + by.toString() + " tồn tại Attribute: " + attribute);
+        }
+        return false;
+    }
+
+    public static boolean verifyElementAttributeValue(By by, String attribute, String value) {
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.attributeToBe(by, attribute, value));
             return true;
         } catch (Throwable error) {
-            Assert.fail("Không tìm thấy giá trị " + value + " của Attribute " + attribute);
+            Assert.fail("Object: " + by.toString() + ". Not found value: " + value + " with attribute type: " + attribute + ". Actual get Attribute value is: " + getAttributeElement(by, attribute));
             return false;
         }
     }
@@ -765,17 +822,16 @@ public class WebUI {
     public static boolean verifyElementHasAttribute(By by, String attribute, int timeOut) {
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut));
-            wait.until(ExpectedConditions.attributeToBeNotEmpty(findWebElement(by), attribute));
+            wait.until(ExpectedConditions.attributeToBeNotEmpty(waitForElementPresent(by), attribute));
             return true;
         } catch (Throwable error) {
-            Assert.fail("Không tìm thấy Attribute " + attribute + " của Element " + by);
+            Assert.fail("Không tìm thấy Attribute " + attribute + " của element " + by.toString());
             return false;
         }
     }
 
     // Wait Page loaded
 
-    @Step("Wait for page loaded")
     public static void waitForPageLoaded() {
 
         // wait for jQuery to loaded
@@ -792,13 +848,13 @@ public class WebUI {
                 .toString().equals("complete");
 
         try {
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(jQueryLoad);
             wait.until(jsLoad);
 //            ExtentReportManager.info("Page loaded");
 //            AllureManager.saveTextLog("Page loaded");
         } catch (Throwable error) {
-            Assert.fail("Quá thời gian load trang.");
+            Assert.fail("Quá thời gian tải trang. (" + WAIT_EXPLICIT + "s)");
         }
     }
 
@@ -823,7 +879,7 @@ public class WebUI {
 
         //Wait ANGULAR until it is Ready!
         if (!angularReady) {
-            Log.info("ANGULAR is NOT Ready!");
+            Log.warn("ANGULAR is NOT Ready!");
             //Wait for Angular to load
             wait.until(angularLoad);
         } else {

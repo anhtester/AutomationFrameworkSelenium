@@ -17,13 +17,18 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import org.testng.annotations.Test;
 
+import java.util.Hashtable;
+import java.util.Map;
+
 @Epic("Regression Test CRM")
 @Feature("Sign In Test")
 public class SignInTest extends BaseTest {
 
     SignInPage signInPage;
-    DashboardPage dashboardPage;
-    ClientPage clientPage;
+
+    public SignInTest(){
+        signInPage = new SignInPage();
+    }
 
     //Sử dụng với thư viện DataSupplier
     @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.VOTHAIAN},
@@ -31,18 +36,24 @@ public class SignInTest extends BaseTest {
     @Test(priority = 1, dataProvider = "getDataSignInSupplierFromExcel", dataProviderClass = DataProviderManager.class)
     @Step("SignInTestDataSupplierFromClassDefine")
     public void SignInTestDataSupplierFromClassDefine(SignIn data) {
-        WebUI.getToUrl(FrameworkConstants.BASE_URL);
-        signInPage = new SignInPage();
         signInPage.signIn(data.getEmail(), DecodeUtils.decrypt(data.getPassword()));
     }
 
+
+    //Sử dụng với thư viện DataProvider Hashtable
     @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.VOTHAIAN},
             category = {CategoryType.SANITY, CategoryType.REGRESSION})
-    @Test(priority = 2, dataProvider = "getDataSignInFromExampleData", dataProviderClass = DataProviderManager.class)
+    @Test(priority = 2, dataProvider = "getSignInDataHashTable", dataProviderClass = DataProviderManager.class)
+    @Step("SignInTestDataProviderHashtable")
+    public void SignInTestDataProviderHashtable(Hashtable<String, String> data) {
+        signInPage.signInWithDataProviderHashtable(data);
+    }
+
+
+    @FrameworkAnnotation(author = {AuthorType.ANHTESTER}, category = {CategoryType.REGRESSION})
+    @Test(priority = 3, dataProvider = "getDataSignInFromExampleData", dataProviderClass = DataProviderManager.class)
     @Step("SignInTestExampleData")
     public void SignInTestDataSupplierFromExample(String email, String password, String message) {
-        WebUI.getToUrl(FrameworkConstants.BASE_URL);
-        signInPage = new SignInPage();
         signInPage.signIn(email, password);
     }
 

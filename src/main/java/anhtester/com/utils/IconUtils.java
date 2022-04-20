@@ -39,7 +39,7 @@ public final class IconUtils {
 
     public static String getOSIcon() {
 
-        String operationSystem = OSInfoUtils.getOSInfo().toLowerCase();
+        String operationSystem = BrowserInfoUtils.getOSInfo().toLowerCase();
         if (operationSystem.contains("win")) {
             return ICON_OS_WINDOWS;
         } else if (operationSystem.contains("nix") || operationSystem.contains("nux") || operationSystem.contains("aix")) {

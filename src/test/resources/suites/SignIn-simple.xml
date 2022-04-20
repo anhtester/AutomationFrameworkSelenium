@@ -6,9 +6,9 @@
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="anhtester.com.projects.website.crm.testcases.SignInTest">
-                <methods>
-                    <include name="SignInTestDataSupplierFromClassDefine" />
-                </methods>
+<!--                <methods>-->
+<!--                    <include name="SignInTestDataSupplierFromClassDefine" />-->
+<!--                </methods>-->
             </class>
         </classes>
     </test>

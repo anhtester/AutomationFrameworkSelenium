@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. Anh Tester
+ * Copyright (c) 2022 Anh Tester
  * Automation Framework Selenium
  */
 
@@ -8,7 +8,7 @@ package anhtester.com.utils;
 import anhtester.com.helpers.PropertiesHelpers;
 import org.openqa.selenium.By;
 
-public class ObjectRepository {
+public class ObjectUtils {
 
     public static By getLocator(String elementName) {
 
@@ -56,4 +56,32 @@ public class ObjectRepository {
             }
         return null;
     }
+
+
+    /**
+     * Receives a wildcard string, replace the wildcard with the value and return to the caller
+     *
+     * @param xpath Xpath with wildcard string
+     * VD: //a[text()='%s']   =>  %s is String, %d is int
+     * @param value value to be replaced in place of wildcard
+     * @return dynamic xpath string
+     * @author Anh Tester
+     */
+    public static String getXpath(String xpath, String value) {
+        return String.format(xpath, value);
+    }
+
+    /**
+     * Receives a wildcard string, replace the wildcard with the value and return to the caller
+     *
+     * @param xpath  Xpath with wildcard string
+     * @param value1 value to be replaced in place of wildcard
+     * @param value2 value to be replaced in place of wildcard
+     * @return dynamic xpath string
+     * @author Anh Tester
+     */
+    public static String getXpath(String xpath, String value1, String value2) {
+        return String.format(xpath, value1, value2);
+    }
+
 }

@@ -3,17 +3,22 @@ package anhtester.com.projects.website.crm.testcases;
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.helpers.*;
 import anhtester.com.helpers.PropertiesHelpers;
-import anhtester.com.utils.DateUtils;
-import anhtester.com.utils.DecodeUtils;
-import anhtester.com.utils.Log;
+import anhtester.com.utils.*;
 import org.testng.annotations.Test;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class TestSimpleCode {
+
+    @Test
+    public void testReadFileJSON() {
+        System.out.println(JsonUtils.get("url"));
+        System.out.println(JsonUtils.get("browser"));
+    }
 
     @Test
     public void testGetCurrentDirectory() {
@@ -24,8 +29,8 @@ public class TestSimpleCode {
 
     @Test
     public void testGetAndSetPropertiesFile() {
-        //PropertiesHelpers.setFile("src/test/resources/config/datatest.properties");
         PropertiesHelpers.loadAllFiles();
+        //PropertiesHelpers.setFile("src/test/resources/config/datatest.properties");
         System.out.println(PropertiesHelpers.getValue("browser"));
         System.out.println(PropertiesHelpers.getValue("emailAdmin"));
 
@@ -63,39 +68,42 @@ public class TestSimpleCode {
 
     @Test
     public void TestPropertiesFile() {
+        PropertiesHelpers.loadAllFiles();
         //  Handle Properties file
-        Helpers.logConsole(PropertiesHelpers.getValue("browser"));
-        Helpers.logConsole(PropertiesHelpers.getValue("base_url"));
-        Helpers.logConsole(PropertiesHelpers.getValue("author"));
-        Helpers.logConsole(PropertiesHelpers.getValue("projectName"));
+        WebUI.logConsole(PropertiesHelpers.getValue("browser"));
+        WebUI.logConsole(PropertiesHelpers.getValue("base_url"));
+        WebUI.logConsole(PropertiesHelpers.getValue("author"));
+        WebUI.logConsole(PropertiesHelpers.getValue("projectName"));
 //        PropertiesHelpers.setFile("src/test/resources/config/datatest.properties");
 //        PropertiesHelpers.setValue("base_url", "https://anhtetser.com");
     }
 
     @Test
     public void testGetCurrentDateTime() {
-        Helpers.logConsole(DateUtils.getCurrentDateTime());
+        WebUI.logConsole(DateUtils.getCurrentDateTime());
         //Log.info(Helpers.CurrentDateTime());
     }
 
     @Test
     public void TestReadAndWriteTxtFile() {
-
+        PropertiesHelpers.loadAllFiles();
         TxtFileHelpers.ReadTxtFile(PropertiesHelpers.getValue("txtFilePath"));
     }
 
     @Test
     public void TestExcelFile() {
+        PropertiesHelpers.loadAllFiles();
+        System.out.println(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"));
         //  Handle Excel file
-        ExcelHelpers.setExcelFile(PropertiesHelpers.getValue("excelSignIn"), "Sheet1");
-        System.out.println(ExcelHelpers.getCellData(2, "username"));
-        System.out.println(ExcelHelpers.getCellData(2, "password"));
-        System.out.println(ExcelHelpers.getCellData(2, "pin"));
-        ExcelHelpers.setCellData("pass", 1, 3);
+        ExcelHelpers.setExcelFile(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"), "SignIn");
+        System.out.println(ExcelHelpers.getCellData(1, "EMAIL"));
+        System.out.println(ExcelHelpers.getCellData(1, "PASSWORD"));
+        ExcelHelpers.setCellData("pass", 1, "EXPECTED_TITLE");
     }
 
     @Test()
     public void testExcelFile() throws Exception {
+        PropertiesHelpers.loadAllFiles();
         System.out.println(ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH_FULL, "SignIn", 1, 2));
         //System.out.println(ExcelHelpers.getDataReflection(Helpers.getCurrentDir() + "src/test/resources/testdatafile/ClientsDataExcel.xlsx", "SignIn", 1, 2));
 
@@ -121,7 +129,7 @@ public class TestSimpleCode {
         // Thực thi câu lệnh SQL trả về đối tượng ResultSet.
         ResultSet rs = statement.executeQuery(sql);
 
-        Helpers.logConsole(rs);
+        WebUI.logConsole(rs);
 
         // Duyệt trên kết quả trả về.
         while (rs.next()) {// Di chuyển con trỏ xuống bản ghi kế tiếp.

@@ -1,6 +1,6 @@
-# Automation Framework Selenium Java with TestNG building by Anh Tester (VERSION 1.0)
+# Automation Framework Selenium Java with TestNG building by Anh Tester (VERSION 1.2)
 
-**SOME FEATURES IN VERSION 1.0**
+**SOME FEATURES IN VERSION 1.2**
 1. Run the parallel test case
 2. Read Object web element from a properties file
 3. Extent Report
@@ -9,8 +9,8 @@
 6. Logfile
 7. Record video and Screenshot test case for failed
 8. Read data test form Excel file (xlsx, csv, json,...) with class define fields (param: Client client)
-9. Base function in the library (WebUI, Utils,...)
-   ...etc.. (wait, dynamic xpath,...)
+9. Base function in the library (WebUI, Utils,...) ...etc.. (wait, dynamic xpath,...)
+10. Read data from Json file
    
    
 ## **SYSTEM REQUIREMENTS**
@@ -123,6 +123,10 @@ Note: enabled Allow less secure apps
 - **WebUI.** call any method you need =))
 - And ..etc.. on ***src/main/java/anhtester/com***
 (It is static method)
+
+**10. Read data from  JSON file**
+
+- **JsonUtils** class select the json file path and call **"get"** method with **key**
 
 
 # Copyright 2022 Anh Tester

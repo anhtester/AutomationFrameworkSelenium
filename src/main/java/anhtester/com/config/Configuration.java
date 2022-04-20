@@ -31,7 +31,4 @@ public interface Configuration extends Config {
     @Key("remote_port")
     String gridPort();
 
-    @Key("faker.locale")
-    String faker();
-
 }

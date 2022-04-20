@@ -41,6 +41,7 @@
         <data.supplier.version>1.9.7</data.supplier.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.14</zip.version>
+        <jackson.version>2.13.2</jackson.version>
 
         <!-- Suite XML path -->
         <suite.signin.simple>src/test/resources/suites/SignIn-simple.xml</suite.signin.simple>
@@ -63,6 +64,21 @@
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/io.github.sskorol/test-data-supplier -->
         <dependency>

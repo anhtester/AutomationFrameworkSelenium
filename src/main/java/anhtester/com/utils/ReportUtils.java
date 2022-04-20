@@ -1,11 +1,10 @@
 /*
- * Copyright (c) 2022.
- * Automation Framework Selenium - Anh Tester
+ * Copyright (c) 2022 Anh Tester
+ * Automation Framework Selenium
  */
 
 package anhtester.com.utils;
 
-import anhtester.com.config.ConfigFactory;
 import anhtester.com.exceptions.FrameworkException;
 import anhtester.com.exceptions.InvalidPathForExtentReportFileException;
 
@@ -16,11 +15,8 @@ import java.io.IOException;
 
 import static anhtester.com.constants.FrameworkConstants.*;
 
-//final -> We do not want any class to extend this class
 public final class ReportUtils {
 
-    //private -> We do not want anyone to create the object of this class
-    //Private constructor to avoid external instantiation
     private ReportUtils() {
     }
 
@@ -32,7 +28,7 @@ public final class ReportUtils {
              * Windows_10_Tue_Oct_05_02_30_46_IST_2021_AutomationReport.html
              * Mac_OS_X_Tue_Feb_22_17_09_05_IST_2022_AutomationReport.html
              */
-            return EXTENT_REPORT_FOLDER_PATH + OSInfoUtils.getOSInfo() + "_" + DateUtils.getCurrentDate() + "_"
+            return EXTENT_REPORT_FOLDER_PATH + BrowserInfoUtils.getOSInfo() + "_" + DateUtils.getCurrentDate() + "_"
                     + EXTENT_REPORT_FILE_NAME;
 
         } else {

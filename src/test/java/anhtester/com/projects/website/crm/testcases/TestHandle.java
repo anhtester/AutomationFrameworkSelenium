@@ -1,9 +1,7 @@
 package anhtester.com.projects.website.crm.testcases;
 
 import anhtester.com.common.BaseTest;
-import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
-import anhtester.com.helpers.ExcelHelpers;
 import anhtester.com.helpers.Helpers;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
@@ -12,24 +10,32 @@ import anhtester.com.helpers.DatabaseHelpers;
 import anhtester.com.utils.WebUI;
 import anhtester.com.utils.Log;
 import com.google.common.util.concurrent.Uninterruptibles;
+import com.google.zxing.*;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v97.network.Network;
-import org.openqa.selenium.devtools.v97.network.model.Headers;
+import org.openqa.selenium.devtools.v99.network.Network;
+import org.openqa.selenium.devtools.v99.network.model.Headers;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
 import java.time.Duration;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-//@Listeners(TestListener.class)
 public class TestHandle {
 
     WebDriver driver;
@@ -41,8 +47,25 @@ public class TestHandle {
     @BeforeMethod
     public void Setup() {
         driver = new BaseTest().createBrowser("chrome"); //Cách khởi tạo thứ 1
-//        new BaseTest().createDriver("chrome"); //Cách khởi tạo thứ 2
-//        driver = DriverManager.getDriver(); //Get WebDriver global in ThreadLocal
+        // new BaseTest().createDriver("chrome"); //Cách khởi tạo thứ 2
+        // driver = DriverManager.getDriver(); //Get WebDriver global in ThreadLocal
+    }
+    
+    @Test
+    public void QRCode() throws NotFoundException, IOException {
+        driver.get("http://qrcode.meetheed.com/qrcode_examples.php");
+        driver.manage().window().maximize();
+        String qrCodeURL = driver.findElement(By.xpath("//img[@src='images/qr_code_con.png']")).getAttribute("src");
+        //Create an object of URL Class
+        URL url = new URL(qrCodeURL);
+        //Pass the URL class object to store the file as image
+        BufferedImage bufferedimage = ImageIO.read(url);
+        // Process the image
+        LuminanceSource luminanceSource = new BufferedImageLuminanceSource(bufferedimage);
+        BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(luminanceSource));
+        //To Capture details of QR code
+        Result result = new MultiFormatReader().decode(binaryBitmap);
+        System.out.println(result.getText());
     }
 
     @Test
@@ -64,6 +87,53 @@ public class TestHandle {
     }
 
     @Test
+    public void handleDragAndDropJQuery() throws InterruptedException, IOException {
+        try {
+            String basePath = new File("").getAbsolutePath();
+
+            DriverManager.getDriver().get("https://david-desmaisons.github.io/draggable-example/");
+            Thread.sleep(1000);
+
+            final String JQUERY_LOAD_SCRIPT = (basePath + "/src/main/resources/jquery_load_helper.js");
+            final String DRAG_AND_DROP_SCRIPT = (basePath + "/src/main/resources/drag_and_drop_helper.js");
+            String jQueryLoader = Helpers.readFile(JQUERY_LOAD_SCRIPT);
+            String dragAndDropScriptLoader = Helpers.readFile(DRAG_AND_DROP_SCRIPT);
+
+            JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+            js.executeAsyncScript(jQueryLoader);
+
+            String source = "li:nth-child(1)";
+            String target = "li:nth-child(2)";
+
+            Thread.sleep(1000);
+
+            String javaScript = dragAndDropScriptLoader + "window.jQuery('" + source + "').simulateDragDrop({ dropTarget: '" + target + "'});";
+
+            ((JavascriptExecutor) DriverManager.getDriver()).executeScript(javaScript);
+
+            Thread.sleep(3000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void handleDragAndDropJS() {
+        DriverManager.getDriver().get("https://bestvpn.org/html5demos/drag/");
+        WebUI.moveToElement(By.cssSelector("#five"));
+
+        By from1 = By.cssSelector("#one");
+        By to1 = By.cssSelector("#bin");
+        By from2 = By.cssSelector("#two");
+        WebUI.sleep(1);
+        WebUI.dragAndDropJS(WebUI.findWebElement(from1), WebUI.findWebElement(to1));
+        WebUI.sleep(1);
+        WebUI.dragAndDropJS(WebUI.findWebElement(from2), WebUI.findWebElement(to1));
+        WebUI.sleep(2);
+    }
+
+    @Test
     public void handleDragAndDrop() {
         driver.get("http://demo.guru99.com/test/drag_drop.html");
         By fromElement1 = By.xpath("//a[normalize-space()='BANK']");
@@ -81,23 +151,34 @@ public class TestHandle {
     }
 
     @Test
-    public void handleDragAndDropOffset() {
-        driver.get("http://demo.guru99.com/test/drag_drop.html");
-        By fromElement1 = By.xpath("//a[normalize-space()='BANK']");
-        By toElement1 = By.xpath("(//div[@id='shoppingCart1']//div)[1]");
+    public void handleDragAndDropOffset() throws AWTException, InterruptedException {
+        driver.get("https://david-desmaisons.github.io/draggable-example/");
+        Thread.sleep(1000);
 
-        int X1 = WebUI.findWebElement(fromElement1).getLocation().getX();
-        int Y1 = WebUI.findWebElement(fromElement1).getLocation().getY();
-        WebUI.logConsole(X1 + " , " + Y1);
+        By fromElement1 = By.xpath("(//li[@class='list-group-item'])[1]");
+        By toElement1 = By.xpath("(//li[@class='list-group-item'])[2]");
 
-        int X2 = WebUI.findWebElement(toElement1).getLocation().getX();
-        int Y2 = WebUI.findWebElement(toElement1).getLocation().getY();
-        WebUI.logConsole(X2 + " , " + Y2);
+        int X1 = driver.findElement(fromElement1).getLocation().getX();
+        int Y1 = driver.findElement(fromElement1).getLocation().getY();
+        System.out.println(X1 + " , " + Y1);
 
-        //WebUI.switchToFrameByElement(toElement);
-        //WebUI.scrollToElement(toElement);
-        WebUI.dragAndDropOffset(fromElement1, -402, 246); //Nhớ là Tính từ vị trí click chuột đầu tiên
-        WebUI.sleep(2);
+        int X2 = driver.findElement(toElement1).getLocation().getX();
+        int Y2 = driver.findElement(toElement1).getLocation().getY();
+        System.out.println(X2 + " , " + Y2);
+
+        //Chổ này lấy theo toạ độ cụ thể. Chả biết sao nó lấy toạ độ Element chênh lệch vậy nữa =))
+        Thread.sleep(1000);
+        Robot robot = new Robot();
+        robot.mouseMove(250, 570);
+        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+
+        Thread.sleep(1000);
+        robot.mouseMove(250, 610);
+
+        Thread.sleep(1000);
+        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+
+        Thread.sleep(3000);
     }
 
     @Test
@@ -105,7 +186,7 @@ public class TestHandle {
         driver.get("https://hrm.anhtester.com/");
         By button = By.xpath("//button[@type='submit']");
         WebUI.highLightElement(button); //Tô màu viền đỏ cho Element trên website
-        WebUI.verifyElementAttributeValue(button, "type", "submit", 10);
+        WebUI.verifyElementAttributeValue(button, "type", "submit");
         WebUI.waitForElementClickable(button, 5);
         WebUI.sleep(2);
     }
