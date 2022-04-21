@@ -129,6 +129,126 @@ Note: enabled Allow less secure apps
 - **JsonUtils** class select the json file path and call **"get"** method with **key**
 
 
+## Project structure
+
+```
+AutomationFrameworkSelenium
+ ┣ 📂src
+ ┃ ┣ 📂main
+ ┃ ┃ ┣ 📂java
+ ┃ ┃ ┃ ┗ 📂anhtester
+ ┃ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂annotations
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkAnnotation.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ConfigFactory.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Configuration.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂constants
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkConstants.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂data
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DataProviderManager.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂driver
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DriverManager.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TargetFactory.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂enums
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthorType.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Browser.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CategoryType.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FailureHandling.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Platform.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Project.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Target.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂exceptions
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FrameworkException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜HeadlessNotSupportedException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForExcelException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForExtentReportFileException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForFilesException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidRemoteWebDriverURLException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TargetNotValidException.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂helpers
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CaptureHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DatabaseHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExcelHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Helpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PropertiesHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TxtFileHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂mail
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailAttachmentsSender.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜EmailConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂models
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Client.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignIn.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂report
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureManager.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtentReportManager.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ExtentTestManager.java
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂utils
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserInfoUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DataGenerateUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DateUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DecodeUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailSendUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜IconUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JsonUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Log.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ObjectUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WebUI.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ZipUtils.java
+ ┃ ┃ ┗ 📂resources
+ ┃ ┃ ┃ ┣ 📜drag_and_drop_helper.js
+ ┃ ┃ ┃ ┣ 📜extent.properties
+ ┃ ┃ ┃ ┣ 📜jquery_load_helper.js
+ ┃ ┃ ┃ ┗ 📜log4j2.properties
+ ┃ ┗ 📂test
+ ┃ ┃ ┣ 📂java
+ ┃ ┃ ┃ ┗ 📂anhtester
+ ┃ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂common
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BaseTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommonTest.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂listeners
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestListener.java
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂projects
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂website
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂crm
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂pages
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Clients
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ClientPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Dashboard
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DashboardPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Projects
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProjectPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂SignIn
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommonPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂testcases
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SignInTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TestHandle.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestSimpleCode.java
+ ┃ ┃ ┗ 📂resources
+ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┣ 📜config.json
+ ┃ ┃ ┃ ┃ ┣ 📜config.properties
+ ┃ ┃ ┃ ┃ ┗ 📜datatest.properties
+ ┃ ┃ ┃ ┣ 📂objects.crm
+ ┃ ┃ ┃ ┃ ┗ 📜crm_locators.properties
+ ┃ ┃ ┃ ┣ 📂suites
+ ┃ ┃ ┃ ┃ ┣ 📜Clients-parallel.xml
+ ┃ ┃ ┃ ┃ ┣ 📜Clients-simple.xml
+ ┃ ┃ ┃ ┃ ┗ 📜SignIn-simple.xml
+ ┃ ┃ ┃ ┗ 📂testdatafile
+ ┃ ┃ ┃ ┃ ┣ 📜ClientsDataExcel.xlsx
+ ┃ ┃ ┃ ┃ ┣ 📜DOCX_File_01.docx
+ ┃ ┃ ┃ ┃ ┣ 📜LoginCSV.csv
+ ┃ ┃ ┃ ┃ ┗ 📜TxtFileData.txt
+ ┣ 📜pom.xml
+ ┗ 📜README.md
+```
+
 # Copyright 2022 Anh Tester
 
 > Anh Tester Blog: https://anhtester.com/

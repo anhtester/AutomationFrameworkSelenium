@@ -6,7 +6,9 @@
 
     <groupId>anhtester.com</groupId>
     <artifactId>AutomationFrameworkSelenium</artifactId>
-    <version>1.0</version>
+    <version>1.2</version>
+    <name>AutomationFrameworkSelenium</name>
+    <url>https://github.com/anhtester/AutomationFrameworkSelenium</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

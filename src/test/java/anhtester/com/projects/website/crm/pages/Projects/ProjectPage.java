@@ -2,14 +2,13 @@ package anhtester.com.projects.website.crm.pages.Projects;
 
 import anhtester.com.driver.DriverManager;
 import anhtester.com.utils.WebUI;
-import anhtester.com.projects.website.crm.pages.CommonPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import java.util.List;
 
-public class ProjectPage extends CommonPage {
+public class ProjectPage {
 
     public ProjectPage() {
     }
