@@ -1,6 +1,6 @@
-# Automation Framework Selenium Java with TestNG building by Anh Tester (VERSION 1.2)
+# Automation Framework Selenium Java with TestNG building by Anh Tester (VERSION 1.3)
 
-**SOME FEATURES IN VERSION 1.2**
+**SOME FEATURES IN VERSION 1.3**
 1. Run the parallel test case
 2. Read Object web element from a properties file
 3. Extent Report
@@ -9,8 +9,9 @@
 6. Logfile
 7. Record video and Screenshot test case for failed
 8. Read data test form Excel file (xlsx, csv, json,...) with class define fields (param: Client client)
-9. Base function in the library (WebUI, Utils,...) ...etc.. (wait, dynamic xpath,...)
+9. Base function in the package: utils, helpers
 10. Read data from Json file
+11. Main Keyword: WebUI (call common function)
    
    
 ## **SYSTEM REQUIREMENTS**
@@ -118,15 +119,30 @@ Note: enabled Allow less secure apps
 - Create function with annotaion **DataSupplier** on ***src/main/java/anhtester/com/utils/DataProviderUtils.java***
 - Call the name of **DataSupplier** above in the test cases as DataProvider of TestNG
 
-**9. Base function in library**
+**9. Base function in the package**
 
-- **WebUI.** call any method you need =))
-- And ..etc.. on ***src/main/java/anhtester/com***
-(It is static method)
+- ***src/main/java/anhtester/com/utils***
+- ***src/main/java/anhtester/com/helpers***
 
 **10. Read data from  JSON file**
 
+
 - **JsonUtils** class select the json file path and call **"get"** method with **key**
+
+**11. Main Keyword: WebUI**
+
+- WebUI class is main keyword in Framework. It contains common functions
+- How to use: WebUI.function_name
+- Example: WebUI.setWindowSize(1024, 768), WebUI.screenshotElement(By by, String elementName),...
+
+**12. Call function to using sample**
+- All in one package: src/test/java/anhtester/com/projects/website/crm/testcases
+```
++ ClientTest
++ SignInTest
++ TestHandle
++ TestSimpleCode
+```
 
 
 ## Project structure
@@ -248,6 +264,10 @@ AutomationFrameworkSelenium
  ┣ 📜pom.xml
  ┗ 📜README.md
 ```
+
+
+## I shall write document for my Framework. Coming soon...
+
 
 # Copyright 2022 Anh Tester
 

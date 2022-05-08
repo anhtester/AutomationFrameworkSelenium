@@ -1,9 +1,12 @@
+/*
+ * Copyright (c) 2022 Anh Tester
+ * Automation Framework Selenium
+ */
+
 package anhtester.com.utils;
 
 import org.zeroturnaround.zip.ZipUtil;
-
 import java.io.File;
-
 import static anhtester.com.constants.FrameworkConstants.*;
 
 public class ZipUtils {

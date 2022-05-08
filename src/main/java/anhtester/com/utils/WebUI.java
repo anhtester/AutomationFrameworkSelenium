@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. Anh Tester
+ * Copyright (c) 2022 Anh Tester
  * Automation Framework Selenium
  */
 
@@ -10,12 +10,15 @@ import anhtester.com.driver.DriverManager;
 import anhtester.com.enums.FailureHandling;
 import anhtester.com.report.AllureManager;
 import anhtester.com.report.ExtentReportManager;
+import anhtester.com.report.ExtentTestManager;
 import io.qameta.allure.Step;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -27,6 +30,9 @@ import javax.annotation.Nullable;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.sql.Driver;
 import java.time.Duration;
 import java.util.*;
 import java.util.List;
@@ -46,6 +52,66 @@ public class WebUI {
         softAssert.assertAll();
     }
 
+    /**
+     * //Khôi phục cửa sổ và đặt kích thước cửa sổ.
+     *
+     * @param width  with Pixel
+     * @param height with Pixel
+     */
+    public static void setWindowSize(int widthPixel, int heightPixel) {
+        DriverManager.getDriver().manage().window().setSize(new Dimension(widthPixel, heightPixel));
+    }
+
+    /**
+     * Di chuyển cửa sổ đến vị trí đã chọn X, Y tính từ 0 gốc trái trên cùng
+     *
+     * @param X (int) - ngang
+     * @param Y (int) - dọc
+     */
+    public static void setWindowPosition(int X, int Y) {
+        //Di chuyển cửa sổ lên trên cùng bên trái của màn hình chính
+        DriverManager.getDriver().manage().window().setPosition(new Point(X, Y));
+    }
+
+    public static void maximizeWindow() {
+        DriverManager.getDriver().manage().window().maximize();
+    }
+
+    public static void minimizeWindow() {
+        DriverManager.getDriver().manage().window().minimize();
+    }
+
+    /**
+     * Chụp ảnh màn hình tại vị trí element. Không chụp hết cả màn hình.
+     *
+     * @param by          là element thuộc kiểu By
+     * @param elementName để đặt tên file ảnh .png
+     */
+    public static void screenshotElement(By by, String elementName) {
+        File scrFile = findWebElement(by).getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(scrFile, new File("./" + elementName + ".png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * In trang hiện tại trong trình duyệt.
+     * Note: Chỉ hoạt động ở chế độ headless
+     *
+     * @param endPage là tổng số trang cần in ra. Tính từ 1.
+     * @return is content of page form PDF file
+     */
+    public static String printPage(int endPage) {
+        PrintOptions printOptions = new PrintOptions();
+        //From page 1 to end page
+        printOptions.setPageRanges("1-" + endPage);
+
+        Pdf pdf = ((PrintsPage) DriverManager.getDriver()).print(printOptions);
+        return pdf.getContent();
+    }
+
     public static JavascriptExecutor getJsExecutor() {
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         return js;
@@ -55,7 +121,7 @@ public class WebUI {
      * Chuyển đổi đối tượng dạng By sang WebElement
      * Để tìm kiếm một element
      *
-     * @param by là đối tượng By
+     * @param by là element thuộc kiểu By
      * @return Trả về là một đối tượng WebElement
      */
     public static WebElement findWebElement(By by) {
@@ -66,7 +132,7 @@ public class WebUI {
      * Chuyển đổi đối tượng dạng By sang WebElement
      * Để tìm kiếm nhiều element
      *
-     * @param by là đối tượng By
+     * @param by là element thuộc kiểu By
      * @return Trả về là Danh sách đối tượng WebElement
      */
     public static List<WebElement> findWebElements(By by) {
@@ -144,7 +210,7 @@ public class WebUI {
     /**
      * Upload file kiểu click hiện form chọn file local trong máy tính của bạn
      *
-     * @param by       truyền vào element dạng đối tượng By
+     * @param by       là element thuộc kiểu By
      * @param filePath đường dẫn tuyệt đối đến file trên máy tính của bạn
      */
     public static void uploadFileForm(By by, String filePath) {
@@ -172,7 +238,7 @@ public class WebUI {
         // Xác nhận Control V trên
         rb.keyRelease(KeyEvent.VK_CONTROL);
         rb.keyRelease(KeyEvent.VK_V);
-
+        sleep(2);
         // Nhấn Enter
         rb.keyPress(KeyEvent.VK_ENTER);
         rb.keyRelease(KeyEvent.VK_ENTER);
@@ -185,11 +251,8 @@ public class WebUI {
      * @param filePath đường dẫn tuyệt đối đến file
      */
     public static void uploadFileSendkeys(By by, String filePath) {
-        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-        js.executeScript("arguments[0].scrollIntoView(true);", findWebElement(by));
-        sleep(1);
         //Dán link file vào ô upload
-        findWebElement(by).sendKeys(filePath);
+        waitForElementPresent(by).sendKeys(filePath);
     }
 
     public static String getCurrentUrl() {
@@ -224,7 +287,7 @@ public class WebUI {
     /**
      * Chọn giá trị trong dropdown với dạng động (không phải Select Option thuần)
      *
-     * @param bys  element cùng loại (nhiều giá trị) dạng đối tượng By
+     * @param by   là element cùng loại (nhiều giá trị) dạng đối tượng By
      * @param text giá trị cần chọn dạng Text của item
      * @return click chọn một item chỉ định với giá trị Text
      */
@@ -312,8 +375,36 @@ public class WebUI {
         //DriverManager.getDriver().switchTo().frame(findWebElement(by));
     }
 
-    public static void switchToMainWindow() {
+    public static void switchToDefaultContent() {
         DriverManager.getDriver().switchTo().defaultContent();
+    }
+
+
+    public static void switchToWindowOrTab(int position) {
+        DriverManager.getDriver().switchTo().window(DriverManager.getDriver().getWindowHandles().toArray()[position].toString());
+    }
+
+    public static void openNewTab() {
+        // Opens a new tab and switches to new tab
+        DriverManager.getDriver().switchTo().newWindow(WindowType.TAB);
+    }
+
+    public static void openNewWindow() {
+        // Opens a new window and switches to new window
+        DriverManager.getDriver().switchTo().newWindow(WindowType.WINDOW);
+    }
+
+    public static void switchToMainWindow() {
+        DriverManager.getDriver().switchTo().window(DriverManager.getDriver().getWindowHandles().toArray()[0].toString());
+    }
+
+    public static void switchToMainWindow(String originalWindow) {
+        DriverManager.getDriver().switchTo().window(originalWindow);
+    }
+
+    public static void switchToLastWindow() {
+        Set<String> windowHandles = DriverManager.getDriver().getWindowHandles();
+        DriverManager.getDriver().switchTo().window(DriverManager.getDriver().getWindowHandles().toArray()[windowHandles.size() - 1].toString());
     }
 
     //Handle Alert
@@ -450,7 +541,7 @@ public class WebUI {
         }
     }
 
-    public static boolean MouseHover(By by) {
+    public static boolean mouseHover(By by) {
         try {
             Actions action = new Actions(DriverManager.getDriver());
             action.moveToElement(findWebElement(by)).perform();
@@ -588,14 +679,20 @@ public class WebUI {
     public static void getToUrl(String URL) {
         DriverManager.getDriver().get(URL);
         waitForPageLoaded();
-        ExtentReportManager.pass(ICON_Navigate_Right + " Open URL : " + BOLD_START + URL + BOLD_END);
+
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.pass(ICON_Navigate_Right + " Open URL : " + BOLD_START + URL + BOLD_END);
+        }
         AllureManager.saveTextLog("Open URL: " + URL);
     }
 
     public static void navigateToUrl(String URL) {
         DriverManager.getDriver().navigate().to(URL);
         waitForPageLoaded();
-        ExtentReportManager.pass(ICON_Navigate_Right + " Navigate to URL: " + BOLD_START + URL + BOLD_END);
+
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.pass(ICON_Navigate_Right + " Navigate to URL: " + BOLD_START + URL + BOLD_END);
+        }
         AllureManager.saveTextLog("Navigate to URL: " + URL);
     }
 
@@ -608,7 +705,10 @@ public class WebUI {
     @Step("Set value in textbox")
     public static void setText(By by, String value) {
         waitForElementVisible(by).sendKeys(value);
-        ExtentReportManager.pass(FrameworkConstants.BOLD_START + value + FrameworkConstants.BOLD_END + " value is successfully passed in textbox.");
+
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.pass(FrameworkConstants.BOLD_START + value + FrameworkConstants.BOLD_END + " value is successfully passed in textbox.");
+        }
         AllureManager.saveTextLog(value + " value is successfully passed in textbox.");
     }
 
@@ -620,7 +720,10 @@ public class WebUI {
     @Step("Clear value in textbox")
     public static void clearText(By by) {
         waitForElementVisible(by).clear();
-        ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clear" + FrameworkConstants.BOLD_END + " value in textbox successfully.");
+
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clear" + FrameworkConstants.BOLD_END + " value in textbox successfully.");
+        }
         AllureManager.saveTextLog("Clear value in textbox successfully.");
     }
 
@@ -632,7 +735,10 @@ public class WebUI {
     @Step("Clicked on the object")
     public static void clickElement(By by) {
         waitForElementVisible(by).click();
-        ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clicked" + FrameworkConstants.BOLD_END + " on the object " + by.toString());
+
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clicked" + FrameworkConstants.BOLD_END + " on the object " + by.toString());
+        }
         AllureManager.saveTextLog("Clicked on the object " + by.toString());
     }
 
@@ -706,6 +812,24 @@ public class WebUI {
         for (int i = 1; i <= totalRows.size(); i++) {
             boolean res = false;
             WebElement title = DriverManager.getDriver().findElement(By.xpath("//tbody/tr[" + i + "]/td[" + column + "]"));
+            js.executeScript("arguments[0].scrollIntoView(true);", title);
+            res = title.getText().toUpperCase().contains(value.toUpperCase());
+            Log.info("Dòng thứ " + i + ": " + res + " - " + title.getText());
+            Assert.assertTrue(res, "Dòng thứ " + i + " (" + title.getText() + ")" + " không chứa giá trị " + value);
+        }
+    }
+
+    @Step("Check data by CONTAINS type after searching on the Table by Column.")
+    public static void checkContainsSearchTableByColumn(int column, String value, String xpathToTRtagname) {
+        //xpathToTRtagname is locator from table to "tr" tagname of data section: //tbody/tr, //div[@id='example_wrapper']//tbody/tr, ...
+        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+        List<WebElement> totalRows = DriverManager.getDriver().findElements(By.xpath(xpathToTRtagname));
+        sleep(1);
+        Log.info("Số kết quả cho từ khóa (" + value + "): " + totalRows.size());
+
+        for (int i = 1; i <= totalRows.size(); i++) {
+            boolean res = false;
+            WebElement title = DriverManager.getDriver().findElement(By.xpath(xpathToTRtagname + "[" + i + "]/td[" + column + "]"));
             js.executeScript("arguments[0].scrollIntoView(true);", title);
             res = title.getText().toUpperCase().contains(value.toUpperCase());
             Log.info("Dòng thứ " + i + ": " + res + " - " + title.getText());

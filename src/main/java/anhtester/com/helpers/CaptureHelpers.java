@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2022 Anh Tester
+ * Automation Framework Selenium
+ */
+
 package anhtester.com.helpers;
 
 import anhtester.com.constants.FrameworkConstants;
@@ -6,8 +11,6 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.io.FileHandler;
-import org.testng.Reporter;
 
 import java.awt.*;
 import java.io.File;

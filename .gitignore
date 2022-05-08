@@ -8,4 +8,5 @@ ExtentReports.zip
 /logs
 /target
 HDSD.txt
+*.png
 

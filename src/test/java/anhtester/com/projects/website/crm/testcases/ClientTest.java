@@ -1,8 +1,12 @@
+/*
+ * Copyright (c) 2022 Anh Tester
+ * Automation Framework Selenium
+ */
+
 package anhtester.com.projects.website.crm.testcases;
 
 import anhtester.com.annotations.FrameworkAnnotation;
 import anhtester.com.common.BaseTest;
-import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.enums.AuthorType;
 import anhtester.com.enums.CategoryType;
 import anhtester.com.helpers.ExcelHelpers;
@@ -10,7 +14,6 @@ import anhtester.com.models.Client;
 import anhtester.com.projects.website.crm.pages.Clients.ClientPage;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
-import anhtester.com.report.ExtentReportManager;
 import anhtester.com.data.DataProviderManager;
 import anhtester.com.utils.DecodeUtils;
 import anhtester.com.utils.WebUI;

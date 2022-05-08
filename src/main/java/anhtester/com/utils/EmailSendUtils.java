@@ -1,11 +1,13 @@
+/*
+ * Copyright (c) 2022 Anh Tester
+ * Automation Framework Selenium
+ */
+
 package anhtester.com.utils;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.mail.EmailAttachmentsSender;
-
 import javax.mail.MessagingException;
-
-import static anhtester.com.constants.FrameworkConstants.PROJECT_NAME;
 import static anhtester.com.constants.FrameworkConstants.REPORT_TITLE;
 import static anhtester.com.mail.EmailConfig.*;
 

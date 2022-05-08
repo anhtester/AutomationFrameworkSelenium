@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2022.
- * Automation Framework Selenium - Anh Tester
+ * Copyright (c) 2022 Anh Tester
+ * Automation Framework Selenium
  */
 
 package anhtester.com.utils;

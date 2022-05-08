@@ -10,13 +10,15 @@ public class ClientPage {
     public ClientPage() {
     }
 
-    public String pageText = "Client";
+    public String pageText = "Total clients";
     public String pageUrl = "/clients";
 
     public void openClientTabPage() {
         WebUI.waitForPageLoaded();
         //Muốn chạy tiếp thì chọn FailureHandling.CONTINUE_ON_FAILURE
-        WebUI.verifyElementTextEquals(ObjectUtils.getLocator("labelOnClientPage"), "Header ABC", FailureHandling.STOP_ON_FAILURE);
+        WebUI.verifyElementTextEquals(ObjectUtils.getLocator("labelOnClientPage"), pageText, FailureHandling.STOP_ON_FAILURE);
+        //WebUI.verifyPageUrl(pageUrl);
+
         WebUI.sleep(1);
         WebUI.clickElement(ObjectUtils.getLocator("clientTab"));
     }

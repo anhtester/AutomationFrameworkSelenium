@@ -1,16 +1,10 @@
 /*
- * Copyright (c) 2022.
- * Automation Framework Selenium - Anh Tester
+ * Copyright (c) 2022 Anh Tester
+ * Automation Framework Selenium
  */
 
 package anhtester.com.helpers;
 
-import org.apache.commons.codec.binary.Base64;
-
-import javax.annotation.Nullable;
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -38,7 +32,7 @@ public final class Helpers {
      * @return lấy đường dẫn đến thư mục nguồn source mình có thêm dấu / ở cuối luôn
      */
     public static String getCurrentDir() {
-        String current = System.getProperty("user.dir") + "/";
+        String current = System.getProperty("user.dir") + "\\";
         return current;
     }
 
