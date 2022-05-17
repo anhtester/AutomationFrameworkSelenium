@@ -86,7 +86,7 @@ public class PropertiesHelpers {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return keyval;
+        return new String(keyval.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
     }
 
     public static void setValue(String key, String keyValue) {
