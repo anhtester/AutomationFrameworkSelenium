@@ -35,14 +35,6 @@ public class ClientTest extends BaseTest {
         signInPage = new SignInPage();
     }
 
-//    @BeforeMethod
-//    @Step("Sign in to the CRM system")
-//    public void SignIn() {
-//        ExtentReportManager.createTest("Sign in to the CRM system !!");
-//        WebUI.getToUrl(FrameworkConstants.BASE_URL);
-//        signInPage = new SignInPage();
-//        dashboardPage = signInPage.signIn(ExcelHelpers.getCellData(1, "EMAIL"), DecodeUtils.decrypt(ExcelHelpers.getCellData(1, "PASSWORD")));
-//    }
 
     @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.VOTHAIAN},
             category = {CategoryType.SANITY, CategoryType.REGRESSION})
@@ -67,16 +59,14 @@ public class ClientTest extends BaseTest {
         clientPage = dashboardPage.openClientPage();
         clientPage.openClientTabPage();
         // Search the first
-        clientPage.enterDataSearchClient("Anh Tester Com 05");
-        WebUI.checkContainsSearchTableByColumn(2, "Anh Tester Com 05");
+        clientPage.enterDataSearchClient("Anh Tester Com 055555555");
+        WebUI.checkContainsSearchTableByColumn(2, "Anh Tester Com 055555555");
         // Search the second
         clientPage.enterDataSearchClient("Phamiliar Tech");
         WebUI.checkContainsSearchTableByColumn(2, "Phamiliar Tech");
 
     }
 
-    @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.VOTHAIAN},
-            category = {CategoryType.SMOKE, CategoryType.REGRESSION})
     @Test(priority = 3, description = "Test Invalid Page Title")
     @Step("Test Invalid Page Title")
     public void testInvalidPageTitle() {

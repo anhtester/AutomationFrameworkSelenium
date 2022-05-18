@@ -14,17 +14,14 @@ public class ClientPage {
     public String pageUrl = "/clients";
 
     public void openClientTabPage() {
-        WebUI.waitForPageLoaded();
         //Muốn chạy tiếp thì chọn FailureHandling.CONTINUE_ON_FAILURE
         WebUI.verifyElementTextEquals(ObjectUtils.getLocator("labelOnClientPage"), pageText, FailureHandling.STOP_ON_FAILURE);
         //WebUI.verifyPageUrl(pageUrl);
-
         WebUI.sleep(1);
         WebUI.clickElement(ObjectUtils.getLocator("clientTab"));
     }
 
     public void addClient(Client clientData) {
-        WebUI.waitForPageLoaded();
         WebUI.clickElement(ObjectUtils.getLocator("addClientBtn"));
         WebUI.setText(ObjectUtils.getLocator("companyNameInput"), clientData.getCompanyName());
         WebUI.clickElement(ObjectUtils.getLocator("ownerSelect"));
@@ -43,7 +40,6 @@ public class ClientPage {
     }
 
     public void checkClientDetail(Client clientData) {
-        WebUI.waitForPageLoaded();
         WebUI.clickElement(ObjectUtils.getLocator("itemClientFirstRow"));
         WebUI.clickElement(ObjectUtils.getLocator("tabClientInfo"));
 
@@ -57,6 +53,7 @@ public class ClientPage {
     }
 
     public void enterDataSearchClient(String value) {
+        WebUI.sleep(1);
         WebUI.moveToElement(ObjectUtils.getLocator("searchInput"));
         WebUI.clearText(ObjectUtils.getLocator("searchInput"));
         WebUI.setText(ObjectUtils.getLocator("searchInput"), value);

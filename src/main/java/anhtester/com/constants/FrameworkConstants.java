@@ -40,11 +40,14 @@ public final class FrameworkConstants {
     public static final String screenshot_passed_steps = PropertiesHelpers.getValue("screenshot_passed_steps");
     public static final String screenshot_failed_steps = PropertiesHelpers.getValue("screenshot_failed_steps");
     public static final String screenshot_skipped_steps = PropertiesHelpers.getValue("screenshot_skipped_steps");
+    public static final String screenshot_all_steps = PropertiesHelpers.getValue("screenshot_all_steps");
 
     public static final int WAIT_DEFAULT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_DEFAULT"));
     public static final int WAIT_IMPLICIT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_IMPLICIT"));
     public static final int WAIT_EXPLICIT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_EXPLICIT"));
     public static final int WAIT_PAGE_LOADED = Integer.parseInt(PropertiesHelpers.getValue("WAIT_PAGE_LOADED"));
+    public static final int WAIT_SLEEP_STEP = Integer.parseInt(PropertiesHelpers.getValue("WAIT_SLEEP_STEP"));
+    public static final String ACTIVE_PAGE_LOADED = PropertiesHelpers.getValue("ACTIVE_PAGE_LOADED");
 
     public static final String EXTENT_REPORT_FOLDER_PATH = PROJECT_PATH + EXTENT_REPORT_FOLDER;
     public static final String EXTENT_REPORT_FILE_NAME = EXTENT_REPORT_NAME + ".html";
@@ -52,8 +55,6 @@ public final class FrameworkConstants {
 
     //Zip file for Report folder
     public static final String Zipped_ExtentReports_Folder_Name = EXTENT_REPORT_FOLDER + ".zip";
-
-    public static final String TEST_DATA_XLSX_FILE = "src/test/resources/testdatafile/ClientsDataExcel.xlsx";
 
     public static final String YES = "yes";
     public static final String NO = "no";

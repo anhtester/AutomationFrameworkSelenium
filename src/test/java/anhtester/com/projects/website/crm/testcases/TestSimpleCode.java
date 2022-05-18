@@ -20,29 +20,34 @@ import java.util.ArrayList;
 public class TestSimpleCode {
 
     @Test
+    public void testRemoveAccent() {
+        System.out.println(LanguageUtils.removeAccent("Võ Thái An"));
+    }
+
+    @Test
+    public void testMakeSlug() {
+        System.out.println(Helpers.makeSlug("Anh Tester Automation Testing"));
+    }
+
+    @Test
     public void testReadFileJSON() {
         System.out.println(JsonUtils.get("url"));
         System.out.println(JsonUtils.get("browser"));
+        System.out.println(JsonUtils.get("button"));
     }
 
     @Test
     public void testGetCurrentDirectory() {
         System.out.println(Helpers.getCurrentDir());
-
-        Log.warn("testGetCurrentDirectory");
     }
 
     @Test
     public void testGetAndSetPropertiesFile() {
         PropertiesHelpers.loadAllFiles();
-        //PropertiesHelpers.setFile("src/test/resources/config/datatest.properties");
+
         System.out.println(PropertiesHelpers.getValue("browser"));
-        System.out.println(PropertiesHelpers.getValue("emailAdmin"));
-
-//        PropertiesHelpers.setFile("src/test/resources/config/datatest.properties");
-//        PropertiesHelpers.setValue("abc", "AN123");
-
-        Log.info("testGetAndSetPropertiesFile");
+        System.out.println(PropertiesHelpers.getValue("buttonTag"));
+        System.out.println(PropertiesHelpers.getValue("buttonDangNhap"));
     }
 
     @Test
@@ -52,8 +57,6 @@ public class TestSimpleCode {
         for (String arr : Helpers.splitString(s1, ", ")) {
             System.out.println(arr);
         }
-
-        Log.info("testSplitString");
     }
 
     @Test
@@ -72,7 +75,7 @@ public class TestSimpleCode {
     }
 
     @Test
-    public void TestPropertiesFile() {
+    public void testPropertiesFile() {
         PropertiesHelpers.loadAllFiles();
         //  Handle Properties file
         WebUI.logConsole(PropertiesHelpers.getValue("browser"));
@@ -90,13 +93,13 @@ public class TestSimpleCode {
     }
 
     @Test
-    public void TestReadAndWriteTxtFile() {
+    public void testReadAndWriteTxtFile() {
         PropertiesHelpers.loadAllFiles();
         TxtFileHelpers.ReadTxtFile(PropertiesHelpers.getValue("txtFilePath"));
     }
 
     @Test
-    public void TestExcelFile() {
+    public void testExcelFile1() {
         PropertiesHelpers.loadAllFiles();
         System.out.println(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"));
         //  Handle Excel file
@@ -107,7 +110,7 @@ public class TestSimpleCode {
     }
 
     @Test()
-    public void testExcelFile() throws Exception {
+    public void testExcelFile2() throws Exception {
         PropertiesHelpers.loadAllFiles();
         System.out.println(ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH_FULL, "SignIn", 1, 2));
         //System.out.println(ExcelHelpers.getDataReflection(Helpers.getCurrentDir() + "src/test/resources/testdatafile/ClientsDataExcel.xlsx", "SignIn", 1, 2));

@@ -1,23 +1,15 @@
 package anhtester.com.listeners;
 
 import anhtester.com.annotations.FrameworkAnnotation;
-import anhtester.com.config.ConfigFactory;
-import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
+import anhtester.com.enums.AuthorType;
+import anhtester.com.enums.CategoryType;
 import anhtester.com.report.AllureManager;
 import anhtester.com.report.ExtentReportManager;
 import anhtester.com.utils.*;
 import anhtester.com.helpers.CaptureHelpers;
 import com.aventstack.extentreports.Status;
-import io.qameta.allure.Allure;
-import io.qameta.allure.Attachment;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.testng.*;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
 import static anhtester.com.constants.FrameworkConstants.*;
 
@@ -67,16 +59,34 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         CaptureHelpers.stopRecord();
     }
 
+    public AuthorType[] getAuthorType(ITestResult iTestResult) {
+        if (iTestResult.getMethod().getConstructorOrMethod().getMethod()
+                .getAnnotation(FrameworkAnnotation.class) == null) {
+            return null;
+        }
+        AuthorType authorType[] = iTestResult.getMethod().getConstructorOrMethod().getMethod()
+                .getAnnotation(FrameworkAnnotation.class).author();
+        return authorType;
+    }
+
+    public CategoryType[] getCategoryType(ITestResult iTestResult) {
+        if (iTestResult.getMethod().getConstructorOrMethod().getMethod()
+                .getAnnotation(FrameworkAnnotation.class) == null) {
+            return null;
+        }
+        CategoryType categoryType[] = iTestResult.getMethod().getConstructorOrMethod().getMethod()
+                .getAnnotation(FrameworkAnnotation.class).category();
+        return categoryType;
+    }
+
     @Override
     public void onTestStart(ITestResult iTestResult) {
         Log.info("Test case: " + getTestName(iTestResult) + " test is starting...");
         count_totalTCs = count_totalTCs + 1;
 
         ExtentReportManager.createTest(iTestResult.getName());
-        ExtentReportManager.addAuthors(iTestResult.getMethod().getConstructorOrMethod().getMethod()
-                .getAnnotation(FrameworkAnnotation.class).author());
-        ExtentReportManager.addCategories(iTestResult.getMethod().getConstructorOrMethod().getMethod()
-                .getAnnotation(FrameworkAnnotation.class).category());
+        ExtentReportManager.addAuthors(getAuthorType(iTestResult));
+        ExtentReportManager.addCategories(getCategoryType(iTestResult));
         ExtentReportManager.addDevices();
 
         ExtentReportManager.info(BOLD_START + IconUtils.getOSIcon() + " "
@@ -88,7 +98,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.info("Test case: " + getTestName(iTestResult) + " is passed.");
         count_passedTCs = count_passedTCs + 1;
 
-        if(screenshot_passed_steps.equals(YES)){
+        if (screenshot_passed_steps.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
         }
 
@@ -102,7 +112,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.error("Test case: " + getTestName(iTestResult) + " is failed.");
         count_failedTCs = count_failedTCs + 1;
 
-        if(screenshot_failed_steps.equals(YES)){
+        if (screenshot_failed_steps.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
         }
 
@@ -123,7 +133,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.warn("Test case: " + getTestName(iTestResult) + " is skipped.");
         count_skippedTCs = count_skippedTCs + 1;
 
-        if(screenshot_skipped_steps.equals(YES)){
+        if (screenshot_skipped_steps.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
         }
 

@@ -16,6 +16,9 @@ public class Log {
     public static void info (String message) {
         Log.info(message);
     }
+    public static void info (Object message) {
+        Log.info(message);
+    }
     public static void info (String message, Throwable throwable) {
         Log.info(message);
     }

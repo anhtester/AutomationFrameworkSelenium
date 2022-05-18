@@ -85,16 +85,24 @@ public final class ExtentReportManager {
     }
 
     synchronized public static void addAuthors(AuthorType[] authors) {
-        for (AuthorType author : authors) {
-            ExtentTestManager.getExtentTest().assignAuthor(author.toString());
+        if (authors == null) {
+            ExtentTestManager.getExtentTest().assignAuthor("ANHTESTER");
+        } else {
+            for (AuthorType author : authors) {
+                ExtentTestManager.getExtentTest().assignAuthor(author.toString());
+            }
         }
     }
 
     // public static void addCategories(String[] categories) {
     synchronized public static void addCategories(CategoryType[] categories) {
-        // for (String category : categories) {
-        for (CategoryType category : categories) {
-            ExtentTestManager.getExtentTest().assignCategory(category.toString());
+        if (categories == null) {
+            ExtentTestManager.getExtentTest().assignCategory("REGRESSION");
+        } else {
+            // for (String category : categories) {
+            for (CategoryType category : categories) {
+                ExtentTestManager.getExtentTest().assignCategory(category.toString());
+            }
         }
     }
 

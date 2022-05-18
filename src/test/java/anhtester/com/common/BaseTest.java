@@ -1,6 +1,7 @@
 package anhtester.com.common;
 
 import anhtester.com.constants.FrameworkConstants;
+import anhtester.com.helpers.CaptureHelpers;
 import anhtester.com.helpers.ExcelHelpers;
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.listeners.TestListener;
@@ -18,6 +19,8 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.testng.annotations.*;
+
+import static anhtester.com.constants.FrameworkConstants.*;
 
 @Listeners({TestListener.class})
 public class BaseTest {

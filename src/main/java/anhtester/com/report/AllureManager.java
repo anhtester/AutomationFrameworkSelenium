@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2022 Anh Tester
+ * Automation Framework Selenium
+ */
+
 package anhtester.com.report;
 
 import anhtester.com.constants.FrameworkConstants;
@@ -31,6 +36,16 @@ public class AllureManager {
 
     @Attachment(value = "Failed test screenshot", type = "image/png")
     public static byte[] takeScreenshotToAttachOnAllureReport() {
+        try {
+            return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(BYTES);
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
+        return new byte[0];
+    }
+
+    @Attachment(value = "Take step screenshot", type = "image/png")
+    public static byte[] takeScreenshotStep() {
         try {
             return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(BYTES);
         } catch (Exception ex) {

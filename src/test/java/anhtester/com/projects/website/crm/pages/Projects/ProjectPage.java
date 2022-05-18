@@ -25,32 +25,4 @@ public class ProjectPage {
         WebUI.sleep(1);
     }
 
-    public void checkContainsSearchTableByColumn(int column, String value) {
-        List<WebElement> totalRows = DriverManager.getDriver().findElements(By.xpath("//tbody/tr"));
-        WebUI.sleep(1);
-        System.out.println("");
-        System.out.println("Số kết quả cho từ khóa (" + value + "): " + totalRows.size());
-
-        for (int i = 1; i <= totalRows.size(); i++) {
-            boolean res = false;
-            WebElement title = DriverManager.getDriver().findElement(By.xpath("//tbody/tr[" + i + "]/td[" + column + "]"));
-            res = title.getText().toUpperCase().contains(value.toUpperCase());
-            System.out.println("Dòng thứ " + i + ": " + res + " - " + title.getText());
-            Assert.assertTrue(res, "Dòng thứ " + i + " (" + title.getText() + ")" + " không chứa giá trị " + value);
-        }
-    }
-
-    public void displayValueTableByColumn(int column) {
-        List<WebElement> totalRows = DriverManager.getDriver().findElements(By.xpath("//tbody/tr"));
-        WebUI.sleep(1);
-        System.out.println("");
-        System.out.println("Số kết quả cho cột (" + column + "): " + totalRows.size());
-
-        for (int i = 1; i <= totalRows.size(); i++) {
-            boolean res = false;
-            WebElement title = DriverManager.getDriver().findElement(By.xpath("//tbody/tr[" + i + "]/td[" + column + "]"));
-
-            System.out.println("Dòng thứ " + i + ":" + title.getText());
-        }
-    }
 }

@@ -6,12 +6,15 @@
 package anhtester.com.projects.website.crm.testcases;
 
 import anhtester.com.common.BaseTest;
+import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.helpers.Helpers;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import anhtester.com.helpers.DatabaseHelpers;
+import anhtester.com.utils.LocalStorageUtils;
+import anhtester.com.utils.ObjectUtils;
 import anhtester.com.utils.WebUI;
 import anhtester.com.utils.Log;
 import com.google.common.util.concurrent.Uninterruptibles;
@@ -19,21 +22,17 @@ import com.google.zxing.*;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
-import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.v99.network.Network;
 import org.openqa.selenium.devtools.v99.network.model.Headers;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.print.PrintOptions;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -42,7 +41,6 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.*;
-import java.util.List;
 
 public class TestHandle {
 
@@ -60,8 +58,60 @@ public class TestHandle {
     }
 
     @Test
+    public void testLocalStorage(){
+        WebUI.getToUrl(FrameworkConstants.BASE_URL);
+        WebUI.sleep(1);
+
+        //Set key=value in Sign in page
+        LocalStorageUtils.setItem("email", "admin02@mailinator.com");
+        LocalStorageUtils.setItem("password", "123456");
+
+        WebUI.setText(ObjectUtils.getLocator("SigninPage.email"), LocalStorageUtils.getItem("email"));
+        WebUI.setText(ObjectUtils.getLocator("SigninPage.passwordInput"), LocalStorageUtils.getItem("password"));
+        WebUI.clickElement(ObjectUtils.getLocator("SigninPage.signInBtn"));
+        WebUI.waitForPageLoaded();
+
+        //Get value in Project page
+        WebUI.clickElement(ObjectUtils.getLocator("projectMenu"));
+        WebUI.logConsole(LocalStorageUtils.getItem("email"));
+        WebUI.waitForPageLoaded();
+        WebUI.sleep(1);
+        //Get value in Client page
+        WebUI.clickElement(ObjectUtils.getLocator("clientMenu"));
+        WebUI.logConsole(LocalStorageUtils.getItem("password"));
+
+        //=> You can get value by key everywhere before closing the browser
+    }
+
+    @Test
+    public void handleHTML5ValidationMessage() {
+        WebUI.getToUrl("https://anhtester.com/login");
+        WebUI.waitForPageLoaded();
+        WebUI.sleep(1);
+
+        By button_Login = By.id("login");
+        By input_Email = By.xpath("//input[@placeholder='Email']");
+        WebUI.clickElement(button_Login);
+        WebUI.sleep(2);
+
+        WebUI.logConsole("Verify required field: " + WebUI.verifyHTML5RequiredField(input_Email));
+
+        WebUI.sleep(1);
+
+        WebUI.logConsole("Message from field: " + WebUI.getHTML5MessageField(input_Email));
+        Assert.assertEquals("Please fill out this field.", WebUI.getHTML5MessageField(input_Email));
+
+        WebUI.setText(input_Email, "abc@ ");
+        WebUI.sleep(1);
+        WebUI.logConsole("Verify valid value: " + WebUI.verifyHTML5ValidValueField(input_Email));
+        WebUI.logConsole("Message from field: " + WebUI.getHTML5MessageField(input_Email));
+
+        WebUI.sleep(1);
+    }
+
+    @Test
     public void handleSetWindow() {
-        driver.get("https://anhtester.com");
+        WebUI.getToUrl("https://anhtester.com");
         WebUI.waitForPageLoaded();
         WebUI.setWindowSize(1000, 600);
         WebUI.sleep(2);
@@ -71,14 +121,14 @@ public class TestHandle {
 
     @Test
     public void handleScreenshotElement() {
-        driver.get("https://anhtester.com");
+        WebUI.getToUrl("https://anhtester.com");
         WebUI.waitForPageLoaded();
         WebUI.screenshotElement(By.xpath("//div[@class='col-lg-5']//div[@class='row']//div[1]//div[1]"), "Website_Testing_Module");
     }
 
     @Test
     public void testUploadFileSendKeys() {
-        driver.get("https://www.file.io/");
+        WebUI.getToUrl("https://www.file.io/");
         WebUI.waitForPageLoaded();
 
         By inputFileUpload = By.xpath("//div[@class='actions']/input");
@@ -92,7 +142,7 @@ public class TestHandle {
 
     @Test
     public void testUploadFileFormDialog() {
-        driver.get("https://files.fm/");
+        WebUI.getToUrl("https://files.fm/");
         WebUI.waitForPageLoaded();
 
         By textOnPage = By.xpath("//div[@id='file_select_dragndrop_text']");
@@ -109,7 +159,7 @@ public class TestHandle {
     //Phân trang và check data in table
     @Test
     public void checkDataTableWithPagination() {
-        driver.get("https://datatables.net/");
+        WebUI.getToUrl("https://datatables.net/");
         WebUI.waitForPageLoaded();
 
         By title_H1 = By.xpath("//div[@class='fw-hero']//h1");
@@ -160,24 +210,17 @@ public class TestHandle {
 
     @Test
     public void QRCode() throws NotFoundException, IOException {
-        driver.get("http://qrcode.meetheed.com/qrcode_examples.php");
-        driver.manage().window().maximize();
-        String qrCodeURL = driver.findElement(By.xpath("//img[@src='images/qr_code_con.png']")).getAttribute("src");
-        //Create an object of URL Class
-        URL url = new URL(qrCodeURL);
-        //Pass the URL class object to store the file as image
-        BufferedImage bufferedimage = ImageIO.read(url);
-        // Process the image
-        LuminanceSource luminanceSource = new BufferedImageLuminanceSource(bufferedimage);
-        BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(luminanceSource));
-        //To Capture details of QR code
-        Result result = new MultiFormatReader().decode(binaryBitmap);
-        System.out.println(result.getText());
+        WebUI.getToUrl("http://qrcode.meetheed.com/qrcode_examples.php");
+        WebUI.maximizeWindow();
+        WebUI.waitForPageLoaded();
+        WebUI.moveToElement(By.xpath("(//div[@class = 'topBox'])[1]/img"));
+        WebUI.sleep(1);
+        WebUI.logConsole(WebUI.getQRCodeFromImage(By.xpath("(//div[@class = 'topBox'])[1]/img")));
     }
 
     @Test
     public void handleZoomInZoomOut() {
-        driver.get("https://anhtester.com");
+        WebUI.getToUrl("https://anhtester.com");
         WebUI.sleep(1);
         //driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL,Keys.ADD));
         //driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL,Keys.SUBTRACT));
@@ -189,7 +232,7 @@ public class TestHandle {
     public void handleNotificationsBrowser() {
         driver = new ChromeDriver(WebUI.notificationsBlock()); //
         driver.manage().window().maximize();
-        driver.get("https://oto.com.vn/mua-ban-xe");
+        WebUI.getToUrl("https://oto.com.vn/mua-ban-xe");
         WebUI.sleep(4);
     }
 
@@ -242,7 +285,7 @@ public class TestHandle {
 
     @Test
     public void handleDragAndDrop() {
-        driver.get("http://demo.guru99.com/test/drag_drop.html");
+        WebUI.getToUrl("http://demo.guru99.com/test/drag_drop.html");
         By fromElement1 = By.xpath("//a[normalize-space()='BANK']");
         By toElement1 = By.xpath("(//div[@id='shoppingCart1']//div)[1]");
 
@@ -259,7 +302,7 @@ public class TestHandle {
 
     @Test
     public void handleDragAndDropOffset() throws AWTException, InterruptedException {
-        driver.get("https://david-desmaisons.github.io/draggable-example/");
+        WebUI.getToUrl("https://david-desmaisons.github.io/draggable-example/");
         Thread.sleep(1000);
 
         By fromElement1 = By.xpath("(//li[@class='list-group-item'])[1]");
@@ -290,7 +333,7 @@ public class TestHandle {
 
     @Test
     public void handleHighLightElement() {
-        driver.get("https://hrm.anhtester.com/");
+        WebUI.getToUrl("https://hrm.anhtester.com/");
         By button = By.xpath("//button[@type='submit']");
         WebUI.highLightElement(button); //Tô màu viền đỏ cho Element trên website
         WebUI.verifyElementAttributeValue(button, "type", "submit");
@@ -300,7 +343,7 @@ public class TestHandle {
 
     @Test
     public void handleUploadFile() {
-        driver.get("https://demoqa.com/upload-download");
+        WebUI.getToUrl("https://demoqa.com/upload-download");
         WebUI.waitForPageLoaded();
         WebUI.sleep(1);
 
@@ -316,25 +359,23 @@ public class TestHandle {
     @Test
     public void handleTable1() {
         Log.info("handleTable1");
-        driver.get("https://colorlib.com/polygon/notika/data-table.html");
-        WebUI.waitForPageLoaded();
+        WebUI.getToUrl("https://colorlib.com/polygon/notika/data-table.html");
         System.out.println(WebUI.getValueTableByColumn(2));
     }
 
     @Test
     public void handleTable2() {
         signInPage = new SignInPage();
-        driver.get("https://crm.anhtester.com/signin");
         dashboardPage = signInPage.signIn("tld01@mailinator.com", "123456");
         projectPage = dashboardPage.openProjectPage();
-        String dataSearch1 = "Project";
-        String dataSearch2 = "Test";
+        String dataSearchTitle = "Smart Home";
+        String dataSearchClient = "AN check Client 001";
         // Search cột 2 Title
-        projectPage.searchByValue(dataSearch1);
-        projectPage.checkContainsSearchTableByColumn(2, dataSearch1);
+        projectPage.searchByValue(dataSearchTitle);
+        WebUI.checkContainsSearchTableByColumn(2, dataSearchTitle);
         // Search cột 3 Client
-        projectPage.searchByValue(dataSearch2);
-        projectPage.checkContainsSearchTableByColumn(3, dataSearch2);
+        projectPage.searchByValue(dataSearchClient);
+        WebUI.checkContainsSearchTableByColumn(3, dataSearchClient);
     }
 
     @Test
@@ -357,14 +398,13 @@ public class TestHandle {
         WebUI.logConsole("Số cửa sổ hoặc tab: " + windowHandles.size());
 //        if (!windowHandles.isEmpty() && windowHandles.size() > 1) {
 //            //Chuyển sang tab thứ 2 (vị trí 1 tính từ vị trí 0)
-//            driver.switchTo().window(driver.getWindowHandles().toArray()[1].toString());
+//            WebUI.switchToWindowOrTab(1);
 //        }
 
         //Or using for
         for (String windowHandle : driver.getWindowHandles()) {
             if (!originalWindow.contentEquals(windowHandle)) {
-                //driver.switchTo().window(windowHandle);
-                driver.switchTo().window(driver.getWindowHandles().toArray()[1].toString());
+                WebUI.switchToWindowOrTab(1);
                 break;
             }
         }
@@ -392,26 +432,9 @@ public class TestHandle {
         String username = "admin";
         String password = "admin";
 
-        // Get the devtools from the running driver and create a session
-        DevTools devTools = ((HasDevTools) driver).getDevTools();
-        devTools.createSession();
+        WebUI.getToUrlAuthentication("https://the-internet.herokuapp.com/basic_auth", username, password);
 
-        // Enable the Network domain of devtools
-        devTools.send(Network.enable(java.util.Optional.of(100000), java.util.Optional.of(100000), java.util.Optional.of(100000)));
-        String auth = username + ":" + password;
-
-        // Encoding the username and password using Base64 (java.util)
-        String encodeToString = Base64.getEncoder().encodeToString(auth.getBytes());
-
-        // Pass the network header -> Authorization : Basic <encoded String>
-        Map<String, Object> headers = new HashMap<>();
-        headers.put("Authorization", "Basic " + encodeToString);
-        devTools.send(Network.setExtraHTTPHeaders(new Headers(headers)));
-
-        // Load the application url
-        driver.get("https://the-internet.herokuapp.com/basic_auth");
-        Uninterruptibles.sleepUninterruptibly(Duration.ofSeconds(3));
-        String successFullyLoggedInText = driver.findElement(By.xpath("//p")).getText();
+        String successFullyLoggedInText = DriverManager.getDriver().findElement(By.xpath("//p")).getText();
         Assert.assertEquals(successFullyLoggedInText, "Congratulations! You must have the proper credentials.");
     }
 

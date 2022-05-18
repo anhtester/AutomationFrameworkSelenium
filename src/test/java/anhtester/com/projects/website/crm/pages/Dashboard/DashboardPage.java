@@ -14,15 +14,13 @@ public class DashboardPage {
     public String pageUrl = "/dashboard";
 
     public ClientPage openClientPage() {
-        WebUI.waitForPageLoaded();
-        WebUI.clickElement(ObjectUtils.getLocator("ProjectPage.clientMenu"));
+        WebUI.clickElement(ObjectUtils.getLocator("clientMenu"));
 
         return new ClientPage();
     }
 
     public ProjectPage openProjectPage() {
-        WebUI.waitForPageLoaded();
-        WebUI.clickElement(ObjectUtils.getLocator("ProjectPage.projectMenu"));
+        WebUI.clickElement(ObjectUtils.getLocator("projectMenu"));
 
         return new ProjectPage();
     }
