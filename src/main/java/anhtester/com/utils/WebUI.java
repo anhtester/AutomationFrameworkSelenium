@@ -29,8 +29,8 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v99.network.Network;
-import org.openqa.selenium.devtools.v99.network.model.Headers;
+import org.openqa.selenium.devtools.v102.network.Network;
+import org.openqa.selenium.devtools.v102.network.model.Headers;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -94,7 +94,7 @@ public class WebUI {
         devTools.send(Network.setExtraHTTPHeaders(new Headers(headers)));
 
         // Load the application url
-        getToUrl("https://the-internet.herokuapp.com/basic_auth");
+        getToUrl(url);
         Uninterruptibles.sleepUninterruptibly(Duration.ofSeconds(3));
     }
 
@@ -405,7 +405,7 @@ public class WebUI {
         return getPageTitle().equals(pageTitle);
     }
 
-    public static boolean verifyPageContains(String text) {
+    public static boolean verifyPageContainsText(String text) {
         if (ACTIVE_PAGE_LOADED.trim().toLowerCase().equals("true")) {
             waitForPageLoaded();
         }
@@ -422,23 +422,23 @@ public class WebUI {
         return DriverManager.getDriver().getCurrentUrl().contains(pageUrl.trim());
     }
 
-    //Handle dropdown select option
+    //Handle dropdown dynamic
 
     /**
      * Chọn giá trị trong dropdown với dạng động (không phải Select Option thuần)
      *
-     * @param by   là element cùng loại (nhiều giá trị) dạng đối tượng By
-     * @param text giá trị cần chọn dạng Text của item
+     * @param objectListItem là locator của list item dạng đối tượng By
+     * @param text           giá trị cần chọn dạng Text của item
      * @return click chọn một item chỉ định với giá trị Text
      */
-    public static boolean selectOptionOther(By by, String text) {
+    public static boolean selectOptionDynamic(By objectListItem, String text) {
         if (ACTIVE_PAGE_LOADED.trim().toLowerCase().equals("true")) {
             waitForPageLoaded();
         }
         sleep(WAIT_SLEEP_STEP);
         //Đối với dropdown động (div, li, span,...không phải dạng select option)
         try {
-            List<WebElement> elements = DriverManager.getDriver().findElements(by);
+            List<WebElement> elements = findWebElements(objectListItem);
 
             for (WebElement element : elements) {
                 Log.info(element.getText());
@@ -449,10 +449,50 @@ public class WebUI {
             }
         } catch (Exception e) {
             Log.info(e.getMessage());
+            e.getMessage();
         }
         return false;
     }
 
+    public static boolean verifyOptionDynamicExist(By objectListItem, String text) {
+        if (ACTIVE_PAGE_LOADED.trim().toLowerCase().equals("true")) {
+            waitForPageLoaded();
+        }
+        sleep(WAIT_SLEEP_STEP);
+
+        try {
+            List<WebElement> elements = findWebElements(objectListItem);
+
+            for (WebElement element : elements) {
+                Log.info(element.getText());
+                if (element.getText().toLowerCase().trim().contains(text.toLowerCase().trim())) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            Log.info(e.getMessage());
+            e.getMessage();
+        }
+        return false;
+    }
+
+    public static int getOptionDynamicTotal(By objectListItem) {
+        if (ACTIVE_PAGE_LOADED.trim().toLowerCase().equals("true")) {
+            waitForPageLoaded();
+        }
+        sleep(WAIT_SLEEP_STEP);
+
+        try {
+            List<WebElement> elements = findWebElements(objectListItem);
+            return elements.size();
+        } catch (Exception e) {
+            Log.info(e.getMessage());
+            e.getMessage();
+        }
+        return 0;
+    }
+
+    //Dropdown tĩnh (Select Option)
     public static void selectOptionByText(By by, String text) {
         if (ACTIVE_PAGE_LOADED.trim().toLowerCase().equals("true")) {
             waitForPageLoaded();
@@ -632,7 +672,7 @@ public class WebUI {
             wait.until(ExpectedConditions.alertIsPresent());
             return true;
         } catch (Throwable error) {
-            Assert.fail("Không tìm thấy Alert.");
+            Assert.fail("Not found Alert.");
             return false;
         }
     }
@@ -966,7 +1006,7 @@ public class WebUI {
         waitForPageLoaded();
 
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass(ICON_Navigate_Right + " Open URL : " + BOLD_START + URL + BOLD_END);
+            ExtentReportManager.pass(BOLD_START + ICON_Navigate_Right + " Open URL : " + BOLD_END + URL);
         }
         AllureManager.saveTextLog("Open URL: " + URL);
 
@@ -987,7 +1027,7 @@ public class WebUI {
         waitForPageLoaded();
 
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass(ICON_Navigate_Right + " Navigate to URL: " + BOLD_START + URL + BOLD_END);
+            ExtentReportManager.pass(BOLD_START + ICON_Navigate_Right + " Navigate to URL: " + BOLD_END + URL);
         }
         AllureManager.saveTextLog("Navigate to URL: " + URL);
 
@@ -1031,7 +1071,7 @@ public class WebUI {
         }
         AllureManager.saveTextLog("Clear value in textbox successfully.");
         if (screenshot_all_steps.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clearText_" + by));
+            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clearText_" + by.toString()));
             AllureManager.takeScreenshotStep();
         }
     }
@@ -1052,7 +1092,7 @@ public class WebUI {
 
         //Screenshot for this step if screenshot_all_steps = yes in config.properties file
         if (screenshot_all_steps.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clickElement_" + by));
+            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clickElement_" + by.toString()));
             AllureManager.takeScreenshotStep();
         }
     }
@@ -1193,18 +1233,18 @@ public class WebUI {
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         List<WebElement> totalRows = findWebElements(By.xpath("//tbody/tr"));
         sleep(1);
-        Log.info("Số kết quả cho từ khóa (" + value + "): " + totalRows.size());
+        Log.info("Number of results for keyword (" + value + "): " + totalRows.size());
 
         if (totalRows.size() < 1) {
-            Log.info("Không tìm thấy giá trị !!");
+            Log.info("Not found value: " + value);
         } else {
             for (int i = 1; i <= totalRows.size(); i++) {
                 boolean res = false;
                 WebElement title = waitForElementPresent(By.xpath("//tbody/tr[" + i + "]/td[" + column + "]"));
                 js.executeScript("arguments[0].scrollIntoView(true);", title);
                 res = title.getText().toUpperCase().contains(value.toUpperCase());
-                Log.info("Dòng thứ " + i + ": " + res + " - " + title.getText());
-                Assert.assertTrue(res, "Dòng thứ " + i + " (" + title.getText() + ")" + " không chứa giá trị " + value);
+                Log.info("Row " + i + ": " + res + " - " + title.getText());
+                Assert.assertTrue(res, "Row " + i + " (" + title.getText() + ")" + " không chứa giá trị " + value);
             }
         }
     }
@@ -1227,18 +1267,18 @@ public class WebUI {
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         List<WebElement> totalRows = DriverManager.getDriver().findElements(By.xpath(xpathToTRtagname));
         sleep(1);
-        Log.info("Số kết quả cho từ khóa (" + value + "): " + totalRows.size());
+        Log.info("Number of results for keyword (" + value + "): " + totalRows.size());
 
         if (totalRows.size() < 1) {
-            Log.info("Không tìm thấy giá trị !!");
+            Log.info("Not found value: " + value);
         } else {
             for (int i = 1; i <= totalRows.size(); i++) {
                 boolean res = false;
                 WebElement title = DriverManager.getDriver().findElement(By.xpath(xpathToTRtagname + "[" + i + "]/td[" + column + "]"));
                 js.executeScript("arguments[0].scrollIntoView(true);", title);
                 res = title.getText().toUpperCase().contains(value.toUpperCase());
-                Log.info("Dòng thứ " + i + ": " + res + " - " + title.getText());
-                Assert.assertTrue(res, "Dòng thứ " + i + " (" + title.getText() + ")" + " không chứa giá trị " + value);
+                Log.info("Row " + i + ": " + res + " - " + title.getText());
+                Assert.assertTrue(res, "Row " + i + " (" + title.getText() + ")" + " contains no value " + value);
             }
         }
     }
@@ -1257,18 +1297,18 @@ public class WebUI {
 
         List<WebElement> totalRows = DriverManager.getDriver().findElements(By.xpath("//tbody/tr"));
         sleep(1);
-        Log.info("Số kết quả cho cột (" + column + "): " + totalRows.size()); //Không thích ghi log thì xóa nhen
+        Log.info("Number of results for column (" + column + "): " + totalRows.size()); //Không thích ghi log thì xóa nhen
 
         ArrayList arrayList = new ArrayList<String>();
 
         if (totalRows.size() < 1) {
-            Log.info("Không tìm thấy giá trị !!");
+            Log.info("Not found value !!");
         } else {
             for (int i = 1; i <= totalRows.size(); i++) {
                 boolean res = false;
                 WebElement title = DriverManager.getDriver().findElement(By.xpath("//tbody/tr[" + i + "]/td[" + column + "]"));
                 arrayList.add(title.getText());
-                Log.info("Dòng thứ " + i + ":" + title.getText()); //Không thích ghi log thì xóa nhen
+                Log.info("Row " + i + ":" + title.getText()); //Không thích ghi log thì xóa nhen
             }
         }
 
@@ -1293,8 +1333,8 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
             return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         } catch (Throwable error) {
-            Assert.fail("Hết thời gian chờ Element hiển thị. " + by.toString());
-            Log.error("Hết thời gian chờ Element hiển thị. " + by.toString());
+            Assert.fail("Timeout waiting for the element displays. " + by.toString());
+            Log.error("Timeout waiting for the element displays. " + by.toString());
         }
         return null;
     }
@@ -1310,12 +1350,13 @@ public class WebUI {
             waitForPageLoaded();
         }
         sleep(WAIT_SLEEP_STEP);
+        waitForElementPresent(by);
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         } catch (Throwable error) {
-            Assert.fail("Hết thời gian chờ Element hiển thị. " + by.toString());
-            Log.error("Hết thời gian chờ Element hiển thị. " + by.toString());
+            Assert.fail("Timeout waiting for the element displays. " + by.toString());
+            Log.error("Timeout waiting for the element displays. " + by.toString());
         }
         return null;
     }
@@ -1336,8 +1377,8 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
             return wait.until(ExpectedConditions.elementToBeClickable(findWebElement(by)));
         } catch (Throwable error) {
-            Assert.fail("Hết thời gian chờ Element sẵn sàng để Click. " + by.toString());
-            Log.error("Hết thời gian chờ Element sẵn sàng để Click. " + by.toString());
+            Assert.fail("Timeout for element ready to click. " + by.toString());
+            Log.error("Timeout for element ready to click. " + by.toString());
         }
         return null;
     }
@@ -1357,8 +1398,8 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             return wait.until(ExpectedConditions.elementToBeClickable(findWebElement(by)));
         } catch (Throwable error) {
-            Assert.fail("Hết thời gian chờ Element sẵn sàng để Click. " + by.toString());
-            Log.error("Hết thời gian chờ Element sẵn sàng để Click. " + by.toString());
+            Assert.fail("Timeout for element ready to click. " + by.toString());
+            Log.error("Timeout for element ready to click. " + by.toString());
         }
         return null;
     }
@@ -1379,8 +1420,8 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
             return wait.until(ExpectedConditions.presenceOfElementLocated(by));
         } catch (Throwable error) {
-            Assert.fail("Hết thời gian chờ Element tồn tại. " + by.toString());
-            Log.error("Hết thời gian chờ Element tồn tại. " + by.toString());
+            Assert.fail("Timeout for element to exist. " + by.toString());
+            Log.error("Timeout for element to exist. " + by.toString());
         }
         return null;
     }
@@ -1400,8 +1441,8 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             return wait.until(ExpectedConditions.presenceOfElementLocated(by));
         } catch (Throwable error) {
-            Assert.fail("Element không tồn tại. " + by.toString());
-            Log.error("Element không tồn tại. " + by.toString());
+            Assert.fail("Element not exist. " + by.toString());
+            Log.error("Element not exist. " + by.toString());
         }
         return null;
     }
@@ -1422,8 +1463,8 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             return wait.until(ExpectedConditions.attributeToBeNotEmpty(waitForElementPresent(by), attribute));
         } catch (Throwable error) {
-            Assert.fail("Hết thời gian chờ element " + by.toString() + " tồn tại Attribute: " + attribute);
-            Log.error("Hết thời gian chờ element " + by.toString() + " tồn tại Attribute: " + attribute);
+            Assert.fail("Timeout for element " + by.toString() + " to exist attribute: " + attribute);
+            Log.error("Timeout for element " + by.toString() + " to exist attribute: " + attribute);
         }
         return false;
     }
@@ -1465,7 +1506,7 @@ public class WebUI {
             wait.until(ExpectedConditions.attributeToBeNotEmpty(waitForElementPresent(by), attribute));
             return true;
         } catch (Throwable error) {
-            Assert.fail("Không tìm thấy Attribute " + attribute + " của element " + by.toString());
+            Assert.fail("Not found Attribute " + attribute + " of element " + by.toString());
             return false;
         }
     }
@@ -1485,7 +1526,7 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_PAGE_LOADED), Duration.ofMillis(500));
             wait.until(jsLoad);
         } catch (Throwable error) {
-            Assert.fail("Hết thời gian tải trang (Javascript). (" + WAIT_PAGE_LOADED + "s)");
+            Assert.fail("Timeout for page load (Javascript). (" + WAIT_PAGE_LOADED + "s)");
         }
     }
 
@@ -1507,7 +1548,7 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_PAGE_LOADED), Duration.ofMillis(500));
             wait.until(jQueryLoad);
         } catch (Throwable error) {
-            Assert.fail("Hết thời gian tải JQuery. (" + WAIT_PAGE_LOADED + "s)");
+            Assert.fail("Timeout for JQuery load. (" + WAIT_PAGE_LOADED + "s)");
         }
     }
 

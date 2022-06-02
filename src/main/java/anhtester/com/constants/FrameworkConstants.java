@@ -18,7 +18,6 @@ public final class FrameworkConstants {
 
     public static final String PROJECT_PATH = Helpers.getCurrentDir();
     public static final String EXCEL_DATA_PATH = PropertiesHelpers.getValue("excelDataFilePath");
-    public static final String EXCEL_DATA_PATH_FULL = PropertiesHelpers.getValue("excelDataFilePathFull");
     public static final String JSON_CONFIG_FILE_PATH = Helpers.getCurrentDir() + "src/test/resources/config/config.json";
 
     public static final String BROWSER = PropertiesHelpers.getValue("browser");

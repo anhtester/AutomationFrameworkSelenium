@@ -6,10 +6,12 @@
 package anhtester.com.helpers;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.util.List;
 
 public class TxtFileHelpers {
 
-    public static void WriteTxtFile(String filepath, String text) {
+    public static void writeTxtFile(String filepath, String text) {
         try {
             File file = new File(filepath);
             while (!file.exists()) {
@@ -24,7 +26,7 @@ public class TxtFileHelpers {
         }
     }
 
-    public static void ReadTxtFile(String filepath) {
+    public static void readTxtFile(String filepath) {
         try {
             File f = new File(filepath);
             FileReader fr = new FileReader(f);
@@ -41,4 +43,18 @@ public class TxtFileHelpers {
             e.printStackTrace();
         }
     }
+
+    public static String readLineTxtFile(String filepath, int line) {
+        List<String> lines;
+        String value;
+        try {
+            lines = Files.readAllLines(new File(filepath).toPath());
+            value = lines.get(line);
+            return value;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

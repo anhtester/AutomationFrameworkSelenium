@@ -10,7 +10,7 @@ import org.openqa.selenium.By;
 
 public class ObjectUtils {
 
-    public static By getLocator(String elementName) {
+    public static By getObject(String elementName) {
 
         // retrieve the specified object from the object list in properties file
         String locator = PropertiesHelpers.getValue(elementName);
@@ -28,7 +28,7 @@ public class ObjectUtils {
         String locatorType = locator.split(":")[0];
         String locatorValue = locator.split(":")[1];
 
-        Log.info("Retrieving object of type '" + locatorType + "' and value '" + locatorValue + "' from the object repository");
+        Log.info("Retrieving object of type '" + locatorType + "' and locator '" + locatorValue + "' from the object repository");
 
         // Trả về một thể hiện của lớp By dựa trên loại định vị (id, name, xpath, css,...)
         // Đối tượng By có thể được sử dụng bởi driver.findElement (WebElement)
@@ -57,31 +57,85 @@ public class ObjectUtils {
         return null;
     }
 
+    public static String getXpathValue(String elementName) {
+
+        // retrieve the specified object from the object list in properties file
+        String locator = PropertiesHelpers.getValue(elementName);
+
+        if (locator.equals("") || locator.isEmpty()) {
+            try {
+                Log.info("The Locator " + elementName + " does not exist !!");
+                throw new Exception("The Locator " + elementName + " does not exist !!");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            // extract the locator type and value from the object
+            String locatorType = locator.split(":")[0];
+            String locatorValue = locator.split(":")[1];
+
+            if (!locatorType.toLowerCase().trim().equals("xpath")) {
+                try {
+                    Log.info(locatorType.toLowerCase());
+                    Log.info("The Locator Type of " + elementName + " does not XPATH !!");
+                    throw new Exception("The Locator Type of " + elementName + " does not XPATH !!");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.info("Retrieving Xpath with value '" + locatorValue + "' from the object repository");
+                return locatorValue;
+            }
+        }
+
+        return null;
+    }
+
 
     /**
      * Receives a wildcard string, replace the wildcard with the value and return to the caller
      *
      * @param xpath Xpath with wildcard string
-     * VD: //a[text()='%s']   =>  %s is String, %d is int
+     *              VD: //a[text()='%s']   =>  %s is String, %d is int
      * @param value value to be replaced in place of wildcard
      * @return dynamic xpath string
      * @author Anh Tester
      */
-    public static String getXpath(String xpath, String value) {
-        return String.format(xpath, value);
+    public static String getXpathDynamic(String xpath, Object value) {
+        if (xpath == null || xpath == "") {
+            try {
+                Log.info("Parameter passing error. The 'xpath' parameter is null.");
+                throw new Exception("Warning !! The xpath is null.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        } else {
+            return String.format(xpath, value);
+        }
     }
 
     /**
      * Receives a wildcard string, replace the wildcard with the value and return to the caller
      *
-     * @param xpath  Xpath with wildcard string
-     * @param value1 value to be replaced in place of wildcard
-     * @param value2 value to be replaced in place of wildcard
+     * @param xpath Xpath with wildcard string
+     * @param value multi value to be replaced in place of wildcard
+     *              VD: ObjectUtils.getXpathDynamic("//button[normalize-space()='%s']//div[%d]//span[%d]", "Login", 2, 10);
      * @return dynamic xpath string
      * @author Anh Tester
      */
-    public static String getXpath(String xpath, String value1, String value2) {
-        return String.format(xpath, value1, value2);
+    public static String getXpathDynamic(String xpath, Object... value) {
+        if (xpath == null || xpath == "") {
+            try {
+                Log.info("Parameter passing error. The 'xpath' parameter is null.");
+                throw new Exception("Warning !! The xpath is null.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        } else {
+            return String.format(xpath, value);
+        }
     }
 
 }

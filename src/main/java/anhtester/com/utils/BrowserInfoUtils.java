@@ -5,18 +5,12 @@
 
 package anhtester.com.utils;
 
-import anhtester.com.driver.DriverManager;
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Reporter;
 
 import static anhtester.com.constants.FrameworkConstants.BROWSER;
 
-//final -> We do not want any class to extend this class
 public final class BrowserInfoUtils {
 
-    //private -> We do not want anyone to create the object of this class
-    //Private constructor to avoid external instantiation
     private BrowserInfoUtils() {
     }
 

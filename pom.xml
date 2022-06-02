@@ -6,20 +6,20 @@
 
     <groupId>anhtester.com</groupId>
     <artifactId>AutomationFrameworkSelenium</artifactId>
-    <version>1.4</version>
+    <version>1.5.0</version>
     <name>AutomationFrameworkSelenium</name>
     <url>https://github.com/anhtester/AutomationFrameworkSelenium</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java-compiler.version>11</java-compiler.version>
+        <java-compiler.version>8</java-compiler.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
 
-        <selenium.version>4.1.4</selenium.version>
-        <testng.version>7.5</testng.version>
-        <webdrivermanager.version>5.1.1</webdrivermanager.version>
+        <selenium.version>4.2.1</selenium.version>
+        <testng.version>7.4.0</testng.version>
+        <webdrivermanager.version>5.2.0</webdrivermanager.version>
         <aspectjweaver.version>1.9.9.1</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <log4j.version>2.17.2</log4j.version>
@@ -79,14 +79,6 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>${jackson.version}</version>
-        </dependency>
-
-
-        <!-- https://mvnrepository.com/artifact/io.github.sskorol/test-data-supplier -->
-        <dependency>
-            <groupId>io.github.sskorol</groupId>
-            <artifactId>test-data-supplier</artifactId>
-            <version>${data.supplier.version}</version>
         </dependency>
 
         <!--https://mvnrepository.com/artifact/com.sun.mail/javax.mail/		 -->
@@ -301,7 +293,7 @@
                         <argLine>
                             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"
                         </argLine>
-                        <testFailureIgnore>false</testFailureIgnore>
+                        <testFailureIgnore>true</testFailureIgnore>
                         <systemPropertyVariables>
                             <allure.results.directory>target/allure-results</allure.results.directory>
                         </systemPropertyVariables>

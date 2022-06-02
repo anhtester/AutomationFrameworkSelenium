@@ -35,31 +35,49 @@ public class ExcelHelpers {
     public static int columnNumber; //Column Number
 
     //    Set Excel file
-    public static void setExcelFile(String ExcelPath, String SheetName) {
+    public static void setExcelFile(String excelPath, String sheetName) {
         try {
-            File f = new File(ExcelPath);
+            File f = new File(excelPath);
 
             if (!f.exists()) {
-                f.createNewFile();
-                System.out.println("File doesn't exist, so created!");
+                try {
+                    Log.info("File Excel path not found.");
+                    throw new InvalidPathForExcelException("File Excel path not found.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (sheetName.isEmpty() || sheetName.equals("")) {
+                try {
+                    Log.info("The Sheet Name is empty.");
+                    throw new InvalidPathForExcelException("The Sheet Name is empty.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
-            fis = new FileInputStream(ExcelPath);
+            fis = new FileInputStream(excelPath);
             wb = WorkbookFactory.create(fis);
-            sh = wb.getSheet(SheetName);
+            sh = wb.getSheet(sheetName);
             //sh = wb.getSheetAt(0); //0 - index of 1st sheet
             if (sh == null) {
-                sh = wb.createSheet(SheetName);
+//                sh = wb.createSheet(sheetName);
+                try {
+                    Log.info("Sheet name not found.");
+                    throw new InvalidPathForExcelException("Sheet name not found.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
-            excelFilePath = ExcelPath;
+            excelFilePath = excelPath;
 
             //adding all the column header names to the map 'columns'
             sh.getRow(0).forEach(cell -> {
                 columns.put(cell.getStringCellValue(), cell.getColumnIndex());
             });
 
-            Log.info("Set Excel file " + ExcelPath + " and selected Sheet: " + SheetName);
+            Log.info("Set Excel file " + excelPath + " and selected Sheet: " + sheetName);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -67,26 +85,47 @@ public class ExcelHelpers {
     }
 
     //Phương thức này nhận số hàng làm tham số và trả về dữ liệu của hàng đó.
-    public static Row getRowData(int RowNum) {
-        row = sh.getRow(RowNum);
+    public static Row getRowData(int rowNum) {
+        row = sh.getRow(rowNum);
         return row;
     }
 
-    public static Object[][] getDataArray(String ExcelPath, String sheetName, int startCol, int totalCols) {
+    public static Object[][] getDataArray(String excelPath, String sheetName, int startCol, int totalCols) {
 
         Object[][] data = null;
         try {
 
-            File f = new File(ExcelPath);
+            File f = new File(excelPath);
 
             if (!f.exists()) {
-                f.createNewFile();
-                System.out.println("File doesn't exist, so created!");
+                try {
+                    Log.info("File Excel path not found.");
+                    throw new InvalidPathForExcelException("File Excel path not found.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (sheetName.isEmpty() || sheetName.equals("")) {
+                try {
+                    Log.info("The Sheet Name is empty.");
+                    throw new InvalidPathForExcelException("The Sheet Name is empty.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
-            fis = new FileInputStream(ExcelPath);
+            fis = new FileInputStream(excelPath);
             wb = new XSSFWorkbook(fis);
             sh = wb.getSheet(sheetName);
+
+            if (sh == null) {
+                try {
+                    Log.info("Sheet name not found.");
+                    throw new InvalidPathForExcelException("Sheet name not found.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
             int noOfRows = sh.getPhysicalNumberOfRows();
             //int noOfCols = row.getLastCellNum();
@@ -108,16 +147,16 @@ public class ExcelHelpers {
         return data;
     }
 
-    public static Object[][] getTableArray(String FilePath, String SheetName, int iTestCaseRow) throws Exception {
+    public static Object[][] getTableArray(String filePath, String sheetName, int iTestCaseRow) throws Exception {
 
         String[][] tabArray = null;
 
         try {
-            FileInputStream ExcelFile = new FileInputStream(FilePath);
+            FileInputStream ExcelFile = new FileInputStream(filePath);
 
             // Access the required test data sheet
             wb = new XSSFWorkbook(ExcelFile);
-            sh = wb.getSheet(SheetName);
+            sh = wb.getSheet(sheetName);
 
             int startCol = 1;
             int ci = 0, cj = 0;
@@ -142,21 +181,25 @@ public class ExcelHelpers {
         return (tabArray);
     }
 
-    public static Object[][] getDataHashTable(String ExcelPath, String SheetName, int startRow, int endRow) {
+    public static Object[][] getDataHashTable(String excelPath, String sheetName, int startRow, int endRow) {
 
         Object[][] data = null;
         try {
 
-            File f = new File(ExcelPath);
+            File f = new File(excelPath);
 
             if (!f.exists()) {
-                f.createNewFile();
-                System.out.println("File doesn't exist, so created!");
+                try {
+                    Log.info("File Excel path not found.");
+                    throw new InvalidPathForExcelException("File Excel path not found.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
-            fis = new FileInputStream(ExcelPath);
+            fis = new FileInputStream(excelPath);
             wb = new XSSFWorkbook(fis);
-            sh = wb.getSheet(SheetName);
+            sh = wb.getSheet(sheetName);
 
             int rows = getRowCount();
             int columns = getColumnCount();
@@ -179,89 +222,6 @@ public class ExcelHelpers {
         }
         return data;
     }
-
-    public static List<Map<String, String>> getTestDetails(String sheetname) {
-        List<Map<String, String>> list = null;
-
-        try (FileInputStream fs = new FileInputStream(FrameworkConstants.EXCEL_DATA_PATH)) {
-
-            XSSFWorkbook workbook = new XSSFWorkbook(fs);
-            XSSFSheet sheet = workbook.getSheet(sheetname);
-
-            int lastrownum = sheet.getLastRowNum();
-            int lastcolnum = sheet.getRow(0).getLastCellNum();
-
-            Map<String, String> map = null;
-            list = new ArrayList<>();
-
-            for (int i = 1; i <= lastrownum; i++) {
-                map = new HashMap<>();
-                for (int j = 0; j < lastcolnum; j++) {
-                    String key = sheet.getRow(0).getCell(j).getStringCellValue();
-                    String value = sheet.getRow(i).getCell(j).getStringCellValue();
-                    map.put(key, value);
-                }
-                list.add(map);
-            }
-
-        } catch (FileNotFoundException e) {
-            throw new InvalidPathForExcelException("Excel File you trying to read is not found");
-        } catch (IOException e) {
-            throw new FrameworkException("Some io exception happened while reading excel file");
-        }
-        System.out.println(list);
-        return list;
-    }
-
-//    public static Object[][] getDataReflection(String ExcelPath, String SheetName, int startRow, int endRow) {
-//
-//        Object[][] data = null;
-//        try {
-//
-//            File f = new File(ExcelPath);
-//
-//            if (!f.exists()) {
-//                f.createNewFile();
-//                System.out.println("File doesn't exist, so created!");
-//            }
-//
-//            fis = new FileInputStream(ExcelPath);
-//            wb = new XSSFWorkbook(fis);
-//            sh = wb.getSheet(SheetName);
-//
-//            int rows = getRowCount();
-//            int columns = getColumnCount();
-//            System.out.println("Row: " + rows + " - Column: " + columns);
-//            data = new Object[endRow - startRow][1];
-//            Hashtable<String, String> table = null;
-//
-//            SignIn signIn = new SignIn();
-//
-//            for (int rowNums = startRow; rowNums < endRow; rowNums++) {
-//                table = new Hashtable<String, String>();
-//                for (int colNum = 0; colNum < columns; colNum++) {
-//
-//                    Field nameField = signIn.getClass().getDeclaredField(getCellData(0, colNum));
-//                    nameField.setAccessible(true);
-//                    nameField.set(signIn, getCellData(rowNums, colNum));
-//
-//                    table.put(getCellData(0, colNum), getCellData(rowNums, colNum));
-//                    data[rowNums - startRow][0] = table;
-//                }
-//            }
-//            System.out.println(signIn.getEmail() + "-" + signIn.getPassword());
-//            System.out.println(data);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (NoSuchFieldException e) {
-//            e.printStackTrace();
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        }
-//        return data;
-//    }
 
     public static String getTestCaseName(String sTestCase) throws Exception {
         String value = sTestCase;

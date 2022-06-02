@@ -1,9 +1,11 @@
 package anhtester.com.projects.website.crm.pages.Clients;
 
 import anhtester.com.enums.FailureHandling;
-import anhtester.com.models.Client;
+import anhtester.com.projects.website.crm.models.ClientModel;
 import anhtester.com.utils.ObjectUtils;
 import anhtester.com.utils.WebUI;
+
+import java.util.Hashtable;
 
 public class ClientPage {
 
@@ -15,48 +17,48 @@ public class ClientPage {
 
     public void openClientTabPage() {
         //Muốn chạy tiếp thì chọn FailureHandling.CONTINUE_ON_FAILURE
-        WebUI.verifyElementTextEquals(ObjectUtils.getLocator("labelOnClientPage"), pageText, FailureHandling.STOP_ON_FAILURE);
+        WebUI.verifyElementTextEquals(ObjectUtils.getObject("labelOnClientPage"), pageText, FailureHandling.STOP_ON_FAILURE);
         //WebUI.verifyPageUrl(pageUrl);
         WebUI.sleep(1);
-        WebUI.clickElement(ObjectUtils.getLocator("clientTab"));
+        WebUI.clickElement(ObjectUtils.getObject("clientTab"));
     }
 
-    public void addClient(Client clientData) {
-        WebUI.clickElement(ObjectUtils.getLocator("addClientBtn"));
-        WebUI.setText(ObjectUtils.getLocator("companyNameInput"), clientData.getCompanyName());
-        WebUI.clickElement(ObjectUtils.getLocator("ownerSelect"));
-        WebUI.setText(ObjectUtils.getLocator("ownerSearchInput"), clientData.getOwner());
-        WebUI.clickElement(ObjectUtils.getLocator("ownerFirstItemSelect"));
-        WebUI.setText(ObjectUtils.getLocator("addressInput"), clientData.getAddress());
-        WebUI.setText(ObjectUtils.getLocator("cityInput"), clientData.getCity());
-        WebUI.setText(ObjectUtils.getLocator("stateInput"), clientData.getState());
-        WebUI.setText(ObjectUtils.getLocator("zipInput"), clientData.getZip());
-        WebUI.setText(ObjectUtils.getLocator("countryInput"), clientData.getCountry());
-        WebUI.setText(ObjectUtils.getLocator("phoneInput"), clientData.getPhone());
-        WebUI.clickElement(ObjectUtils.getLocator("saveDialogBtn"));
-        WebUI.setText(ObjectUtils.getLocator("searchInput"), clientData.getCompanyName());
-        WebUI.checkContainsSearchTableByColumn(2, clientData.getCompanyName());
-        checkClientDetail(clientData);
+    public void addClient(Hashtable<String, String> data) {
+        WebUI.clickElement(ObjectUtils.getObject("addClientBtn"));
+        WebUI.setText(ObjectUtils.getObject("companyNameInput"), data.get(ClientModel.getCompanyName()));
+        WebUI.clickElement(ObjectUtils.getObject("ownerSelect"));
+        WebUI.setText(ObjectUtils.getObject("ownerSearchInput"), data.get(ClientModel.getOwner()));
+        WebUI.clickElement(ObjectUtils.getObject("ownerFirstItemSelect"));
+        WebUI.setText(ObjectUtils.getObject("addressInput"), data.get(ClientModel.getAddress()));
+        WebUI.setText(ObjectUtils.getObject("cityInput"), data.get(ClientModel.getCity()));
+        WebUI.setText(ObjectUtils.getObject("stateInput"), data.get(ClientModel.getState()));
+        WebUI.setText(ObjectUtils.getObject("zipInput"), data.get(ClientModel.getZip()));
+        WebUI.setText(ObjectUtils.getObject("countryInput"), data.get(ClientModel.getCountry()));
+        WebUI.setText(ObjectUtils.getObject("phoneInput"), data.get(ClientModel.getPhone()));
+        WebUI.clickElement(ObjectUtils.getObject("saveDialogBtn"));
+        WebUI.setText(ObjectUtils.getObject("searchInput"), data.get(ClientModel.getCompanyName()));
+        WebUI.checkContainsSearchTableByColumn(2, data.get(ClientModel.getCompanyName()));
+        checkClientDetail(data);
     }
 
-    public void checkClientDetail(Client clientData) {
-        WebUI.clickElement(ObjectUtils.getLocator("itemClientFirstRow"));
-        WebUI.clickElement(ObjectUtils.getLocator("tabClientInfo"));
+    public void checkClientDetail(Hashtable<String, String> data) {
+        WebUI.clickElement(ObjectUtils.getObject("itemClientFirstRow"));
+        WebUI.clickElement(ObjectUtils.getObject("tabClientInfo"));
 
-        WebUI.verifyElementAttributeValue(ObjectUtils.getLocator("companyNameInput"), "value", clientData.getCompanyName());
-        WebUI.verifyElementTextEquals(ObjectUtils.getLocator("ownerDetail"), clientData.getOwner(), FailureHandling.CONTINUE_ON_FAILURE);
-        WebUI.verifyElementTextEquals(ObjectUtils.getLocator("addressInput"), clientData.getAddress(), FailureHandling.CONTINUE_ON_FAILURE);
-        WebUI.verifyElementAttributeValue(ObjectUtils.getLocator("cityInput"), "value", clientData.getCity());
-        WebUI.verifyElementAttributeValue(ObjectUtils.getLocator("stateInput"), "value", clientData.getState());
+        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("companyNameInput"), "value", data.get(ClientModel.getCompanyName()));
+        WebUI.verifyElementTextEquals(ObjectUtils.getObject("ownerDetail"), data.get(ClientModel.getOwner()), FailureHandling.CONTINUE_ON_FAILURE);
+        WebUI.verifyElementTextEquals(ObjectUtils.getObject("addressInput"), data.get(ClientModel.getAddress()), FailureHandling.CONTINUE_ON_FAILURE);
+        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("cityInput"), "value", data.get(ClientModel.getCity()));
+        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("stateInput"), "value", data.get(ClientModel.getState()));
         //Còn vài cái nữa là làm biếng code quá =))
 
     }
 
     public void enterDataSearchClient(String value) {
         WebUI.sleep(1);
-        WebUI.moveToElement(ObjectUtils.getLocator("searchInput"));
-        WebUI.clearText(ObjectUtils.getLocator("searchInput"));
-        WebUI.setText(ObjectUtils.getLocator("searchInput"), value);
+        WebUI.moveToElement(ObjectUtils.getObject("searchInput"));
+        WebUI.clearText(ObjectUtils.getObject("searchInput"));
+        WebUI.setText(ObjectUtils.getObject("searchInput"), value);
     }
 
 }

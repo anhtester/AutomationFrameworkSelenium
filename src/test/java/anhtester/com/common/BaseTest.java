@@ -1,26 +1,16 @@
 package anhtester.com.common;
 
 import anhtester.com.constants.FrameworkConstants;
-import anhtester.com.helpers.CaptureHelpers;
 import anhtester.com.helpers.ExcelHelpers;
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.listeners.TestListener;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.driver.TargetFactory;
-import anhtester.com.projects.website.crm.pages.Clients.ClientPage;
-import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
-import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import anhtester.com.report.AllureManager;
-import anhtester.com.report.ExtentReportManager;
-import anhtester.com.report.ExtentTestManager;
-import anhtester.com.utils.DecodeUtils;
 import anhtester.com.utils.WebUI;
-import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.testng.annotations.*;
-
-import static anhtester.com.constants.FrameworkConstants.*;
 
 @Listeners({TestListener.class})
 public class BaseTest {
@@ -29,7 +19,7 @@ public class BaseTest {
     public void beforeSuite() {
         AllureManager.setAllureEnvironmentInformation();
         PropertiesHelpers.loadAllFiles(); //Config and Locators
-        ExcelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_PATH_FULL, "SignIn");
+        ExcelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_PATH, "SignIn");
     }
 
     @Parameters("browser")

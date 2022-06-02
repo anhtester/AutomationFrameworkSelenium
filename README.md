@@ -17,7 +17,7 @@
 
 ## **SYSTEM REQUIREMENTS**
 
-- **JDK 11, 15, 16** (not run with 8, 17, 18)
+- **JDK All Version**
 - Chrome Browser, Edge Browser
 - Setup **Allure**:
   https://mvnrepository.com/artifact/io.qameta.allure/allure-java-commons
@@ -103,8 +103,7 @@
 
 **8. Read data test from Excel file**
 
-- Create function with annotaion **DataSupplier** on **_src/main/java/anhtester/com/utils/DataProviderUtils.java_**
-- Call the name of **DataSupplier** above in the test cases as DataProvider of TestNG
+- Create function with annotaion **DataProvider** on **src/test/java/anhtester/com/projects/website/crm/dataprovider/DataProviderManager.java**
 - Read excel with Map and Hashtable
 
 **9. Base function in the package**
@@ -149,8 +148,6 @@
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Configuration.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂constants
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkConstants.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂data
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DataProviderManager.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂driver
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DriverManager.java
@@ -181,9 +178,6 @@
  ┃ ┃ ┃ ┃ ┃ ┣ 📂mail
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailAttachmentsSender.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜EmailConfig.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂models
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Client.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignIn.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂report
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureManager.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtentReportManager.java
@@ -218,6 +212,11 @@
  ┃ ┃ ┃ ┃ ┃ ┗ 📂projects
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂website
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂crm
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dataprovider
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DataProviderManager.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂models
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientModel.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInModel.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂pages
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Clients
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ClientPage.java

@@ -15,9 +15,21 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 public class TestSimpleCode {
+
+    @Test
+    public void testGetXpathDynamic() {
+        String xpath1 = ObjectUtils.getXpathDynamic("//button[normalize-space()='%s']", "Login");
+        System.out.println(xpath1);
+
+        String xpath2 = ObjectUtils.getXpathDynamic("//button[normalize-space()='%s']//div[%d]//span[%d]", "Login", 2, 10);
+        System.out.println(xpath2);
+
+        PropertiesHelpers.loadAllFiles();
+        String xpath3 = ObjectUtils.getXpathDynamic(ObjectUtils.getXpathValue("dynamicXpath"), "Login");
+        System.out.println(xpath3);
+    }
 
     @Test
     public void testRemoveAccent() {
@@ -95,7 +107,10 @@ public class TestSimpleCode {
     @Test
     public void testReadAndWriteTxtFile() {
         PropertiesHelpers.loadAllFiles();
-        TxtFileHelpers.ReadTxtFile(PropertiesHelpers.getValue("txtFilePath"));
+        //Read all data
+        TxtFileHelpers.readTxtFile(PropertiesHelpers.getValue("txtFilePath"));
+        //Read data by line number
+        System.out.println(TxtFileHelpers.readLineTxtFile(PropertiesHelpers.getValue("txtFilePath"), 0));
     }
 
     @Test
@@ -103,7 +118,7 @@ public class TestSimpleCode {
         PropertiesHelpers.loadAllFiles();
         System.out.println(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"));
         //  Handle Excel file
-        ExcelHelpers.setExcelFile(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"), "SignIn");
+        ExcelHelpers.setExcelFile(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"), "SignInModel");
         System.out.println(ExcelHelpers.getCellData(1, "EMAIL"));
         System.out.println(ExcelHelpers.getCellData(1, "PASSWORD"));
         ExcelHelpers.setCellData("pass", 1, "EXPECTED_TITLE");
@@ -112,8 +127,8 @@ public class TestSimpleCode {
     @Test()
     public void testExcelFile2() throws Exception {
         PropertiesHelpers.loadAllFiles();
-        System.out.println(ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH_FULL, "SignIn", 1, 2));
-        //System.out.println(ExcelHelpers.getDataReflection(Helpers.getCurrentDir() + "src/test/resources/testdatafile/ClientsDataExcel.xlsx", "SignIn", 1, 2));
+        System.out.println(ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH, "SignInModel", 1, 2));
+        //System.out.println(ExcelHelpers.getDataReflection(Helpers.getCurrentDir() + "src/test/resources/testdatafile/ClientsDataExcel.xlsx", "SignInModel", 1, 2));
 
     }
 

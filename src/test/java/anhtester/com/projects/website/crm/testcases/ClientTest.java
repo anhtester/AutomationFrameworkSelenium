@@ -7,14 +7,15 @@ package anhtester.com.projects.website.crm.testcases;
 
 import anhtester.com.annotations.FrameworkAnnotation;
 import anhtester.com.common.BaseTest;
+import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.enums.AuthorType;
 import anhtester.com.enums.CategoryType;
 import anhtester.com.helpers.ExcelHelpers;
-import anhtester.com.models.Client;
+import anhtester.com.projects.website.crm.models.SignInModel;
 import anhtester.com.projects.website.crm.pages.Clients.ClientPage;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
-import anhtester.com.data.DataProviderManager;
+import anhtester.com.projects.website.crm.dataprovider.DataProviderManager;
 import anhtester.com.utils.DecodeUtils;
 import anhtester.com.utils.WebUI;
 import io.qameta.allure.Epic;
@@ -23,8 +24,10 @@ import io.qameta.allure.Step;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.util.Hashtable;
+
 @Epic("Regression Test CRM")
-@Feature("Client Test")
+@Feature("ClientModel Test")
 public class ClientTest extends BaseTest {
 
     public SignInPage signInPage;
@@ -35,19 +38,16 @@ public class ClientTest extends BaseTest {
         signInPage = new SignInPage();
     }
 
-
     @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.VOTHAIAN},
             category = {CategoryType.SANITY, CategoryType.REGRESSION})
-    @Test(priority = 1, description = "Add new Client", dataProvider = "getDataClientSupplierFromExcel",
+    @Test(priority = 1, description = "Add new Client", dataProvider = "getClientDataHashTable",
             dataProviderClass = DataProviderManager.class)
     @Step("Add new Client")
-    public void testAddClient(Client clientData) {
-        dashboardPage = signInPage.signIn(ExcelHelpers.getCellData(1, "EMAIL"), DecodeUtils.decrypt(ExcelHelpers.getCellData(1, "PASSWORD")));
-        //Client section
+    public void testAddClient(Hashtable<String, String> data) {
+        dashboardPage = signInPage.signInWithAdminRole();
         clientPage = dashboardPage.openClientPage();
         clientPage.openClientTabPage();
-        clientPage.addClient(clientData);
-
+        clientPage.addClient(data);
     }
 
     @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.AUTOMATION},
@@ -55,24 +55,15 @@ public class ClientTest extends BaseTest {
     @Test(priority = 2, description = "Search Client")
     @Step("Search Client")
     public void testSearchClient() {
-        dashboardPage = signInPage.signIn(ExcelHelpers.getCellData(1, "EMAIL"), DecodeUtils.decrypt(ExcelHelpers.getCellData(1, "PASSWORD")));
+        dashboardPage = signInPage.signInWithAdminRole();
         clientPage = dashboardPage.openClientPage();
         clientPage.openClientTabPage();
         // Search the first
-        clientPage.enterDataSearchClient("Anh Tester Com 055555555");
-        WebUI.checkContainsSearchTableByColumn(2, "Anh Tester Com 055555555");
+        clientPage.enterDataSearchClient("Anh Tester Com 06");
+        WebUI.checkContainsSearchTableByColumn(2, "Anh Tester Com 06");
         // Search the second
         clientPage.enterDataSearchClient("Phamiliar Tech");
         WebUI.checkContainsSearchTableByColumn(2, "Phamiliar Tech");
-
-    }
-
-    @Test(priority = 3, description = "Test Invalid Page Title")
-    @Step("Test Invalid Page Title")
-    public void testInvalidPageTitle() {
-        dashboardPage = signInPage.signIn(ExcelHelpers.getCellData(1, "EMAIL"), DecodeUtils.decrypt(ExcelHelpers.getCellData(1, "PASSWORD")));
-
-        Assert.assertEquals(WebUI.getPageTitle(), "AnhTester");
 
     }
 
