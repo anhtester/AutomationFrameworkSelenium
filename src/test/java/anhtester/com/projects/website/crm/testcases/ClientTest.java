@@ -27,7 +27,7 @@ import org.testng.annotations.*;
 import java.util.Hashtable;
 
 @Epic("Regression Test CRM")
-@Feature("ClientModel Test")
+@Feature("Clients Test")
 public class ClientTest extends BaseTest {
 
     public SignInPage signInPage;
@@ -40,8 +40,7 @@ public class ClientTest extends BaseTest {
 
     @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.VOTHAIAN},
             category = {CategoryType.SANITY, CategoryType.REGRESSION})
-    @Test(priority = 1, description = "Add new Client", dataProvider = "getClientDataHashTable",
-            dataProviderClass = DataProviderManager.class)
+    @Test(priority = 1, dataProvider = "getClientDataHashTable", dataProviderClass = DataProviderManager.class)
     @Step("Add new Client")
     public void testAddClient(Hashtable<String, String> data) {
         dashboardPage = signInPage.signInWithAdminRole();
@@ -52,7 +51,7 @@ public class ClientTest extends BaseTest {
 
     @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.AUTOMATION},
             category = {CategoryType.SANITY, CategoryType.REGRESSION})
-    @Test(priority = 2, description = "Search Client")
+    @Test(priority = 2)
     @Step("Search Client")
     public void testSearchClient() {
         dashboardPage = signInPage.signInWithAdminRole();

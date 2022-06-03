@@ -20,23 +20,23 @@ public class ClientPage {
         WebUI.verifyElementTextEquals(ObjectUtils.getObject("labelOnClientPage"), pageText, FailureHandling.STOP_ON_FAILURE);
         //WebUI.verifyPageUrl(pageUrl);
         WebUI.sleep(1);
-        WebUI.clickElement(ObjectUtils.getObject("clientTab"));
+        WebUI.clickElement(ObjectUtils.getObject("tabClient"));
     }
 
     public void addClient(Hashtable<String, String> data) {
-        WebUI.clickElement(ObjectUtils.getObject("addClientBtn"));
-        WebUI.setText(ObjectUtils.getObject("companyNameInput"), data.get(ClientModel.getCompanyName()));
-        WebUI.clickElement(ObjectUtils.getObject("ownerSelect"));
-        WebUI.setText(ObjectUtils.getObject("ownerSearchInput"), data.get(ClientModel.getOwner()));
-        WebUI.clickElement(ObjectUtils.getObject("ownerFirstItemSelect"));
-        WebUI.setText(ObjectUtils.getObject("addressInput"), data.get(ClientModel.getAddress()));
-        WebUI.setText(ObjectUtils.getObject("cityInput"), data.get(ClientModel.getCity()));
-        WebUI.setText(ObjectUtils.getObject("stateInput"), data.get(ClientModel.getState()));
-        WebUI.setText(ObjectUtils.getObject("zipInput"), data.get(ClientModel.getZip()));
-        WebUI.setText(ObjectUtils.getObject("countryInput"), data.get(ClientModel.getCountry()));
-        WebUI.setText(ObjectUtils.getObject("phoneInput"), data.get(ClientModel.getPhone()));
-        WebUI.clickElement(ObjectUtils.getObject("saveDialogBtn"));
-        WebUI.setText(ObjectUtils.getObject("searchInput"), data.get(ClientModel.getCompanyName()));
+        WebUI.clickElement(ObjectUtils.getObject("buttonAddClient"));
+        WebUI.setText(ObjectUtils.getObject("inputCompanyName"), data.get(ClientModel.getCompanyName()));
+        WebUI.clickElement(ObjectUtils.getObject("selectOwner"));
+        WebUI.setText(ObjectUtils.getObject("inputSearchOwner"), data.get(ClientModel.getOwner()));
+        WebUI.clickElement(ObjectUtils.getObject("selectFirstItemOwner"));
+        WebUI.setText(ObjectUtils.getObject("inputAddress"), data.get(ClientModel.getAddress()));
+        WebUI.setText(ObjectUtils.getObject("inputCity"), data.get(ClientModel.getCity()));
+        WebUI.setText(ObjectUtils.getObject("inputState"), data.get(ClientModel.getState()));
+        WebUI.setText(ObjectUtils.getObject("inputZip"), data.get(ClientModel.getZip()));
+        WebUI.setText(ObjectUtils.getObject("inputCountry"), data.get(ClientModel.getCountry()));
+        WebUI.setText(ObjectUtils.getObject("inputPhone"), data.get(ClientModel.getPhone()));
+        WebUI.clickElement(ObjectUtils.getObject("buttonSaveOnDialog"));
+        WebUI.setText(ObjectUtils.getObject("inputSearch"), data.get(ClientModel.getCompanyName()));
         WebUI.checkContainsSearchTableByColumn(2, data.get(ClientModel.getCompanyName()));
         checkClientDetail(data);
     }
@@ -45,20 +45,20 @@ public class ClientPage {
         WebUI.clickElement(ObjectUtils.getObject("itemClientFirstRow"));
         WebUI.clickElement(ObjectUtils.getObject("tabClientInfo"));
 
-        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("companyNameInput"), "value", data.get(ClientModel.getCompanyName()));
+        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("inputCompanyName"), "value", data.get(ClientModel.getCompanyName()));
         WebUI.verifyElementTextEquals(ObjectUtils.getObject("ownerDetail"), data.get(ClientModel.getOwner()), FailureHandling.CONTINUE_ON_FAILURE);
-        WebUI.verifyElementTextEquals(ObjectUtils.getObject("addressInput"), data.get(ClientModel.getAddress()), FailureHandling.CONTINUE_ON_FAILURE);
-        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("cityInput"), "value", data.get(ClientModel.getCity()));
-        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("stateInput"), "value", data.get(ClientModel.getState()));
+        WebUI.verifyElementTextEquals(ObjectUtils.getObject("inputAddress"), data.get(ClientModel.getAddress()), FailureHandling.CONTINUE_ON_FAILURE);
+        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("inputCity"), "value", data.get(ClientModel.getCity()));
+        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("inputState"), "value", data.get(ClientModel.getState()));
         //Còn vài cái nữa là làm biếng code quá =))
 
     }
 
     public void enterDataSearchClient(String value) {
         WebUI.sleep(1);
-        WebUI.moveToElement(ObjectUtils.getObject("searchInput"));
-        WebUI.clearText(ObjectUtils.getObject("searchInput"));
-        WebUI.setText(ObjectUtils.getObject("searchInput"), value);
+        WebUI.moveToElement(ObjectUtils.getObject("inputSearch"));
+        WebUI.clearText(ObjectUtils.getObject("inputSearch"));
+        WebUI.setText(ObjectUtils.getObject("inputSearch"), value);
     }
 
 }

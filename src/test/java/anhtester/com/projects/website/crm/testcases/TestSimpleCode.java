@@ -21,45 +21,45 @@ public class TestSimpleCode {
     @Test
     public void testGetXpathDynamic() {
         String xpath1 = ObjectUtils.getXpathDynamic("//button[normalize-space()='%s']", "Login");
-        System.out.println(xpath1);
+        WebUI.logConsole(xpath1);
 
         String xpath2 = ObjectUtils.getXpathDynamic("//button[normalize-space()='%s']//div[%d]//span[%d]", "Login", 2, 10);
-        System.out.println(xpath2);
+        WebUI.logConsole(xpath2);
 
         PropertiesHelpers.loadAllFiles();
-        String xpath3 = ObjectUtils.getXpathDynamic(ObjectUtils.getXpathValue("dynamicXpath"), "Login");
-        System.out.println(xpath3);
+        String xpath3 = ObjectUtils.getXpathDynamic(ObjectUtils.getXpathValue("buttonDynamicXpath"), "Login");
+        WebUI.logConsole(xpath3);
     }
 
     @Test
     public void testRemoveAccent() {
-        System.out.println(LanguageUtils.removeAccent("Võ Thái An"));
+        WebUI.logConsole(LanguageUtils.removeAccent("Võ Thái An"));
     }
 
     @Test
     public void testMakeSlug() {
-        System.out.println(Helpers.makeSlug("Anh Tester Automation Testing"));
+        WebUI.logConsole(Helpers.makeSlug("Anh Tester Automation Testing"));
     }
 
     @Test
     public void testReadFileJSON() {
-        System.out.println(JsonUtils.get("url"));
-        System.out.println(JsonUtils.get("browser"));
-        System.out.println(JsonUtils.get("button"));
+        WebUI.logConsole(JsonUtils.get("url"));
+        WebUI.logConsole(JsonUtils.get("browser"));
+        WebUI.logConsole(JsonUtils.get("button"));
     }
 
     @Test
     public void testGetCurrentDirectory() {
-        System.out.println(Helpers.getCurrentDir());
+        WebUI.logConsole(Helpers.getCurrentDir());
     }
 
     @Test
     public void testGetAndSetPropertiesFile() {
         PropertiesHelpers.loadAllFiles();
 
-        System.out.println(PropertiesHelpers.getValue("browser"));
-        System.out.println(PropertiesHelpers.getValue("buttonTag"));
-        System.out.println(PropertiesHelpers.getValue("buttonDangNhap"));
+        WebUI.logConsole(PropertiesHelpers.getValue("browser"));
+        WebUI.logConsole(PropertiesHelpers.getValue("buttonTag"));
+        WebUI.logConsole(PropertiesHelpers.getValue("buttonDangNhap"));
     }
 
     @Test
@@ -67,7 +67,7 @@ public class TestSimpleCode {
         String s1 = "Automation, Testing, Selenium, Java";
 
         for (String arr : Helpers.splitString(s1, ", ")) {
-            System.out.println(arr);
+            WebUI.logConsole(arr);
         }
     }
 
@@ -76,9 +76,9 @@ public class TestSimpleCode {
         String pass = "123456";
 
         //Encrypt password
-        System.out.println(DecodeUtils.encrypt(pass));
+        WebUI.logConsole(DecodeUtils.encrypt(pass));
         //Decrypt password
-        System.out.println(DecodeUtils.decrypt(DecodeUtils.encrypt(pass)));
+        WebUI.logConsole(DecodeUtils.decrypt(DecodeUtils.encrypt(pass)));
     }
 
     @Test
@@ -110,25 +110,25 @@ public class TestSimpleCode {
         //Read all data
         TxtFileHelpers.readTxtFile(PropertiesHelpers.getValue("txtFilePath"));
         //Read data by line number
-        System.out.println(TxtFileHelpers.readLineTxtFile(PropertiesHelpers.getValue("txtFilePath"), 0));
+        WebUI.logConsole(TxtFileHelpers.readLineTxtFile(PropertiesHelpers.getValue("txtFilePath"), 0));
     }
 
     @Test
     public void testExcelFile1() {
         PropertiesHelpers.loadAllFiles();
-        System.out.println(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"));
+        WebUI.logConsole(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"));
         //  Handle Excel file
         ExcelHelpers.setExcelFile(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"), "SignInModel");
-        System.out.println(ExcelHelpers.getCellData(1, "EMAIL"));
-        System.out.println(ExcelHelpers.getCellData(1, "PASSWORD"));
+        WebUI.logConsole(ExcelHelpers.getCellData(1, "EMAIL"));
+        WebUI.logConsole(ExcelHelpers.getCellData(1, "PASSWORD"));
         ExcelHelpers.setCellData("pass", 1, "EXPECTED_TITLE");
     }
 
     @Test()
     public void testExcelFile2() throws Exception {
         PropertiesHelpers.loadAllFiles();
-        System.out.println(ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH, "SignInModel", 1, 2));
-        //System.out.println(ExcelHelpers.getDataReflection(Helpers.getCurrentDir() + "src/test/resources/testdatafile/ClientsDataExcel.xlsx", "SignInModel", 1, 2));
+        WebUI.logConsole(ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH, "SignInModel", 1, 2));
+        //WebUI.logConsole(ExcelHelpers.getDataReflection(Helpers.getCurrentDir() + "src/test/resources/testdatafile/ClientsDataExcel.xlsx", "SignInModel", 1, 2));
 
     }
 
@@ -160,10 +160,10 @@ public class TestSimpleCode {
             String COMPANY_ID = rs.getString("COMPANY_ID");
             String COMPANY_NAME = rs.getString("COMPANY_NAME");
             String COMPANY_CITY = rs.getString("COMPANY_CITY");
-            System.out.println("--------------------");
-            System.out.println("COMPANY_ID:" + COMPANY_ID);
-            System.out.println("COMPANY_NAME:" + COMPANY_NAME);
-            System.out.println("COMPANY_CITY:" + COMPANY_CITY);
+            WebUI.logConsole("--------------------");
+            WebUI.logConsole("COMPANY_ID:" + COMPANY_ID);
+            WebUI.logConsole("COMPANY_NAME:" + COMPANY_NAME);
+            WebUI.logConsole("COMPANY_CITY:" + COMPANY_CITY);
         }
 
         // Đóng kết nối

@@ -12,7 +12,6 @@ import anhtester.com.helpers.Helpers;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
-import anhtester.com.helpers.DatabaseHelpers;
 import anhtester.com.utils.LocalStorageUtils;
 import anhtester.com.utils.ObjectUtils;
 import anhtester.com.utils.WebUI;
@@ -39,13 +38,13 @@ public class TestHandle {
 
     @BeforeMethod
     public void Setup() {
-        driver = new BaseTest().createBrowser("chrome"); //Cách khởi tạo thứ 1
-        // new BaseTest().createDriver("chrome"); //Cách khởi tạo thứ 2
-        // driver = DriverManager.getDriver(); //Get WebDriver global in ThreadLocal
+        driver = new BaseTest().createBrowser("chrome"); //Initialization method 1
+        // new BaseTest().createDriver("chrome"); //Initialization method 2
+        // driver = DriverManager.getDriver(); //Get WebDriver from global in ThreadLocal
     }
 
     @Test
-    public void testLocalStorage(){
+    public void testLocalStorage() {
         WebUI.getToUrl(FrameworkConstants.BASE_URL);
         WebUI.sleep(1);
 
@@ -53,18 +52,18 @@ public class TestHandle {
         LocalStorageUtils.setItem("email", "admin02@mailinator.com");
         LocalStorageUtils.setItem("password", "123456");
 
-        WebUI.setText(ObjectUtils.getObject("SigninPage.email"), LocalStorageUtils.getItem("email"));
-        WebUI.setText(ObjectUtils.getObject("SigninPage.passwordInput"), LocalStorageUtils.getItem("password"));
-        WebUI.clickElement(ObjectUtils.getObject("SigninPage.signInBtn"));
+        WebUI.setText(ObjectUtils.getObject("inputEmail"), LocalStorageUtils.getItem("email"));
+        WebUI.setText(ObjectUtils.getObject("inputPassword"), LocalStorageUtils.getItem("password"));
+        WebUI.clickElement(ObjectUtils.getObject("buttonSignIn"));
         WebUI.waitForPageLoaded();
 
         //Get value in Project page
-        WebUI.clickElement(ObjectUtils.getObject("projectMenu"));
+        WebUI.clickElement(ObjectUtils.getObject("menuProjects"));
         WebUI.logConsole(LocalStorageUtils.getItem("email"));
         WebUI.waitForPageLoaded();
         WebUI.sleep(1);
         //Get value in ClientModel page
-        WebUI.clickElement(ObjectUtils.getObject("clientMenu"));
+        WebUI.clickElement(ObjectUtils.getObject("menuClients"));
         WebUI.logConsole(LocalStorageUtils.getItem("password"));
 
         //=> You can get value by key everywhere before closing the browser

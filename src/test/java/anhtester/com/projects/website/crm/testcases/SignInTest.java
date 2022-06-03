@@ -37,13 +37,11 @@ public class SignInTest extends BaseTest {
         signInPage.signIn(data);
     }
 
-    @Test(priority = 2, description = "Test Invalid Page Title")
+    @Test(priority = 2)
     @Step("Test Invalid Page Title")
     public void testInvalidPageTitle() {
         dashboardPage = signInPage.signInWithTeamLeaderRole();
-
         Assert.assertEquals(WebUI.getPageTitle(), "AnhTester");
-
     }
 
 }

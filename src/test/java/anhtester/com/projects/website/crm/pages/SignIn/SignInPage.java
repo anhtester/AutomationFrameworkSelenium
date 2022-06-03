@@ -26,11 +26,11 @@ public class SignInPage {
         WebUI.getToUrl(FrameworkConstants.BASE_URL);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of sign in page not match.");
         Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "The title of sign in page not match.");
-        WebUI.setText(ObjectUtils.getObject("SigninPage.email"), ExcelHelpers.getCellData(1, SignInModel.getEmail()));
-        WebUI.setText(ObjectUtils.getObject("SigninPage.passwordInput"), DecodeUtils.decrypt(ExcelHelpers.getCellData(1, SignInModel.getPassword())));
-        WebUI.clickElement(ObjectUtils.getObject("SigninPage.signInBtn"));
+        WebUI.setText(ObjectUtils.getObject("inputEmail"), ExcelHelpers.getCellData(1, SignInModel.getEmail()));
+        WebUI.setText(ObjectUtils.getObject("inputPassword"), DecodeUtils.decrypt(ExcelHelpers.getCellData(1, SignInModel.getPassword())));
+        WebUI.clickElement(ObjectUtils.getObject("buttonSignIn"));
         WebUI.waitForPageLoaded();
-        Assert.assertTrue(WebUI.verifyPageUrl(dashboardPageURL),"Sign in failed. Can not redirect to Dashboard page.");
+        Assert.assertTrue(WebUI.verifyPageUrl(dashboardPageURL), "Sign in failed. Can not redirect to Dashboard page.");
         WebUI.waitForPageLoaded();
 
         return new DashboardPage();
@@ -41,11 +41,11 @@ public class SignInPage {
         WebUI.getToUrl(FrameworkConstants.BASE_URL);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of sign in page not match.");
         Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "The title of sign in page not match.");
-        WebUI.setText(ObjectUtils.getObject("SigninPage.email"), ExcelHelpers.getCellData(2, SignInModel.getEmail()));
-        WebUI.setText(ObjectUtils.getObject("SigninPage.passwordInput"), DecodeUtils.decrypt(ExcelHelpers.getCellData(2, SignInModel.getPassword())));
-        WebUI.clickElement(ObjectUtils.getObject("SigninPage.signInBtn"));
+        WebUI.setText(ObjectUtils.getObject("inputEmail"), ExcelHelpers.getCellData(2, SignInModel.getEmail()));
+        WebUI.setText(ObjectUtils.getObject("inputPassword"), DecodeUtils.decrypt(ExcelHelpers.getCellData(2, SignInModel.getPassword())));
+        WebUI.clickElement(ObjectUtils.getObject("buttonSignIn"));
         WebUI.waitForPageLoaded();
-        Assert.assertTrue(WebUI.verifyPageUrl(dashboardPageURL),"Sign in failed. Can not redirect to Dashboard page.");
+        Assert.assertTrue(WebUI.verifyPageUrl(dashboardPageURL), "Sign in failed. Can not redirect to Dashboard page.");
         WebUI.waitForPageLoaded();
 
         return new DashboardPage();
@@ -56,11 +56,11 @@ public class SignInPage {
         WebUI.getToUrl(FrameworkConstants.BASE_URL);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of sign in page not match.");
         Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "The title of sign in page not match.");
-        WebUI.setText(ObjectUtils.getObject("SigninPage.email"), ExcelHelpers.getCellData(3, SignInModel.getEmail()));
-        WebUI.setText(ObjectUtils.getObject("SigninPage.passwordInput"), DecodeUtils.decrypt(ExcelHelpers.getCellData(3, SignInModel.getPassword())));
-        WebUI.clickElement(ObjectUtils.getObject("SigninPage.signInBtn"));
+        WebUI.setText(ObjectUtils.getObject("inputEmail"), ExcelHelpers.getCellData(3, SignInModel.getEmail()));
+        WebUI.setText(ObjectUtils.getObject("inputPassword"), DecodeUtils.decrypt(ExcelHelpers.getCellData(3, SignInModel.getPassword())));
+        WebUI.clickElement(ObjectUtils.getObject("buttonSignIn"));
         WebUI.waitForPageLoaded();
-        Assert.assertTrue(WebUI.verifyPageUrl(dashboardPageURL),"Sign in failed. Can not redirect to Dashboard page.");
+        Assert.assertTrue(WebUI.verifyPageUrl(dashboardPageURL), "Sign in failed. Can not redirect to Dashboard page.");
         WebUI.waitForPageLoaded();
 
         return new DashboardPage();
@@ -71,9 +71,9 @@ public class SignInPage {
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of Sign in page not match.");
         Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "Tiêu đề trang sign in chưa đúng");
         WebUI.sleep(1);
-        WebUI.setText(ObjectUtils.getObject("SigninPage.email"), email);
-        WebUI.setText(ObjectUtils.getObject("SigninPage.passwordInput"), password);
-        WebUI.clickElement(ObjectUtils.getObject("SigninPage.signInBtn"));
+        WebUI.setText(ObjectUtils.getObject("inputEmail"), email);
+        WebUI.setText(ObjectUtils.getObject("inputPassword"), password);
+        WebUI.clickElement(ObjectUtils.getObject("buttonSignIn"));
         WebUI.waitForPageLoaded();
 
         return new DashboardPage();
@@ -83,11 +83,11 @@ public class SignInPage {
         WebUI.getToUrl(FrameworkConstants.BASE_URL);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of sign in page not match.");
         Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "The title of sign in page not match.");
-        WebUI.setText(ObjectUtils.getObject("SigninPage.email"), data.get(SignInModel.getEmail()));
-        WebUI.setText(ObjectUtils.getObject("SigninPage.passwordInput"), DecodeUtils.decrypt(data.get(SignInModel.getPassword())));
-        WebUI.clickElement(ObjectUtils.getObject("SigninPage.signInBtn"));
+        WebUI.setText(ObjectUtils.getObject("inputEmail"), data.get(SignInModel.getEmail()));
+        WebUI.setText(ObjectUtils.getObject("inputPassword"), DecodeUtils.decrypt(data.get(SignInModel.getPassword())));
+        WebUI.clickElement(ObjectUtils.getObject("buttonSignIn"));
         WebUI.waitForPageLoaded();
-        Assert.assertTrue(WebUI.verifyPageUrl(dashboardPageURL),"Sign in failed. Can not redirect to Dashboard page.");
+        Assert.assertTrue(WebUI.verifyPageUrl(dashboardPageURL), "Sign in failed. Can not redirect to Dashboard page.");
         WebUI.waitForPageLoaded();
 
         return new DashboardPage();
