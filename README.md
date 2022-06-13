@@ -3,15 +3,15 @@
 **SOME FEATURES IN FRAMEWORK**
 
 1. Run the parallel test case
-2. Read Object web element from a properties file
+2. Read Object web element from Properties file
 3. Extent Report
 4. Allure Report
 5. Send Mail after the run test (Report information and HTML file attachment)
 6. Logfile
 7. Record video and Screenshot test case for failed
-8. Read data test form Excel file (xlsx, csv, json,...) with class define fields (param: Client client)
+8. Read data test from Excel file (xlsx, csv, json,...) with class define fields (param: Client client)
 9. Base function in the package: utils, helpers
-10. Read data from Json file
+10. Read data test from Json file
 11. Main Keyword: WebUI (call common function)
 12. Sample test function
 
@@ -41,17 +41,17 @@
 
   ![image](https://user-images.githubusercontent.com/87883620/161658761-5040e527-b410-46b3-8697-3298523e201d.png)
 
-**2. Read Object web element from a properties file**
+**2. Read Object web element from Properties file**
 
 ![image](https://user-images.githubusercontent.com/87883620/161658681-58f3a183-cbfd-433d-853a-927e4373f51c.png)
 
 **3. Extent Report**
 
-- Insert Framework Annotation as sample:
+- Insert "FrameworkAnnotation" as sample or none:
 
 ![image](https://user-images.githubusercontent.com/87883620/161657646-3dd652c6-a310-4006-a0cb-de63e2e87e36.png)
 
-- Value from Enums (src/main/java/anhtester/com/enums)
+- The base value read from Enums (src/main/java/anhtester/com/enums)
 - Setup on TestListener and BaseTest
 
 ![image](https://user-images.githubusercontent.com/87883620/161657754-c29b1ee9-f2fb-44b3-bee0-9f425a7cab6f.png)
@@ -111,7 +111,7 @@
 - **_src/main/java/anhtester/com/utils_**
 - **_src/main/java/anhtester/com/helpers_**
 
-**10. Read data from JSON file**
+**10. Read data test from JSON file**
 
 - **JsonUtils** class select the json file path and call **"get"** method with **key**
 

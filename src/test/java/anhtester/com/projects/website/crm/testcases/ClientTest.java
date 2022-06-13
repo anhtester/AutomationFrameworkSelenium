@@ -7,22 +7,17 @@ package anhtester.com.projects.website.crm.testcases;
 
 import anhtester.com.annotations.FrameworkAnnotation;
 import anhtester.com.common.BaseTest;
-import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.enums.AuthorType;
 import anhtester.com.enums.CategoryType;
-import anhtester.com.helpers.ExcelHelpers;
-import anhtester.com.projects.website.crm.models.SignInModel;
+import anhtester.com.projects.website.crm.dataprovider.DataProviderManager;
 import anhtester.com.projects.website.crm.pages.Clients.ClientPage;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
-import anhtester.com.projects.website.crm.dataprovider.DataProviderManager;
-import anhtester.com.utils.DecodeUtils;
 import anhtester.com.utils.WebUI;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
-import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 
 import java.util.Hashtable;
 
@@ -48,7 +43,7 @@ public class ClientTest extends BaseTest {
         clientPage.openClientTabPage();
         clientPage.addClient(data);
     }
-
+    
     @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.AUTOMATION},
             category = {CategoryType.SANITY, CategoryType.REGRESSION})
     @Test(priority = 2)
@@ -58,8 +53,8 @@ public class ClientTest extends BaseTest {
         clientPage = dashboardPage.openClientPage();
         clientPage.openClientTabPage();
         // Search the first
-        clientPage.enterDataSearchClient("Anh Tester Com 06");
-        WebUI.checkContainsSearchTableByColumn(2, "Anh Tester Com 06");
+        clientPage.enterDataSearchClient("Anh Tester");
+        WebUI.checkContainsSearchTableByColumn(2, "Anh Tester");
         // Search the second
         clientPage.enterDataSearchClient("Phamiliar Tech");
         WebUI.checkContainsSearchTableByColumn(2, "Phamiliar Tech");

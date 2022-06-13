@@ -20,22 +20,22 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelHelpers {
 
-    private static FileInputStream fis;
-    private static FileOutputStream fileOut;
-    private static Workbook wb;
-    private static Sheet sh;
-    private static Cell cell;
-    private static Row row;
-    private static CellStyle cellstyle;
-    private static Color mycolor;
-    private static String excelFilePath;
-    private static Map<String, Integer> columns = new HashMap<>();
+    private FileInputStream fis;
+    private FileOutputStream fileOut;
+    private Workbook wb;
+    private Sheet sh;
+    private Cell cell;
+    private Row row;
+    private CellStyle cellstyle;
+    private Color mycolor;
+    private String excelFilePath;
+    private Map<String, Integer> columns = new HashMap<>();
 
-    public static int rowNumber; //Row Number
-    public static int columnNumber; //Column Number
+    public int rowNumber; //Row Number
+    public int columnNumber; //Column Number
 
     //    Set Excel file
-    public static void setExcelFile(String excelPath, String sheetName) {
+    public void setExcelFile(String excelPath, String sheetName) {
         try {
             File f = new File(excelPath);
 
@@ -85,12 +85,12 @@ public class ExcelHelpers {
     }
 
     //Phương thức này nhận số hàng làm tham số và trả về dữ liệu của hàng đó.
-    public static Row getRowData(int rowNum) {
+    public Row getRowData(int rowNum) {
         row = sh.getRow(rowNum);
         return row;
     }
 
-    public static Object[][] getDataArray(String excelPath, String sheetName, int startCol, int totalCols) {
+    public Object[][] getDataArray(String excelPath, String sheetName, int startCol, int totalCols) {
 
         Object[][] data = null;
         try {
@@ -147,7 +147,7 @@ public class ExcelHelpers {
         return data;
     }
 
-    public static Object[][] getTableArray(String filePath, String sheetName, int iTestCaseRow) throws Exception {
+    public Object[][] getTableArray(String filePath, String sheetName, int iTestCaseRow) throws Exception {
 
         String[][] tabArray = null;
 
@@ -181,7 +181,7 @@ public class ExcelHelpers {
         return (tabArray);
     }
 
-    public static Object[][] getDataHashTable(String excelPath, String sheetName, int startRow, int endRow) {
+    public Object[][] getDataHashTable(String excelPath, String sheetName, int startRow, int endRow) {
 
         Object[][] data = null;
         try {
@@ -223,7 +223,7 @@ public class ExcelHelpers {
         return data;
     }
 
-    public static String getTestCaseName(String sTestCase) throws Exception {
+    public String getTestCaseName(String sTestCase) throws Exception {
         String value = sTestCase;
         try {
             int posi = value.indexOf("@");
@@ -238,7 +238,7 @@ public class ExcelHelpers {
         }
     }
 
-    public static int getRowContains(String sTestCaseName, int colNum) throws Exception {
+    public int getRowContains(String sTestCaseName, int colNum) throws Exception {
         int i;
         try {
             int rowCount = getRowUsed();
@@ -255,7 +255,7 @@ public class ExcelHelpers {
 
     }
 
-    public static int getRowUsed() throws Exception {
+    public int getRowUsed() throws Exception {
         try {
             int RowCount = sh.getLastRowNum();
             return RowCount;
@@ -266,7 +266,7 @@ public class ExcelHelpers {
     }
 
     // Get cell data
-    public static String getCellData(int rownum, int colnum) {
+    public String getCellData(int rownum, int colnum) {
         try {
             cell = sh.getRow(rownum).getCell(colnum);
             String CellData = null;
@@ -294,27 +294,27 @@ public class ExcelHelpers {
         }
     }
 
-    public static String getCellData(int rowNum, String columnName) {
+    public String getCellData(int rowNum, String columnName) {
         return getCellData(rowNum, columns.get(columnName));
     }
 
-    public static int getRows() {
+    public int getRows() {
         return sh.getPhysicalNumberOfRows();
     }
 
-    public static int getRowCount() {
+    public int getRowCount() {
         int rowCount = sh.getLastRowNum() + 1;
         return rowCount;
     }
 
-    public static int getColumnCount() {
+    public int getColumnCount() {
         row = sh.getRow(0);
         int colCount = row.getLastCellNum();
         return colCount;
     }
 
     // Write data to excel sheet
-    public static void setCellData(String text, int rowNumber, int colNumber) {
+    public void setCellData(String text, int rowNumber, int colNumber) {
         try {
             row = sh.getRow(rowNumber);
             if (row == null) {
@@ -348,7 +348,7 @@ public class ExcelHelpers {
         }
     }
 
-    public static void setCellData(String text, int rowNum, String columnName) {
+    public void setCellData(String text, int rowNum, String columnName) {
         try {
             row = sh.getRow(rowNum);
             if (row == null) {

@@ -19,7 +19,6 @@ public class BaseTest {
     public void beforeSuite() {
         AllureManager.setAllureEnvironmentInformation();
         PropertiesHelpers.loadAllFiles(); //Config and Locators
-        ExcelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_PATH, "SignIn");
     }
 
     @Parameters("browser")

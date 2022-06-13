@@ -6,7 +6,7 @@
 
     <groupId>anhtester.com</groupId>
     <artifactId>AutomationFrameworkSelenium</artifactId>
-    <version>1.5.0</version>
+    <version>1.5.1</version>
     <name>AutomationFrameworkSelenium</name>
     <url>https://github.com/anhtester/AutomationFrameworkSelenium</url>
 
@@ -17,23 +17,24 @@
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
 
-        <selenium.version>4.2.1</selenium.version>
+        <selenium.version>4.2.2</selenium.version>
         <testng.version>7.4.0</testng.version>
         <webdrivermanager.version>5.2.0</webdrivermanager.version>
         <aspectjweaver.version>1.9.9.1</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <log4j.version>2.17.2</log4j.version>
-        <allure-testng.version>2.17.3</allure-testng.version>
+        <allure-testng.version>2.18.1</allure-testng.version>
         <allure-maven.version>2.10.0</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
             https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
         </allure.cmd.download.url>
         <extentreports.version>5.0.9</extentreports.version>
-        <apache-poi.version>5.0.0</apache-poi.version>
-        <apache-poi-xml.version>5.0.0</apache-poi-xml.version>
+        <apache-poi.version>5.2.2</apache-poi.version>
+        <apache-poi-xml.version>5.2.2</apache-poi-xml.version>
+        <commons-io.version>2.11.0</commons-io.version>
         <owner.version>1.0.12</owner.version>
-        <assertj.version>3.22.0</assertj.version>
+        <assertj.version>3.23.1</assertj.version>
         <javafaker.version>1.0.2</javafaker.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <mysql-connector-java.version>8.0.29</mysql-connector-java.version>
@@ -204,6 +205,13 @@
             <version>${apache-poi-xml.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.github.stephenc.monte/monte-screen-recorder -->
         <dependency>
             <groupId>com.github.stephenc.monte</groupId>
@@ -286,8 +294,8 @@
                     <configuration>
                         <suiteXmlFiles>
                             <!-- Call Suite name global set up above -->
-                            <suiteXmlFile>${suite.client.parallel}</suiteXmlFile>
-                            <!--<suiteXmlFile>${suite.signin.simple}</suiteXmlFile>-->
+                            <suiteXmlFile>${suite.client.simple}</suiteXmlFile>
+                            <!--<suiteXmlFile>${suite.client.parallel}</suiteXmlFile>-->
                         </suiteXmlFiles>
 
                         <argLine>

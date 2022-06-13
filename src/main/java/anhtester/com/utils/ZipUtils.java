@@ -6,18 +6,20 @@
 package anhtester.com.utils;
 
 import org.zeroturnaround.zip.ZipUtil;
+
 import java.io.File;
-import static anhtester.com.constants.FrameworkConstants.*;
+
+import static anhtester.com.constants.FrameworkConstants.EXTENT_REPORT_FOLDER_PATH;
+import static anhtester.com.constants.FrameworkConstants.Zipped_ExtentReports_Folder_Name;
 
 public class ZipUtils {
 
-    /* make Zip file of Extent Reports in Project Root folder */
+    /* Make Zip file of Extent Reports in Project Root folder */
     public static void zip() {
 
-        ZipUtil.pack(new File(EXTENT_REPORT_FOLDER_PATH),
-                new File(Zipped_ExtentReports_Folder_Name));
+        ZipUtil.pack(new File(EXTENT_REPORT_FOLDER_PATH), new File(Zipped_ExtentReports_Folder_Name));
 
-        Log.info("Zipped ExtentReports folder successfuly");
+        Log.info("Zipped " + Zipped_ExtentReports_Folder_Name + " folder successfully !!");
     }
 
 }

@@ -118,16 +118,18 @@ public class TestSimpleCode {
         PropertiesHelpers.loadAllFiles();
         WebUI.logConsole(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"));
         //  Handle Excel file
-        ExcelHelpers.setExcelFile(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"), "SignInModel");
-        WebUI.logConsole(ExcelHelpers.getCellData(1, "EMAIL"));
-        WebUI.logConsole(ExcelHelpers.getCellData(1, "PASSWORD"));
-        ExcelHelpers.setCellData("pass", 1, "EXPECTED_TITLE");
+        ExcelHelpers excelHelpers = new ExcelHelpers();
+        excelHelpers.setExcelFile(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"), "SignInModel");
+        WebUI.logConsole(excelHelpers.getCellData(1, "EMAIL"));
+        WebUI.logConsole(excelHelpers.getCellData(1, "PASSWORD"));
+        excelHelpers.setCellData("pass", 1, "EXPECTED_TITLE");
     }
 
     @Test()
     public void testExcelFile2() throws Exception {
         PropertiesHelpers.loadAllFiles();
-        WebUI.logConsole(ExcelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH, "SignInModel", 1, 2));
+        ExcelHelpers excelHelpers = new ExcelHelpers();
+        WebUI.logConsole(excelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH, "SignInModel", 1, 2));
         //WebUI.logConsole(ExcelHelpers.getDataReflection(Helpers.getCurrentDir() + "src/test/resources/testdatafile/ClientsDataExcel.xlsx", "SignInModel", 1, 2));
 
     }

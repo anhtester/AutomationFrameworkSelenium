@@ -5,11 +5,7 @@
     <test name="Client Test">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="anhtester.com.projects.website.crm.testcases.ClientTest">
-<!--                <methods>-->
-<!--                    <include name="testSearchClient" />-->
-<!--                </methods>-->
-            </class>
+            <class name="anhtester.com.projects.website.crm.testcases.ClientTest"></class>
         </classes>
     </test>
 
