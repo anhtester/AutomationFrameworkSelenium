@@ -56,8 +56,8 @@ public class ClientTest extends BaseTest {
         clientPage.enterDataSearchClient("Anh Tester");
         WebUI.checkContainsSearchTableByColumn(2, "Anh Tester");
         // Search the second
-        clientPage.enterDataSearchClient("Phamiliar Tech");
-        WebUI.checkContainsSearchTableByColumn(2, "Phamiliar Tech");
+        clientPage.enterDataSearchClient("Anh Tester Client 1406A1");
+        WebUI.checkContainsSearchTableByColumn(2, "Anh Tester Client 1406A1");
 
     }
 
