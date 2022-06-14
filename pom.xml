@@ -31,7 +31,6 @@
         </allure.cmd.download.url>
         <extentreports.version>5.0.9</extentreports.version>
         <apache-poi.version>5.2.2</apache-poi.version>
-        <apache-poi-xml.version>5.2.2</apache-poi-xml.version>
         <commons-io.version>2.11.0</commons-io.version>
         <owner.version>1.0.12</owner.version>
         <assertj.version>3.23.1</assertj.version>
@@ -41,7 +40,6 @@
         <google.zxing.version>3.5.0</google.zxing.version>
         <lombok.version>1.18.24</lombok.version>
         <google.guava.version>31.1-jre</google.guava.version>
-        <data.supplier.version>1.9.7</data.supplier.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.15</zip.version>
         <jackson.version>2.13.3</jackson.version>
@@ -202,7 +200,7 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>${apache-poi-xml.version}</version>
+            <version>${apache-poi.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->

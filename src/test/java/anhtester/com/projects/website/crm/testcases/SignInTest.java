@@ -6,7 +6,7 @@
 package anhtester.com.projects.website.crm.testcases;
 
 import anhtester.com.common.BaseTest;
-import anhtester.com.projects.website.crm.dataprovider.DataProviderManager;
+import anhtester.com.dataprovider.DataProviderManager;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import io.qameta.allure.Epic;

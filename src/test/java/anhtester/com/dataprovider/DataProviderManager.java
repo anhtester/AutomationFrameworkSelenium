@@ -3,7 +3,7 @@
  * Automation Framework Selenium
  */
 
-package anhtester.com.projects.website.crm.dataprovider;
+package anhtester.com.dataprovider;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.helpers.ExcelHelpers;

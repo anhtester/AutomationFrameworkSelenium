@@ -9,7 +9,7 @@ import anhtester.com.annotations.FrameworkAnnotation;
 import anhtester.com.common.BaseTest;
 import anhtester.com.enums.AuthorType;
 import anhtester.com.enums.CategoryType;
-import anhtester.com.projects.website.crm.dataprovider.DataProviderManager;
+import anhtester.com.dataprovider.DataProviderManager;
 import anhtester.com.projects.website.crm.pages.Clients.ClientPage;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
