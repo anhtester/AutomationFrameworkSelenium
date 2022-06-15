@@ -1,7 +1,5 @@
 package anhtester.com.common;
 
-import anhtester.com.constants.FrameworkConstants;
-import anhtester.com.helpers.ExcelHelpers;
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.listeners.TestListener;
 import anhtester.com.driver.DriverManager;
