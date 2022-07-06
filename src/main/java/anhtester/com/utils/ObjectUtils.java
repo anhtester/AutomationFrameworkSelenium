@@ -25,8 +25,8 @@ public class ObjectUtils {
         }
 
         // extract the locator type and value from the object
-        String locatorType = locator.split(":")[0];
-        String locatorValue = locator.split(":")[1];
+        String locatorType = locator.split("&&")[0];
+        String locatorValue = locator.split("&&")[1];
 
         Log.info("Retrieving object of type '" + locatorType + "' and locator '" + locatorValue + "' from the object repository");
 

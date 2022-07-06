@@ -7,9 +7,9 @@ package anhtester.com.projects.website.crm.testcases;
 
 import anhtester.com.annotations.FrameworkAnnotation;
 import anhtester.com.common.BaseTest;
+import anhtester.com.dataprovider.DataProviderManager;
 import anhtester.com.enums.AuthorType;
 import anhtester.com.enums.CategoryType;
-import anhtester.com.dataprovider.DataProviderManager;
 import anhtester.com.projects.website.crm.pages.Clients.ClientPage;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
@@ -43,7 +43,7 @@ public class ClientTest extends BaseTest {
         clientPage.openClientTabPage();
         clientPage.addClient(data);
     }
-    
+
     @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.AUTOMATION},
             category = {CategoryType.SANITY, CategoryType.REGRESSION})
     @Test(priority = 2)
@@ -56,8 +56,8 @@ public class ClientTest extends BaseTest {
         clientPage.enterDataSearchClient("Anh Tester");
         WebUI.checkContainsSearchTableByColumn(2, "Anh Tester");
         // Search the second
-        clientPage.enterDataSearchClient("Anh Tester Client 1406A1");
-        WebUI.checkContainsSearchTableByColumn(2, "Anh Tester Client 1406A1");
+        clientPage.enterDataSearchClient("Anh Tester Client 0107A1");
+        WebUI.checkContainsSearchTableByColumn(2, "Anh Tester Client 0107A1");
 
     }
 

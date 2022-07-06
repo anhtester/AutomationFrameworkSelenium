@@ -161,4 +161,8 @@ public final class ExtentReportManager {
         ExtentTestManager.getExtentTest().info(message);
     }
 
+    public static void warning(String message) {
+        ExtentTestManager.getExtentTest().log(Status.WARNING, message);
+    }
+
 }

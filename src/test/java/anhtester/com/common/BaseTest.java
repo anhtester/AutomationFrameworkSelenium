@@ -1,11 +1,10 @@
 package anhtester.com.common;
 
-import anhtester.com.helpers.PropertiesHelpers;
-import anhtester.com.listeners.TestListener;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.driver.TargetFactory;
+import anhtester.com.helpers.PropertiesHelpers;
+import anhtester.com.listeners.TestListener;
 import anhtester.com.report.AllureManager;
-import anhtester.com.utils.WebUI;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.testng.annotations.*;
@@ -29,7 +28,6 @@ public class BaseTest {
     @AfterMethod(alwaysRun = true)
     public void closeDriver() {
         DriverManager.quit();
-        WebUI.stopSoftAssertAll();
     }
 
 

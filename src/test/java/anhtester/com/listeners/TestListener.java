@@ -4,10 +4,10 @@ import anhtester.com.annotations.FrameworkAnnotation;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.enums.AuthorType;
 import anhtester.com.enums.CategoryType;
+import anhtester.com.helpers.CaptureHelpers;
 import anhtester.com.report.AllureManager;
 import anhtester.com.report.ExtentReportManager;
 import anhtester.com.utils.*;
-import anhtester.com.helpers.CaptureHelpers;
 import com.aventstack.extentreports.Status;
 import org.testng.*;
 
@@ -51,6 +51,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
     @Override
     public void onFinish(ISuite iSuite) {
         Log.info("End suite testing " + iSuite.getName());
+        WebUI.stopSoftAssertAll();
         //Kết thúc và thực thi Extents Report
         ExtentReportManager.flushReports();
         ZipUtils.zip();

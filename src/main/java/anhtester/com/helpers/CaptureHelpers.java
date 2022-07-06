@@ -8,6 +8,11 @@ package anhtester.com.helpers;
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.utils.Log;
 import org.apache.commons.io.FileUtils;
+import org.monte.media.Format;
+import org.monte.media.FormatKeys.MediaType;
+import org.monte.media.Registry;
+import org.monte.media.math.Rational;
+import org.monte.screenrecorder.ScreenRecorder;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -18,13 +23,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.monte.media.Format;
-import org.monte.media.FormatKeys.MediaType;
-import org.monte.media.Registry;
-import org.monte.media.math.Rational;
-import org.monte.screenrecorder.ScreenRecorder;
-
-import static org.monte.media.AudioFormatKeys.*;
+import static org.monte.media.AudioFormatKeys.EncodingKey;
+import static org.monte.media.AudioFormatKeys.FrameRateKey;
+import static org.monte.media.AudioFormatKeys.KeyFrameIntervalKey;
+import static org.monte.media.AudioFormatKeys.MediaTypeKey;
+import static org.monte.media.AudioFormatKeys.MimeTypeKey;
+import static org.monte.media.VideoFormatKeys.MIME_AVI;
 import static org.monte.media.VideoFormatKeys.*;
 
 public class CaptureHelpers extends ScreenRecorder {

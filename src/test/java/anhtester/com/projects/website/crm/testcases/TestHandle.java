@@ -13,21 +13,27 @@ import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import anhtester.com.utils.LocalStorageUtils;
+import anhtester.com.utils.Log;
 import anhtester.com.utils.ObjectUtils;
 import anhtester.com.utils.WebUI;
-import anhtester.com.utils.Log;
 import com.google.zxing.NotFoundException;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Set;
 
 public class TestHandle {
 
@@ -263,9 +269,9 @@ public class TestHandle {
         By to1 = By.cssSelector("#bin");
         By from2 = By.cssSelector("#two");
         WebUI.sleep(1);
-        WebUI.dragAndDropJS(WebUI.findWebElement(from1), WebUI.findWebElement(to1));
+        WebUI.dragAndDropJS(WebUI.getWebElement(from1), WebUI.getWebElement(to1));
         WebUI.sleep(1);
-        WebUI.dragAndDropJS(WebUI.findWebElement(from2), WebUI.findWebElement(to1));
+        WebUI.dragAndDropJS(WebUI.getWebElement(from2), WebUI.getWebElement(to1));
         WebUI.sleep(2);
     }
 

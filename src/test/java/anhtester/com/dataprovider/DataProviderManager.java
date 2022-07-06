@@ -60,7 +60,7 @@ public final class DataProviderManager {
     @DataProvider(name = "getClientDataHashTable", parallel = true)
     public static Object[][] getClientData() {
         ExcelHelpers excelHelpers = new ExcelHelpers();
-        Object[][] data = excelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH, "Client", 1, 4);
+        Object[][] data = excelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH, "Client", 1, 3);
         System.out.println("getClientData: " + data);
         return data;
     }

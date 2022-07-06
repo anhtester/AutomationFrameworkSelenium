@@ -15,14 +15,15 @@ public class SignInPage {
 
     private String pageUrl = "/signin";
     private String pageText = "";
-    private String pageTitle = "CRM Project Manager | Anh Tester Demo";
+    private String pageTitle = "Sign in | CRM Project Manager | Anh Tester Demo";
     private String dashboardPageURL = "/dashboard";
+    ExcelHelpers excelHelpers;
 
     public SignInPage() {
+        excelHelpers = new ExcelHelpers();
     }
 
     public DashboardPage signInWithAdminRole() {
-        ExcelHelpers excelHelpers = new ExcelHelpers();
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_PATH, "SignIn");
         WebUI.getToUrl(FrameworkConstants.BASE_URL);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of sign in page not match.");
@@ -38,7 +39,6 @@ public class SignInPage {
     }
 
     public DashboardPage signInWithTeamLeaderRole() {
-        ExcelHelpers excelHelpers = new ExcelHelpers();
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_PATH, "SignIn");
         WebUI.getToUrl(FrameworkConstants.BASE_URL);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of sign in page not match.");
@@ -54,7 +54,6 @@ public class SignInPage {
     }
 
     public DashboardPage signInWithTeamMemberRole() {
-        ExcelHelpers excelHelpers = new ExcelHelpers();
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_PATH, "SignIn");
         WebUI.getToUrl(FrameworkConstants.BASE_URL);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of sign in page not match.");
