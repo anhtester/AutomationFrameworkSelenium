@@ -13,7 +13,6 @@ import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import anhtester.com.utils.LocalStorageUtils;
-import anhtester.com.utils.Log;
 import anhtester.com.utils.ObjectUtils;
 import anhtester.com.utils.WebUI;
 import com.google.zxing.NotFoundException;
@@ -340,17 +339,18 @@ public class TestHandle {
         WebUI.sleep(1);
 
         //Cách 1 sendKeys link từ source
-        WebUI.uploadFileSendkeys(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src/test/resources/DOCX_File_01.docx");
+        WebUI.uploadFileSendkeys(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src\\test\\resources\\testdatafile\\DOCX_File_01.docx");
+
+        WebUI.sleep(1);
 
         //Cách 2 mở form local máy nên file là trong ổ đĩa máy tính
-        WebUI.uploadFileForm(By.xpath("//input[@id='uploadFile']"), "D:\\Document.csv");
+        WebUI.uploadFileForm(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src\\test\\resources\\testdatafile\\LoginCSV.csv");
 
         WebUI.sleep(3);
     }
 
     @Test
     public void handleTable1() {
-        Log.info("handleTable1");
         WebUI.getToUrl("https://colorlib.com/polygon/notika/data-table.html");
         System.out.println(WebUI.getValueTableByColumn(2));
     }
@@ -376,7 +376,8 @@ public class TestHandle {
         WebUI.waitForPageLoaded();
         String originalWindow = driver.getWindowHandle();
 
-        WebUI.clickElement(By.xpath("//td[normalize-space()='user01@anhtester.com']"));
+        WebUI.setText(By.id("email"), "admin@mailinator.com");
+        WebUI.setText(By.id("password"), "123456");
         WebUI.clickElement(By.xpath("//button[normalize-space()='Login']"));
         WebUI.waitForPageLoaded();
         WebUI.clickElement(By.xpath("//a[@role='button']"));
@@ -419,7 +420,6 @@ public class TestHandle {
 
     @Test
     public void handleAuthentication() {
-
         // Authentication username & password
         String username = "admin";
         String password = "admin";

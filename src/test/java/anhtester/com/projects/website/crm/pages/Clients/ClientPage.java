@@ -42,7 +42,8 @@ public class ClientPage {
         WebUI.clickElement(ObjectUtils.getObject("buttonSaveOnDialog"));
 
         WebUI.setText(ObjectUtils.getObject("inputSearch"), data.get(ClientModel.getCompanyName()));
-        WebUI.sleep(2);
+        WebUI.waitForPageLoaded();
+        WebUI.sleep(3);
         WebUI.checkContainsSearchTableByColumn(2, data.get(ClientModel.getCompanyName()));
         checkClientDetail(data);
     }
