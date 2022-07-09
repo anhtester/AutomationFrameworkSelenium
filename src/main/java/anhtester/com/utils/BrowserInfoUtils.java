@@ -15,8 +15,6 @@ public final class BrowserInfoUtils {
     }
 
     public static String getBrowserInfo() {
-//        Capabilities capabilities = ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities();
-//        return capabilities.getBrowserName().toUpperCase();
         String browser = "";
         if (Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browser") == null) {
             browser = BROWSER.toUpperCase();
@@ -24,12 +22,6 @@ public final class BrowserInfoUtils {
             browser = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browser").trim().toUpperCase();
         }
         return browser;
-    }
-
-    public static String getBrowserVersionInfo() {
-//        Capabilities capabilities = ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities();
-//        return capabilities.getBrowserVersion();
-        return "";
     }
 
     public static String getOSInfo() {

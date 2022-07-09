@@ -14,7 +14,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Hashtable;
@@ -31,25 +30,24 @@ public class SignInTest extends BaseTest {
     }
 
     //Using library DataProvider with read Hashtable
-//    @Test(priority = 1, dataProvider = "getSignInDataHashTable", dataProviderClass = DataProviderManager.class)
-//    @Step("SignInTestDataProviderHashtable")
-//    public void SignInTestDataProviderHashtable(Hashtable<String, String> data) {
-//        signInPage.signIn(data);
-//    }
-//
-//    @Test(priority = 2, dataProvider = "getSignInDataHashTable2", dataProviderClass = DataProviderManager.class)
-//    @Step("SignInTestDataProviderHashtable")
-//    public void SignInTestDataProviderHashtable2(Hashtable<String, String> data) {
-//        signInPage.signIn(data);
-//    }
+    @Test(priority = 1, dataProvider = "getSignInDataHashTable", dataProviderClass = DataProviderManager.class)
+    @Step("SignInTestDataProviderHashtable")
+    public void SignInTestDataProviderHashtable(Hashtable<String, String> data) {
+        signInPage.signIn(data);
+    }
 
-    By alert = By.xpath("//div[@role='alert']");
+    @Test(priority = 2, dataProvider = "getSignInDataHashTable2", dataProviderClass = DataProviderManager.class)
+    @Step("SignInTestDataProviderHashtable")
+    public void SignInTestDataProviderHashtable2(Hashtable<String, String> data) {
+        signInPage.signIn(data);
+    }
 
     @Test(priority = 3)
     @Step("SignInTestDataAdmin")
     public void SignInTestDataAdmin() {
         signInPage.signInWithAdminRole();
-        WebUI.verifyElementPresent(alert, 5, "Element Alert message không tồn tại.");
+        By alert = By.xpath("//div[@role='alert']");
+        WebUI.verifyElementPresent(alert, 5, "The error message does not exist.");
     }
 
     @Test(priority = 4)

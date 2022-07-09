@@ -22,7 +22,6 @@ import java.util.Objects;
  */
 public class JsonUtils {
 
-
     private static Map<String, String> CONFIGMAP;
 
     private JsonUtils() {

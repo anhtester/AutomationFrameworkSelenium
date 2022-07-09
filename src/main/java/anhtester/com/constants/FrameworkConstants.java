@@ -40,6 +40,8 @@ public final class FrameworkConstants {
     public static final String screenshot_failed_steps = PropertiesHelpers.getValue("screenshot_failed_steps");
     public static final String screenshot_skipped_steps = PropertiesHelpers.getValue("screenshot_skipped_steps");
     public static final String screenshot_all_steps = PropertiesHelpers.getValue("screenshot_all_steps");
+    public static final String zip_folder = PropertiesHelpers.getValue("zip_folder");
+    public static final String video_record = PropertiesHelpers.getValue("video_record");
 
     public static final int WAIT_DEFAULT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_DEFAULT"));
     public static final int WAIT_IMPLICIT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_IMPLICIT"));
@@ -71,11 +73,11 @@ public final class FrameworkConstants {
     public static final String ICON_OS_MAC = "<i class='fa fa-apple' ></i>";
     public static final String ICON_OS_LINUX = "<i class='fa fa-linux' ></i>";
 
-	public static final String ICON_BROWSER_OPERA = "<i class=\"fa fa-opera\" aria-hidden=\"true\"></i>";
-	public static final String ICON_BROWSER_EDGE = "<i class=\"fa fa-edge\" aria-hidden=\"true\"></i>";
-	public static final String ICON_BROWSER_CHROME = "<i class=\"fa fa-chrome\" aria-hidden=\"true\"></i>";
-	public static final String ICON_BROWSER_FIREFOX = "<i class=\"fa fa-firefox\" aria-hidden=\"true\"></i>";
-	public static final String ICON_BROWSER_SAFARI = "<i class=\"fa fa-safari\" aria-hidden=\"true\"></i>";
+    public static final String ICON_BROWSER_OPERA = "<i class=\"fa fa-opera\" aria-hidden=\"true\"></i>";
+    public static final String ICON_BROWSER_EDGE = "<i class=\"fa fa-edge\" aria-hidden=\"true\"></i>";
+    public static final String ICON_BROWSER_CHROME = "<i class=\"fa fa-chrome\" aria-hidden=\"true\"></i>";
+    public static final String ICON_BROWSER_FIREFOX = "<i class=\"fa fa-firefox\" aria-hidden=\"true\"></i>";
+    public static final String ICON_BROWSER_SAFARI = "<i class=\"fa fa-safari\" aria-hidden=\"true\"></i>";
 
     public static final String ICON_Navigate_Right = "<i class='fa fa-arrow-circle-right' ></i>";
     public static final String ICON_LAPTOP = "<i class='fa fa-laptop' style='font-size:18px'></i>";

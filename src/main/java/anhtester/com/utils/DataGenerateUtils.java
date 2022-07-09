@@ -14,9 +14,9 @@ public class DataGenerateUtils {
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static SecureRandom random = new SecureRandom();
 
-    public static String randomString(int len) {
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++) {
+    public static String randomString(int length) {
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
             sb.append(AB.charAt(random.nextInt(AB.length())));
         }
         return sb.toString();

@@ -44,7 +44,9 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.info("Start suite testing for " + iSuite.getName());
         iSuite.setAttribute("WebDriver", DriverManager.getDriver());
         //Gọi hàm startRecord video trong CaptureHelpers class
-        CaptureHelpers.startRecord(iSuite.getName());
+        if (video_record.trim().toLowerCase().equals(YES)) {
+            CaptureHelpers.startRecord(iSuite.getName());
+        }
         ExtentReportManager.initReports();
     }
 
@@ -54,10 +56,15 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         WebUI.stopSoftAssertAll();
         //Kết thúc và thực thi Extents Report
         ExtentReportManager.flushReports();
-        ZipUtils.zip();
+        if (zip_folder.trim().toLowerCase().equals(YES)) {
+            ZipUtils.zip();
+        }
         EmailSendUtils.sendEmail(count_totalTCs, count_passedTCs, count_failedTCs, count_skippedTCs);
         //Gọi hàm stopRecord video trong CaptureHelpers class
-        CaptureHelpers.stopRecord();
+        if (video_record.trim().toLowerCase().equals(YES)) {
+            CaptureHelpers.stopRecord();
+        }
+
     }
 
     public AuthorType[] getAuthorType(ITestResult iTestResult) {
@@ -118,7 +125,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         }
 
         //Allure report screenshot file and log
-        Log.error("FAIL !! Screenshot for test case: " + getTestName(iTestResult));
+        Log.error("FAILED !! Screenshot for test case: " + getTestName(iTestResult));
         Log.error(iTestResult.getThrowable());
 
         AllureManager.takeScreenshotToAttachOnAllureReport();

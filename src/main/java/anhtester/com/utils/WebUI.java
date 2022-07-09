@@ -711,6 +711,7 @@ public class WebUI {
 
     public static boolean verifyElementText(By by, String text) {
         smartWait();
+        waitForElementVisible(by);
 
         return getTextElement(by).trim().equals(text.trim());
     }
@@ -1245,6 +1246,7 @@ public class WebUI {
     @Step("Open website with get URL")
     public static void getToUrl(String URL) {
         sleep(WAIT_SLEEP_STEP);
+
         DriverManager.getDriver().get(URL);
         waitForPageLoaded();
 

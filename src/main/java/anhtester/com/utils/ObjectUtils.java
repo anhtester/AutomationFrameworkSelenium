@@ -96,29 +96,6 @@ public class ObjectUtils {
      * Receives a wildcard string, replace the wildcard with the value and return to the caller
      *
      * @param xpath Xpath with wildcard string
-     *              VD: //a[text()='%s']   =>  %s is String, %d is int
-     * @param value value to be replaced in place of wildcard
-     * @return dynamic xpath string
-     * @author Anh Tester
-     */
-    public static String getXpathDynamic(String xpath, Object value) {
-        if (xpath == null || xpath == "") {
-            try {
-                Log.info("Parameter passing error. The 'xpath' parameter is null.");
-                throw new Exception("Warning !! The xpath is null.");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        } else {
-            return String.format(xpath, value);
-        }
-    }
-
-    /**
-     * Receives a wildcard string, replace the wildcard with the value and return to the caller
-     *
-     * @param xpath Xpath with wildcard string
      * @param value multi value to be replaced in place of wildcard
      *              VD: ObjectUtils.getXpathDynamic("//button[normalize-space()='%s']//div[%d]//span[%d]", "Login", 2, 10);
      * @return dynamic xpath string
