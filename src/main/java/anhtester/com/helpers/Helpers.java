@@ -48,7 +48,7 @@ public final class Helpers {
      * @return lấy đường dẫn đến thư mục nguồn source mình có thêm dấu / ở cuối luôn
      */
     public static String getCurrentDir() {
-        String current = System.getProperty("user.dir") + "\\";
+        String current = System.getProperty("user.dir") + File.separator;
         return current;
     }
 
@@ -57,7 +57,7 @@ public final class Helpers {
      *
      * @param path đường dẫn cần tạo folder
      */
-    public static void CreateFolder(String path) {
+    public static void createFolder(String path) {
         // File is a class inside java.io package
         File file = new File(path);
 

@@ -1061,6 +1061,13 @@ public class WebUI {
         js.executeScript("arguments[0].scrollIntoView(true);", getWebElement(element));
     }
 
+    public static void scrollToElement(WebElement element) {
+        smartWait();
+
+        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
     public static void scrollToPosition(int X, int Y) {
         smartWait();
 
@@ -1463,16 +1470,15 @@ public class WebUI {
     //Handle Table
 
     /**
-     * Kiểm tra giá trị từng cột của table khi tìm kiếm theo điều kiện CHỨA
+     * Kiểm tra giá trị từng cột của table khi tìm kiếm theo điều kiện BẰNG (equals)
      *
      * @param column vị trí cột
      * @param value  giá trị cần so sánh
      */
-    @Step("Check data by CONTAINS type after searching on the Table by Column.")
-    public static void checkContainsSearchTableByColumn(int column, String value) {
+    @Step("Check data by EQUALS type after searching on the Table by Column.")
+    public static void checkEqualsSearchTableByColumn(int column, String value) {
         smartWait();
         sleep(1);
-        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         List<WebElement> totalRows = getWebElements(By.xpath("//tbody/tr"));
         Log.info("Number of results for keyword (" + value + "): " + totalRows.size());
 
@@ -1482,7 +1488,34 @@ public class WebUI {
             for (int i = 1; i <= totalRows.size(); i++) {
                 boolean res = false;
                 WebElement title = waitForElementPresent(By.xpath("//tbody/tr[" + i + "]/td[" + column + "]"));
-                js.executeScript("arguments[0].scrollIntoView(true);", title);
+                WebUI.scrollToElement(title);
+                res = title.getText().toUpperCase().equals(value.toUpperCase());
+                Log.info("Row " + i + ": " + res + " - " + title.getText());
+                Assert.assertTrue(res, "Row " + i + " (" + title.getText() + ")" + " equals no value: " + value);
+            }
+        }
+    }
+
+    /**
+     * Kiểm tra giá trị từng cột của table khi tìm kiếm theo điều kiện CHỨA (contains)
+     *
+     * @param column vị trí cột
+     * @param value  giá trị cần so sánh
+     */
+    @Step("Check data by CONTAINS type after searching on the Table by Column.")
+    public static void checkContainsSearchTableByColumn(int column, String value) {
+        smartWait();
+        sleep(1);
+        List<WebElement> totalRows = getWebElements(By.xpath("//tbody/tr"));
+        Log.info("Number of results for keyword (" + value + "): " + totalRows.size());
+
+        if (totalRows.size() < 1) {
+            Log.info("Not found value: " + value);
+        } else {
+            for (int i = 1; i <= totalRows.size(); i++) {
+                boolean res = false;
+                WebElement title = waitForElementPresent(By.xpath("//tbody/tr[" + i + "]/td[" + column + "]"));
+                WebUI.scrollToElement(title);
                 res = title.getText().toUpperCase().contains(value.toUpperCase());
                 Log.info("Row " + i + ": " + res + " - " + title.getText());
                 Assert.assertTrue(res, "Row " + i + " (" + title.getText() + ")" + " contains no value: " + value);
@@ -1502,7 +1535,6 @@ public class WebUI {
         smartWait();
 
         //xpathToTRtagname is locator from table to "tr" tagname of data section: //tbody/tr, //div[@id='example_wrapper']//tbody/tr, ...
-        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         List<WebElement> totalRows = DriverManager.getDriver().findElements(By.xpath(xpathToTRtagname));
         sleep(1);
         Log.info("Number of results for keyword (" + value + "): " + totalRows.size());
@@ -1513,7 +1545,7 @@ public class WebUI {
             for (int i = 1; i <= totalRows.size(); i++) {
                 boolean res = false;
                 WebElement title = DriverManager.getDriver().findElement(By.xpath(xpathToTRtagname + "[" + i + "]/td[" + column + "]"));
-                js.executeScript("arguments[0].scrollIntoView(true);", title);
+                WebUI.scrollToElement(title);
                 res = title.getText().toUpperCase().contains(value.toUpperCase());
                 Log.info("Row " + i + ": " + res + " - " + title.getText());
                 Assert.assertTrue(res, "Row " + i + " (" + title.getText() + ")" + " contains no value " + value);
@@ -1588,8 +1620,8 @@ public class WebUI {
      */
     public static WebElement waitForElementVisible(By by) {
         smartWait();
-
         waitForElementPresent(by);
+
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             boolean check = verifyElementVisible(by);

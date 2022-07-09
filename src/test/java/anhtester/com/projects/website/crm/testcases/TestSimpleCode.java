@@ -7,7 +7,6 @@ package anhtester.com.projects.website.crm.testcases;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.helpers.*;
-import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.utils.*;
 import org.testng.annotations.Test;
 
@@ -74,7 +73,6 @@ public class TestSimpleCode {
     @Test
     public void testEncryptDecryptData() {
         String pass = "123456";
-
         //Encrypt password
         WebUI.logConsole(DecodeUtils.encrypt(pass));
         //Decrypt password
@@ -83,7 +81,7 @@ public class TestSimpleCode {
 
     @Test
     public void testCreateFolder() {
-        Helpers.CreateFolder("src/test/resources/TestCreateNewFolder");
+        Helpers.createFolder("src/test/resources/TestCreateNewFolder");
     }
 
     @Test
@@ -101,7 +99,6 @@ public class TestSimpleCode {
     @Test
     public void testGetCurrentDateTime() {
         WebUI.logConsole(DateUtils.getCurrentDateTime());
-        //Log.info(Helpers.CurrentDateTime());
     }
 
     @Test
@@ -116,10 +113,10 @@ public class TestSimpleCode {
     @Test
     public void testExcelFile1() {
         PropertiesHelpers.loadAllFiles();
-        WebUI.logConsole(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"));
+        WebUI.logConsole(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelDataFilePath"));
         //  Handle Excel file
         ExcelHelpers excelHelpers = new ExcelHelpers();
-        excelHelpers.setExcelFile(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"), "SignInModel");
+        excelHelpers.setExcelFile(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelDataFilePath"), "SignIn");
         WebUI.logConsole(excelHelpers.getCellData(1, "EMAIL"));
         WebUI.logConsole(excelHelpers.getCellData(1, "PASSWORD"));
         excelHelpers.setCellData("pass", 1, "EXPECTED_TITLE");
@@ -130,8 +127,6 @@ public class TestSimpleCode {
         PropertiesHelpers.loadAllFiles();
         ExcelHelpers excelHelpers = new ExcelHelpers();
         WebUI.logConsole(excelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH, "SignInModel", 1, 2));
-        //WebUI.logConsole(ExcelHelpers.getDataReflection(Helpers.getCurrentDir() + "src/test/resources/testdatafile/ClientsDataExcel.xlsx", "SignInModel", 1, 2));
-
     }
 
     @Test

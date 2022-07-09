@@ -18,7 +18,6 @@ public class ClientPage {
     public void openClientTabPage() {
         //Muốn chạy tiếp thì chọn FailureHandling.CONTINUE_ON_FAILURE
         WebUI.verifyElementTextEquals(ObjectUtils.getObject("labelOnClientPage"), pageText, FailureHandling.CONTINUE_ON_FAILURE);
-        //WebUI.verifyPageUrl(pageUrl);
         WebUI.sleep(1);
         WebUI.clickElement(ObjectUtils.getObject("tabClient"));
     }
