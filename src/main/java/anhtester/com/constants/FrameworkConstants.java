@@ -17,31 +17,31 @@ public final class FrameworkConstants {
     }
 
     public static final String PROJECT_PATH = Helpers.getCurrentDir();
-    public static final String EXCEL_DATA_PATH = PropertiesHelpers.getValue("excelDataFilePath");
-    public static final String JSON_CONFIG_FILE_PATH = Helpers.getCurrentDir() + "src/test/resources/config/config.json";
+    public static final String EXCEL_DATA_FILE_PATH = PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH");
+    public static final String JSON_DATA_FILE_PATH = PropertiesHelpers.getValue("JSON_DATA_FILE_PATH");
 
-    public static final String BROWSER = PropertiesHelpers.getValue("browser");
-    public static final String BASE_URL = PropertiesHelpers.getValue("base_url");
-    public static final String REMOTE_URL = PropertiesHelpers.getValue("remote_url");
-    public static final String REMOTE_PORT = PropertiesHelpers.getValue("remote_port");
-    public static final String PROJECT_NAME = PropertiesHelpers.getValue("projectName");
-    public static final String REPORT_TITLE = PropertiesHelpers.getValue("reportTitle");
-    public static final String EXTENT_REPORT_NAME = PropertiesHelpers.getValue("extentReportName");
-    public static final String EXTENT_REPORT_FOLDER = PropertiesHelpers.getValue("extentReportFolder");
-    public static final String ExportVideoPath = PropertiesHelpers.getValue("exportVideoPath");
-    public static final String ExportCapturePath = PropertiesHelpers.getValue("exportCapturePath");
-    public static final String AUTHOR = PropertiesHelpers.getValue("author");
-    public static final String TARGET = PropertiesHelpers.getValue("target");
-    public static final String HEADLESS = PropertiesHelpers.getValue("headless");
-    public static final String override_reports = PropertiesHelpers.getValue("override_reports");
+    public static final String BROWSER = PropertiesHelpers.getValue("BROWSER");
+    public static final String URL_CRM = PropertiesHelpers.getValue("URL_CRM");
+    public static final String REMOTE_URL = PropertiesHelpers.getValue("REMOTE_URL");
+    public static final String REMOTE_PORT = PropertiesHelpers.getValue("REMOTE_PORT");
+    public static final String PROJECT_NAME = PropertiesHelpers.getValue("PROJECT_NAME");
+    public static final String REPORT_TITLE = PropertiesHelpers.getValue("REPORT_TITLE");
+    public static final String EXTENT_REPORT_NAME = PropertiesHelpers.getValue("EXTENT_REPORT_NAME");
+    public static final String EXTENT_REPORT_FOLDER = PropertiesHelpers.getValue("EXTENT_REPORT_FOLDER");
+    public static final String EXPORT_VIDEO_PATH = PropertiesHelpers.getValue("EXPORT_VIDEO_PATH");
+    public static final String EXPORT_CAPTURE_PATH = PropertiesHelpers.getValue("EXPORT_CAPTURE_PATH");
+    public static final String AUTHOR = PropertiesHelpers.getValue("AUTHOR");
+    public static final String TARGET = PropertiesHelpers.getValue("TARGET");
+    public static final String HEADLESS = PropertiesHelpers.getValue("HEADLESS");
+    public static final String OVERRIDE_REPORTS = PropertiesHelpers.getValue("OVERRIDE_REPORTS");
     public static final String open_reports_after_execution = PropertiesHelpers.getValue("open_reports_after_execution");
     public static final String send_email_to_users = PropertiesHelpers.getValue("send_email_to_users");
     public static final String screenshot_passed_steps = PropertiesHelpers.getValue("screenshot_passed_steps");
     public static final String screenshot_failed_steps = PropertiesHelpers.getValue("screenshot_failed_steps");
     public static final String screenshot_skipped_steps = PropertiesHelpers.getValue("screenshot_skipped_steps");
     public static final String screenshot_all_steps = PropertiesHelpers.getValue("screenshot_all_steps");
-    public static final String zip_folder = PropertiesHelpers.getValue("zip_folder");
-    public static final String video_record = PropertiesHelpers.getValue("video_record");
+    public static final String ZIP_FOLDER = PropertiesHelpers.getValue("ZIP_FOLDER");
+    public static final String VIDEO_RECORD = PropertiesHelpers.getValue("VIDEO_RECORD");
 
     public static final int WAIT_DEFAULT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_DEFAULT"));
     public static final int WAIT_IMPLICIT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_IMPLICIT"));

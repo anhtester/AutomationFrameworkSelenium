@@ -35,7 +35,6 @@ public enum BrowserFactory {
         @Override
         public ChromeOptions getOptions() {
             ChromeOptions chromeOptions = new ChromeOptions();
-            chromeOptions.addArguments(START_MAXIMIZED);
             chromeOptions.addArguments("--disable-infobars");
             chromeOptions.addArguments("--disable-notifications");
             chromeOptions.setHeadless(Boolean.valueOf(FrameworkConstants.HEADLESS));
@@ -46,14 +45,13 @@ public enum BrowserFactory {
         @Override
         public WebDriver createDriver() {
             WebDriverManager.getInstance(DriverManagerType.FIREFOX).setup();
-
+            
             return new FirefoxDriver(getOptions());
         }
 
         @Override
         public FirefoxOptions getOptions() {
             FirefoxOptions firefoxOptions = new FirefoxOptions();
-            firefoxOptions.addArguments(START_MAXIMIZED);
             firefoxOptions.setHeadless(Boolean.valueOf(FrameworkConstants.HEADLESS));
 
             return firefoxOptions;
@@ -69,7 +67,6 @@ public enum BrowserFactory {
         @Override
         public EdgeOptions getOptions() {
             EdgeOptions edgeOptions = new EdgeOptions();
-            edgeOptions.addArguments(START_MAXIMIZED);
             edgeOptions.setHeadless(Boolean.valueOf(FrameworkConstants.HEADLESS));
 
             return edgeOptions;

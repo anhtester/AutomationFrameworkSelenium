@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Regression Test CRM" data-provider-thread-count="1">
+
+    <test name="Client Test">
+        <parameter name="BROWSER" value="firefox"/>
+        <classes>
+            <class name="anhtester.com.projects.website.crm.testcases.ClientTest">
+                <methods>
+                    <include name="testAddClient"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>

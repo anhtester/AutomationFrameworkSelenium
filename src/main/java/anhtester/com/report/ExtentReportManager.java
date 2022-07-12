@@ -5,12 +5,12 @@ import anhtester.com.driver.DriverManager;
 import anhtester.com.enums.AuthorType;
 import anhtester.com.enums.CategoryType;
 import anhtester.com.utils.BrowserInfoUtils;
+import anhtester.com.utils.DateUtils;
 import anhtester.com.utils.IconUtils;
 import anhtester.com.utils.ReportUtils;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.Markup;
-import com.aventstack.extentreports.model.Media;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.openqa.selenium.OutputType;
@@ -18,20 +18,36 @@ import org.openqa.selenium.TakesScreenshot;
 
 import java.util.Objects;
 
+import static anhtester.com.constants.FrameworkConstants.*;
+
 public final class ExtentReportManager {
 
     private static ExtentReports extentReports;
+    private static String link = "";
 
     public static void initReports() {
         if (Objects.isNull(extentReports)) {
             extentReports = new ExtentReports();
-            ExtentSparkReporter spark = new ExtentSparkReporter(FrameworkConstants.EXTENT_REPORT_FILE_PATH);
+
+            if (OVERRIDE_REPORTS.trim().equals(NO)) {
+                System.out.println("OVERRIDE_REPORTS = " + OVERRIDE_REPORTS);
+                link = EXTENT_REPORT_FOLDER_PATH + "/" + DateUtils.getCurrentDateTimeCustom("_") + "_"
+                        + EXTENT_REPORT_FILE_NAME;
+                System.out.println("link report:" + link);
+            } else {
+                link = EXTENT_REPORT_FILE_PATH;
+                System.out.println("link report:" + link);
+            }
+
+            ExtentSparkReporter spark = new ExtentSparkReporter(link);
             extentReports.attachReporter(spark);
             spark.config().setTheme(Theme.STANDARD);
             spark.config().setDocumentTitle(FrameworkConstants.REPORT_TITLE);
             spark.config().setReportName(FrameworkConstants.REPORT_TITLE);
             extentReports.setSystemInfo("Framework Name", FrameworkConstants.REPORT_TITLE);
             extentReports.setSystemInfo("Author", FrameworkConstants.AUTHOR);
+
+            System.out.println("Extent Reports is installed.");
         }
     }
 
@@ -40,7 +56,7 @@ public final class ExtentReportManager {
             extentReports.flush();
         }
         ExtentTestManager.unload();
-        ReportUtils.openReports();
+        ReportUtils.openReports(link);
     }
 
     public static void createTest(String testCaseName) {

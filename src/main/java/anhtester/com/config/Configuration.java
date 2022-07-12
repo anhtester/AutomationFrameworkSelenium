@@ -13,22 +13,22 @@ import org.aeonbits.owner.Config.LoadType;
 
 public interface Configuration extends Config {
 
-    @Key("target")
+    @Key("TARGET")
     String target();
 
-    @Key("browser")
+    @Key("BROWSER")
     String browser();
 
-    @Key("headless")
+    @Key("HEADLESS")
     Boolean headless();
 
-    @Key("base_url")
+    @Key("URL_CRM")
     String baseUrl();
 
-    @Key("remote_url")
+    @Key("REMOTE_URL")
     String gridUrl();
 
-    @Key("remote_port")
+    @Key("REMOTE_PORT")
     String gridPort();
 
 }

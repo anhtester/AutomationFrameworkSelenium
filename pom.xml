@@ -47,6 +47,7 @@
         <suite.signin.simple>src/test/resources/suites/SignIn-simple.xml</suite.signin.simple>
         <suite.client.parallel>src/test/resources/suites/Clients-parallel.xml</suite.client.parallel>
         <suite.client.simple>src/test/resources/suites/Clients-simple.xml</suite.client.simple>
+        <suite.all>src/test/resources/suites/SuiteAll.xml</suite.all>
 
         <maven.test.skip>false</maven.test.skip>
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
@@ -315,7 +316,34 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>Suite-All</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven-surefire-plugin.version}</version>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>${suite.all}</suiteXmlFile>
+                            </suiteXmlFiles>
+                            <argLine>
+                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"
+                            </argLine>
+                            <testFailureIgnore>true</testFailureIgnore>
+                            <systemPropertyVariables>
+                                <allure.results.directory>target/allure-results</allure.results.directory>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
     </profiles>
+
 
     <build>
         <pluginManagement>

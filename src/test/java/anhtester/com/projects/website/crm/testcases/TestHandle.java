@@ -50,7 +50,7 @@ public class TestHandle {
 
     @Test
     public void testLocalStorage() {
-        WebUI.getToUrl(FrameworkConstants.BASE_URL);
+        WebUI.getToUrl(FrameworkConstants.URL_CRM);
         WebUI.sleep(1);
 
         //Set key=value in Sign in page
@@ -124,7 +124,7 @@ public class TestHandle {
 
         By inputFileUpload = By.xpath("//div[@class='actions']/input");
 
-        String filePath = Helpers.getCurrentDir() + "src\\test\\resources\\testdatafile\\TxtFileData.txt";
+        String filePath = Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\TxtFileData.txt";
 
         WebUI.uploadFileSendkeys(inputFileUpload, filePath);
 
@@ -140,7 +140,7 @@ public class TestHandle {
         By divFileUpload = By.xpath("//div[@id='uploadifive-file_upload']");
         By inputFileUpload = By.xpath("//div[@id='file_select_button']//input[@id='file_upload']");
 
-        String filePath = Helpers.getCurrentDir() + "src\\test\\resources\\testdatafile\\TxtFileData.txt";
+        String filePath = Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\TxtFileData.txt";
 
         WebUI.uploadFileForm(divFileUpload, filePath);
 
@@ -339,12 +339,12 @@ public class TestHandle {
         WebUI.sleep(1);
 
         //Cách 1 sendKeys link từ source
-        WebUI.uploadFileSendkeys(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src\\test\\resources\\testdatafile\\DOCX_File_01.docx");
+        WebUI.uploadFileSendkeys(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\DOCX_File_01.docx");
 
         WebUI.sleep(1);
 
         //Cách 2 mở form local máy nên file là trong ổ đĩa máy tính
-        WebUI.uploadFileForm(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src\\test\\resources\\testdatafile\\LoginCSV.csv");
+        WebUI.uploadFileForm(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\LoginCSV.csv");
 
         WebUI.sleep(3);
     }

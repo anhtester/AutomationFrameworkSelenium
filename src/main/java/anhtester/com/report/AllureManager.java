@@ -12,7 +12,6 @@ import anhtester.com.utils.BrowserInfoUtils;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
 import com.google.common.collect.ImmutableMap;
 import io.qameta.allure.Attachment;
-import io.qameta.allure.model.Status;
 import org.openqa.selenium.TakesScreenshot;
 
 import static org.openqa.selenium.OutputType.BYTES;
@@ -25,7 +24,7 @@ public class AllureManager {
     public static void setAllureEnvironmentInformation() {
         AllureEnvironmentWriter.allureEnvironmentWriter(
                 ImmutableMap.<String, String>builder().
-                        put("Test URL", FrameworkConstants.BASE_URL).
+                        put("Test URL", FrameworkConstants.URL_CRM).
                         put("Target Execution", FrameworkConstants.TARGET).
                         put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT)).
                         put("Headless Dode", FrameworkConstants.HEADLESS).

@@ -16,10 +16,10 @@ public final class BrowserInfoUtils {
 
     public static String getBrowserInfo() {
         String browser = "";
-        if (Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browser") == null) {
+        if (Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("BROWSER") == null) {
             browser = BROWSER.toUpperCase();
         } else {
-            browser = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browser").trim().toUpperCase();
+            browser = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("BROWSER").trim().toUpperCase();
         }
         return browser;
     }

@@ -12,9 +12,6 @@ import io.qameta.allure.Step;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.Properties;
 
@@ -32,7 +29,7 @@ public class PropertiesHelpers {
         // Add tất cả file Properties vào đây theo mẫu
         files.add("src/test/resources/config/config.properties");
         files.add("src/test/resources/config/datatest.properties");
-        files.add("src/test/resources/objects.crm/crm_locators.properties");
+        files.add("src/test/resources/objects/crm_locators.properties");
 
         try {
             properties = new Properties();

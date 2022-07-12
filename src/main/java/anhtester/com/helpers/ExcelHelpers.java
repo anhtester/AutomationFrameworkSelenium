@@ -5,18 +5,17 @@
 
 package anhtester.com.helpers;
 
-import java.awt.Color;
-import java.io.*;
-import java.util.*;
-
-import anhtester.com.constants.FrameworkConstants;
-import anhtester.com.exceptions.FrameworkException;
 import anhtester.com.exceptions.InvalidPathForExcelException;
 import anhtester.com.utils.Log;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.awt.Color;
+import java.io.*;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
 public class ExcelHelpers {
 
@@ -33,6 +32,10 @@ public class ExcelHelpers {
 
     public int rowNumber; //Row Number
     public int columnNumber; //Column Number
+
+    public ExcelHelpers() {
+        PropertiesHelpers.loadAllFiles();
+    }
 
     //    Set Excel file
     public void setExcelFile(String excelPath, String sheetName) {
@@ -182,7 +185,7 @@ public class ExcelHelpers {
     }
 
     public Object[][] getDataHashTable(String excelPath, String sheetName, int startRow, int endRow) {
-
+        System.out.println("Excel Path: " + excelPath);
         Object[][] data = null;
         try {
 

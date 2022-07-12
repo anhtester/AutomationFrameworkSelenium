@@ -4,24 +4,27 @@ import anhtester.com.driver.DriverManager;
 import anhtester.com.driver.TargetFactory;
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.listeners.TestListener;
-import anhtester.com.report.AllureManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.testng.annotations.*;
+
+import java.awt.*;
+import java.io.IOException;
+import java.lang.reflect.Method;
 
 @Listeners({TestListener.class})
 public class BaseTest {
 
     @BeforeSuite
     public void beforeSuite() {
-        AllureManager.setAllureEnvironmentInformation();
-        PropertiesHelpers.loadAllFiles(); //Config and Locators
+
     }
 
-    @Parameters("browser")
+    @Parameters("BROWSER")
     @BeforeMethod(alwaysRun = true)
-    public void createDriver(@Optional("chrome") String browser) {
+    public void createDriver(@Optional("chrome") String browser, Method method) throws IOException, AWTException {
         WebDriver driver = ThreadGuard.protect(new TargetFactory().createInstance(browser));
+        driver.manage().window().maximize();
         DriverManager.setDriver(driver);
     }
 
@@ -30,13 +33,11 @@ public class BaseTest {
         DriverManager.quit();
     }
 
-
     public WebDriver createBrowser(@Optional("chrome") String browser) {
         PropertiesHelpers.loadAllFiles();
         WebDriver driver = ThreadGuard.protect(new TargetFactory().createInstance(browser));
         DriverManager.setDriver(driver);
         return DriverManager.getDriver();
-
     }
 
 }

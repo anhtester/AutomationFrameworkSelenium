@@ -20,6 +20,8 @@ public class ClientPage {
         WebUI.verifyElementTextEquals(ObjectUtils.getObject("labelOnClientPage"), pageText, FailureHandling.CONTINUE_ON_FAILURE);
         WebUI.sleep(1);
         WebUI.clickElement(ObjectUtils.getObject("tabClient"));
+        WebUI.waitForPageLoaded();
+        WebUI.waitForJQueryLoad();
     }
 
     public void addClient(Hashtable<String, String> data) {
@@ -49,8 +51,13 @@ public class ClientPage {
 
     public void checkClientDetail(Hashtable<String, String> data) {
         WebUI.clickElement(ObjectUtils.getObject("itemClientFirstRow"));
+        WebUI.waitForPageLoaded();
+        WebUI.waitForJQueryLoad();
+        WebUI.sleep(1);
         WebUI.clickElement(ObjectUtils.getObject("tabClientInfo"));
         WebUI.waitForPageLoaded();
+        WebUI.waitForJQueryLoad();
+        WebUI.sleep(1);
         WebUI.verifyElementChecked(ObjectUtils.getObject("radioOrganization"), "Type off Client is not Organization");
         WebUI.verifyElementAttributeValue(ObjectUtils.getObject("inputCompanyName"), "value", data.get(ClientModel.getCompanyName()));
         WebUI.verifyElementTextEquals(ObjectUtils.getObject("ownerDetail"), data.get(ClientModel.getOwner()), FailureHandling.CONTINUE_ON_FAILURE);

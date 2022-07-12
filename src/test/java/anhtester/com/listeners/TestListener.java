@@ -5,11 +5,16 @@ import anhtester.com.driver.DriverManager;
 import anhtester.com.enums.AuthorType;
 import anhtester.com.enums.CategoryType;
 import anhtester.com.helpers.CaptureHelpers;
+import anhtester.com.helpers.PropertiesHelpers;
+import anhtester.com.helpers.ScreenRecoderHelpers;
 import anhtester.com.report.AllureManager;
 import anhtester.com.report.ExtentReportManager;
 import anhtester.com.utils.*;
 import com.aventstack.extentreports.Status;
 import org.testng.*;
+
+import java.awt.*;
+import java.io.IOException;
 
 import static anhtester.com.constants.FrameworkConstants.*;
 
@@ -19,6 +24,16 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
     static int count_passedTCs;
     static int count_skippedTCs;
     static int count_failedTCs;
+
+    private ScreenRecoderHelpers screenRecorder;
+
+    public TestListener() {
+        try {
+            screenRecorder = new ScreenRecoderHelpers();
+        } catch (IOException | AWTException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public String getTestName(ITestResult result) {
         return result.getTestName() != null ? result.getTestName()
@@ -31,23 +46,31 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
+        // Before every method in the Test Class
         //System.out.println(method.getTestMethod().getMethodName());
     }
 
     @Override
     public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
+        // After every method in the Test Class
         //System.out.println(method.getTestMethod().getMethodName());
     }
 
     @Override
     public void onStart(ISuite iSuite) {
-        Log.info("Start suite testing for " + iSuite.getName());
-        iSuite.setAttribute("WebDriver", DriverManager.getDriver());
-        //Gọi hàm startRecord video trong CaptureHelpers class
-        if (video_record.trim().toLowerCase().equals(YES)) {
-            CaptureHelpers.startRecord(iSuite.getName());
-        }
+        System.out.println(" ");
+        System.out.println("========= INSTALLING CONFIGURATION DATA =========");
+        PropertiesHelpers.loadAllFiles();
+        AllureManager.setAllureEnvironmentInformation();
         ExtentReportManager.initReports();
+        System.out.println("========= INSTALLED CONFIGURATION DATA =========");
+        System.out.println(" ");
+        Log.info("Start suite: " + iSuite.getName());
+        iSuite.setAttribute("WebDriver", DriverManager.getDriver());
+//        //Gọi hàm startRecord video trong CaptureHelpers class
+//        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+//            CaptureHelpers.startRecord(iSuite.getName());
+//        }
     }
 
     @Override
@@ -56,15 +79,15 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         WebUI.stopSoftAssertAll();
         //Kết thúc và thực thi Extents Report
         ExtentReportManager.flushReports();
-        if (zip_folder.trim().toLowerCase().equals(YES)) {
+        if (ZIP_FOLDER.trim().toLowerCase().equals(YES)) {
             ZipUtils.zip();
         }
         EmailSendUtils.sendEmail(count_totalTCs, count_passedTCs, count_failedTCs, count_skippedTCs);
-        //Gọi hàm stopRecord video trong CaptureHelpers class
-        if (video_record.trim().toLowerCase().equals(YES)) {
-            CaptureHelpers.stopRecord();
-        }
 
+        //Gọi hàm stopRecord video trong CaptureHelpers class
+//        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+//            CaptureHelpers.stopRecord();
+//        }
     }
 
     public AuthorType[] getAuthorType(ITestResult iTestResult) {
@@ -99,6 +122,11 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
         ExtentReportManager.info(BOLD_START + IconUtils.getOSIcon() + " "
                 + BrowserInfoUtils.getOSInfo() + BOLD_END);
+
+        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+            screenRecorder.startRecording(getTestName(iTestResult));
+        }
+
     }
 
     @Override
@@ -113,6 +141,10 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         AllureManager.saveTextLog("Test case: " + getTestName(iTestResult) + " is passed.");
         //ExtentReports log operation for passed tests.
         ExtentReportManager.logMessage(Status.PASS, "Test case: " + getTestName(iTestResult) + " is passed.");
+
+        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+            screenRecorder.stopRecording(true);
+        }
     }
 
     @Override
@@ -134,6 +166,11 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         ExtentReportManager.addScreenShot(Status.FAIL, getTestName(iTestResult));
         ExtentReportManager.logMessage(Status.FAIL, "Test case: " + getTestName(iTestResult) + " is failed.");
         ExtentReportManager.logMessage(Status.FAIL, iTestResult.getThrowable());
+
+        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+            screenRecorder.stopRecording(true);
+        }
+
     }
 
     @Override
@@ -146,6 +183,11 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         }
 
         ExtentReportManager.logMessage(Status.SKIP, "Test case: " + getTestName(iTestResult) + " is skipped.");
+
+        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+            screenRecorder.stopRecording(true);
+        }
+
     }
 
     @Override
