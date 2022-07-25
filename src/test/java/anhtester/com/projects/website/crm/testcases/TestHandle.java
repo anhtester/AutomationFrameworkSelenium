@@ -15,10 +15,10 @@ import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import anhtester.com.utils.LocalStorageUtils;
 import anhtester.com.utils.ObjectUtils;
 import anhtester.com.utils.WebUI;
-import com.google.zxing.NotFoundException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -29,9 +29,9 @@ import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class TestHandle {
@@ -200,7 +200,7 @@ public class TestHandle {
 
 
     @Test
-    public void QRCode() throws NotFoundException, IOException {
+    public void QRCode() {
         WebUI.getToUrl("http://qrcode.meetheed.com/qrcode_examples.php");
         WebUI.maximizeWindow();
         WebUI.waitForPageLoaded();
@@ -228,7 +228,7 @@ public class TestHandle {
     }
 
     @Test
-    public void handleDragAndDropJQuery() throws InterruptedException, IOException {
+    public void handleDragAndDropJQuery() {
         try {
             String basePath = new File("").getAbsolutePath();
 
