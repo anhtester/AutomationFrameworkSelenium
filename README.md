@@ -1,4 +1,4 @@
-# Automation Framework Selenium Java with TestNG building by Anh Tester
+## Automation Framework Selenium Java with TestNG building by Anh Tester
 
 **SOME FEATURES IN FRAMEWORK**
 
@@ -15,10 +15,10 @@
 11. Main Keyword: WebUI (call common function)
 12. Sample test function
 
-## **SYSTEM REQUIREMENTS**
+### **SYSTEM REQUIREMENTS**
 
 - **JDK All Version**
-- Chrome Browser, Edge Browser
+- Chrome Browser, Edge Browser, Firefox Browser
 - Setup **Allure**:
   https://mvnrepository.com/artifact/io.qameta.allure/allure-java-commons
   or
@@ -31,7 +31,7 @@
 
 ![image](https://user-images.githubusercontent.com/87883620/161707184-7ad558f2-0d7d-4851-bfd6-2796d4e46593.png)
 
-## **HOW TO USE**
+### **HOW TO USE**
 
 **1. Run parallel the test case**
 
@@ -80,8 +80,6 @@
 ![image](https://user-images.githubusercontent.com/87883620/161658851-2aa41091-ac99-45d9-a79f-aaa828052efb.png)
 
 ![image](https://user-images.githubusercontent.com/87883620/161659238-88337f69-b742-4cd7-87f2-76670519c8dd.png)
-
-![image](https://user-images.githubusercontent.com/87883620/161710836-8f3eee7c-19ba-410d-8498-5f314e6289a5.png)
 
 **6. Log to file**
 
@@ -132,7 +130,7 @@
 + TestSimpleCode
 ```
 
-## Project structure
+### Project structure
 
 ```
 📦AutomationFrameworkSelenium
@@ -251,9 +249,9 @@
  ┗ 📜README.md
 ```
 
-## I shall write document for my Framework. Coming soon...
+### I shall write document for my Framework. Coming soon...
 
-# Copyright 2022 Anh Tester
+## Copyright 2022 Anh Tester
 
 > Anh Tester Blog: https://anhtester.com/
 

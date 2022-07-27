@@ -3,7 +3,6 @@
 <suite name="Multi Test Suite">
     <suite-files>
         <suite-file path="SignIn-parallel-methods.xml"></suite-file>
-        <suite-file path="Clients-testAddClient.xml"></suite-file>
-        <suite-file path="Clients-testSearch.xml"></suite-file>
+        <suite-file path="Clients-parallel.xml"></suite-file>
     </suite-files>
 </suite>

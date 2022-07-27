@@ -22,11 +22,9 @@ import java.util.Hashtable;
 @Feature("Sign In Test")
 public class SignInTest extends BaseTest {
 
-    SignInPage signInPage;
-    DashboardPage dashboardPage;
-
     public SignInTest() {
         signInPage = new SignInPage();
+        System.out.println("signInPage: " + signInPage);
     }
 
     //Using library DataProvider with read Hashtable

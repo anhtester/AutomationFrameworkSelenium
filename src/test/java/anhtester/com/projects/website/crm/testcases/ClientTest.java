@@ -10,8 +10,6 @@ import anhtester.com.common.BaseTest;
 import anhtester.com.dataprovider.DataProviderManager;
 import anhtester.com.enums.AuthorType;
 import anhtester.com.enums.CategoryType;
-import anhtester.com.projects.website.crm.pages.Clients.ClientPage;
-import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import anhtester.com.utils.WebUI;
 import io.qameta.allure.Epic;
@@ -24,10 +22,6 @@ import java.util.Hashtable;
 @Epic("Regression Test CRM")
 @Feature("Clients Test")
 public class ClientTest extends BaseTest {
-
-    public SignInPage signInPage;
-    public DashboardPage dashboardPage;
-    public ClientPage clientPage;
 
     public ClientTest() {
         signInPage = new SignInPage();

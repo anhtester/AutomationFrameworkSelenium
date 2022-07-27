@@ -2,47 +2,75 @@ package anhtester.com.projects.website.crm.pages.Clients;
 
 import anhtester.com.enums.FailureHandling;
 import anhtester.com.projects.website.crm.models.ClientModel;
-import anhtester.com.utils.ObjectUtils;
+import anhtester.com.projects.website.crm.pages.CommonPage;
 import anhtester.com.utils.WebUI;
+import org.openqa.selenium.By;
 
 import java.util.Hashtable;
 
-public class ClientPage {
+public class ClientPage extends CommonPage {
 
     public ClientPage() {
+
     }
 
     public String pageText = "Total clients";
     public String pageUrl = "/clients";
 
+    public By buttonAddClient = By.xpath("//a[normalize-space()='Add client']");
+    public By inputCompanyName = By.xpath("//input[@id='company_name']");
+    public By selectOwner = By.xpath("//div[@id='s2id_created_by']");
+    public By inputSearchOwner = By.xpath("//div[@id='select2-drop']//input");
+    public By selectFirstItemOwner = By.xpath("(//div[contains(@id,'select2-result-label')])[1]");
+    public By inputAddress = By.xpath("//textarea[@id='address']");
+    public By inputCity = By.xpath("//input[@id='city']");
+    public By inputState = By.xpath("//input[@id='state']");
+    public By inputZip = By.xpath("//input[@id='zip']");
+    public By inputCountry = By.xpath("//input[@id='country']");
+    public By inputPhone = By.xpath("//input[@id='phone']");
+    public By inputWebsite = By.xpath("//input[@id='website']");
+    public By inputVat = By.xpath("//input[@id='vat_number']");
+    public By inputClientGroups = By.xpath("(//label[normalize-space()='Client groups']/following-sibling::div//input)[1]");
+    public By spanFirstItemClientGroups = By.xpath("//span[@class='select2-match']");
+    public By buttonSaveOnDialog = By.xpath("//div[@id='ajaxModalContent']//button[normalize-space()='Save']");
+    public By inputSearch = By.xpath("//input[@placeholder='Search']");
+    public By itemClientFirstRow = By.xpath("//table[@id='client-table']//tbody/tr[1]/td[2]/a");
+    public By tabClientInfo = By.xpath("//a[normalize-space()='Client info']");
+    public By ownerDetail = By.xpath("//div[@id='s2id_created_by']//a[@class='select2-choice']/span[1]");
+    public By radioOrganization = By.xpath("//input[@id='type_organization']");
+    public By labelOnClientPage = By.xpath("//span[normalize-space()='Total clients']");
+    public By tabClient = By.xpath("//ul[@id='client-tabs']//li[2]");
+    public By labelClientGroups = By.xpath("//li[@class='select2-search-choice']/div");
+
+
     public void openClientTabPage() {
         //Muốn chạy tiếp thì chọn FailureHandling.CONTINUE_ON_FAILURE
-        WebUI.verifyElementTextEquals(ObjectUtils.getObject("labelOnClientPage"), pageText, FailureHandling.CONTINUE_ON_FAILURE);
+        WebUI.verifyElementTextEquals(labelOnClientPage, pageText, FailureHandling.CONTINUE_ON_FAILURE);
         WebUI.sleep(1);
-        WebUI.clickElement(ObjectUtils.getObject("tabClient"));
+        WebUI.clickElement(tabClient);
         WebUI.waitForPageLoaded();
         WebUI.waitForJQueryLoad();
     }
 
     public void addClient(Hashtable<String, String> data) {
-        WebUI.clickElement(ObjectUtils.getObject("buttonAddClient"));
-        WebUI.setText(ObjectUtils.getObject("inputCompanyName"), data.get(ClientModel.getCompanyName()));
-        WebUI.clickElement(ObjectUtils.getObject("selectOwner"));
-        WebUI.setText(ObjectUtils.getObject("inputSearchOwner"), data.get(ClientModel.getOwner()));
-        WebUI.clickElement(ObjectUtils.getObject("selectFirstItemOwner"));
-        WebUI.setText(ObjectUtils.getObject("inputAddress"), data.get(ClientModel.getAddress()));
-        WebUI.setText(ObjectUtils.getObject("inputCity"), data.get(ClientModel.getCity()));
-        WebUI.setText(ObjectUtils.getObject("inputState"), data.get(ClientModel.getState()));
-        WebUI.setText(ObjectUtils.getObject("inputZip"), data.get(ClientModel.getZip()));
-        WebUI.setText(ObjectUtils.getObject("inputCountry"), data.get(ClientModel.getCountry()));
-        WebUI.setText(ObjectUtils.getObject("inputPhone"), data.get(ClientModel.getPhone()));
-        WebUI.setText(ObjectUtils.getObject("inputWebsite"), data.get(ClientModel.getWebsite()));
-        WebUI.setText(ObjectUtils.getObject("inputVat"), data.get(ClientModel.getVat()));
-        WebUI.setText(ObjectUtils.getObject("inputClientGroups"), data.get(ClientModel.getClientGroup()));
-        WebUI.clickElement(ObjectUtils.getObject("spanFirstItemClientGroups"));
-        WebUI.clickElement(ObjectUtils.getObject("buttonSaveOnDialog"));
-
-        WebUI.setText(ObjectUtils.getObject("inputSearch"), data.get(ClientModel.getCompanyName()));
+        WebUI.clickElement(buttonAddClient);
+        WebUI.setText(inputCompanyName, data.get(ClientModel.getCompanyName()));
+        WebUI.clickElement(selectOwner);
+        WebUI.setText(inputSearchOwner, data.get(ClientModel.getOwner()));
+        WebUI.clickElement(selectFirstItemOwner);
+        WebUI.setText(inputAddress, data.get(ClientModel.getAddress()));
+        WebUI.setText(inputCity, data.get(ClientModel.getCity()));
+        WebUI.setText(inputState, data.get(ClientModel.getState()));
+        WebUI.setText(inputZip, data.get(ClientModel.getZip()));
+        WebUI.setText(inputCountry, data.get(ClientModel.getCountry()));
+        WebUI.setText(inputPhone, data.get(ClientModel.getPhone()));
+        WebUI.setText(inputWebsite, data.get(ClientModel.getWebsite()));
+        WebUI.setText(inputVat, data.get(ClientModel.getVat()));
+        WebUI.setText(inputClientGroups, data.get(ClientModel.getClientGroup()));
+        WebUI.clickElement(spanFirstItemClientGroups);
+        WebUI.clickElement(buttonSaveOnDialog);
+        WebUI.waitForPageLoaded();
+        WebUI.setText(inputSearch, data.get(ClientModel.getCompanyName()));
         WebUI.waitForPageLoaded();
         WebUI.sleep(3);
         WebUI.checkContainsSearchTableByColumn(2, data.get(ClientModel.getCompanyName()));
@@ -50,34 +78,34 @@ public class ClientPage {
     }
 
     public void checkClientDetail(Hashtable<String, String> data) {
-        WebUI.clickElement(ObjectUtils.getObject("itemClientFirstRow"));
+        WebUI.clickElement(itemClientFirstRow);
         WebUI.waitForPageLoaded();
         WebUI.waitForJQueryLoad();
         WebUI.sleep(1);
-        WebUI.clickElement(ObjectUtils.getObject("tabClientInfo"));
+        WebUI.clickElement(tabClientInfo);
         WebUI.waitForPageLoaded();
         WebUI.waitForJQueryLoad();
         WebUI.sleep(1);
-        WebUI.verifyElementChecked(ObjectUtils.getObject("radioOrganization"), "Type off Client is not Organization");
-        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("inputCompanyName"), "value", data.get(ClientModel.getCompanyName()));
-        WebUI.verifyElementTextEquals(ObjectUtils.getObject("ownerDetail"), data.get(ClientModel.getOwner()), FailureHandling.CONTINUE_ON_FAILURE);
-        WebUI.verifyElementTextEquals(ObjectUtils.getObject("inputAddress"), data.get(ClientModel.getAddress()), FailureHandling.CONTINUE_ON_FAILURE);
-        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("inputCity"), "value", data.get(ClientModel.getCity()));
-        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("inputState"), "value", data.get(ClientModel.getState()));
-        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("inputZip"), "value", data.get(ClientModel.getZip()));
-        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("inputCountry"), "value", data.get(ClientModel.getCountry()));
-        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("inputPhone"), "value", data.get(ClientModel.getPhone()));
-        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("inputWebsite"), "value", data.get(ClientModel.getWebsite()));
-        WebUI.verifyElementAttributeValue(ObjectUtils.getObject("inputVat"), "value", data.get(ClientModel.getVat()));
-        WebUI.verifyElementTextEquals(ObjectUtils.getObject("labelClientGroups"), data.get(ClientModel.getClientGroup()), FailureHandling.CONTINUE_ON_FAILURE);
+        WebUI.verifyElementChecked(radioOrganization, "Type off Client is not Organization");
+        WebUI.verifyElementAttributeValue(inputCompanyName, "value", data.get(ClientModel.getCompanyName()));
+        WebUI.verifyElementTextEquals(ownerDetail, data.get(ClientModel.getOwner()), FailureHandling.CONTINUE_ON_FAILURE);
+        WebUI.verifyElementTextEquals(inputAddress, data.get(ClientModel.getAddress()), FailureHandling.CONTINUE_ON_FAILURE);
+        WebUI.verifyElementAttributeValue(inputCity, "value", data.get(ClientModel.getCity()));
+        WebUI.verifyElementAttributeValue(inputState, "value", data.get(ClientModel.getState()));
+        WebUI.verifyElementAttributeValue(inputZip, "value", data.get(ClientModel.getZip()));
+        WebUI.verifyElementAttributeValue(inputCountry, "value", data.get(ClientModel.getCountry()));
+        WebUI.verifyElementAttributeValue(inputPhone, "value", data.get(ClientModel.getPhone()));
+        WebUI.verifyElementAttributeValue(inputWebsite, "value", data.get(ClientModel.getWebsite()));
+        WebUI.verifyElementAttributeValue(inputVat, "value", data.get(ClientModel.getVat()));
+        WebUI.verifyElementTextEquals(labelClientGroups, data.get(ClientModel.getClientGroup()), FailureHandling.CONTINUE_ON_FAILURE);
 
     }
 
     public void enterDataSearchClient(String value) {
         WebUI.sleep(2);
-        WebUI.moveToElement(ObjectUtils.getObject("inputSearch"));
-        WebUI.clearText(ObjectUtils.getObject("inputSearch"));
-        WebUI.setText(ObjectUtils.getObject("inputSearch"), value);
+        WebUI.moveToElement(inputSearch);
+        WebUI.clearText(inputSearch);
+        WebUI.setText(inputSearch, value);
         WebUI.waitForPageLoaded();
         WebUI.sleep(2);
     }

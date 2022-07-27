@@ -3,14 +3,14 @@
 <suite name="Regression Tests Parallel" parallel="tests" thread-count="4">
 
     <test name="Chrome execution Client Test">
-        <parameter name="browser" value="chrome"/>
+        <parameter name="BROWSER" value="chrome"/>
         <classes>
             <class name="anhtester.com.projects.website.crm.testcases.ClientTest"/>
         </classes>
     </test>
 
     <test name="Edge execution Client Test">
-        <parameter name="browser" value="edge"/>
+        <parameter name="BROWSER" value="edge"/>
         <classes>
             <class name="anhtester.com.projects.website.crm.testcases.ClientTest"/>
         </classes>

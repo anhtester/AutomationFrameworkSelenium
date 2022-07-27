@@ -924,6 +924,18 @@ public class WebUI {
         }
     }
 
+    public static boolean checkElementVisible(By by, long timeout) {
+        smartWait();
+
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public static boolean verifyElementVisible(By by) {
         smartWait();
 
@@ -1624,7 +1636,7 @@ public class WebUI {
 
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
-            boolean check = verifyElementVisible(by);
+            boolean check = checkElementVisible(by, 1);
             if (check == true) {
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             } else {
@@ -1694,6 +1706,7 @@ public class WebUI {
             Assert.fail("Timeout waiting for the element to exist. " + by.toString());
             Log.error("Timeout waiting for the element to exist. " + by.toString());
         }
+
         return null;
     }
 

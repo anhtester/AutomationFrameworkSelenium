@@ -1,9 +1,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="Regression Tests" parallel="tests" thread-count="2">
+<suite name="Regression Tests">
 
     <test name="Sign In Test">
-        <parameter name="browser" value="chrome"/>
+        <parameter name="BROWSER" value="chrome"/>
         <classes>
             <class name="anhtester.com.projects.website.crm.testcases.SignInTest">
             </class>

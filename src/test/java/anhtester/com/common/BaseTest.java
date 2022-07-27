@@ -4,6 +4,7 @@ import anhtester.com.driver.DriverManager;
 import anhtester.com.driver.TargetFactory;
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.listeners.TestListener;
+import anhtester.com.projects.website.crm.pages.CommonPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.testng.annotations.*;
@@ -11,12 +12,7 @@ import org.testng.annotations.*;
 import java.lang.reflect.Method;
 
 @Listeners({TestListener.class})
-public class BaseTest {
-
-    @BeforeSuite
-    public void beforeSuite() {
-
-    }
+public class BaseTest extends CommonPage{
 
     @Parameters("BROWSER")
     @BeforeMethod(alwaysRun = true)
