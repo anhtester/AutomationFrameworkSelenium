@@ -70,6 +70,7 @@ public class ClientPage extends CommonPage {
         WebUI.clickElement(spanFirstItemClientGroups);
         WebUI.clickElement(buttonSaveOnDialog);
         WebUI.waitForPageLoaded();
+        WebUI.sleep(2);
         WebUI.setText(inputSearch, data.get(ClientModel.getCompanyName()));
         WebUI.waitForPageLoaded();
         WebUI.sleep(3);
