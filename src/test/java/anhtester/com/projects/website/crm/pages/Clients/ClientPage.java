@@ -81,11 +81,9 @@ public class ClientPage extends CommonPage {
     public void checkClientDetail(Hashtable<String, String> data) {
         WebUI.clickElement(itemClientFirstRow);
         WebUI.waitForPageLoaded();
-        WebUI.waitForJQueryLoad();
         WebUI.sleep(1);
         WebUI.clickElement(tabClientInfo);
         WebUI.waitForPageLoaded();
-        WebUI.waitForJQueryLoad();
         WebUI.sleep(1);
         WebUI.verifyElementChecked(radioOrganization, "Type off Client is not Organization");
         WebUI.verifyElementAttributeValue(inputCompanyName, "value", data.get(ClientModel.getCompanyName()));
