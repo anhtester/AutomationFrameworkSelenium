@@ -27,8 +27,7 @@ public class ClientTest extends BaseTest {
         signInPage = new SignInPage();
     }
 
-    @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.VOTHAIAN},
-            category = {CategoryType.SANITY, CategoryType.REGRESSION})
+    @FrameworkAnnotation(author = {AuthorType.AnhTester, AuthorType.Robert}, category = {CategoryType.REGRESSION})
     @Test(priority = 1, dataProvider = "getClientDataHashTable", dataProviderClass = DataProviderManager.class)
     @Step("Add new Client")
     public void testAddClient(Hashtable<String, String> data) {
@@ -38,8 +37,7 @@ public class ClientTest extends BaseTest {
         clientPage.addClient(data);
     }
 
-    @FrameworkAnnotation(author = {AuthorType.ANHTESTER, AuthorType.AUTOMATION},
-            category = {CategoryType.SANITY, CategoryType.REGRESSION})
+    @FrameworkAnnotation(author = {AuthorType.James}, category = {CategoryType.SANITY, CategoryType.REGRESSION})
     @Test(priority = 2)
     @Step("Search Client")
     public void testSearchClient() {

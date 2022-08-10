@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class TestSimpleCode {
-
+    
     @Test
     public void testGetXpathDynamic() {
         String xpath1 = ObjectUtils.getXpathDynamic("//button[normalize-space()='%s']", "Login");

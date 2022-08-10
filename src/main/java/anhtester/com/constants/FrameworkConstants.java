@@ -41,6 +41,8 @@ public final class FrameworkConstants {
     public static final String screenshot_skipped_steps = PropertiesHelpers.getValue("screenshot_skipped_steps");
     public static final String screenshot_all_steps = PropertiesHelpers.getValue("screenshot_all_steps");
     public static final String ZIP_FOLDER = PropertiesHelpers.getValue("ZIP_FOLDER");
+    public static final String ZIP_FOLDER_PATH = PropertiesHelpers.getValue("ZIP_FOLDER_PATH");
+    public static final String ZIP_FOLDER_NAME = PropertiesHelpers.getValue("ZIP_FOLDER_NAME");
     public static final String VIDEO_RECORD = PropertiesHelpers.getValue("VIDEO_RECORD");
 
     public static final int WAIT_DEFAULT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_DEFAULT"));

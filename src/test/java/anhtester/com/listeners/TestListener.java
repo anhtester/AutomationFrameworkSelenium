@@ -68,7 +68,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.info("Start suite: " + iSuite.getName());
         iSuite.setAttribute("WebDriver", DriverManager.getDriver());
 //        //Gọi hàm startRecord video trong CaptureHelpers class
-//        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+//        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
 //            CaptureHelpers.startRecord(iSuite.getName());
 //        }
     }
@@ -77,15 +77,13 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
     public void onFinish(ISuite iSuite) {
         Log.info("End suite testing " + iSuite.getName());
         WebUI.stopSoftAssertAll();
-        //Kết thúc và thực thi Extents Report
+        //Kết thúc Suite và thực thi Extents Report, đóng gói Folder report và send mail
         ExtentReportManager.flushReports();
-        if (ZIP_FOLDER.trim().toLowerCase().equals(YES)) {
-            ZipUtils.zip();
-        }
+        ZipUtils.zip();
         EmailSendUtils.sendEmail(count_totalTCs, count_passedTCs, count_failedTCs, count_skippedTCs);
 
         //Gọi hàm stopRecord video trong CaptureHelpers class
-//        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+//        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
 //            CaptureHelpers.stopRecord();
 //        }
     }
@@ -123,7 +121,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         ExtentReportManager.info(BOLD_START + IconUtils.getOSIcon() + " "
                 + BrowserInfoUtils.getOSInfo() + BOLD_END);
 
-        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
             screenRecorder.startRecording(getTestName(iTestResult));
         }
 
@@ -167,7 +165,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         ExtentReportManager.logMessage(Status.FAIL, "Test case: " + getTestName(iTestResult) + " is failed.");
         ExtentReportManager.logMessage(Status.FAIL, iTestResult.getThrowable());
 
-        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
             screenRecorder.stopRecording(true);
         }
 
@@ -184,7 +182,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
         ExtentReportManager.logMessage(Status.SKIP, "Test case: " + getTestName(iTestResult) + " is skipped.");
 
-        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
             screenRecorder.stopRecording(true);
         }
 

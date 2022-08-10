@@ -6,7 +6,7 @@
 
     <groupId>anhtester.com</groupId>
     <artifactId>AutomationFrameworkSelenium</artifactId>
-    <version>1.7.0-preview</version>
+    <version>1.7.0</version>
     <name>AutomationFrameworkSelenium</name>
     <url>https://github.com/anhtester/AutomationFrameworkSelenium</url>
 
@@ -14,11 +14,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java-compiler.version>8</java-compiler.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-        <selenium.version>4.3.0</selenium.version>
+        <selenium.version>4.4.0</selenium.version>
         <testng.version>7.4.0</testng.version>
-        <webdrivermanager.version>5.2.1</webdrivermanager.version>
+        <webdrivermanager.version>5.2.3</webdrivermanager.version>
         <aspectjweaver.version>1.9.9.1</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <log4j.version>2.18.0</log4j.version>

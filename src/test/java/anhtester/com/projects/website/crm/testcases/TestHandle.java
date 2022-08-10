@@ -31,7 +31,6 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public class TestHandle {
@@ -49,6 +48,24 @@ public class TestHandle {
     }
 
     @Test
+    public void testConvertWebElementToBy() {
+        WebUI.getToUrl(FrameworkConstants.URL_CRM);
+        SignInPage signInPage = new SignInPage();
+
+        //WebElement
+        WebElement emailElement = WebUI.getWebElement(signInPage.inputEmail);
+
+        //Convert WebElement to By
+        By emailBy = ObjectUtils.getByFromWebElement(emailElement);
+
+        WebUI.setText(emailBy, "admin@mailinator.com");
+
+        WebUI.setText(signInPage.inputPassword, "123456");
+        WebUI.clickElement(signInPage.buttonSignIn);
+        WebUI.waitForElementVisible(new DashboardPage().menuDashboard);
+    }
+
+    @Test
     public void testLocalStorage() {
         WebUI.getToUrl(FrameworkConstants.URL_CRM);
         WebUI.sleep(1);
@@ -57,18 +74,18 @@ public class TestHandle {
         LocalStorageUtils.setItem("email", "admin02@mailinator.com");
         LocalStorageUtils.setItem("password", "123456");
 
-        WebUI.setText(ObjectUtils.getObject("inputEmail"), LocalStorageUtils.getItem("email"));
-        WebUI.setText(ObjectUtils.getObject("inputPassword"), LocalStorageUtils.getItem("password"));
-        WebUI.clickElement(ObjectUtils.getObject("buttonSignIn"));
+        WebUI.setText(ObjectUtils.getByLocatorFromConfig("inputEmail"), LocalStorageUtils.getItem("email"));
+        WebUI.setText(ObjectUtils.getByLocatorFromConfig("inputPassword"), LocalStorageUtils.getItem("password"));
+        WebUI.clickElement(ObjectUtils.getByLocatorFromConfig("buttonSignIn"));
         WebUI.waitForPageLoaded();
 
         //Get value in Project page
-        WebUI.clickElement(ObjectUtils.getObject("menuProjects"));
+        WebUI.clickElement(ObjectUtils.getByLocatorFromConfig("menuProjects"));
         WebUI.logConsole(LocalStorageUtils.getItem("email"));
         WebUI.waitForPageLoaded();
         WebUI.sleep(1);
         //Get value in ClientModel page
-        WebUI.clickElement(ObjectUtils.getObject("menuClients"));
+        WebUI.clickElement(ObjectUtils.getByLocatorFromConfig("menuClients"));
         WebUI.logConsole(LocalStorageUtils.getItem("password"));
 
         //=> You can get value by key everywhere before closing the browser
