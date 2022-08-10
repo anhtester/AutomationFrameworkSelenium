@@ -7,7 +7,7 @@
 3. Extent Report
 4. Allure Report
 5. Send Mail after the run test (Report information and HTML file attachment)
-6. Logfile
+6. Write Log to file
 7. Record video and Screenshot test case for failed
 8. Read data test from Excel file (xlsx, csv, json,...) with class define fields (param: Client client)
 9. Base function in the package: utils, helpers
@@ -81,7 +81,7 @@
 
 ![image](https://user-images.githubusercontent.com/87883620/161659238-88337f69-b742-4cd7-87f2-76670519c8dd.png)
 
-**6. Log to file**
+**6. Write Log to file**
 
 - Call class: Log.info , Log.pass, Log.error,... (**Log** is a custom global class from Log4j2)
   (**_import anhtester.com.utils.Log.java_**)

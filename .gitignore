@@ -7,5 +7,5 @@
 ExtentReports.zip
 /logs
 /target
-*.png
+/test-output
 
