@@ -71,7 +71,7 @@ public class TestHandle {
         WebUI.sleep(1);
 
         //Set key=value in Sign in page
-        LocalStorageUtils.setItem("email", "admin02@mailinator.com");
+        LocalStorageUtils.setItem("email", "admin@mailinator.com");
         LocalStorageUtils.setItem("password", "123456");
 
         WebUI.setText(ObjectUtils.getByLocatorFromConfig("inputEmail"), LocalStorageUtils.getItem("email"));
@@ -450,7 +450,7 @@ public class TestHandle {
     @AfterMethod
     public void closeDriver() {
         DriverManager.quit();
-        if (driver == null) {
+        if (driver != null) {
             driver.quit();
         }
     }

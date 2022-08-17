@@ -45,7 +45,7 @@ public class ObjectUtils {
                 return getByLocatorFromString(locatorDefinition);
 
             } else {
-                throw new IllegalStateException("Failed to get locator from RemoteWebElement. Please, check if the Regex pattern is valid.");
+                throw new IllegalStateException("Failed to get locator from RemoteWebElement. Please check if the Regex pattern is valid.");
             }
 
         }
@@ -111,7 +111,7 @@ public class ObjectUtils {
         // retrieve the specified object from the object list in properties file
         String locator = PropertiesHelpers.getValue(elementName);
 
-        if (locator.equals("") || locator.isEmpty()) {
+        if (locator.isEmpty()) {
             Log.info("The Locator string " + elementName + " does not exist !!");
             try {
                 throw new Exception("The Locator " + elementName + " does not exist !!");
@@ -120,7 +120,7 @@ public class ObjectUtils {
             }
         }
 
-        if (elementName.split("&&").length != 2) {
+        if (locator.split("&&").length != 2) {
             throw new IllegalStateException(String.format("Locator definition does not had 2 elements for %s locator", elementName));
         }
 
@@ -132,24 +132,36 @@ public class ObjectUtils {
 
         // Trả về một thể hiện của lớp By dựa trên loại định vị (id, name, xpath, css,...)
         // Đối tượng By có thể được sử dụng bởi driver.findElement (WebElement)
-        if (locatorType.toLowerCase().trim().equals("id")) return By.id(locatorValue);
-        else if (locatorType.toLowerCase().trim().equals("name")) return By.name(locatorValue);
-        else if (locatorType.toLowerCase().trim().equals("xpath")) return By.xpath(locatorValue);
-        else if ((locatorType.toLowerCase().trim().equals("cssselector")) || (locatorType.toLowerCase().trim().equals("css")))
-            return By.cssSelector(locatorValue);
-        else if ((locatorType.toLowerCase().trim().equals("classname")) || (locatorType.toLowerCase().trim().equals("class")))
-            return By.className(locatorValue);
-        else if ((locatorType.toLowerCase().trim().equals("tagname")) || (locatorType.toLowerCase().trim().equals("tag")))
-            return By.tagName(locatorValue);
-        else if ((locatorType.toLowerCase().trim().equals("linktext")) || (locatorType.toLowerCase().trim().equals("link")))
-            return By.linkText(locatorValue);
-        else if ((locatorType.toLowerCase().trim().equals("partiallinktext")) || (locatorType.toLowerCase().trim().equals("partial")))
-            return By.partialLinkText(locatorValue);
-        else try {
-                throw new Exception("Unknown locator type '" + locatorType + "'");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        switch (locatorType.toLowerCase().trim()) {
+            case "id":
+                return By.id(locatorValue);
+            case "name":
+                return By.name(locatorValue);
+            case "xpath":
+                return By.xpath(locatorValue);
+            case "cssselector":
+            case "css":
+                return By.cssSelector(locatorValue);
+            case "classname":
+            case "class":
+                return By.className(locatorValue);
+            case "tagname":
+            case "tag":
+                return By.tagName(locatorValue);
+            case "linktext":
+            case "link":
+                return By.linkText(locatorValue);
+            case "partiallinktext":
+            case "partial":
+                return By.partialLinkText(locatorValue);
+            default:
+                try {
+                    throw new Exception("Unknown locator type '" + locatorType + "'");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
         return null;
     }
 
@@ -158,7 +170,7 @@ public class ObjectUtils {
         // retrieve the specified object from the object list in properties file
         String locator = PropertiesHelpers.getValue(elementName);
 
-        if (locator.equals("") || locator.isEmpty()) {
+        if (locator.isEmpty()) {
             try {
                 Log.info("The Locator " + elementName + " does not exist !!");
                 throw new Exception("The Locator " + elementName + " does not exist !!");
@@ -166,9 +178,14 @@ public class ObjectUtils {
                 e.printStackTrace();
             }
         } else {
+
+            if (locator.split("&&").length != 2) {
+                throw new IllegalStateException(String.format("Locator definition does not had 2 elements for %s locator", elementName));
+            }
+            
             // extract the locator type and value from the object
-            String locatorType = locator.split(":")[0];
-            String locatorValue = locator.split(":")[1];
+            String locatorType = locator.split("&&")[0];
+            String locatorValue = locator.split("&&")[1];
 
             if (!locatorType.toLowerCase().trim().equals("xpath")) {
                 try {
@@ -197,10 +214,10 @@ public class ObjectUtils {
      * @author Anh Tester
      */
     public static String getXpathDynamic(String xpath, Object... value) {
-        if (xpath == null || xpath == "") {
+        if (xpath == null || xpath.equals("")) {
             try {
                 Log.info("Parameter passing error. The 'xpath' parameter is null.");
-                throw new Exception("Warning !! The xpath is null.");
+                throw new Exception("Warning. The xpath is null.");
             } catch (Exception e) {
                 e.printStackTrace();
             }
