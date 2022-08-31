@@ -49,7 +49,7 @@ public class TestHandle {
 
     @Test
     public void testConvertWebElementToBy() {
-        WebUI.getToUrl(FrameworkConstants.URL_CRM);
+        WebUI.getURL(FrameworkConstants.URL_CRM);
         SignInPage signInPage = new SignInPage();
 
         //WebElement
@@ -67,7 +67,7 @@ public class TestHandle {
 
     @Test
     public void testLocalStorage() {
-        WebUI.getToUrl(FrameworkConstants.URL_CRM);
+        WebUI.getURL(FrameworkConstants.URL_CRM);
         WebUI.sleep(1);
 
         //Set key=value in Sign in page
@@ -93,7 +93,7 @@ public class TestHandle {
 
     @Test
     public void handleHTML5ValidationMessage() {
-        WebUI.getToUrl("https://anhtester.com/login");
+        WebUI.getURL("https://anhtester.com/login");
         WebUI.waitForPageLoaded();
         WebUI.sleep(1);
 
@@ -119,7 +119,7 @@ public class TestHandle {
 
     @Test
     public void handleSetWindow() {
-        WebUI.getToUrl("https://anhtester.com");
+        WebUI.getURL("https://anhtester.com");
         WebUI.waitForPageLoaded();
         WebUI.setWindowSize(1000, 600);
         WebUI.sleep(2);
@@ -129,14 +129,14 @@ public class TestHandle {
 
     @Test
     public void handleScreenshotElement() {
-        WebUI.getToUrl("https://anhtester.com");
+        WebUI.getURL("https://anhtester.com");
         WebUI.waitForPageLoaded();
         WebUI.screenshotElement(By.xpath("//div[@class='col-lg-5']//div[@class='row']//div[1]//div[1]"), "Website_Testing_Module");
     }
 
     @Test
     public void testUploadFileSendKeys() {
-        WebUI.getToUrl("https://www.file.io/");
+        WebUI.getURL("https://www.file.io/");
         WebUI.waitForPageLoaded();
 
         By inputFileUpload = By.xpath("//div[@class='actions']/input");
@@ -150,7 +150,7 @@ public class TestHandle {
 
     @Test
     public void testUploadFileFormDialog() {
-        WebUI.getToUrl("https://files.fm/");
+        WebUI.getURL("https://files.fm/");
         WebUI.waitForPageLoaded();
 
         By textOnPage = By.xpath("//div[@id='file_select_dragndrop_text']");
@@ -167,7 +167,7 @@ public class TestHandle {
     //Phân trang và check data in table
     @Test
     public void checkDataTableWithPagination() {
-        WebUI.getToUrl("https://datatables.net/");
+        WebUI.getURL("https://datatables.net/");
         WebUI.waitForPageLoaded();
 
         By title_H1 = By.xpath("//div[@class='fw-hero']//h1");
@@ -186,10 +186,12 @@ public class TestHandle {
             arrayListString.add(s);
         }
 
+        //Showing 1 to 10 of 57 entries => Lấy ra số 57 á :))
         int itemTotal = Integer.parseInt(arrayListString.get(5));
         System.out.println("Tổng số item: " + itemTotal);
 
         int itemTotalOnePage = 10; //mặc định như mẫu. Tuỳ vào hệ thống mình thay đổi theo
+        //Hoặc lấy bằng auto số default luôn cũng được. Có gì biến tấu thêm hen.
         System.out.println("Số item trên 1 trang: " + itemTotalOnePage);
 
         double pageTotal = (double) itemTotal / (double) itemTotalOnePage;
@@ -197,17 +199,19 @@ public class TestHandle {
         DecimalFormat df = new DecimalFormat("#"); //Làm tròn số đến phần đơn vị của phần thập phân
         //Ví dụ 5.7 thì làm tròn 6 kiểu vậy
         int pageTotalInt = Integer.parseInt(df.format(pageTotal));
-        System.out.println("Tổng số trang: " + df.format(pageTotalInt));
+        System.out.println("Tổng số trang: " + pageTotalInt);
 
         //FOR này chạy tới < pageTotalInt để nó không click thêm lần cuối cùng
         //VD: 6 trang thì nó chỉ click 5 lần thôi chứ hả =))
-        for (int i = 1; i < pageTotalInt; i++) {
+        for (int i = 1; i <= pageTotalInt; i++) {
             WebUI.scrollToElement(title_H1);
             //Gọi hàm Check data in table by column từ keyword WebUI
             WebUI.checkContainsSearchTableByColumn(1, "", "//div[@id='example_wrapper']//tbody/tr");
             WebUI.sleep(1);
             //Click Next
-            driver.findElement(button_Next).click();
+            if (i != pageTotalInt) {
+                driver.findElement(button_Next).click();
+            }
         }
 
         WebUI.scrollToElement(title_H1);
@@ -218,7 +222,7 @@ public class TestHandle {
 
     @Test
     public void QRCode() {
-        WebUI.getToUrl("http://qrcode.meetheed.com/qrcode_examples.php");
+        WebUI.getURL("http://qrcode.meetheed.com/qrcode_examples.php");
         WebUI.maximizeWindow();
         WebUI.waitForPageLoaded();
         WebUI.moveToElement(By.xpath("(//div[@class = 'topBox'])[1]/img"));
@@ -228,7 +232,7 @@ public class TestHandle {
 
     @Test
     public void handleZoomInZoomOut() {
-        WebUI.getToUrl("https://anhtester.com");
+        WebUI.getURL("https://anhtester.com");
         WebUI.sleep(1);
         //driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL,Keys.ADD));
         //driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL,Keys.SUBTRACT));
@@ -240,7 +244,7 @@ public class TestHandle {
     public void handleNotificationsBrowser() {
         driver = new ChromeDriver(WebUI.notificationsBlock()); //
         driver.manage().window().maximize();
-        WebUI.getToUrl("https://oto.com.vn/mua-ban-xe");
+        WebUI.getURL("https://oto.com.vn/mua-ban-xe");
         WebUI.sleep(4);
     }
 
@@ -293,7 +297,7 @@ public class TestHandle {
 
     @Test
     public void handleDragAndDrop() {
-        WebUI.getToUrl("http://demo.guru99.com/test/drag_drop.html");
+        WebUI.getURL("http://demo.guru99.com/test/drag_drop.html");
         By fromElement1 = By.xpath("//a[normalize-space()='BANK']");
         By toElement1 = By.xpath("(//div[@id='shoppingCart1']//div)[1]");
 
@@ -310,7 +314,7 @@ public class TestHandle {
 
     @Test
     public void handleDragAndDropOffset() throws AWTException, InterruptedException {
-        WebUI.getToUrl("https://david-desmaisons.github.io/draggable-example/");
+        WebUI.getURL("https://david-desmaisons.github.io/draggable-example/");
         Thread.sleep(1000);
 
         By fromElement1 = By.xpath("(//li[@class='list-group-item'])[1]");
@@ -341,7 +345,7 @@ public class TestHandle {
 
     @Test
     public void handleHighLightElement() {
-        WebUI.getToUrl("https://hrm.anhtester.com/");
+        WebUI.getURL("https://hrm.anhtester.com/");
         By button = By.xpath("//button[@type='submit']");
         WebUI.highLightElement(button); //Tô màu viền đỏ cho Element trên website
         WebUI.verifyElementAttributeValue(button, "type", "submit");
@@ -351,24 +355,30 @@ public class TestHandle {
 
     @Test
     public void handleUploadFile() {
-        WebUI.getToUrl("https://demoqa.com/upload-download");
+        WebUI.getURL("https://demoqa.com/upload-download");
         WebUI.waitForPageLoaded();
         WebUI.sleep(1);
 
-        //Cách 1 sendKeys link từ source
-        WebUI.uploadFileSendkeys(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\DOCX_File_01.docx");
+        final String path1 = Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\DOCX_File_01.docx";
+        final String path2 = Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\LoginCSV.csv";
 
+        //Cách 1 sendKeys link từ source
+        WebUI.uploadFileSendkeys(By.xpath("//input[@id='uploadFile']"), path1);
+        WebUI.verifyElementTextContains(By.xpath("//p[@id='uploadedFilePath']"), "DOCX_File_01ABC.docx");
+        WebUI.sleep(1);
+        WebUI.reloadPage();
+        WebUI.waitForPageLoaded();
         WebUI.sleep(1);
 
         //Cách 2 mở form local máy nên file là trong ổ đĩa máy tính
-        WebUI.uploadFileForm(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\LoginCSV.csv");
-
+        WebUI.uploadFileForm(By.xpath("//input[@id='uploadFile']"), path2);
+        WebUI.verifyElementTextContains(By.xpath("//p[@id='uploadedFilePath']"), "LoginCSV.csv");
         WebUI.sleep(3);
     }
 
     @Test
     public void handleTable1() {
-        WebUI.getToUrl("https://colorlib.com/polygon/notika/data-table.html");
+        WebUI.getURL("https://colorlib.com/polygon/notika/data-table.html");
         System.out.println(WebUI.getValueTableByColumn(2));
     }
 
@@ -389,7 +399,7 @@ public class TestHandle {
 
     @Test
     public void handlePrintPopup() throws AWTException {
-        WebUI.getToUrl("https://pos.anhtester.com/login");
+        WebUI.getURL("https://pos.anhtester.com/login");
         WebUI.waitForPageLoaded();
         String originalWindow = driver.getWindowHandle();
 

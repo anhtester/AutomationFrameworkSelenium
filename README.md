@@ -1,3 +1,5 @@
+![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
+
 ## Automation Framework Selenium Java with TestNG building by Anh Tester
 
 **SOME FEATURES IN FRAMEWORK**
@@ -101,7 +103,8 @@
 
 **8. Read data test from Excel file**
 
-- Create function with annotaion **DataProvider** on **src/test/java/anhtester/com/projects/website/crm/dataprovider/DataProviderManager.java**
+- Create function with annotaion **DataProvider** on **
+  src/test/java/anhtester/com/projects/website/crm/dataprovider/DataProviderManager.java**
 - Read excel with Map and Hashtable
 
 **9. Base function in the package**

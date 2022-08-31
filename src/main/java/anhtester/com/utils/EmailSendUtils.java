@@ -7,7 +7,9 @@ package anhtester.com.utils;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.mail.EmailAttachmentsSender;
+
 import javax.mail.MessagingException;
+
 import static anhtester.com.constants.FrameworkConstants.REPORT_TITLE;
 import static anhtester.com.mail.EmailConfig.*;
 
@@ -24,7 +26,7 @@ public class EmailSendUtils {
 
             String messageBody = getTestCasesCountInFormat(count_totalTCs, count_passedTCs, count_failedTCs,
                     count_skippedTCs);
-            System.out.println(messageBody);
+            //System.out.println(messageBody);
 
             String attachmentFile_ExtentReport = FrameworkConstants.getExtentReportFilePath();
 

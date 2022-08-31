@@ -16,7 +16,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class TestSimpleCode {
-    
+
+    @Test
+    public void testGetOSInfo() {
+        System.out.println(BrowserInfoUtils.getOSInfo());
+        System.out.println(BrowserInfoUtils.isWindows());
+        System.out.println(BrowserInfoUtils.isMac());
+    }
+
     @Test
     public void testGetXpathDynamic() {
         String xpath1 = ObjectUtils.getXpathDynamic("//button[normalize-space()='%s']", "Login");

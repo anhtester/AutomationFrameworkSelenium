@@ -100,7 +100,7 @@ public class WebUI {
         devTools.send(Network.setExtraHTTPHeaders(new Headers(headers)));
 
         // Load the application url
-        getToUrl(url);
+        getURL(url);
         Uninterruptibles.sleepUninterruptibly(Duration.ofSeconds(3));
     }
 
@@ -349,9 +349,9 @@ public class WebUI {
         sleep(3);
 
         // Khởi tạo Robot class
-        Robot rb = null;
+        Robot robot = null;
         try {
-            rb = new Robot();
+            robot = new Robot();
         } catch (AWTException e) {
             e.printStackTrace();
         }
@@ -360,17 +360,49 @@ public class WebUI {
         StringSelection str = new StringSelection(filePath);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(str, null);
 
-        // Nhấn Control+V để dán
-        rb.keyPress(KeyEvent.VK_CONTROL);
-        rb.keyPress(KeyEvent.VK_V);
+        //Check OS for Windows
+        if (BrowserInfoUtils.isWindows()) {
+            // Nhấn Control+V để dán
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_V);
 
-        // Xác nhận Control V trên
-        rb.keyRelease(KeyEvent.VK_CONTROL);
-        rb.keyRelease(KeyEvent.VK_V);
-        sleep(2);
-        // Nhấn Enter
-        rb.keyPress(KeyEvent.VK_ENTER);
-        rb.keyRelease(KeyEvent.VK_ENTER);
+            // Xác nhận Control V trên
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+            robot.keyRelease(KeyEvent.VK_V);
+            robot.delay(2000);
+            // Nhấn Enter
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+        }
+        //Check OS for MAC
+        if (BrowserInfoUtils.isMac()) {
+            robot.keyPress(KeyEvent.VK_META);
+            robot.keyPress(KeyEvent.VK_TAB);
+            robot.keyRelease(KeyEvent.VK_META);
+            robot.keyRelease(KeyEvent.VK_TAB);
+            robot.delay(1000);
+
+            //Open goto MAC
+            robot.keyPress(KeyEvent.VK_META);
+            robot.keyPress(KeyEvent.VK_SHIFT);
+            robot.keyPress(KeyEvent.VK_G);
+            robot.keyRelease(KeyEvent.VK_META);
+            robot.keyRelease(KeyEvent.VK_SHIFT);
+            robot.keyRelease(KeyEvent.VK_G);
+
+            //Paste the clipboard value
+            robot.keyPress(KeyEvent.VK_META);
+            robot.keyPress(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_META);
+            robot.keyRelease(KeyEvent.VK_V);
+            robot.delay(1000);
+
+            //Press Enter key to close the Goto MAC and Upload on MAC
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+        }
     }
 
     /**
@@ -725,12 +757,12 @@ public class WebUI {
         boolean result = getTextElement(by).trim().equals(text.trim());
 
         if (flowControl.equals(FailureHandling.STOP_ON_FAILURE)) {
-            Assert.assertEquals(getTextElement(by).trim(), text.trim(), "The actual text is '" + getTextElement(by).trim() + "' not equals expected text '" + text.trim() + "'");
+            Assert.assertEquals(getTextElement(by).trim(), text.trim(), "The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
         }
         if (flowControl.equals(FailureHandling.CONTINUE_ON_FAILURE)) {
-            softAssert.assertEquals(getTextElement(by).trim(), text.trim(), "The actual text is '" + getTextElement(by).trim() + "' not equals expected text '" + text.trim() + "'");
+            softAssert.assertEquals(getTextElement(by).trim(), text.trim(), "The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
             if (result == false) {
-                ExtentReportManager.fail("The actual text is '" + getTextElement(by).trim() + "' not equals expected text '" + text.trim() + "'");
+                ExtentReportManager.fail("The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
             }
         }
         if (flowControl.equals(FailureHandling.OPTIONAL)) {
@@ -739,7 +771,7 @@ public class WebUI {
                 ExtentReportManager.warning("Verify text of an element [Equals] - " + result);
                 ExtentReportManager.warning("The actual text is '" + getTextElement(by).trim() + "' not equals expected text '" + text.trim() + "'");
             }
-            AllureManager.saveTextLog("Verify text of an element [Equals] - " + result + ". The actual text is '" + getTextElement(by).trim() + "' not equals expected text '" + text.trim() + "'");
+            AllureManager.saveTextLog("Verify text of an element [Equals] - " + result + ". The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
         }
 
         if (screenshot_all_steps.equals(YES)) {
@@ -749,17 +781,41 @@ public class WebUI {
         return getTextElement(by).trim().equals(text.trim());
     }
 
+    @Step("Verify text of an element [Equals]")
+    public static boolean verifyElementTextEquals(By by, String text) {
+        smartWait();
+        waitForElementVisible(by);
+
+        boolean result = getTextElement(by).trim().equals(text.trim());
+
+        Assert.assertEquals(getTextElement(by).trim(), text.trim(), "The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
+
+        Log.warn("Verify text of an element [Equals] : " + result);
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.warning("Verify text of an element [Equals] : " + result);
+            ExtentReportManager.warning("The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
+        }
+        AllureManager.saveTextLog("Verify text of an element [Equals] : " + result + ". The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
+
+        if (screenshot_all_steps.equals(YES)) {
+            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("verifyElementTextContains_" + result));
+            AllureManager.takeScreenshotStep();
+        }
+        return result;
+    }
+
     @Step("Verify text of an element [Contains]")
     public static boolean verifyElementTextContains(By by, String text, FailureHandling flowControl) {
         smartWait();
+        waitForElementVisible(by);
 
         boolean result = getTextElement(by).trim().contains(text.trim());
 
         if (flowControl.equals(FailureHandling.STOP_ON_FAILURE)) {
-            Assert.assertTrue(result, "The actual text is " + getTextElement(by).trim() + " not contains expected text " + text.trim());
+            Assert.assertTrue(result, "The actual text is " + getTextElement(by).trim() + " not contains " + text.trim());
         }
         if (flowControl.equals(FailureHandling.CONTINUE_ON_FAILURE)) {
-            softAssert.assertTrue(result, "The actual text is " + getTextElement(by).trim() + " not contains expected text " + text.trim());
+            softAssert.assertTrue(result, "The actual text is " + getTextElement(by).trim() + " not contains " + text.trim());
         }
         if (flowControl.equals(FailureHandling.OPTIONAL)) {
             Log.warn("Verify text of an element [Contains] - " + result);
@@ -775,6 +831,29 @@ public class WebUI {
         }
 
         return getTextElement(by).trim().contains(text.trim());
+    }
+
+    @Step("Verify text of an element [Contains]")
+    public static boolean verifyElementTextContains(By by, String text) {
+        smartWait();
+        waitForElementVisible(by);
+
+        boolean result = getTextElement(by).trim().contains(text.trim());
+
+        Assert.assertTrue(result, "The actual text is " + getTextElement(by).trim() + " not contains " + text.trim());
+
+        Log.warn("Verify text of an element [Contains] : " + result);
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.warning("Verify text of an element [Contains] : " + result);
+        }
+        AllureManager.saveTextLog("Verify text of an element [Contains] : " + result);
+
+        if (screenshot_all_steps.equals(YES)) {
+            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("verifyElementTextContains_" + result));
+            AllureManager.takeScreenshotStep();
+        }
+
+        return result;
     }
 
     public static boolean verifyElementToBeClickable(By by) {
@@ -1115,22 +1194,7 @@ public class WebUI {
         smartWait();
 
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-        js.executeScript("function createEvent(typeOfEvent) {\n" + "var event =document.createEvent(\"CustomEvent\");\n"
-                + "event.initCustomEvent(typeOfEvent,true, true, null);\n" + "event.dataTransfer = {\n" + "data: {},\n"
-                + "setData: function (key, value) {\n" + "this.data[key] = value;\n" + "},\n"
-                + "getData: function (key) {\n" + "return this.data[key];\n" + "}\n" + "};\n" + "return event;\n"
-                + "}\n" + "\n" + "function dispatchEvent(element, event,transferData) {\n"
-                + "if (transferData !== undefined) {\n" + "event.dataTransfer = transferData;\n" + "}\n"
-                + "if (element.dispatchEvent) {\n" + "element.dispatchEvent(event);\n"
-                + "} else if (element.fireEvent) {\n" + "element.fireEvent(\"on\" + event.type, event);\n" + "}\n"
-                + "}\n" + "\n" + "function simulateHTML5DragAndDrop(element, destination) {\n"
-                + "var dragStartEvent =createEvent('dragstart');\n" + "dispatchEvent(element, dragStartEvent);\n"
-                + "var dropEvent = createEvent('drop');\n"
-                + "dispatchEvent(destination, dropEvent,dragStartEvent.dataTransfer);\n"
-                + "var dragEndEvent = createEvent('dragend');\n"
-                + "dispatchEvent(element, dragEndEvent,dropEvent.dataTransfer);\n" + "}\n" + "\n"
-                + "var source = arguments[0];\n" + "var destination = arguments[1];\n"
-                + "simulateHTML5DragAndDrop(source,destination);", from, to);
+        js.executeScript("function createEvent(typeOfEvent) {\n" + "var event =document.createEvent(\"CustomEvent\");\n" + "event.initCustomEvent(typeOfEvent,true, true, null);\n" + "event.dataTransfer = {\n" + "data: {},\n" + "setData: function (key, value) {\n" + "this.data[key] = value;\n" + "},\n" + "getData: function (key) {\n" + "return this.data[key];\n" + "}\n" + "};\n" + "return event;\n" + "}\n" + "\n" + "function dispatchEvent(element, event,transferData) {\n" + "if (transferData !== undefined) {\n" + "event.dataTransfer = transferData;\n" + "}\n" + "if (element.dispatchEvent) {\n" + "element.dispatchEvent(event);\n" + "} else if (element.fireEvent) {\n" + "element.fireEvent(\"on\" + event.type, event);\n" + "}\n" + "}\n" + "\n" + "function simulateHTML5DragAndDrop(element, destination) {\n" + "var dragStartEvent =createEvent('dragstart');\n" + "dispatchEvent(element, dragStartEvent);\n" + "var dropEvent = createEvent('drop');\n" + "dispatchEvent(destination, dropEvent,dragStartEvent.dataTransfer);\n" + "var dragEndEvent = createEvent('dragend');\n" + "dispatchEvent(element, dragEndEvent,dropEvent.dataTransfer);\n" + "}\n" + "\n" + "var source = arguments[0];\n" + "var destination = arguments[1];\n" + "simulateHTML5DragAndDrop(source,destination);", from, to);
     }
 
     public static boolean dragAndDrop(By fromElement, By toElement) {
@@ -1200,6 +1264,7 @@ public class WebUI {
         }
     }
 
+    @Step("Press ENTER keyboard")
     public static boolean pressENTER() {
         smartWait();
 
@@ -1213,6 +1278,7 @@ public class WebUI {
         }
     }
 
+    @Step("Press ESC keyboard")
     public static boolean pressESC() {
         smartWait();
 
@@ -1220,6 +1286,20 @@ public class WebUI {
             Robot robot = new Robot();
             robot.keyPress(KeyEvent.VK_ESCAPE);
             robot.keyRelease(KeyEvent.VK_ESCAPE);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Step("Press F5 keyboard")
+    public static boolean pressF5() {
+        smartWait();
+
+        try {
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_F5);
+            robot.keyRelease(KeyEvent.VK_F5);
             return true;
         } catch (Exception e) {
             return false;
@@ -1240,6 +1320,14 @@ public class WebUI {
         }
     }
 
+    @Step("Open website with get URL")
+    public static void reloadPage() {
+        smartWait();
+
+        DriverManager.getDriver().navigate().refresh();
+        waitForPageLoaded();
+    }
+
 
     /**
      * @param by truyền vào đối tượng element dạng By
@@ -1258,12 +1346,12 @@ public class WebUI {
     }
 
     /**
-     * Open website with get URL
+     * Open website with URL
      *
      * @param URL
      */
-    @Step("Open website with get URL")
-    public static void getToUrl(String URL) {
+    @Step("Open website with URL")
+    public static void getURL(String URL) {
         sleep(WAIT_SLEEP_STEP);
 
         DriverManager.getDriver().get(URL);
@@ -1275,7 +1363,7 @@ public class WebUI {
         AllureManager.saveTextLog("Open URL: " + URL);
 
         if (screenshot_all_steps.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("getToUrl_" + URL));
+            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("getURL_" + URL));
             AllureManager.takeScreenshotStep();
         }
     }
@@ -1802,11 +1890,10 @@ public class WebUI {
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
 
         // wait for Javascript to loaded
-        ExpectedCondition<Boolean> jsLoad = driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState")
-                .toString().equals("complete");
+        ExpectedCondition<Boolean> jsLoad = driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
 
         //Get JS is Ready
-        boolean jsReady = (Boolean) js.executeScript("return document.readyState").toString().equals("complete");
+        boolean jsReady = js.executeScript("return document.readyState").toString().equals("complete");
 
         //Wait Javascript until it is Ready!
         if (!jsReady) {
@@ -1818,8 +1905,6 @@ public class WebUI {
                 error.printStackTrace();
                 Assert.fail("Timeout waiting for page load (Javascript). (" + WAIT_PAGE_LOADED + "s)");
             }
-        } else {
-            //Log.info("Javascript is Ready!");
         }
     }
 
@@ -1831,8 +1916,10 @@ public class WebUI {
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
 
         //Wait for jQuery to load
-        ExpectedCondition<Boolean> jQueryLoad = driver -> ((Long) ((JavascriptExecutor) driver)
-                .executeScript("return jQuery.active") == 0);
+        ExpectedCondition<Boolean> jQueryLoad = driver -> {
+            assert driver != null;
+            return ((Long) ((JavascriptExecutor) driver).executeScript("return jQuery.active") == 0);
+        };
 
         //Get JQuery is Ready
         boolean jqueryReady = (Boolean) js.executeScript("return jQuery.active==0");
@@ -1846,8 +1933,6 @@ public class WebUI {
             } catch (Throwable error) {
                 Assert.fail("Timeout waiting for JQuery load. (" + WAIT_PAGE_LOADED + "s)");
             }
-        } else {
-            //Log.info("JQuery is Ready!");
         }
     }
 
@@ -1862,11 +1947,13 @@ public class WebUI {
         final String angularReadyScript = "return angular.element(document).injector().get('$http').pendingRequests.length === 0";
 
         //Wait for ANGULAR to load
-        ExpectedCondition<Boolean> angularLoad = driver -> Boolean.valueOf(((JavascriptExecutor) driver)
-                .executeScript(angularReadyScript).toString());
+        ExpectedCondition<Boolean> angularLoad = driver -> {
+            assert driver != null;
+            return Boolean.valueOf(((JavascriptExecutor) driver).executeScript(angularReadyScript).toString());
+        };
 
         //Get Angular is Ready
-        boolean angularReady = Boolean.valueOf(js.executeScript(angularReadyScript).toString());
+        boolean angularReady = Boolean.parseBoolean(js.executeScript(angularReadyScript).toString());
 
         //Wait ANGULAR until it is Ready!
         if (!angularReady) {
@@ -1878,9 +1965,8 @@ public class WebUI {
             } catch (Throwable error) {
                 Assert.fail("Timeout waiting for Angular load. (" + WAIT_PAGE_LOADED + "s)");
             }
-        } else {
-            //Log.info("Angular is Ready!");
         }
+
     }
 
 }

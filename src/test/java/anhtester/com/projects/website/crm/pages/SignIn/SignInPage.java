@@ -35,7 +35,7 @@ public class SignInPage extends CommonPage {
 
     public DashboardPage signInWithAdminRole() {
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
-        WebUI.getToUrl(FrameworkConstants.URL_CRM);
+        WebUI.getURL(FrameworkConstants.URL_CRM);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of sign in page not match.");
         Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "The title of sign in page not match.");
         WebUI.setText(inputEmail, excelHelpers.getCellData(1, SignInModel.getEmail()));
@@ -50,7 +50,7 @@ public class SignInPage extends CommonPage {
 
     public DashboardPage signInWithTeamLeaderRole() {
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
-        WebUI.getToUrl(FrameworkConstants.URL_CRM);
+        WebUI.getURL(FrameworkConstants.URL_CRM);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of sign in page not match.");
         Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "The title of sign in page not match.");
         WebUI.setText(inputEmail, excelHelpers.getCellData(2, SignInModel.getEmail()));
@@ -65,7 +65,7 @@ public class SignInPage extends CommonPage {
 
     public DashboardPage signInWithTeamMemberRole() {
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
-        WebUI.getToUrl(FrameworkConstants.URL_CRM);
+        WebUI.getURL(FrameworkConstants.URL_CRM);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of sign in page not match.");
         Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "The title of sign in page not match.");
         WebUI.setText(inputEmail, excelHelpers.getCellData(3, SignInModel.getEmail()));
@@ -79,7 +79,7 @@ public class SignInPage extends CommonPage {
     }
 
     public DashboardPage signIn(String email, String password) {
-        WebUI.getToUrl(FrameworkConstants.URL_CRM);
+        WebUI.getURL(FrameworkConstants.URL_CRM);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of Sign in page not match.");
         Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "Tiêu đề trang sign in chưa đúng");
         WebUI.sleep(1);
@@ -92,7 +92,7 @@ public class SignInPage extends CommonPage {
     }
 
     public DashboardPage signIn(Hashtable<String, String> data) {
-        WebUI.getToUrl(FrameworkConstants.URL_CRM);
+        WebUI.getURL(FrameworkConstants.URL_CRM);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of sign in page not match.");
         Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "The title of sign in page not match.");
         WebUI.setText(inputEmail, data.get(SignInModel.getEmail()));
