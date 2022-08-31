@@ -175,6 +175,7 @@
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExcelHelpers.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Helpers.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PropertiesHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ScreenRecoderHelpers.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TxtFileHelpers.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂mail
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailAttachmentsSender.java
@@ -208,13 +209,13 @@
  ┃ ┃ ┃ ┃ ┗ 📂com
  ┃ ┃ ┃ ┃ ┃ ┣ 📂common
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BaseTest.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂dataprovider
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DataProviderManager.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂listeners
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestListener.java
  ┃ ┃ ┃ ┃ ┃ ┗ 📂projects
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂website
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂crm
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dataprovider
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DataProviderManager.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂models
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientModel.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInModel.java
@@ -225,8 +226,11 @@
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DashboardPage.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Projects
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProjectPage.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂SignIn
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂SignIn
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Tasks
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TaskPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommonPage.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂testcases
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientTest.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SignInTest.java
@@ -237,13 +241,17 @@
  ┃ ┃ ┃ ┃ ┣ 📜config.json
  ┃ ┃ ┃ ┃ ┣ 📜config.properties
  ┃ ┃ ┃ ┃ ┗ 📜datatest.properties
- ┃ ┃ ┃ ┣ 📂objects.crm
+ ┃ ┃ ┃ ┣ 📂objects
  ┃ ┃ ┃ ┃ ┗ 📜crm_locators.properties
  ┃ ┃ ┃ ┣ 📂suites
  ┃ ┃ ┃ ┃ ┣ 📜Clients-parallel.xml
  ┃ ┃ ┃ ┃ ┣ 📜Clients-simple.xml
- ┃ ┃ ┃ ┃ ┗ 📜SignIn-simple.xml
- ┃ ┃ ┃ ┗ 📂testdatafile
+ ┃ ┃ ┃ ┃ ┣ 📜Clients-testAddClient.xml
+ ┃ ┃ ┃ ┃ ┣ 📜Clients-testSearch.xml
+ ┃ ┃ ┃ ┃ ┣ 📜SignIn-parallel-methods.xml
+ ┃ ┃ ┃ ┃ ┣ 📜SignIn-simple.xml
+ ┃ ┃ ┃ ┃ ┗ 📜SuiteAll.xml
+ ┃ ┃ ┃ ┗ 📂testdata
  ┃ ┃ ┃ ┃ ┣ 📜ClientsDataExcel.xlsx
  ┃ ┃ ┃ ┃ ┣ 📜DOCX_File_01.docx
  ┃ ┃ ┃ ┃ ┣ 📜LoginCSV.csv
