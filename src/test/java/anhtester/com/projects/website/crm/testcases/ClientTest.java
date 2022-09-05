@@ -45,11 +45,11 @@ public class ClientTest extends BaseTest {
         clientPage = dashboardPage.openClientPage();
         clientPage.openClientTabPage();
         // Search the first
-        clientPage.enterDataSearchClient("Anh Tester");
-        WebUI.checkContainsSearchTableByColumn(2, "Anh Tester");
+        clientPage.enterDataSearchClient("Schamberger Inc");
+        WebUI.checkContainsSearchTableByColumn(2, "Schamberger Inc");
         // Search the second
-        clientPage.enterDataSearchClient("Anh Tester Client 2607A1");
-        WebUI.checkContainsSearchTableByColumn(2, "Anh Tester Client 2607A1");
+        clientPage.enterDataSearchClient("Kassulke LLC");
+        WebUI.checkContainsSearchTableByColumn(2, "Kassulke LLC");
 
     }
 

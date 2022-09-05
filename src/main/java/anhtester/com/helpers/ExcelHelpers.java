@@ -11,8 +11,10 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.awt.Color;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
@@ -21,17 +23,12 @@ public class ExcelHelpers {
 
     private FileInputStream fis;
     private FileOutputStream fileOut;
-    private Workbook wb;
-    private Sheet sh;
+    private Workbook workbook;
+    private Sheet sheet;
     private Cell cell;
     private Row row;
-    private CellStyle cellstyle;
-    private Color mycolor;
     private String excelFilePath;
     private Map<String, Integer> columns = new HashMap<>();
-
-    public int rowNumber; //Row Number
-    public int columnNumber; //Column Number
 
     public ExcelHelpers() {
         PropertiesHelpers.loadAllFiles();
@@ -50,7 +47,7 @@ public class ExcelHelpers {
                     e.printStackTrace();
                 }
             }
-            if (sheetName.isEmpty() || sheetName.equals("")) {
+            if (sheetName.isEmpty()) {
                 try {
                     Log.info("The Sheet Name is empty.");
                     throw new InvalidPathForExcelException("The Sheet Name is empty.");
@@ -60,10 +57,10 @@ public class ExcelHelpers {
             }
 
             fis = new FileInputStream(excelPath);
-            wb = WorkbookFactory.create(fis);
-            sh = wb.getSheet(sheetName);
+            workbook = WorkbookFactory.create(fis);
+            sheet = workbook.getSheet(sheetName);
             //sh = wb.getSheetAt(0); //0 - index of 1st sheet
-            if (sh == null) {
+            if (sheet == null) {
 //                sh = wb.createSheet(sheetName);
                 try {
                     Log.info("Sheet name not found.");
@@ -76,20 +73,21 @@ public class ExcelHelpers {
             excelFilePath = excelPath;
 
             //adding all the column header names to the map 'columns'
-            sh.getRow(0).forEach(cell -> {
+            sheet.getRow(0).forEach(cell -> {
                 columns.put(cell.getStringCellValue(), cell.getColumnIndex());
             });
 
             Log.info("Set Excel file " + excelPath + " and selected Sheet: " + sheetName);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.getMessage();
+            Log.error(e.getMessage());
         }
     }
 
     //Phương thức này nhận số hàng làm tham số và trả về dữ liệu của hàng đó.
     public Row getRowData(int rowNum) {
-        row = sh.getRow(rowNum);
+        row = sheet.getRow(rowNum);
         return row;
     }
 
@@ -108,7 +106,7 @@ public class ExcelHelpers {
                     e.printStackTrace();
                 }
             }
-            if (sheetName.isEmpty() || sheetName.equals("")) {
+            if (sheetName.isEmpty()) {
                 try {
                     Log.info("The Sheet Name is empty.");
                     throw new InvalidPathForExcelException("The Sheet Name is empty.");
@@ -118,10 +116,10 @@ public class ExcelHelpers {
             }
 
             fis = new FileInputStream(excelPath);
-            wb = new XSSFWorkbook(fis);
-            sh = wb.getSheet(sheetName);
+            workbook = new XSSFWorkbook(fis);
+            sheet = workbook.getSheet(sheetName);
 
-            if (sh == null) {
+            if (sheet == null) {
                 try {
                     Log.info("Sheet name not found.");
                     throw new InvalidPathForExcelException("Sheet name not found.");
@@ -130,7 +128,7 @@ public class ExcelHelpers {
                 }
             }
 
-            int noOfRows = sh.getPhysicalNumberOfRows();
+            int noOfRows = sheet.getPhysicalNumberOfRows();
             //int noOfCols = row.getLastCellNum();
             int noOfCols = totalCols + 1;
 
@@ -145,7 +143,8 @@ public class ExcelHelpers {
                 }
             }
         } catch (Exception e) {
-            System.out.println("The exception is: " + e.getMessage());
+            e.getMessage();
+            Log.error(e.getMessage());
         }
         return data;
     }
@@ -158,8 +157,8 @@ public class ExcelHelpers {
             FileInputStream ExcelFile = new FileInputStream(filePath);
 
             // Access the required test data sheet
-            wb = new XSSFWorkbook(ExcelFile);
-            sh = wb.getSheet(sheetName);
+            workbook = new XSSFWorkbook(ExcelFile);
+            sheet = workbook.getSheet(sheetName);
 
             int startCol = 1;
             int ci = 0, cj = 0;
@@ -174,19 +173,17 @@ public class ExcelHelpers {
                 System.out.println(tabArray[ci][cj]);
             }
 
-        } catch (FileNotFoundException e) {
-            System.out.println("Could not read the Excel sheet");
-            e.printStackTrace();
         } catch (IOException e) {
             System.out.println("Could not read the Excel sheet");
             e.printStackTrace();
         }
-        return (tabArray);
+        return tabArray;
     }
 
     public Object[][] getDataHashTable(String excelPath, String sheetName, int startRow, int endRow) {
-        System.out.println("Excel Path: " + excelPath);
+        Log.info("Excel Path: " + excelPath);
         Object[][] data = null;
+
         try {
 
             File f = new File(excelPath);
@@ -201,67 +198,68 @@ public class ExcelHelpers {
             }
 
             fis = new FileInputStream(excelPath);
-            wb = new XSSFWorkbook(fis);
-            sh = wb.getSheet(sheetName);
+            workbook = new XSSFWorkbook(fis);
+            sheet = workbook.getSheet(sheetName);
 
-            int rows = getRowCount();
-            int columns = getColumnCount();
-            //System.out.println("Row: " + rows + " - Column: " + columns);
-            data = new Object[endRow - startRow][1];
+            int rows = getRows();
+            int columns = getColumns();
+
+            Log.info("Row: " + rows + " - Column: " + columns);
+            Log.info("StartRow: " + startRow + " - EndRow: " + endRow);
+
+            data = new Object[(endRow - startRow) + 1][1];
             Hashtable<String, String> table = null;
-            for (int rowNums = startRow; rowNums < endRow; rowNums++) {
+            for (int rowNums = startRow; rowNums <= endRow; rowNums++) {
                 table = new Hashtable<>();
                 for (int colNum = 0; colNum < columns; colNum++) {
-                    // data[rowNums-2][colNum] = excel.getCellData(sheetName, colNum, rowNums);
                     table.put(getCellData(0, colNum), getCellData(rowNums, colNum));
-                    data[rowNums - startRow][0] = table;
                 }
+                data[rowNums - startRow][0] = table;
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+            Log.error(e.getMessage());
         }
+
         return data;
+
     }
 
-    public String getTestCaseName(String sTestCase) throws Exception {
-        String value = sTestCase;
-        try {
-            int posi = value.indexOf("@");
-            value = value.substring(0, posi);
-            posi = value.lastIndexOf(".");
+    public String getTestCaseName(String testCaseName) {
+        String value = testCaseName;
+        int position = value.indexOf("@");
+        value = value.substring(0, position);
+        position = value.lastIndexOf(".");
 
-            value = value.substring(posi + 1);
-            return value;
-
-        } catch (Exception e) {
-            throw (e);
-        }
+        value = value.substring(position + 1);
+        return value;
     }
 
-    public int getRowContains(String sTestCaseName, int colNum) throws Exception {
+    public int getRowContains(String sTestCaseName, int colNum) {
         int i;
-        try {
-            int rowCount = getRowUsed();
-            for (i = 0; i < rowCount; i++) {
-                if (getCellData(i, colNum).equalsIgnoreCase(sTestCaseName)) {
-                    break;
-                }
+        int rowCount = getRows();
+        for (i = 0; i < rowCount; i++) {
+            if (getCellData(i, colNum).equalsIgnoreCase(sTestCaseName)) {
+                break;
             }
-            return i;
-
-        } catch (Exception e) {
-            throw (e);
         }
-
+        return i;
     }
 
-    public int getRowUsed() throws Exception {
+    public int getRows() {
         try {
-            int RowCount = sh.getLastRowNum();
-            return RowCount;
+            return sheet.getLastRowNum();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw (e);
+        }
+    }
+
+    public int getColumns() {
+        try {
+            row = sheet.getRow(0);
+            return row.getLastCellNum();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw (e);
@@ -269,9 +267,9 @@ public class ExcelHelpers {
     }
 
     // Get cell data
-    public String getCellData(int rownum, int colnum) {
+    public String getCellData(int rowNum, int colNum) {
         try {
-            cell = sh.getRow(rownum).getCell(colnum);
+            cell = sheet.getRow(rowNum).getCell(colNum);
             String CellData = null;
             switch (cell.getCellType()) {
                 case STRING:
@@ -301,27 +299,12 @@ public class ExcelHelpers {
         return getCellData(rowNum, columns.get(columnName));
     }
 
-    public int getRows() {
-        return sh.getPhysicalNumberOfRows();
-    }
-
-    public int getRowCount() {
-        int rowCount = sh.getLastRowNum() + 1;
-        return rowCount;
-    }
-
-    public int getColumnCount() {
-        row = sh.getRow(0);
-        int colCount = row.getLastCellNum();
-        return colCount;
-    }
-
     // Write data to excel sheet
     public void setCellData(String text, int rowNumber, int colNumber) {
         try {
-            row = sh.getRow(rowNumber);
+            row = sheet.getRow(rowNumber);
             if (row == null) {
-                row = sh.createRow(rowNumber);
+                row = sheet.createRow(rowNumber);
             }
             cell = row.getCell(colNumber);
 
@@ -330,10 +313,12 @@ public class ExcelHelpers {
             }
             cell.setCellValue(text);
 
-            XSSFCellStyle style = (XSSFCellStyle) wb.createCellStyle();
-            if (text == "pass" || text == "passed" || text == "Pass" || text == "Passed") {
+            XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
+            text = text.trim().toLowerCase();
+            if (text == "pass" || text == "passed") {
                 style.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-            } else {
+            }
+            if (text == "fail" || text == "passed") {
                 style.setFillForegroundColor(IndexedColors.RED.getIndex());
             }
             style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
@@ -343,19 +328,20 @@ public class ExcelHelpers {
             cell.setCellStyle(style);
 
             fileOut = new FileOutputStream(excelFilePath);
-            wb.write(fileOut);
+            workbook.write(fileOut);
             fileOut.flush();
             fileOut.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.getMessage();
+            Log.error(e.getMessage());
         }
     }
 
-    public void setCellData(String text, int rowNum, String columnName) {
+    public void setCellData(String text, int rowNumber, String columnName) {
         try {
-            row = sh.getRow(rowNum);
+            row = sheet.getRow(rowNumber);
             if (row == null) {
-                row = sh.createRow(rowNum);
+                row = sheet.createRow(rowNumber);
             }
             cell = row.getCell(columns.get(columnName));
 
@@ -364,12 +350,15 @@ public class ExcelHelpers {
             }
             cell.setCellValue(text);
 
-            XSSFCellStyle style = (XSSFCellStyle) wb.createCellStyle();
-            if (text == "pass" || text == "passed" || text == "Pass" || text == "Passed") {
+            XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
+            text = text.trim().toLowerCase();
+            if (text == "pass" || text == "passed") {
                 style.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-            } else {
+            }
+            if (text == "fail" || text == "passed") {
                 style.setFillForegroundColor(IndexedColors.RED.getIndex());
             }
+
             style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
             style.setAlignment(HorizontalAlignment.CENTER);
             style.setVerticalAlignment(VerticalAlignment.CENTER);
@@ -377,11 +366,12 @@ public class ExcelHelpers {
             cell.setCellStyle(style);
 
             fileOut = new FileOutputStream(excelFilePath);
-            wb.write(fileOut);
+            workbook.write(fileOut);
             fileOut.flush();
             fileOut.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.getMessage();
+            Log.error(e.getMessage());
         }
     }
 

@@ -1417,7 +1417,6 @@ public class WebUI {
     @Step("Clear value in textbox")
     public static void clearText(By by) {
         waitForElementVisible(by).clear();
-
         if (ExtentTestManager.getExtentTest() != null) {
             ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clear" + FrameworkConstants.BOLD_END + " value in textbox successfully.");
         }
