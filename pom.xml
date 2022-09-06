@@ -22,7 +22,7 @@
         <aspectjweaver.version>1.9.9.1</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <log4j.version>2.18.0</log4j.version>
-        <allure-testng.version>2.18.1</allure-testng.version>
+        <allure-testng.version>2.19.0</allure-testng.version>
         <allure-maven.version>2.10.0</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
@@ -35,7 +35,7 @@
         <assertj.version>3.23.1</assertj.version>
         <javafaker.version>1.0.2</javafaker.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
-        <mysql-connector-java.version>8.0.29</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
         <google.zxing.version>3.5.0</google.zxing.version>
         <lombok.version>1.18.24</lombok.version>
         <google.guava.version>31.1-jre</google.guava.version>
