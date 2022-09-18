@@ -31,6 +31,8 @@ public final class FrameworkConstants {
     public static final String EXPORT_VIDEO_PATH = PropertiesHelpers.getValue("EXPORT_VIDEO_PATH");
     public static final String EXPORT_CAPTURE_PATH = PropertiesHelpers.getValue("EXPORT_CAPTURE_PATH");
     public static final String SEND_REPORT_TO_TELEGRAM = PropertiesHelpers.getValue("SEND_REPORT_TO_TELEGRAM");
+    public static final String TELEGRAM_TOKEN = PropertiesHelpers.getValue("TELEGRAM_TOKEN");
+    public static final String TELEGRAM_CHATID = PropertiesHelpers.getValue("TELEGRAM_CHATID");
     public static final String AUTHOR = PropertiesHelpers.getValue("AUTHOR");
     public static final String TARGET = PropertiesHelpers.getValue("TARGET");
     public static final String HEADLESS = PropertiesHelpers.getValue("HEADLESS");
