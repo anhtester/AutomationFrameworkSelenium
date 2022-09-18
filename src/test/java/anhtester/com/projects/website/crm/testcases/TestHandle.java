@@ -17,7 +17,6 @@ import anhtester.com.utils.Log;
 import anhtester.com.utils.ObjectUtils;
 import anhtester.com.utils.WebUI;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -27,9 +26,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.awt.*;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Set;
@@ -269,38 +266,6 @@ public class TestHandle {
     }
 
     @Test
-    public void handleDragAndDropJQuery() {
-        try {
-            String basePath = new File("").getAbsolutePath();
-
-            DriverManager.getDriver().get("https://david-desmaisons.github.io/draggable-example/");
-            Thread.sleep(1000);
-
-            final String JQUERY_LOAD_SCRIPT = (basePath + "/src/main/resources/jquery_load_helper.js");
-            final String DRAG_AND_DROP_SCRIPT = (basePath + "/src/main/resources/drag_and_drop_helper.js");
-            String jQueryLoader = Helpers.readFile(JQUERY_LOAD_SCRIPT);
-            String dragAndDropScriptLoader = Helpers.readFile(DRAG_AND_DROP_SCRIPT);
-
-            JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-            js.executeAsyncScript(jQueryLoader);
-
-            String source = "li:nth-child(1)";
-            String target = "li:nth-child(2)";
-
-            Thread.sleep(1000);
-
-            String javaScript = dragAndDropScriptLoader + "window.jQuery('" + source + "').simulateDragDrop({ dropTarget: '" + target + "'});";
-
-            ((JavascriptExecutor) DriverManager.getDriver()).executeScript(javaScript);
-
-            Thread.sleep(3000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Test
     public void handleDragAndDropJS() {
         DriverManager.getDriver().get("https://bestvpn.org/html5demos/drag/");
         WebUI.moveToElement(By.cssSelector("#five"));
@@ -318,49 +283,38 @@ public class TestHandle {
     @Test
     public void handleDragAndDrop() {
         WebUI.getURL("http://demo.guru99.com/test/drag_drop.html");
-        By fromElement1 = By.xpath("//a[normalize-space()='BANK']");
-        By toElement1 = By.xpath("(//div[@id='shoppingCart1']//div)[1]");
-
-        By fromElement2 = By.xpath("(//li[@id='fourth'])[2]");
-        By toElement2 = By.xpath("(//div[@id='shoppingCart4']//div)[1]");
+        By fromElement = By.xpath("//a[normalize-space()='BANK']");
+        By toElement = By.xpath("(//div[@id='shoppingCart1']//div)[1]");
 
         //WebUI.switchToFrameByElement(toElement);
         //WebUI.scrollToElement(toElement);
-        WebUI.dragAndDrop(fromElement1, toElement1);
+        WebUI.dragAndDrop(fromElement, toElement);
         WebUI.sleep(1);
-        WebUI.dragAndDropElement(fromElement2, toElement2);
+    }
+
+    @Test
+    public void handleDragAndDropHTML5() {
+        WebUI.getURL("https://david-desmaisons.github.io/draggable-example/");
+        WebUI.waitForPageLoaded();
+
+        By fromElement = By.xpath("(//li[@class='list-group-item'])[1]");
+        By toElement = By.xpath("(//li[@class='list-group-item'])[2]");
+
+        WebUI.dragAndDropHTML5(fromElement, toElement);
+        
         WebUI.sleep(2);
     }
 
     @Test
-    public void handleDragAndDropOffset() throws AWTException, InterruptedException {
+    public void handleDragAndDropOffset() {
         WebUI.getURL("https://david-desmaisons.github.io/draggable-example/");
-        Thread.sleep(1000);
+        WebUI.waitForPageLoaded();
 
-        By fromElement1 = By.xpath("(//li[@class='list-group-item'])[1]");
-        By toElement1 = By.xpath("(//li[@class='list-group-item'])[2]");
+        By fromElement = By.xpath("(//li[@class='list-group-item'])[1]");
 
-        int X1 = driver.findElement(fromElement1).getLocation().getX();
-        int Y1 = driver.findElement(fromElement1).getLocation().getY();
-        System.out.println(X1 + " , " + Y1);
+        WebUI.dragAndDropToOffset(fromElement, 330, 600);
 
-        int X2 = driver.findElement(toElement1).getLocation().getX();
-        int Y2 = driver.findElement(toElement1).getLocation().getY();
-        System.out.println(X2 + " , " + Y2);
-
-        //Chổ này lấy theo toạ độ cụ thể. Chả biết sao nó lấy toạ độ Element chênh lệch vậy nữa =))
-        Thread.sleep(1000);
-        Robot robot = new Robot();
-        robot.mouseMove(250, 570);
-        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-
-        Thread.sleep(1000);
-        robot.mouseMove(250, 610);
-
-        Thread.sleep(1000);
-        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-
-        Thread.sleep(3000);
+        WebUI.sleep(2);
     }
 
     @Test

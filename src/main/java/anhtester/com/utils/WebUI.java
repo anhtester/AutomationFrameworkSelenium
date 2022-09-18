@@ -43,6 +43,7 @@ import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -1348,12 +1349,32 @@ public class WebUI {
         }
     }
 
-    public static boolean dragAndDropElement(By fromElement, By toElement) {
+    public static boolean dragAndDropHTML5(By fromElement, By toElement) {
         smartWait();
 
         try {
-            Actions action = new Actions(DriverManager.getDriver());
-            action.clickAndHold(getWebElement(fromElement)).moveToElement(getWebElement(toElement)).release(getWebElement(toElement)).build().perform();
+            Robot robot = new Robot();
+            robot.mouseMove(0, 0);
+
+            int X1 = getWebElement(fromElement).getLocation().getX() + (getWebElement(fromElement).getSize().getWidth() / 2);
+            int Y1 = getWebElement(fromElement).getLocation().getY() + (getWebElement(fromElement).getSize().getHeight() / 2);
+            System.out.println(X1 + " , " + Y1);
+
+            int X2 = getWebElement(toElement).getLocation().getX() + (getWebElement(toElement).getSize().getWidth() / 2);
+            int Y2 = getWebElement(toElement).getLocation().getY() + (getWebElement(toElement).getSize().getHeight() / 2);
+            System.out.println(X2 + " , " + Y2);
+
+            //Chổ này lấy toạ độ hiện tại cộng thêm 120px là phần header của browser (1920x1080 current window)
+            //Header: chrome is being controlled by automated test software
+            sleep(1);
+            robot.mouseMove(X1, Y1 + 120);
+            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+
+            sleep(1);
+            robot.mouseMove(X2, Y2 + 120);
+            sleep(1);
+            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+
             return true;
         } catch (Exception e) {
             Log.info(e.getMessage());
@@ -1361,13 +1382,26 @@ public class WebUI {
         }
     }
 
-    public static boolean dragAndDropOffset(By fromElement, int X, int Y) {
+    public static boolean dragAndDropToOffset(By fromElement, int X, int Y) {
         smartWait();
 
         try {
-            Actions action = new Actions(DriverManager.getDriver());
-            //Tính từ vị trí click chuột đầu tiên (clickAndHold)
-            action.clickAndHold(getWebElement(fromElement)).pause(1).moveByOffset(X, Y).release().build().perform();
+            Robot robot = new Robot();
+            robot.mouseMove(0, 0);
+            int X1 = getWebElement(fromElement).getLocation().getX() + (getWebElement(fromElement).getSize().getWidth() / 2);
+            int Y1 = getWebElement(fromElement).getLocation().getY() + (getWebElement(fromElement).getSize().getHeight() / 2);
+            System.out.println(X1 + " , " + Y1);
+            sleep(1);
+
+            //Chổ này lấy toạ độ hiện tại cộng thêm 120px là phần header của browser (1920x1080 current window)
+            //Header: chrome is being controlled by automated test software
+            robot.mouseMove(X1, Y1 + 120);
+            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+
+            sleep(1);
+            robot.mouseMove(X, Y + 120);
+            sleep(1);
+            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
             return true;
         } catch (Exception e) {
             Log.info(e.getMessage());
