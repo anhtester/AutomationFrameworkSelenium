@@ -36,7 +36,7 @@ public final class ReportUtils {
     }
 
     public static void openReports(String linkReport) {
-        if (open_reports_after_execution.trim().equalsIgnoreCase(YES)) {
+        if (OPEN_REPORTS_AFTER_EXECUTION.trim().equalsIgnoreCase(YES)) {
             try {
                 Desktop.getDesktop().browse(new File(linkReport).toURI());
             } catch (FileNotFoundException fileNotFoundException) {

@@ -30,16 +30,17 @@ public final class FrameworkConstants {
     public static final String EXTENT_REPORT_FOLDER = PropertiesHelpers.getValue("EXTENT_REPORT_FOLDER");
     public static final String EXPORT_VIDEO_PATH = PropertiesHelpers.getValue("EXPORT_VIDEO_PATH");
     public static final String EXPORT_CAPTURE_PATH = PropertiesHelpers.getValue("EXPORT_CAPTURE_PATH");
+    public static final String SEND_REPORT_TO_TELEGRAM = PropertiesHelpers.getValue("SEND_REPORT_TO_TELEGRAM");
     public static final String AUTHOR = PropertiesHelpers.getValue("AUTHOR");
     public static final String TARGET = PropertiesHelpers.getValue("TARGET");
     public static final String HEADLESS = PropertiesHelpers.getValue("HEADLESS");
     public static final String OVERRIDE_REPORTS = PropertiesHelpers.getValue("OVERRIDE_REPORTS");
-    public static final String open_reports_after_execution = PropertiesHelpers.getValue("open_reports_after_execution");
-    public static final String send_email_to_users = PropertiesHelpers.getValue("send_email_to_users");
-    public static final String screenshot_passed_steps = PropertiesHelpers.getValue("screenshot_passed_steps");
-    public static final String screenshot_failed_steps = PropertiesHelpers.getValue("screenshot_failed_steps");
-    public static final String screenshot_skipped_steps = PropertiesHelpers.getValue("screenshot_skipped_steps");
-    public static final String screenshot_all_steps = PropertiesHelpers.getValue("screenshot_all_steps");
+    public static final String OPEN_REPORTS_AFTER_EXECUTION = PropertiesHelpers.getValue("open_reports_after_execution");
+    public static final String SEND_EMAIL_TO_USERS = PropertiesHelpers.getValue("send_email_to_users");
+    public static final String SCREENSHOT_PASSED_STEPS = PropertiesHelpers.getValue("screenshot_passed_steps");
+    public static final String SCREENSHOT_FAILED_STEPS = PropertiesHelpers.getValue("screenshot_failed_steps");
+    public static final String SCREENSHOT_SKIPPED_STEPS = PropertiesHelpers.getValue("screenshot_skipped_steps");
+    public static final String SCREENSHOT_ALL_STEPS = PropertiesHelpers.getValue("screenshot_all_steps");
     public static final String ZIP_FOLDER = PropertiesHelpers.getValue("ZIP_FOLDER");
     public static final String ZIP_FOLDER_PATH = PropertiesHelpers.getValue("ZIP_FOLDER_PATH");
     public static final String ZIP_FOLDER_NAME = PropertiesHelpers.getValue("ZIP_FOLDER_NAME");
@@ -57,7 +58,7 @@ public final class FrameworkConstants {
     public static String EXTENT_REPORT_FILE_PATH = EXTENT_REPORT_FOLDER_PATH + "/" + EXTENT_REPORT_FILE_NAME;
 
     //Zip file for Report folder
-    public static final String Zipped_ExtentReports_Folder_Name = EXTENT_REPORT_FOLDER + ".zip";
+    public static final String ZIPPED_EXTENT_REPORTS_FOLDER = EXTENT_REPORT_FOLDER + ".zip";
 
     public static final String YES = "yes";
     public static final String NO = "no";

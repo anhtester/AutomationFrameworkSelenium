@@ -32,6 +32,8 @@ public class AllureManager {
                         put("Remote URL", FrameworkConstants.REMOTE_URL).
                         put("Remote Port", FrameworkConstants.REMOTE_PORT).
                         build());
+
+        
     }
 
     @Attachment(value = "Failed test screenshot", type = "image/png")

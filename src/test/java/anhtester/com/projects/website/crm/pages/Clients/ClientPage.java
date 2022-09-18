@@ -74,7 +74,7 @@ public class ClientPage extends CommonPage {
         WebUI.setText(inputSearch, data.get(ClientModel.getCompanyName()));
         WebUI.waitForPageLoaded();
         WebUI.sleep(3);
-        WebUI.checkContainsSearchTableByColumn(2, data.get(ClientModel.getCompanyName()));
+        WebUI.checkContainsValueOnTableByColumn(2, data.get(ClientModel.getCompanyName()));
         checkClientDetail(data);
     }
 

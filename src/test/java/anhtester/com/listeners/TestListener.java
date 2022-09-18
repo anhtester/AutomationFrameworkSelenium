@@ -9,6 +9,7 @@ import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.helpers.ScreenRecoderHelpers;
 import anhtester.com.report.AllureManager;
 import anhtester.com.report.ExtentReportManager;
+import anhtester.com.report.TelegramManager;
 import anhtester.com.utils.*;
 import com.aventstack.extentreports.Status;
 import org.testng.*;
@@ -80,6 +81,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         //Kết thúc Suite và thực thi Extents Report, đóng gói Folder report và send mail
         ExtentReportManager.flushReports();
         ZipUtils.zip();
+        TelegramManager.sendReportPath();
         EmailSendUtils.sendEmail(count_totalTCs, count_passedTCs, count_failedTCs, count_skippedTCs);
 
         //Gọi hàm stopRecord video trong CaptureHelpers class
@@ -132,7 +134,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.info("Test case: " + getTestName(iTestResult) + " is passed.");
         count_passedTCs = count_passedTCs + 1;
 
-        if (screenshot_passed_steps.equals(YES)) {
+        if (SCREENSHOT_PASSED_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
         }
 
@@ -150,7 +152,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.error("Test case: " + getTestName(iTestResult) + " is failed.");
         count_failedTCs = count_failedTCs + 1;
 
-        if (screenshot_failed_steps.equals(YES)) {
+        if (SCREENSHOT_FAILED_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
         }
 
@@ -176,7 +178,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.warn("Test case: " + getTestName(iTestResult) + " is skipped.");
         count_skippedTCs = count_skippedTCs + 1;
 
-        if (screenshot_skipped_steps.equals(YES)) {
+        if (SCREENSHOT_SKIPPED_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
         }
 

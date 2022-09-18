@@ -7,6 +7,7 @@ package anhtester.com.projects.website.crm.testcases;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.helpers.*;
+import anhtester.com.report.TelegramManager;
 import anhtester.com.utils.*;
 import org.testng.annotations.Test;
 
@@ -16,6 +17,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class TestSimpleCode {
+
+    @Test
+    public void testTelegramBotMessage() {
+        TelegramManager.sendReportPath();
+        //TelegramManager.sendFilePath("logs/applog.log");
+    }
 
     @Test
     public void testGetOSInfo() {

@@ -15,7 +15,8 @@
 9. Base function in the package: utils, helpers
 10. Read data test from Json file
 11. Main Keyword: WebUI (call common function)
-12. Sample test function
+12. Sample test all function in WebUI keyword
+13. Send message/report to Telegram Bot
 
 ### **SYSTEM REQUIREMENTS**
 
@@ -133,6 +134,33 @@
 + TestSimpleCode
 ```
 
+**13. Send message/report to Telegram Bot**
+
+- Setup in src/main/java/anhtester/com/report/TelegramManager.java
+- Example: src/test/java/anhtester/com/projects/website/crm/testcases/TestSimpleCode.java
+- Call in TestListener at onFinish TelegramManager.sendReportPath();
+
+======How to get Token and start Bot=======
+
+- Read blog: https://blog.devgenius.io/automation-of-reporting-2abe7f101801
+- Copy Token of your Bot => Paste to TelegramManager class
+- Click your Bot => input **/start** to start your Bot
+
+======How to get ChatID=======
+
+- After starting your Bot, your use Postman and using your Token:
+  Get: https://api.telegram.org/bot{token}/getUpdates => chat.id
+- Example: https://api.telegram.org/bot19468772:AAHtlc_BH8zlJAGDHuTJy3J72XumY5LxWcE/getUpdates
+
+```
+"chat": {
+    "id": 123456789,
+    "first_name": "Anh Tester",
+    "username": "anhtester",
+    "type": "private"
+}
+```
+
 ### Project structure
 
 ```
@@ -183,7 +211,8 @@
  ┃ ┃ ┃ ┃ ┃ ┣ 📂report
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureManager.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtentReportManager.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ExtentTestManager.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtentTestManager.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TelegramManager.java
  ┃ ┃ ┃ ┃ ┃ ┗ 📂utils
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserInfoUtils.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DataGenerateUtils.java

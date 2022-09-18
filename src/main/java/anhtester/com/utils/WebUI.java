@@ -74,6 +74,140 @@ public class WebUI {
         sleep(WAIT_SLEEP_STEP);
     }
 
+    public static String getPathDownloadDirectory() {
+        String path = "";
+        String machine_name = System.getProperty("user.home");
+        path = machine_name + File.separator + "Downloads";
+        return path;
+    }
+
+    public static int countFilesInDownloadDirectory() {
+        String pathFolderDownload = getPathDownloadDirectory();
+        File file = new File(pathFolderDownload);
+        int i = 0;
+        for (File listOfFiles : file.listFiles()) {
+            if (listOfFiles.isFile()) {
+                i++;
+            }
+        }
+        return i;
+    }
+
+    public static boolean verifyFileContainsInDownloadDirectory(String fileName) {
+        boolean flag = false;
+        try {
+            String pathFolderDownload = getPathDownloadDirectory();
+            File dir = new File(pathFolderDownload);
+            File[] files = dir.listFiles();
+            if (files == null || files.length == 0) {
+                flag = false;
+            }
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].getName().contains(fileName)) {
+                    flag = true;
+                }
+            }
+            return flag;
+        } catch (Exception e) {
+            e.getMessage();
+            return flag;
+        }
+    }
+
+    public static boolean verifyFileEqualsInDownloadDirectory(String fileName) {
+        boolean flag = false;
+        try {
+            String pathFolderDownload = getPathDownloadDirectory();
+            File dir = new File(pathFolderDownload);
+            File[] files = dir.listFiles();
+            if (files == null || files.length == 0) {
+                flag = false;
+            }
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].getName().equals(fileName)) {
+                    flag = true;
+                }
+            }
+            return flag;
+        } catch (Exception e) {
+            e.getMessage();
+            return flag;
+        }
+    }
+
+    public static Boolean verifyDownloadFileContainsNameCompletedWaitTimeout(String fileName, int timeoutSeconds) {
+        boolean check = false;
+        int i = 0;
+        while (i < timeoutSeconds) {
+            boolean exist = verifyFileContainsInDownloadDirectory(fileName);
+            if (exist == true) {
+                i = timeoutSeconds;
+                return check = true;
+            }
+            sleep(1);
+            i++;
+        }
+        return check;
+    }
+
+    public static Boolean verifyDownloadFileEqualsNameCompletedWaitTimeout(String fileName, int timeoutSeconds) {
+        boolean check = false;
+        int i = 0;
+        while (i < timeoutSeconds) {
+            boolean exist = verifyFileEqualsInDownloadDirectory(fileName);
+            if (exist == true) {
+                i = timeoutSeconds;
+                return check = true;
+            }
+            sleep(1);
+            i++;
+        }
+        return check;
+    }
+
+    public static void deleteAllFileInDownloadDirectory() {
+        try {
+            String pathFolderDownload = getPathDownloadDirectory();
+            File file = new File(pathFolderDownload);
+            File[] listOfFiles = file.listFiles();
+            for (int i = 0; i < listOfFiles.length; i++) {
+                if (listOfFiles[i].isFile()) {
+                    new File(listOfFiles[i].toString()).delete();
+                }
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+
+    public static void deleteAllFileInDirectory(String pathDirectory) {
+        try {
+            File file = new File(pathDirectory);
+            File[] listOfFiles = file.listFiles();
+            for (int i = 0; i < listOfFiles.length; i++) {
+                if (listOfFiles[i].isFile()) {
+                    new File(listOfFiles[i].toString()).delete();
+                }
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+
+    public static Boolean verifyFileDownloadedWithJS(String fileName) {
+        getURL("chrome://downloads");
+        sleep(3);
+        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+        String element = (String) js.executeScript("return document.querySelector('downloads-manager').shadowRoot.querySelector('#downloadsList downloads-item').shadowRoot.querySelector('#show').getAttribute('title')");
+        File file = new File(element);
+        Log.info(element);
+        Log.info(file.getName());
+        if (file.exists() && file.getName().trim().equals(fileName)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Login as Authentication on URL
@@ -99,6 +233,9 @@ public class WebUI {
         headers.put("Authorization", "Basic " + encodeToString);
         devTools.send(Network.setExtraHTTPHeaders(new Headers(headers)));
 
+        Log.info("getToUrlAuthentication with URL: " + url);
+        Log.info("getToUrlAuthentication with Username: " + username);
+        Log.info("getToUrlAuthentication with Password: " + password);
         // Load the application url
         getURL(url);
         Uninterruptibles.sleepUninterruptibly(Duration.ofSeconds(3));
@@ -774,7 +911,7 @@ public class WebUI {
             AllureManager.saveTextLog("Verify text of an element [Equals] - " + result + ". The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
         }
 
-        if (screenshot_all_steps.equals(YES)) {
+        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("verifyElementTextContains_" + result));
             AllureManager.takeScreenshotStep();
         }
@@ -797,7 +934,7 @@ public class WebUI {
         }
         AllureManager.saveTextLog("Verify text of an element [Equals] : " + result + ". The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
 
-        if (screenshot_all_steps.equals(YES)) {
+        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("verifyElementTextContains_" + result));
             AllureManager.takeScreenshotStep();
         }
@@ -825,7 +962,7 @@ public class WebUI {
             AllureManager.saveTextLog("Verify text of an element [Contains] - " + result);
         }
 
-        if (screenshot_all_steps.equals(YES)) {
+        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("verifyElementTextContains_" + result));
             AllureManager.takeScreenshotStep();
         }
@@ -848,7 +985,7 @@ public class WebUI {
         }
         AllureManager.saveTextLog("Verify text of an element [Contains] : " + result);
 
-        if (screenshot_all_steps.equals(YES)) {
+        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("verifyElementTextContains_" + result));
             AllureManager.takeScreenshotStep();
         }
@@ -1003,7 +1140,7 @@ public class WebUI {
         }
     }
 
-    public static boolean checkElementVisible(By by, long timeout) {
+    public static boolean isElementVisible(By by, long timeout) {
         smartWait();
 
         try {
@@ -1357,12 +1494,14 @@ public class WebUI {
         DriverManager.getDriver().get(URL);
         waitForPageLoaded();
 
+        Log.info("Open URL: " + URL);
+
         if (ExtentTestManager.getExtentTest() != null) {
             ExtentReportManager.pass(BOLD_START + ICON_Navigate_Right + " Open URL : " + BOLD_END + URL);
         }
         AllureManager.saveTextLog("Open URL: " + URL);
 
-        if (screenshot_all_steps.equals(YES)) {
+        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("getURL_" + URL));
             AllureManager.takeScreenshotStep();
         }
@@ -1383,7 +1522,7 @@ public class WebUI {
         }
         AllureManager.saveTextLog("Navigate to URL: " + URL);
 
-        if (screenshot_all_steps.equals(YES)) {
+        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("navigateToUrl_" + URL));
             AllureManager.takeScreenshotStep();
         }
@@ -1403,7 +1542,7 @@ public class WebUI {
             ExtentReportManager.pass(FrameworkConstants.BOLD_START + value + FrameworkConstants.BOLD_END + " value is successfully passed in textbox.");
         }
         AllureManager.saveTextLog(value + " value is successfully passed in textbox.");
-        if (screenshot_all_steps.equals(YES)) {
+        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("setText_" + value + "_" + by));
             AllureManager.takeScreenshotStep();
         }
@@ -1421,7 +1560,7 @@ public class WebUI {
             ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clear" + FrameworkConstants.BOLD_END + " value in textbox successfully.");
         }
         AllureManager.saveTextLog("Clear value in textbox successfully.");
-        if (screenshot_all_steps.equals(YES)) {
+        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clearText_" + by.toString()));
             AllureManager.takeScreenshotStep();
         }
@@ -1442,7 +1581,7 @@ public class WebUI {
         AllureManager.saveTextLog("Clicked on the object " + by.toString());
 
         //Screenshot for this step if screenshot_all_steps = yes in config.properties file
-        if (screenshot_all_steps.equals(YES)) {
+        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clickElement_" + by.toString()));
             AllureManager.takeScreenshotStep();
         }
@@ -1463,7 +1602,9 @@ public class WebUI {
         //click với js
         js.executeScript("arguments[0].click();", getWebElement(by));
 
-        if (screenshot_all_steps.equals(YES)) {
+        Log.info("Click element with JS: " + by);
+
+        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clickElementWithJs_" + by));
             AllureManager.takeScreenshotStep();
         }
@@ -1485,7 +1626,7 @@ public class WebUI {
         WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(linkText)));
         elementWaited.click();
 
-        if (screenshot_all_steps.equals(YES)) {
+        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clickLinkText_" + linkText));
             AllureManager.takeScreenshotStep();
         }
@@ -1501,7 +1642,7 @@ public class WebUI {
         Actions action = new Actions(DriverManager.getDriver());
         action.contextClick(waitForElementVisible(by)).build().perform();
 
-        if (screenshot_all_steps.equals(YES)) {
+        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("rightClickElement_" + by));
             AllureManager.takeScreenshotStep();
         }
@@ -1575,7 +1716,7 @@ public class WebUI {
      * @param value  giá trị cần so sánh
      */
     @Step("Check data by EQUALS type after searching on the Table by Column.")
-    public static void checkEqualsSearchTableByColumn(int column, String value) {
+    public static void checkEqualsValueOnTableByColumn(int column, String value) {
         smartWait();
         sleep(1);
         List<WebElement> totalRows = getWebElements(By.xpath("//tbody/tr"));
@@ -1586,8 +1727,7 @@ public class WebUI {
         } else {
             for (int i = 1; i <= totalRows.size(); i++) {
                 boolean res = false;
-                WebElement title = waitForElementPresent(By.xpath("//tbody/tr[" + i + "]/td[" + column + "]"));
-                WebUI.scrollToElement(title);
+                WebElement title = waitForElementVisible(By.xpath("//tbody/tr[" + i + "]/td[" + column + "]"));
                 res = title.getText().toUpperCase().equals(value.toUpperCase());
                 Log.info("Row " + i + ": " + res + " - " + title.getText());
                 Assert.assertTrue(res, "Row " + i + " (" + title.getText() + ")" + " equals no value: " + value);
@@ -1602,7 +1742,7 @@ public class WebUI {
      * @param value  giá trị cần so sánh
      */
     @Step("Check data by CONTAINS type after searching on the Table by Column.")
-    public static void checkContainsSearchTableByColumn(int column, String value) {
+    public static void checkContainsValueOnTableByColumn(int column, String value) {
         smartWait();
         sleep(1);
         List<WebElement> totalRows = getWebElements(By.xpath("//tbody/tr"));
@@ -1613,8 +1753,7 @@ public class WebUI {
         } else {
             for (int i = 1; i <= totalRows.size(); i++) {
                 boolean res = false;
-                WebElement title = waitForElementPresent(By.xpath("//tbody/tr[" + i + "]/td[" + column + "]"));
-                WebUI.scrollToElement(title);
+                WebElement title = waitForElementVisible(By.xpath("//tbody/tr[" + i + "]/td[" + column + "]"));
                 res = title.getText().toUpperCase().contains(value.toUpperCase());
                 Log.info("Row " + i + ": " + res + " - " + title.getText());
                 Assert.assertTrue(res, "Row " + i + " (" + title.getText() + ")" + " contains no value: " + value);
@@ -1630,7 +1769,7 @@ public class WebUI {
      * @param xpathToTRtagname giá trị xpath tính đến thẻ TR
      */
     @Step("Check data by CONTAINS type after searching on the Table by Column.")
-    public static void checkContainsSearchTableByColumn(int column, String value, String xpathToTRtagname) {
+    public static void checkContainsValueOnTableByColumn(int column, String value, String xpathToTRtagname) {
         smartWait();
 
         //xpathToTRtagname is locator from table to "tr" tagname of data section: //tbody/tr, //div[@id='example_wrapper']//tbody/tr, ...
@@ -1643,8 +1782,7 @@ public class WebUI {
         } else {
             for (int i = 1; i <= totalRows.size(); i++) {
                 boolean res = false;
-                WebElement title = DriverManager.getDriver().findElement(By.xpath(xpathToTRtagname + "[" + i + "]/td[" + column + "]"));
-                WebUI.scrollToElement(title);
+                WebElement title = waitForElementVisible(By.xpath(xpathToTRtagname + "[" + i + "]/td[" + column + "]"));
                 res = title.getText().toUpperCase().contains(value.toUpperCase());
                 Log.info("Row " + i + ": " + res + " - " + title.getText());
                 Assert.assertTrue(res, "Row " + i + " (" + title.getText() + ")" + " contains no value " + value);
@@ -1723,7 +1861,7 @@ public class WebUI {
 
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
-            boolean check = checkElementVisible(by, 1);
+            boolean check = isElementVisible(by, 1);
             if (check == true) {
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             } else {

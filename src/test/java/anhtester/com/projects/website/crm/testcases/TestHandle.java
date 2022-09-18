@@ -13,6 +13,7 @@ import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import anhtester.com.utils.LocalStorageUtils;
+import anhtester.com.utils.Log;
 import anhtester.com.utils.ObjectUtils;
 import anhtester.com.utils.WebUI;
 import org.openqa.selenium.By;
@@ -45,6 +46,25 @@ public class TestHandle {
         driver = new BaseTest().createBrowser("chrome"); //Initialization method 1
         // new BaseTest().createDriver("chrome"); //Initialization method 2
         // driver = DriverManager.getDriver(); //Get WebDriver from global in ThreadLocal
+    }
+
+    @Test
+    public void testDownloadFileWithJS() {
+        WebUI.getURL("https://www.onlinedatagenerator.com/");
+        WebUI.clickElementWithJs(By.xpath("//button[normalize-space()='Export']"));
+        WebUI.sleep(3);
+        Assert.assertTrue(WebUI.verifyFileDownloadedWithJS("ExportCSV (5).csv"), "Download failed. File not match.");
+    }
+
+    @Test
+    public void testDownloadFileWithJava() {
+        Log.info(WebUI.countFilesInDownloadDirectory());
+        WebUI.getURL("https://www.onlinedatagenerator.com/");
+        WebUI.clickElementWithJs(By.xpath("//button[normalize-space()='Export']"));
+        WebUI.sleep(3);
+        Log.info(WebUI.countFilesInDownloadDirectory());
+        //File name is ExportCSV.csv
+        Assert.assertTrue(WebUI.verifyDownloadFileEqualsNameCompletedWaitTimeout("ExportCSV.csv", 5), "Download failed. File not found.");
     }
 
     @Test
@@ -206,7 +226,7 @@ public class TestHandle {
         for (int i = 1; i <= pageTotalInt; i++) {
             WebUI.scrollToElement(title_H1);
             //Gọi hàm Check data in table by column từ keyword WebUI
-            WebUI.checkContainsSearchTableByColumn(1, "", "//div[@id='example_wrapper']//tbody/tr");
+            WebUI.checkContainsValueOnTableByColumn(1, "", "//div[@id='example_wrapper']//tbody/tr");
             WebUI.sleep(1);
             //Click Next
             if (i != pageTotalInt) {
@@ -345,7 +365,7 @@ public class TestHandle {
 
     @Test
     public void handleHighLightElement() {
-        WebUI.getURL("https://hrm.anhtester.com/");
+        WebUI.getURL("https://app.hrsale.com/");
         By button = By.xpath("//button[@type='submit']");
         WebUI.highLightElement(button); //Tô màu viền đỏ cho Element trên website
         WebUI.verifyElementAttributeValue(button, "type", "submit");
@@ -377,38 +397,22 @@ public class TestHandle {
     }
 
     @Test
-    public void handleTable1() {
+    public void handleTable() {
         WebUI.getURL("https://colorlib.com/polygon/notika/data-table.html");
         System.out.println(WebUI.getValueTableByColumn(2));
     }
 
     @Test
-    public void handleTable2() {
-        signInPage = new SignInPage();
-        dashboardPage = signInPage.signIn("tld01@mailinator.com", "123456");
-        projectPage = dashboardPage.openProjectPage();
-        String dataSearchTitle = "Smart Home";
-        String dataSearchClient = "AN check ClientModel 001";
-        // Search cột 2 Title
-        projectPage.searchByValue(dataSearchTitle);
-        WebUI.checkContainsSearchTableByColumn(2, dataSearchTitle);
-        // Search cột 3 ClientModel
-        projectPage.searchByValue(dataSearchClient);
-        WebUI.checkContainsSearchTableByColumn(3, dataSearchClient);
-    }
-
-    @Test
     public void handlePrintPopup() throws AWTException {
-        WebUI.getURL("https://pos.anhtester.com/login");
+        WebUI.getURL("https://saleserpnew.bdtask.com/saleserp_v9.8_demo/login");
         WebUI.waitForPageLoaded();
         String originalWindow = driver.getWindowHandle();
 
-        WebUI.setText(By.id("email"), "admin@mailinator.com");
+        WebUI.setText(By.id("email"), "admin@gmail.com");
         WebUI.setText(By.id("password"), "123456");
         WebUI.clickElement(By.xpath("//button[normalize-space()='Login']"));
         WebUI.waitForPageLoaded();
-        WebUI.clickElement(By.xpath("//a[@role='button']"));
-        WebUI.waitForPageLoaded();
+        WebUI.clickElement(By.xpath("//span[normalize-space()='Sale']"));
         WebUI.clickElement(By.xpath("//a[normalize-space()='Manage Sale']"));
         WebUI.clickElement(By.xpath("//span[normalize-space()='Print']"));
 

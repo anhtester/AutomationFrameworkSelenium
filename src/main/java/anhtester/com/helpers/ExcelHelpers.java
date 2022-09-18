@@ -7,6 +7,7 @@ package anhtester.com.helpers;
 
 import anhtester.com.exceptions.InvalidPathForExcelException;
 import anhtester.com.utils.Log;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -116,7 +117,14 @@ public class ExcelHelpers {
             }
 
             fis = new FileInputStream(excelPath);
-            workbook = new XSSFWorkbook(fis);
+
+            String fileExtensionName = excelPath.substring(excelPath.indexOf("."));
+            // load the workbook
+            if (fileExtensionName.equals(".xlsx")) workbook = new XSSFWorkbook(fis);
+            else if (fileExtensionName.equals(".xls")) {
+                workbook = new HSSFWorkbook(fis);
+            }
+
             sheet = workbook.getSheet(sheetName);
 
             if (sheet == null) {
@@ -149,35 +157,60 @@ public class ExcelHelpers {
         return data;
     }
 
-    public Object[][] getTableArray(String filePath, String sheetName, int iTestCaseRow) throws Exception {
+    public Object[][] getExcelDataAll(String filePath, String sheetName) throws Exception {
 
-        String[][] tabArray = null;
-
+        Object[][] data = null;
+        Workbook wb = null;
         try {
-            FileInputStream ExcelFile = new FileInputStream(filePath);
+            // load the file
+            FileInputStream fis = new FileInputStream(filePath);
+            String fileExtensionName = filePath.substring(filePath.indexOf("."));
 
-            // Access the required test data sheet
-            workbook = new XSSFWorkbook(ExcelFile);
-            sheet = workbook.getSheet(sheetName);
-
-            int startCol = 1;
-            int ci = 0, cj = 0;
-
-            int totalRows = 1;
-            int totalCols = 2;
-
-            tabArray = new String[totalRows][totalCols];
-
-            for (int j = startCol; j <= totalCols; j++, cj++) {
-                tabArray[ci][cj] = getCellData(iTestCaseRow, j);
-                System.out.println(tabArray[ci][cj]);
+            // load the workbook
+            if (fileExtensionName.equals(".xlsx")) wb = new XSSFWorkbook(fis);
+            else if (fileExtensionName.equals(".xls")) {
+                wb = new HSSFWorkbook(fis);
             }
 
-        } catch (IOException e) {
-            System.out.println("Could not read the Excel sheet");
-            e.printStackTrace();
+            // load the sheet
+            Sheet sh = wb.getSheet(sheetName);
+            Row row = sh.getRow(0);
+
+            int noOfRows = sh.getPhysicalNumberOfRows();
+            int noOfCols = row.getLastCellNum();
+
+            System.out.println(noOfRows + " - " + noOfCols);
+
+            Cell cell;
+            data = new Object[noOfRows - 1][noOfCols];
+
+            //
+            for (int i = 1; i < noOfRows; i++) {
+                for (int j = 0; j < noOfCols; j++) {
+                    row = sh.getRow(i);
+                    cell = row.getCell(j);
+
+                    switch (cell.getCellType()) {
+                        case STRING:
+                            data[i - 1][j] = cell.getStringCellValue();
+                            break;
+                        case NUMERIC:
+                            data[i - 1][j] = (int) cell.getNumericCellValue();
+                            break;
+                        case BLANK:
+                            data[i - 1][j] = "";
+                            break;
+                        default:
+                            data[i - 1][j] = null;
+                            break;
+                    }
+                }
+            }
+            System.out.println("Data in Excel: " + data);
+        } catch (Exception e) {
+            System.out.println("The exception is:" + e.getMessage());
         }
-        return tabArray;
+        return data;
     }
 
     public Object[][] getDataHashTable(String excelPath, String sheetName, int startRow, int endRow) {
@@ -198,7 +231,14 @@ public class ExcelHelpers {
             }
 
             fis = new FileInputStream(excelPath);
-            workbook = new XSSFWorkbook(fis);
+
+            String fileExtensionName = excelPath.substring(excelPath.indexOf("."));
+            // load the workbook
+            if (fileExtensionName.equals(".xlsx")) workbook = new XSSFWorkbook(fis);
+            else if (fileExtensionName.equals(".xls")) {
+                workbook = new HSSFWorkbook(fis);
+            }
+
             sheet = workbook.getSheet(sheetName);
 
             int rows = getRows();

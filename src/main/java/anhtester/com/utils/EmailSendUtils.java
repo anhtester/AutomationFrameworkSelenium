@@ -17,7 +17,7 @@ public class EmailSendUtils {
 
     public static void sendEmail(int count_totalTCs, int count_passedTCs, int count_failedTCs, int count_skippedTCs) {
 
-        if (FrameworkConstants.send_email_to_users.trim().equalsIgnoreCase(FrameworkConstants.YES)) {
+        if (FrameworkConstants.SEND_EMAIL_TO_USERS.trim().equalsIgnoreCase(FrameworkConstants.YES)) {
             System.out.println("****************************************");
             System.out.println("Send Email - START");
             System.out.println("****************************************");
