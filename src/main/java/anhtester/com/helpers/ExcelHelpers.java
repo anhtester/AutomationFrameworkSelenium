@@ -7,7 +7,6 @@ package anhtester.com.helpers;
 
 import anhtester.com.exceptions.InvalidPathForExcelException;
 import anhtester.com.utils.Log;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -91,92 +90,32 @@ public class ExcelHelpers {
         row = sheet.getRow(rowNum);
         return row;
     }
+    
 
-    public Object[][] getDataArray(String excelPath, String sheetName, int startCol, int totalCols) {
-
+    public Object[][] getExcelData(String fileName, String sheetName) {
         Object[][] data = null;
-        try {
-
-            File f = new File(excelPath);
-
-            if (!f.exists()) {
-                try {
-                    Log.info("File Excel path not found.");
-                    throw new InvalidPathForExcelException("File Excel path not found.");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            if (sheetName.isEmpty()) {
-                try {
-                    Log.info("The Sheet Name is empty.");
-                    throw new InvalidPathForExcelException("The Sheet Name is empty.");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            fis = new FileInputStream(excelPath);
-
-            String fileExtensionName = excelPath.substring(excelPath.indexOf("."));
-            // load the workbook
-            if (fileExtensionName.equals(".xlsx")) workbook = new XSSFWorkbook(fis);
-            else if (fileExtensionName.equals(".xls")) {
-                workbook = new HSSFWorkbook(fis);
-            }
-
-            sheet = workbook.getSheet(sheetName);
-
-            if (sheet == null) {
-                try {
-                    Log.info("Sheet name not found.");
-                    throw new InvalidPathForExcelException("Sheet name not found.");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            int noOfRows = sheet.getPhysicalNumberOfRows();
-            //int noOfCols = row.getLastCellNum();
-            int noOfCols = totalCols + 1;
-
-            System.out.println("Số Dòng: " + (noOfRows - 1));
-            System.out.println("Số Cột: " + (noOfCols - startCol));
-
-            data = new String[noOfRows - 1][noOfCols - startCol];
-            for (int i = 1; i < noOfRows; i++) {
-                for (int j = 0; j < noOfCols - startCol; j++) {
-                    data[i - 1][j] = getCellData(i, j + startCol);
-                    System.out.println(data[i - 1][j]);
-                }
-            }
-        } catch (Exception e) {
-            e.getMessage();
-            Log.error(e.getMessage());
-        }
-        return data;
-    }
-
-    public Object[][] getExcelDataAll(String filePath, String sheetName) throws Exception {
-
-        Object[][] data = null;
-        Workbook wb = null;
+        Workbook workbook = null;
         try {
             // load the file
-            FileInputStream fis = new FileInputStream(filePath);
-            String fileExtensionName = filePath.substring(filePath.indexOf("."));
+            FileInputStream fis = new FileInputStream(fileName);
+            String fileExtensionName = fileName.substring(fileName.indexOf("."));
 
             // load the workbook
-            if (fileExtensionName.equals(".xlsx")) wb = new XSSFWorkbook(fis);
-            else if (fileExtensionName.equals(".xls")) {
-                wb = new HSSFWorkbook(fis);
-            }
+            workbook = new XSSFWorkbook(fis);
+
+//            if (fileExtensionName.equals(".xlsx")) workbook = new XSSFWorkbook(fis);
+//            else if (fileExtensionName.equals(".xls")) {
+//                workbook = new HSSFWorkbook(fis);
+//            }
 
             // load the sheet
-            Sheet sh = wb.getSheet(sheetName);
-            Row row = sh.getRow(0);
+            Sheet sheet = workbook.getSheet(sheetName);
 
-            int noOfRows = sh.getPhysicalNumberOfRows();
+            // load the row
+            Row row = sheet.getRow(0);
+
+
+            int noOfRows = sheet.getPhysicalNumberOfRows();
             int noOfCols = row.getLastCellNum();
 
             System.out.println(noOfRows + " - " + noOfCols);
@@ -184,18 +123,19 @@ public class ExcelHelpers {
             Cell cell;
             data = new Object[noOfRows - 1][noOfCols];
 
-            //
+            //Vòng lặp FOR chạy từ 1 để bỏ dòng tiêu đề (dòng tiêu đề là 0)
             for (int i = 1; i < noOfRows; i++) {
                 for (int j = 0; j < noOfCols; j++) {
-                    row = sh.getRow(i);
+                    row = sheet.getRow(i);
                     cell = row.getCell(j);
 
+                    //Này dùng để xác định kiểu dữ liệu từ ô trong excel rồi chuển về String luôn cho tiện đọc
                     switch (cell.getCellType()) {
                         case STRING:
                             data[i - 1][j] = cell.getStringCellValue();
                             break;
                         case NUMERIC:
-                            data[i - 1][j] = (int) cell.getNumericCellValue();
+                            data[i - 1][j] = String.valueOf(cell.getNumericCellValue());
                             break;
                         case BLANK:
                             data[i - 1][j] = "";
@@ -206,9 +146,9 @@ public class ExcelHelpers {
                     }
                 }
             }
-            System.out.println("Data in Excel: " + data);
         } catch (Exception e) {
-            System.out.println("The exception is:" + e.getMessage());
+            e.getMessage();
+            throw new RuntimeException(e);
         }
         return data;
     }
@@ -234,11 +174,12 @@ public class ExcelHelpers {
 
             String fileExtensionName = excelPath.substring(excelPath.indexOf("."));
             // load the workbook
-            if (fileExtensionName.equals(".xlsx")) workbook = new XSSFWorkbook(fis);
-            else if (fileExtensionName.equals(".xls")) {
-                workbook = new HSSFWorkbook(fis);
-            }
+//            if (fileExtensionName.equals(".xlsx")) workbook = new XSSFWorkbook(fis);
+//            else if (fileExtensionName.equals(".xls")) {
+//                workbook = new HSSFWorkbook(fis);
+//            }
 
+            workbook = new XSSFWorkbook(fis);
             sheet = workbook.getSheet(sheetName);
 
             int rows = getRows();
