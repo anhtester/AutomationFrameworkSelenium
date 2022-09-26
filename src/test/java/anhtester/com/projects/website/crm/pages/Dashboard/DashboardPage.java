@@ -1,10 +1,10 @@
 package anhtester.com.projects.website.crm.pages.Dashboard;
 
+import anhtester.com.keyword.WebUI;
 import anhtester.com.projects.website.crm.pages.Clients.ClientPage;
 import anhtester.com.projects.website.crm.pages.CommonPage;
 import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
 import anhtester.com.projects.website.crm.pages.Tasks.TaskPage;
-import anhtester.com.utils.WebUI;
 import org.openqa.selenium.By;
 
 public class DashboardPage extends CommonPage {

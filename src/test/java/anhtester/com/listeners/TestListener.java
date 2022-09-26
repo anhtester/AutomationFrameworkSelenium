@@ -7,6 +7,7 @@ import anhtester.com.enums.CategoryType;
 import anhtester.com.helpers.CaptureHelpers;
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.helpers.ScreenRecoderHelpers;
+import anhtester.com.keyword.WebUI;
 import anhtester.com.report.AllureManager;
 import anhtester.com.report.ExtentReportManager;
 import anhtester.com.report.TelegramManager;
@@ -57,9 +58,10 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         //System.out.println(method.getTestMethod().getMethodName());
     }
 
+
     @Override
     public void onStart(ISuite iSuite) {
-        System.out.println(" ");
+        System.out.println("");
         System.out.println("========= INSTALLING CONFIGURATION DATA =========");
         PropertiesHelpers.loadAllFiles();
         AllureManager.setAllureEnvironmentInformation();

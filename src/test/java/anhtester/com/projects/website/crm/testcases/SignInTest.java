@@ -7,8 +7,8 @@ package anhtester.com.projects.website.crm.testcases;
 
 import anhtester.com.common.BaseTest;
 import anhtester.com.dataprovider.DataProviderManager;
+import anhtester.com.keyword.WebUI;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
-import anhtester.com.utils.WebUI;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;

@@ -36,6 +36,9 @@ public class ExcelHelpers {
 
     //    Set Excel file
     public void setExcelFile(String excelPath, String sheetName) {
+        Log.info("Set Excel file " + excelPath);
+        Log.info("Selected Sheet: " + sheetName);
+
         try {
             File f = new File(excelPath);
 
@@ -77,8 +80,6 @@ public class ExcelHelpers {
                 columns.put(cell.getStringCellValue(), cell.getColumnIndex());
             });
 
-            Log.info("Set Excel file " + excelPath + " and selected Sheet: " + sheetName);
-
         } catch (Exception e) {
             e.getMessage();
             Log.error(e.getMessage());
@@ -90,30 +91,45 @@ public class ExcelHelpers {
         row = sheet.getRow(rowNum);
         return row;
     }
-    
 
-    public Object[][] getExcelData(String fileName, String sheetName) {
+
+    public Object[][] getExcelData(String excelPath, String sheetName) {
         Object[][] data = null;
         Workbook workbook = null;
+
+        Log.info("Set Excel file " + excelPath);
+        Log.info("Selected Sheet: " + sheetName);
+
         try {
+
+            File f = new File(excelPath);
+
+            if (!f.exists()) {
+                try {
+                    Log.info("File Excel path not found.");
+                    throw new InvalidPathForExcelException("File Excel path not found.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (sheetName.isEmpty()) {
+                try {
+                    Log.info("The Sheet Name is empty.");
+                    throw new InvalidPathForExcelException("The Sheet Name is empty.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
             // load the file
-            FileInputStream fis = new FileInputStream(fileName);
-            String fileExtensionName = fileName.substring(fileName.indexOf("."));
+            FileInputStream fis = new FileInputStream(excelPath);
 
             // load the workbook
             workbook = new XSSFWorkbook(fis);
-
-//            if (fileExtensionName.equals(".xlsx")) workbook = new XSSFWorkbook(fis);
-//            else if (fileExtensionName.equals(".xls")) {
-//                workbook = new HSSFWorkbook(fis);
-//            }
-
             // load the sheet
             Sheet sheet = workbook.getSheet(sheetName);
-
             // load the row
             Row row = sheet.getRow(0);
-
 
             int noOfRows = sheet.getPhysicalNumberOfRows();
             int noOfCols = row.getLastCellNum();
@@ -154,7 +170,9 @@ public class ExcelHelpers {
     }
 
     public Object[][] getDataHashTable(String excelPath, String sheetName, int startRow, int endRow) {
-        Log.info("Excel Path: " + excelPath);
+        Log.info("Excel File: " + excelPath);
+        Log.info("Selected Sheet: " + sheetName);
+
         Object[][] data = null;
 
         try {
@@ -171,14 +189,6 @@ public class ExcelHelpers {
             }
 
             fis = new FileInputStream(excelPath);
-
-            String fileExtensionName = excelPath.substring(excelPath.indexOf("."));
-            // load the workbook
-//            if (fileExtensionName.equals(".xlsx")) workbook = new XSSFWorkbook(fis);
-//            else if (fileExtensionName.equals(".xls")) {
-//                workbook = new HSSFWorkbook(fis);
-//            }
-
             workbook = new XSSFWorkbook(fis);
             sheet = workbook.getSheet(sheetName);
 
@@ -296,10 +306,10 @@ public class ExcelHelpers {
 
             XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
             text = text.trim().toLowerCase();
-            if (text == "pass" || text == "passed") {
+            if (text == "pass" || text == "passed" || text == "success") {
                 style.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
             }
-            if (text == "fail" || text == "passed") {
+            if (text == "fail" || text == "failed" || text == "failure") {
                 style.setFillForegroundColor(IndexedColors.RED.getIndex());
             }
             style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
@@ -333,10 +343,10 @@ public class ExcelHelpers {
 
             XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
             text = text.trim().toLowerCase();
-            if (text == "pass" || text == "passed") {
+            if (text == "pass" || text == "passed" || text == "success") {
                 style.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
             }
-            if (text == "fail" || text == "passed") {
+            if (text == "fail" || text == "failed" || text == "failure") {
                 style.setFillForegroundColor(IndexedColors.RED.getIndex());
             }
 

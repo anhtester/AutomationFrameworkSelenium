@@ -3,7 +3,7 @@
  * Automation Framework Selenium
  */
 
-package anhtester.com.utils;
+package anhtester.com.keyword;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
@@ -13,6 +13,8 @@ import anhtester.com.helpers.Helpers;
 import anhtester.com.report.AllureManager;
 import anhtester.com.report.ExtentReportManager;
 import anhtester.com.report.ExtentTestManager;
+import anhtester.com.utils.BrowserInfoUtils;
+import anhtester.com.utils.Log;
 import com.google.common.util.concurrent.Uninterruptibles;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.LuminanceSource;
@@ -894,6 +896,12 @@ public class WebUI {
 
         boolean result = getTextElement(by).trim().equals(text.trim());
 
+        if (result == true) {
+            Log.info("Verify text of an element [Equals]: " + result);
+        } else {
+            Log.warn("Verify text of an element [Equals]: " + result);
+        }
+
         if (flowControl.equals(FailureHandling.STOP_ON_FAILURE)) {
             Assert.assertEquals(getTextElement(by).trim(), text.trim(), "The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
         }
@@ -904,7 +912,6 @@ public class WebUI {
             }
         }
         if (flowControl.equals(FailureHandling.OPTIONAL)) {
-            Log.warn("Verify text of an element [Equals] - " + result);
             if (ExtentTestManager.getExtentTest() != null) {
                 ExtentReportManager.warning("Verify text of an element [Equals] - " + result);
                 ExtentReportManager.warning("The actual text is '" + getTextElement(by).trim() + "' not equals expected text '" + text.trim() + "'");
@@ -926,9 +933,14 @@ public class WebUI {
 
         boolean result = getTextElement(by).trim().equals(text.trim());
 
+        if (result == true) {
+            Log.info("Verify text of an element [Equals]: " + result);
+        } else {
+            Log.warn("Verify text of an element [Equals]: " + result);
+        }
+
         Assert.assertEquals(getTextElement(by).trim(), text.trim(), "The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
 
-        Log.warn("Verify text of an element [Equals] : " + result);
         if (ExtentTestManager.getExtentTest() != null) {
             ExtentReportManager.warning("Verify text of an element [Equals] : " + result);
             ExtentReportManager.warning("The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
@@ -949,6 +961,12 @@ public class WebUI {
 
         boolean result = getTextElement(by).trim().contains(text.trim());
 
+        if (result == true) {
+            Log.info("Verify text of an element [Contains]: " + result);
+        } else {
+            Log.warn("Verify text of an element [Contains]: " + result);
+        }
+
         if (flowControl.equals(FailureHandling.STOP_ON_FAILURE)) {
             Assert.assertTrue(result, "The actual text is " + getTextElement(by).trim() + " not contains " + text.trim());
         }
@@ -956,7 +974,6 @@ public class WebUI {
             softAssert.assertTrue(result, "The actual text is " + getTextElement(by).trim() + " not contains " + text.trim());
         }
         if (flowControl.equals(FailureHandling.OPTIONAL)) {
-            Log.warn("Verify text of an element [Contains] - " + result);
             if (ExtentTestManager.getExtentTest() != null) {
                 ExtentReportManager.warning("Verify text of an element [Contains] - " + result);
             }
@@ -978,9 +995,14 @@ public class WebUI {
 
         boolean result = getTextElement(by).trim().contains(text.trim());
 
-        Assert.assertTrue(result, "The actual text is " + getTextElement(by).trim() + " not contains " + text.trim());
+        if (result == true) {
+            Log.info("Verify text of an element [Contains]: " + result);
+        } else {
+            Log.warn("Verify text of an element [Contains]: " + result);
+        }
 
-        Log.warn("Verify text of an element [Contains] : " + result);
+        Assert.assertTrue(result, "The actual text is " + getTextElement(by).trim() + " not contains " + text.trim());
+        
         if (ExtentTestManager.getExtentTest() != null) {
             ExtentReportManager.warning("Verify text of an element [Contains] : " + result);
         }

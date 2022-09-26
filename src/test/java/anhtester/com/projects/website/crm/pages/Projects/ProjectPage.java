@@ -1,7 +1,7 @@
 package anhtester.com.projects.website.crm.pages.Projects;
 
+import anhtester.com.keyword.WebUI;
 import anhtester.com.projects.website.crm.pages.CommonPage;
-import anhtester.com.utils.WebUI;
 import org.openqa.selenium.By;
 
 public class ProjectPage extends CommonPage {
