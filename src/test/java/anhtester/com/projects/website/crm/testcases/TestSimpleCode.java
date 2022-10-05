@@ -20,6 +20,11 @@ import java.sql.Statement;
 public class TestSimpleCode {
 
     @Test
+    public void testZIPfolder() {
+        ZipUtils.zip();
+    }
+
+    @Test
     public void testTelegramBotMessage() {
         TelegramManager.sendReportPath();
         //TelegramManager.sendFilePath("logs/applog.log");
