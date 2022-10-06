@@ -30,8 +30,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v102.network.Network;
-import org.openqa.selenium.devtools.v102.network.model.Headers;
+import org.openqa.selenium.devtools.v106.network.Network;
+import org.openqa.selenium.devtools.v106.network.model.Headers;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -1002,7 +1002,7 @@ public class WebUI {
         }
 
         Assert.assertTrue(result, "The actual text is " + getTextElement(by).trim() + " not contains " + text.trim());
-        
+
         if (ExtentTestManager.getExtentTest() != null) {
             ExtentReportManager.warning("Verify text of an element [Contains] : " + result);
         }
@@ -1513,7 +1513,7 @@ public class WebUI {
         }
     }
 
-    @Step("Open website with get URL")
+    @Step("Reload page")
     public static void reloadPage() {
         smartWait();
 
@@ -1553,7 +1553,7 @@ public class WebUI {
         Log.info("Open URL: " + URL);
 
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass(BOLD_START + ICON_Navigate_Right + " Open URL : " + BOLD_END + URL);
+            ExtentReportManager.pass("Open URL: " + URL);
         }
         AllureManager.saveTextLog("Open URL: " + URL);
 
@@ -1574,7 +1574,7 @@ public class WebUI {
         waitForPageLoaded();
 
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass(BOLD_START + ICON_Navigate_Right + " Navigate to URL: " + BOLD_END + URL);
+            ExtentReportManager.pass("Navigate to URL: " + URL);
         }
         AllureManager.saveTextLog("Navigate to URL: " + URL);
 
@@ -1595,7 +1595,7 @@ public class WebUI {
         waitForElementVisible(by).sendKeys(value);
 
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass(FrameworkConstants.BOLD_START + value + FrameworkConstants.BOLD_END + " value is successfully passed in textbox.");
+            ExtentReportManager.pass(value + " value is successfully passed in textbox.");
         }
         AllureManager.saveTextLog(value + " value is successfully passed in textbox.");
         if (SCREENSHOT_ALL_STEPS.equals(YES)) {
@@ -1613,7 +1613,7 @@ public class WebUI {
     public static void clearText(By by) {
         waitForElementVisible(by).clear();
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clear" + FrameworkConstants.BOLD_END + " value in textbox successfully.");
+            ExtentReportManager.pass("Clear value in textbox successfully.");
         }
         AllureManager.saveTextLog("Clear value in textbox successfully.");
         if (SCREENSHOT_ALL_STEPS.equals(YES)) {
@@ -1632,7 +1632,7 @@ public class WebUI {
         waitForElementVisible(by).click();
 
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clicked" + FrameworkConstants.BOLD_END + " on the object " + by.toString());
+            ExtentReportManager.pass("Clicked on the object " + by.toString());
         }
         AllureManager.saveTextLog("Clicked on the object " + by.toString());
 

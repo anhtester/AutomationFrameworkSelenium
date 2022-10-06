@@ -11,7 +11,10 @@ import anhtester.com.keyword.WebUI;
 import anhtester.com.report.AllureManager;
 import anhtester.com.report.ExtentReportManager;
 import anhtester.com.report.TelegramManager;
-import anhtester.com.utils.*;
+import anhtester.com.utils.BrowserInfoUtils;
+import anhtester.com.utils.EmailSendUtils;
+import anhtester.com.utils.Log;
+import anhtester.com.utils.ZipUtils;
 import com.aventstack.extentreports.Status;
 import org.testng.*;
 
@@ -122,8 +125,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         ExtentReportManager.addCategories(getCategoryType(iTestResult));
         ExtentReportManager.addDevices();
 
-        ExtentReportManager.info(BOLD_START + IconUtils.getOSIcon() + " "
-                + BrowserInfoUtils.getOSInfo() + BOLD_END);
+        ExtentReportManager.info(BrowserInfoUtils.getOSInfo());
 
         if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
             screenRecorder.startRecording(getTestName(iTestResult));
