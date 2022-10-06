@@ -7,7 +7,7 @@
 **SOME FEATURES IN FRAMEWORK**
 
 1. Run the parallel test case
-2. Read Object web element from Properties file
+2. Read Config from Properties file
 3. Extent Report
 4. Allure Report
 5. Send Mail after the run test (Report information and HTML file attachment)
@@ -46,13 +46,13 @@
 
   ![image](https://user-images.githubusercontent.com/87883620/161658761-5040e527-b410-46b3-8697-3298523e201d.png)
 
-**2. Read Object web element from Properties file**
+**2. Read Config from Properties file**
 
-![image](https://user-images.githubusercontent.com/87883620/161658681-58f3a183-cbfd-433d-853a-927e4373f51c.png)
+![image](https://user-images.githubusercontent.com/87883620/194396141-eb0e2750-9b8d-42bb-803d-43b7b5199a73.png)
 
 **3. Extent Report**
 
-- Insert "FrameworkAnnotation" as sample or none:
+- Insert "FrameworkAnnotation" as sample or None:
 
 ![image](https://user-images.githubusercontent.com/87883620/161657646-3dd652c6-a310-4006-a0cb-de63e2e87e36.png)
 
@@ -60,6 +60,13 @@
 - Setup on TestListener and BaseTest
 
 ![image](https://user-images.githubusercontent.com/87883620/161657754-c29b1ee9-f2fb-44b3-bee0-9f425a7cab6f.png)
+
+- Pdf Report
+
+![image](https://user-images.githubusercontent.com/87883620/194396654-5b01cb68-161a-4caf-824d-b57cd6091586.png)
+![image](https://user-images.githubusercontent.com/87883620/194396689-ac5381cc-8689-4ce0-8c7f-d2487047faec.png)
+![image](https://user-images.githubusercontent.com/87883620/194396707-ed1308a0-e4bf-4cac-b5b6-0fde44c81091.png)
+
 
 **4. Allure Report**
 
@@ -80,7 +87,7 @@
   (**_src/test/resources/config/config.properties_**)
 - send_email_to_users=**true** is enable send mail
 - Config mail with email and password in **_src/main/java/anhtester/com/mail/EmailConfig.java_**
-- Note: if Gmail, you use App Passowrd
+- Note: if Gmail, you use App Password
 
 ![image](https://user-images.githubusercontent.com/87883620/161658851-2aa41091-ac99-45d9-a79f-aaa828052efb.png)
 
