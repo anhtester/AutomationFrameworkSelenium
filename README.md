@@ -1,4 +1,6 @@
 ![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Java CI with Maven on Windows](https://github.com/anhtester/AutomationFrameworkSelenium/actions/workflows/maven.yml/badge.svg)](https://github.com/anhtester/AutomationFrameworkSelenium/actions/workflows/maven.yml)
 
 ## Automation Framework Selenium Java with TestNG building by Anh Tester
 
@@ -10,8 +12,8 @@
 4. Allure Report
 5. Send Mail after the run test (Report information and HTML file attachment)
 6. Write Log to file
-7. Record video and Screenshot test case for failed
-8. Read data test from Excel file (xlsx, csv, json,...) with class define fields (param: Client client)
+7. Record video and Screenshot test case
+8. Read data test from Excel file (xlsx, csv, json,...)
 9. Base function in the package: utils, helpers
 10. Read data test from Json file
 11. Main Keyword: WebUI (call common function)
