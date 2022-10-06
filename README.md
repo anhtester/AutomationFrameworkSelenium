@@ -80,7 +80,7 @@
   (**_src/test/resources/config/config.properties_**)
 - send_email_to_users=**true** is enable send mail
 - Config mail with email and password in **_src/main/java/anhtester/com/mail/EmailConfig.java_**
-  Note: enabled Allow less secure apps
+- Note: if Gmail, you use App Passowrd
 
 ![image](https://user-images.githubusercontent.com/87883620/161658851-2aa41091-ac99-45d9-a79f-aaa828052efb.png)
 
