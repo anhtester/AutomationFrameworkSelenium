@@ -9,4 +9,5 @@ ExtentReports.zip
 /target
 /test-output
 reports
+*.png
 
