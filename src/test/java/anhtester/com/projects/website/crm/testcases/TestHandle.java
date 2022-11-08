@@ -160,7 +160,7 @@ public class TestHandle {
 
         String filePath = Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\TxtFileData.txt";
 
-        WebUI.uploadFileSendkeys(inputFileUpload, filePath);
+        WebUI.uploadFileWithSendKeys(inputFileUpload, filePath);
 
         WebUI.sleep(4);
     }
@@ -176,7 +176,7 @@ public class TestHandle {
 
         String filePath = Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\TxtFileData.txt";
 
-        WebUI.uploadFileForm(divFileUpload, filePath);
+        WebUI.uploadFileWithLocalForm(divFileUpload, filePath);
 
         WebUI.sleep(4);
     }
@@ -337,7 +337,7 @@ public class TestHandle {
         final String path2 = Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\LoginCSV.csv";
 
         //Cách 1 sendKeys link từ source
-        WebUI.uploadFileSendkeys(By.xpath("//input[@id='uploadFile']"), path1);
+        WebUI.uploadFileWithSendKeys(By.xpath("//input[@id='uploadFile']"), path1);
         WebUI.verifyElementTextContains(By.xpath("//p[@id='uploadedFilePath']"), "DOCX_File_01ABC.docx");
         WebUI.sleep(1);
         WebUI.reloadPage();
@@ -345,7 +345,7 @@ public class TestHandle {
         WebUI.sleep(1);
 
         //Cách 2 mở form local máy nên file là trong ổ đĩa máy tính
-        WebUI.uploadFileForm(By.xpath("//input[@id='uploadFile']"), path2);
+        WebUI.uploadFileWithLocalForm(By.xpath("//input[@id='uploadFile']"), path2);
         WebUI.verifyElementTextContains(By.xpath("//p[@id='uploadedFilePath']"), "LoginCSV.csv");
         WebUI.sleep(3);
     }

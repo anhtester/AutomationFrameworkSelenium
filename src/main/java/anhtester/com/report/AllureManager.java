@@ -27,12 +27,12 @@ public class AllureManager {
                         put("Test URL", FrameworkConstants.URL_CRM).
                         put("Target Execution", FrameworkConstants.TARGET).
                         put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT)).
-                        put("Headless Dode", FrameworkConstants.HEADLESS).
+                        put("Page Load Timeout", String.valueOf(FrameworkConstants.WAIT_PAGE_LOADED)).
+                        put("Headless Mode", FrameworkConstants.HEADLESS).
                         put("Local Browser", String.valueOf(Browser.CHROME)).
                         put("Remote URL", FrameworkConstants.REMOTE_URL).
                         put("Remote Port", FrameworkConstants.REMOTE_PORT).
                         build());
-
         
     }
 

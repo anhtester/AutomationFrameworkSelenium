@@ -70,9 +70,9 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         AllureManager.setAllureEnvironmentInformation();
         ExtentReportManager.initReports();
         System.out.println("========= INSTALLED CONFIGURATION DATA =========");
-        System.out.println(" ");
-        Log.info("Start suite: " + iSuite.getName());
-        iSuite.setAttribute("WebDriver", DriverManager.getDriver());
+        System.out.println("");
+        Log.info("Starting Suite: " + iSuite.getName());
+
 //        //Gọi hàm startRecord video trong CaptureHelpers class
 //        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
 //            CaptureHelpers.startRecord(iSuite.getName());
@@ -81,7 +81,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void onFinish(ISuite iSuite) {
-        Log.info("End suite testing " + iSuite.getName());
+        Log.info("End Suite: " + iSuite.getName());
         WebUI.stopSoftAssertAll();
         //Kết thúc Suite và thực thi Extents Report, đóng gói Folder report và send mail
         ExtentReportManager.flushReports();
@@ -117,7 +117,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        Log.info("Test case: " + getTestName(iTestResult) + " test is starting...");
+        Log.info("Test case: " + getTestName(iTestResult) + " is starting...");
         count_totalTCs = count_totalTCs + 1;
 
         ExtentReportManager.createTest(iTestResult.getName());
@@ -165,11 +165,11 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.error(iTestResult.getThrowable());
 
         AllureManager.takeScreenshotToAttachOnAllureReport();
+        AllureManager.saveTextLog(iTestResult.getThrowable().toString());
 
         //Extent report screenshot file and log
         ExtentReportManager.addScreenShot(Status.FAIL, getTestName(iTestResult));
-        ExtentReportManager.logMessage(Status.FAIL, "Test case: " + getTestName(iTestResult) + " is failed.");
-        ExtentReportManager.logMessage(Status.FAIL, iTestResult.getThrowable());
+        ExtentReportManager.logMessage(Status.FAIL, iTestResult.getThrowable().toString());
 
         if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
             screenRecorder.stopRecording(true);

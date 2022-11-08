@@ -478,11 +478,10 @@ public class WebUI {
      * @param by       là element thuộc kiểu By
      * @param filePath đường dẫn tuyệt đối đến file trên máy tính của bạn
      */
-    public static void uploadFileForm(By by, String filePath) {
-        if (ACTIVE_PAGE_LOADED.trim().toLowerCase().equals("true")) {
-            waitForPageLoaded();
-        }
-        sleep(WAIT_SLEEP_STEP);
+    @Step("Upload File With Local Form")
+    public static void uploadFileWithLocalForm(By by, String filePath) {
+        smartWait();
+
         Actions action = new Actions(DriverManager.getDriver());
         //Click để mở form upload
         action.moveToElement(getWebElement(by)).click().perform();
@@ -543,6 +542,13 @@ public class WebUI {
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
         }
+
+        Log.info("Upload File With Local Form: " + filePath);
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info("Upload File With Local Form: " + filePath);
+        }
+        AllureManager.saveTextLog("Upload File With Local Form: " + filePath);
+
     }
 
     /**
@@ -551,21 +557,40 @@ public class WebUI {
      * @param by       truyền vào element dạng đối tượng By
      * @param filePath đường dẫn tuyệt đối đến file
      */
-    public static void uploadFileSendkeys(By by, String filePath) {
+    @Step("Upload File with SendKeys")
+    public static void uploadFileWithSendKeys(By by, String filePath) {
         smartWait();
-        waitForElementPresent(by).sendKeys(filePath);
+
+        waitForElementVisible(by).sendKeys(filePath);
+
+        Log.info("Upload File with SendKeys");
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info("Upload File with SendKeys");
+        }
+        AllureManager.saveTextLog("Upload File with SendKeys");
+
     }
 
+    @Step("Get Current URL")
     public static String getCurrentUrl() {
         smartWait();
         Log.info("Current Page Url: " + DriverManager.getDriver().getCurrentUrl());
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info("Current Page Url: " + DriverManager.getDriver().getCurrentUrl());
+        }
+        AllureManager.saveTextLog("Current Page Url: " + DriverManager.getDriver().getCurrentUrl());
         return DriverManager.getDriver().getCurrentUrl();
     }
 
+    @Step("Get Page Title")
     public static String getPageTitle() {
         smartWait();
         String title = DriverManager.getDriver().getTitle();
         Log.info("Current Page Title: " + DriverManager.getDriver().getTitle());
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info("Get Current Page Title: " + DriverManager.getDriver().getTitle());
+        }
+        AllureManager.saveTextLog("Get Current Page Title: " + DriverManager.getDriver().getTitle());
         return title;
     }
 

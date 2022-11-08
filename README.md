@@ -4,7 +4,7 @@
 
 ## Automation Framework Selenium Java with TestNG building by Anh Tester
 
-**SOME FEATURES IN FRAMEWORK**
+🔆 **SOME FEATURES IN FRAMEWORK**
 
 1. Run the parallel test case
 2. Read Config from Properties file
@@ -19,12 +19,14 @@
 11. Main Keyword: WebUI (call common function)
 12. Sample test all function in WebUI keyword
 13. Send message/report to Telegram Bot
+14. Run Selenium Grid (remote)
 
-### **SYSTEM REQUIREMENTS**
+### ✳️ **SYSTEM REQUIREMENTS**
 
-- **JDK All Version**
+- **JDK All Version** (recommend JDK >=11)
 - Chrome Browser, Edge Browser, Firefox Browser
-- Setup **Allure**:
+- Run well on the **Windows** platform
+- Setup **Allure ENV**:
   https://mvnrepository.com/artifact/io.qameta.allure/allure-java-commons
   or
   https://anhtester.com/blog/selenium-java/selenium-java-tai-nguyen-cai-dat-moi-truong)
@@ -32,11 +34,11 @@
 
   ![image](https://user-images.githubusercontent.com/87883620/161661705-b8706957-5a26-4faf-8ddf-2f9aef78418e.png)
 
-- **IntelliJ IDEA** is the best choice (to change JDK version)
+- **IntelliJ IDEA** is the best choice (easy change the JDK version)
 
 ![image](https://user-images.githubusercontent.com/87883620/161707184-7ad558f2-0d7d-4851-bfd6-2796d4e46593.png)
 
-### **HOW TO USE**
+### ✳️ **HOW TO USE**
 
 **1. Run parallel the test case**
 
@@ -61,12 +63,11 @@
 
 ![image](https://user-images.githubusercontent.com/87883620/161657754-c29b1ee9-f2fb-44b3-bee0-9f425a7cab6f.png)
 
-- Pdf Report
+- **Pdf Report**
 
 ![image](https://user-images.githubusercontent.com/87883620/194396654-5b01cb68-161a-4caf-824d-b57cd6091586.png)
 ![image](https://user-images.githubusercontent.com/87883620/194396689-ac5381cc-8689-4ce0-8c7f-d2487047faec.png)
 ![image](https://user-images.githubusercontent.com/87883620/194396707-ed1308a0-e4bf-4cac-b5b6-0fde44c81091.png)
-
 
 **4. Allure Report**
 
@@ -113,8 +114,7 @@
 
 **8. Read data test from Excel file**
 
-- Create function with annotaion **DataProvider** on **
-  src/test/java/anhtester/com/projects/website/crm/dataprovider/DataProviderManager.java**
+- Create function with annotaion **DataProvider** on **src/test/java/anhtester/com/projects/website/crm/dataprovider/DataProviderManager.java**
 - Read excel with Map and Hashtable
 
 **9. Base function in the package**
@@ -147,7 +147,7 @@
 
 - Setup in src/main/java/anhtester/com/report/TelegramManager.java
 - Example: src/test/java/anhtester/com/projects/website/crm/testcases/TestSimpleCode.java
-- Call in TestListener at onFinish TelegramManager.sendReportPath();
+- Call in TestListener at onFinish TelegramManager.sendReportPath()
 
 ======How to get Token and start Bot=======
 
@@ -169,6 +169,50 @@
     "type": "private"
 }
 ```
+
+**14. Use Selenium Grid**
+
+### ---------------- Download and Install --------------
+
+1. Download Selenium Grid 4: https://www.selenium.dev/downloads/
+
+(tải bản Latest stable version)
+
+**selenium-server-4.6.0.jar** (updated 04/11/2022)
+
+2. Thiết đặt PATH cho driver của từng Browser:
+
+Xem link làm
+theo: https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/#2-the-path-environment-variable
+
+🔆 Đặt file **selenium-server-4.6.0.jar** vào thư mục nào đó và mở CMD tại thư mục đó lên
+
+### ---------------------- Run default -------------------
+
+✅ Mở 1 hub với 1 node mặc định (port 4444)
+
+> java -jar selenium-server-4.6.0.jar standalone
+
+### -------------------- Run multi Node ----------------
+
+✅ Mở 1 hub với 3 node: (chạy 4 lệnh mở 4 CMD nhé)
+
+> java -jar selenium-server-4.6.0.jar hub
+
+> java -jar selenium-server-4.6.0.jar node --port 5556
+
+> java -jar selenium-server-4.6.0.jar node --port 6667
+
+> java -jar selenium-server-4.6.0.jar node --port 7778
+
+
+**NOTE: Thực thi nhiều lệnh thì mở nhiều CMD**
+
+### ----------- Edit Grid in Config.properties -----------
+
+> REMOTE_URL=192.168.1.13 (url Grid của bạn)
+
+> REMOTE_PORT=4444 (port của Grid)
 
 ### Project structure
 
