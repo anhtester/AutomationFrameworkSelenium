@@ -210,11 +210,20 @@ theo: https://www.selenium.dev/documentation/webdriver/getting_started/install_d
 
 ### ----------- Edit Grid in Config.properties -----------
 
+> TARGET=remote
+
 > REMOTE_URL=192.168.1.13 (url Grid của bạn)
 
 > REMOTE_PORT=4444 (port của Grid)
 
-### Project structure
+![image](https://user-images.githubusercontent.com/87883620/200506141-b738104c-b012-4ced-8335-4dadfecd6f66.png)
+
+![image](https://user-images.githubusercontent.com/87883620/200506279-e1496849-70ab-4602-be44-0f44926ab826.png)
+
+![image](https://user-images.githubusercontent.com/87883620/200506218-dbe10f1c-7e65-47e4-a7ac-f29a2b2db43b.png)
+
+
+### 🔆 Project structure
 
 ```
 📦AutomationFrameworkSelenium
