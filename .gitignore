@@ -11,6 +11,6 @@ ExtentReports.zip
 reports
 *.png
 *.jpg
-EmailConfig.java
-config.properties
+/EmailConfig.java
+/config.properties
 
