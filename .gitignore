@@ -11,6 +11,6 @@ ExtentReports.zip
 reports
 *.png
 *.jpg
-/EmailConfig.java
-/config.properties
+src/main/java/anhtester/com/mail/EmailConfig.java
+src/test/resources/config/config.properties
 
