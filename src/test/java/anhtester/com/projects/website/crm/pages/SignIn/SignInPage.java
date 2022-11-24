@@ -44,7 +44,6 @@ public class SignInPage extends CommonPage {
         WebUI.setText(inputPassword, DecodeUtils.decrypt(excelHelpers.getCellData(1, SignInModel.getPassword())));
         WebUI.clickElement(buttonSignIn);
         WebUI.waitForPageLoaded();
-        WebUI.verifyElementPresent(getDashboardPage().menuDashboard);
         Assert.assertTrue(WebUI.verifyPageUrl(getDashboardPage().pageUrl), "Sign in failed. Can not redirect to Dashboard page.");
 
         return new DashboardPage();
@@ -61,7 +60,6 @@ public class SignInPage extends CommonPage {
         WebUI.setText(inputPassword, DecodeUtils.decrypt(excelHelpers.getCellData(2, SignInModel.getPassword())));
         WebUI.clickElement(buttonSignIn);
         WebUI.waitForPageLoaded();
-        WebUI.verifyElementPresent(getDashboardPage().menuDashboard);
         Assert.assertTrue(WebUI.verifyPageUrl(getDashboardPage().pageUrl), "Sign in failed. Can not redirect to Dashboard page.");
 
         return new DashboardPage();
@@ -77,7 +75,6 @@ public class SignInPage extends CommonPage {
         WebUI.setText(inputPassword, password);
         WebUI.clickElement(buttonSignIn);
         WebUI.waitForPageLoaded();
-        WebUI.verifyElementPresent(getDashboardPage().menuDashboard);
         Assert.assertTrue(WebUI.verifyPageUrl(getDashboardPage().pageUrl), "Sign in failed. Can not redirect to Dashboard page.");
 
         return new DashboardPage();
@@ -93,7 +90,6 @@ public class SignInPage extends CommonPage {
         WebUI.setText(inputPassword, DecodeUtils.decrypt(data.get(SignInModel.getPassword())));
         WebUI.clickElement(buttonSignIn);
         WebUI.waitForPageLoaded();
-        WebUI.verifyElementPresent(getDashboardPage().menuDashboard);
         Assert.assertTrue(WebUI.verifyPageUrl(getDashboardPage().pageUrl), "Sign in failed. Can not redirect to Dashboard page.");
 
         return new DashboardPage();

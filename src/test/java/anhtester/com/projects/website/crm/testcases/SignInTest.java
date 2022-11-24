@@ -12,6 +12,7 @@ import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Hashtable;
@@ -44,7 +45,7 @@ public class SignInTest extends BaseTest {
     @Step("signInTestClientRole")
     public void signInTestClientRole() {
         signInPage.signInWithClientRole();
-
+        Assert.assertEquals(WebUI.getPageTitle(), "Anh Tester");
     }
 
 }

@@ -17,7 +17,9 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -39,8 +41,7 @@ public class CaptureHelpers extends ScreenRecorder {
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
 
     //Hàm xây dựng
-    public CaptureHelpers(GraphicsConfiguration cfg, Rectangle captureArea, Format fileFormat, Format screenFormat,
-                          Format mouseFormat, Format audioFormat, File movieFolder, String name) throws IOException, AWTException {
+    public CaptureHelpers(GraphicsConfiguration cfg, Rectangle captureArea, Format fileFormat, Format screenFormat, Format mouseFormat, Format audioFormat, File movieFolder, String name) throws IOException, AWTException {
         super(cfg, captureArea, fileFormat, screenFormat, mouseFormat, audioFormat, movieFolder);
         this.name = name;
     }
@@ -54,8 +55,7 @@ public class CaptureHelpers extends ScreenRecorder {
         } else if (!movieFolder.isDirectory()) {
             throw new IOException(movieFolder + " is not a directory.");
         }
-        return new File(movieFolder,
-                name + "_" + dateFormat.format(new Date()) + "." + Registry.getInstance().getExtension(fileFormat));
+        return new File(movieFolder, name + "_" + dateFormat.format(new Date()) + "." + Registry.getInstance().getExtension(fileFormat));
     }
 
     // Hàm Start record video
@@ -71,18 +71,9 @@ public class CaptureHelpers extends ScreenRecorder {
 
         Rectangle captureSize = new Rectangle(0, 0, width, height);
 
-        GraphicsConfiguration gc = GraphicsEnvironment
-                .getLocalGraphicsEnvironment()
-                .getDefaultScreenDevice()
-                .getDefaultConfiguration();
+        GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
         try {
-            screenRecorder = new CaptureHelpers(gc, null,
-                    new Format(MediaTypeKey, MediaType.FILE, MimeTypeKey, MIME_AVI),
-                    new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE,
-                            CompressorNameKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE, DepthKey, 24, FrameRateKey,
-                            Rational.valueOf(15), QualityKey, 1.0f, KeyFrameIntervalKey, 15 * 60),
-                    new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey, "black", FrameRateKey, Rational.valueOf(30)),
-                    null, file, methodName);
+            screenRecorder = new CaptureHelpers(gc, null, new Format(MediaTypeKey, MediaType.FILE, MimeTypeKey, MIME_AVI), new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE, CompressorNameKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE, DepthKey, 24, FrameRateKey, Rational.valueOf(15), QualityKey, 1.0f, KeyFrameIntervalKey, 15 * 60), new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey, "black", FrameRateKey, Rational.valueOf(30)), null, file, methodName);
 
             screenRecorder.start();
         } catch (IOException | AWTException e) {
@@ -122,5 +113,33 @@ public class CaptureHelpers extends ScreenRecorder {
             System.out.println("Exception while taking screenshot: " + e.getMessage());
         }
     }
+
+    public static File getScreenshot(String screenshotName) {
+        Rectangle allScreenBounds = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+        String dateName = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss.SSS").format(new Date());
+        BufferedImage image = null;
+        try {
+            image = new Robot().createScreenCapture(allScreenBounds);
+        } catch (AWTException e) {
+            throw new RuntimeException(e);
+        }
+
+        String path = Helpers.getCurrentDir() + FrameworkConstants.EXTENT_REPORT_FOLDER + File.separator + "images";
+        File folder = new File(path);
+        if (!folder.exists()) {
+            folder.mkdir();
+            Log.info("Folder created: " + folder);
+        }
+
+        String filePath = path + File.separator + screenshotName + dateName + ".png";
+        File file = new File(filePath);
+        try {
+            ImageIO.write(image, "PNG", file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return file;
+    }
+
 
 }

@@ -8,12 +8,12 @@ package anhtester.com.keyword;
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.enums.FailureHandling;
-import anhtester.com.helpers.CaptureHelpers;
 import anhtester.com.helpers.Helpers;
 import anhtester.com.report.AllureManager;
 import anhtester.com.report.ExtentReportManager;
 import anhtester.com.report.ExtentTestManager;
 import anhtester.com.utils.BrowserInfoUtils;
+import anhtester.com.utils.DateUtils;
 import anhtester.com.utils.Log;
 import com.google.common.util.concurrent.Uninterruptibles;
 import com.google.zxing.BinaryBitmap;
@@ -75,6 +75,16 @@ public class WebUI {
             waitForPageLoaded();
         }
         sleep(WAIT_SLEEP_STEP);
+    }
+
+    public static void addScreenshotToReport(String screenshotName) {
+        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.addScreenShot(Helpers.makeSlug(screenshotName));
+            }
+            //CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug(screenshotName));
+            AllureManager.takeScreenshotStep();
+        }
     }
 
     public static String getPathDownloadDirectory() {
@@ -944,10 +954,8 @@ public class WebUI {
             AllureManager.saveTextLog("Verify text of an element [Equals] - " + result + ". The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
         }
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("verifyElementTextContains_" + result));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
         return getTextElement(by).trim().equals(text.trim());
     }
 
@@ -972,10 +980,8 @@ public class WebUI {
         }
         AllureManager.saveTextLog("Verify text of an element [Equals] : " + result + ". The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("verifyElementTextContains_" + result));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
         return result;
     }
 
@@ -1005,10 +1011,7 @@ public class WebUI {
             AllureManager.saveTextLog("Verify text of an element [Contains] - " + result);
         }
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("verifyElementTextContains_" + result));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
         return getTextElement(by).trim().contains(text.trim());
     }
@@ -1029,14 +1032,11 @@ public class WebUI {
         Assert.assertTrue(result, "The actual text is " + getTextElement(by).trim() + " not contains " + text.trim());
 
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.warning("Verify text of an element [Contains] : " + result);
+            ExtentReportManager.info("Verify text of an element [Contains] : " + result);
         }
         AllureManager.saveTextLog("Verify text of an element [Contains] : " + result);
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("verifyElementTextContains_" + result));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
         return result;
     }
@@ -1044,6 +1044,11 @@ public class WebUI {
     public static boolean verifyElementToBeClickable(By by) {
         smartWait();
 
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
+        }
+        AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
+        
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.elementToBeClickable(by));
@@ -1057,9 +1062,15 @@ public class WebUI {
     public static boolean verifyElementPresent(By by) {
         smartWait();
 
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
+        }
+        AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
+
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
+            addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
         } catch (Exception e) {
             Log.info("The element does NOT present. " + e.getMessage());
@@ -1071,9 +1082,15 @@ public class WebUI {
     public static boolean verifyElementPresent(By by, int timeout) {
         smartWait();
 
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
+        }
+        AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
+
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
+            addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
         } catch (Exception e) {
             Log.info("The element does NOT present. " + e.getMessage());
@@ -1085,9 +1102,15 @@ public class WebUI {
     public static boolean verifyElementPresent(By by, String message) {
         smartWait();
 
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
+        }
+        AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
+
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
+            addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
         } catch (Exception e) {
             if (message.isEmpty() || message == null) {
@@ -1105,9 +1128,15 @@ public class WebUI {
     public static boolean verifyElementPresent(By by, int timeout, String message) {
         smartWait();
 
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
+        }
+        AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
+
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
+            addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
         } catch (Exception e) {
             if (message.isEmpty() || message == null) {
@@ -1582,10 +1611,8 @@ public class WebUI {
         }
         AllureManager.saveTextLog("Open URL: " + URL);
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("getURL_" + URL));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
@@ -1603,10 +1630,8 @@ public class WebUI {
         }
         AllureManager.saveTextLog("Navigate to URL: " + URL);
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("navigateToUrl_" + URL));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
@@ -1623,10 +1648,9 @@ public class WebUI {
             ExtentReportManager.pass(value + " value is successfully passed in textbox.");
         }
         AllureManager.saveTextLog(value + " value is successfully passed in textbox.");
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("setText_" + value + "_" + by));
-            AllureManager.takeScreenshotStep();
-        }
+
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
@@ -1641,10 +1665,8 @@ public class WebUI {
             ExtentReportManager.pass("Clear value in textbox successfully.");
         }
         AllureManager.saveTextLog("Clear value in textbox successfully.");
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clearText_" + by.toString()));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
@@ -1661,11 +1683,8 @@ public class WebUI {
         }
         AllureManager.saveTextLog("Clicked on the object " + by.toString());
 
-        //Screenshot for this step if screenshot_all_steps = yes in config.properties file
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clickElement_" + by.toString()));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
@@ -1685,10 +1704,8 @@ public class WebUI {
 
         Log.info("Click element with JS: " + by);
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clickElementWithJs_" + by));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
@@ -1707,10 +1724,8 @@ public class WebUI {
         WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(linkText)));
         elementWaited.click();
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clickLinkText_" + linkText));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
@@ -1723,10 +1738,8 @@ public class WebUI {
         Actions action = new Actions(DriverManager.getDriver());
         action.contextClick(waitForElementVisible(by)).build().perform();
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("rightClickElement_" + by));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
