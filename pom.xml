@@ -6,7 +6,7 @@
 
     <groupId>anhtester.com</groupId>
     <artifactId>AutomationFrameworkSelenium</artifactId>
-    <version>1.9.1</version>
+    <version>1.9.2</version>
     <name>AutomationFrameworkSelenium</name>
     <url>https://github.com/anhtester/AutomationFrameworkSelenium</url>
 
@@ -276,7 +276,7 @@
         <dependency>
             <groupId>com.github.pengrad</groupId>
             <artifactId>java-telegram-bot-api</artifactId>
-            <version>6.2.0</version>
+            <version>6.3.0</version>
         </dependency>
     </dependencies>
 
