@@ -1,6 +1,9 @@
 package anhtester.com.projects.website.crm.pages.Dashboard;
 
-import anhtester.com.keyword.WebUI;
+import anhtester.com.keywords.WebUI;
+
+import static anhtester.com.keywords.WebUI.*;
+
 import anhtester.com.projects.website.crm.pages.Clients.ClientPage;
 import anhtester.com.projects.website.crm.pages.CommonPage;
 import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
@@ -21,22 +24,22 @@ public class DashboardPage extends CommonPage {
     public By menuTasks = By.xpath("//span[normalize-space()='Tasks']");
 
     public DashboardPage openDashboardPage() {
-        WebUI.clickElement(menuDashboard);
+        clickElement(menuDashboard);
         return this;
     }
 
     public ClientPage openClientPage() {
-        WebUI.clickElement(menuClients);
+        clickElement(menuClients);
         return new ClientPage();
     }
 
     public ProjectPage openProjectPage() {
-        WebUI.clickElement(menuProjects);
+        clickElement(menuProjects);
         return new ProjectPage();
     }
 
     public TaskPage openTaskPage() {
-        WebUI.clickElement(menuTasks);
+        clickElement(menuTasks);
         return new TaskPage();
     }
 }

@@ -9,7 +9,7 @@ import anhtester.com.common.BaseTest;
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.helpers.Helpers;
-import anhtester.com.keyword.WebUI;
+import anhtester.com.keywords.WebUI;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
@@ -222,7 +222,7 @@ public class TestHandle {
         //VD: 6 trang thì nó chỉ click 5 lần thôi chứ hả =))
         for (int i = 1; i <= pageTotalInt; i++) {
             WebUI.scrollToElement(title_H1);
-            //Gọi hàm Check data in table by column từ keyword WebUI
+            //Gọi hàm Check data in table by column từ keywords WebUI
             WebUI.checkContainsValueOnTableByColumn(1, "", "//div[@id='example_wrapper']//tbody/tr");
             WebUI.sleep(1);
             //Click Next

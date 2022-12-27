@@ -10,11 +10,15 @@ import anhtester.com.common.BaseTest;
 import anhtester.com.dataprovider.DataProviderManager;
 import anhtester.com.enums.AuthorType;
 import anhtester.com.enums.CategoryType;
-import anhtester.com.keyword.WebUI;
+import anhtester.com.keywords.WebUI;
+
+import static anhtester.com.keywords.WebUI.*;
+
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Hashtable;
@@ -23,13 +27,13 @@ import java.util.Hashtable;
 @Feature("Clients Test")
 public class ClientTest extends BaseTest {
 
-    public ClientTest() {
+    @BeforeMethod
+    public void setupPage() {
         signInPage = new SignInPage();
     }
 
     @FrameworkAnnotation(author = {AuthorType.AnhTester, AuthorType.Robert}, category = {CategoryType.REGRESSION})
-    @Test(priority = 1, dataProvider = "getClientDataHashTable", dataProviderClass = DataProviderManager.class)
-    @Step("Add new Client")
+    @Test(priority = 1, description = "TC04_testAddClient", dataProvider = "getClientDataHashTable", dataProviderClass = DataProviderManager.class)
     public void testAddClient(Hashtable<String, String> data) {
         dashboardPage = signInPage.signInWithAdminRole();
         clientPage = dashboardPage.openClientPage();
@@ -38,18 +42,17 @@ public class ClientTest extends BaseTest {
     }
 
     @FrameworkAnnotation(author = {AuthorType.James}, category = {CategoryType.SANITY, CategoryType.REGRESSION})
-    @Test(priority = 2)
-    @Step("Search Client")
+    @Test(priority = 2, description = "TC05_testSearchClient")
     public void testSearchClient() {
         dashboardPage = signInPage.signInWithAdminRole();
         clientPage = dashboardPage.openClientPage();
         clientPage.openClientTabPage();
         // Search the first
         clientPage.enterDataSearchClient("Schamberger Inc");
-        WebUI.checkContainsValueOnTableByColumn(2, "Schamberger Inc");
+        checkContainsValueOnTableByColumn(2, "Schamberger Inc");
         // Search the second
         clientPage.enterDataSearchClient("Kassulke LLC");
-        WebUI.checkContainsValueOnTableByColumn(2, "Kassulke LLC");
+        checkContainsValueOnTableByColumn(2, "Kassulke LLC");
 
     }
 

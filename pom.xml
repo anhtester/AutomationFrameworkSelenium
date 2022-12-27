@@ -16,14 +16,14 @@
         <java-compiler.version>11</java-compiler.version>
         <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-        <selenium.version>4.6.0</selenium.version>
+        <selenium.version>4.7.2</selenium.version>
         <testng.version>7.4.0</testng.version>
         <webdrivermanager.version>5.3.1</webdrivermanager.version>
-        <aspectjweaver.version>1.9.9.1</aspectjweaver.version>
+        <aspectjweaver.version>1.9.19</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <log4j.version>2.19.0</log4j.version>
-        <slf4j.version>2.0.4</slf4j.version>
-        <allure-testng.version>2.20.0</allure-testng.version>
+        <slf4j.version>2.0.6</slf4j.version>
+        <allure-testng.version>2.20.1</allure-testng.version>
         <allure-maven.version>2.12.0</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>

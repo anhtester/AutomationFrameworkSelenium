@@ -3,7 +3,7 @@
  * Automation Framework Selenium
  */
 
-package anhtester.com.keyword;
+package anhtester.com.keywords;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
@@ -589,11 +589,11 @@ public class WebUI {
     @Step("Get Current URL")
     public static String getCurrentUrl() {
         smartWait();
-        Log.info("Current Page Url: " + DriverManager.getDriver().getCurrentUrl());
+        Log.info("Get Current URL: " + DriverManager.getDriver().getCurrentUrl());
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.info("Current Page Url: " + DriverManager.getDriver().getCurrentUrl());
+            ExtentReportManager.info("Get Current URL: " + DriverManager.getDriver().getCurrentUrl());
         }
-        AllureManager.saveTextLog("Current Page Url: " + DriverManager.getDriver().getCurrentUrl());
+        AllureManager.saveTextLog("Get Current URL: " + DriverManager.getDriver().getCurrentUrl());
         return DriverManager.getDriver().getCurrentUrl();
     }
 
@@ -601,15 +601,15 @@ public class WebUI {
     public static String getPageTitle() {
         smartWait();
         String title = DriverManager.getDriver().getTitle();
-        Log.info("Current Page Title: " + DriverManager.getDriver().getTitle());
+        Log.info("Get Page Title: " + DriverManager.getDriver().getTitle());
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.info("Get Current Page Title: " + DriverManager.getDriver().getTitle());
+            ExtentReportManager.info("Get Page Title: " + DriverManager.getDriver().getTitle());
         }
-        AllureManager.saveTextLog("Get Current Page Title: " + DriverManager.getDriver().getTitle());
+        AllureManager.saveTextLog("Get Page Title: " + DriverManager.getDriver().getTitle());
         return title;
     }
 
-    public static boolean verifyPageTitle(String pageTitle) {
+    public static boolean getPageTitle(String pageTitle) {
         smartWait();
         return getPageTitle().equals(pageTitle);
     }
@@ -617,13 +617,6 @@ public class WebUI {
     public static boolean verifyPageContainsText(String text) {
         smartWait();
         return DriverManager.getDriver().getPageSource().contains(text);
-    }
-
-    @Step("Verify Page Url {0}")
-    public static boolean verifyPageUrl(String pageUrl) {
-        smartWait();
-        Log.info("Current URL: " + DriverManager.getDriver().getCurrentUrl());
-        return DriverManager.getDriver().getCurrentUrl().contains(pageUrl.trim());
     }
 
     //Handle checkbox and radio button
@@ -920,6 +913,128 @@ public class WebUI {
 
         }
         return res;
+    }
+
+    @Step("Verify Equals: {0} ---AND--- {1}")
+    public static boolean verifyEquals(Object value1, Object value2) {
+        boolean result = value1.equals(value2);
+        if (result == true) {
+            Log.info("Verify Equals: " + value1 + " = " + value2);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.pass("Verify Equals: " + value1 + " = " + value2);
+            }
+            AllureManager.saveTextLog("Verify Equals: " + value1 + " = " + value2);
+        } else {
+            Log.info("Verify Equals: " + value1 + " != " + value2);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.fail("Verify Equals: " + value1 + " != " + value2);
+            }
+            AllureManager.saveTextLog("Verify Equals: " + value1 + " != " + value2);
+            Assert.assertEquals(value1, value2, value1 + " != " + value2);
+        }
+        return result;
+    }
+
+    @Step("Verify Equals: {0} ---AND--- {1}")
+    public static boolean verifyEquals(Object value1, Object value2, String message) {
+        boolean result = value1.equals(value2);
+        if (result == true) {
+            Log.info("Verify Equals: " + value1 + " = " + value2);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.pass("Verify Equals: " + value1 + " = " + value2);
+            }
+            AllureManager.saveTextLog("Verify Equals: " + value1 + " = " + value2);
+        } else {
+            Log.info("Verify Equals: " + value1 + " != " + value2);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.fail("Verify Equals: " + value1 + " != " + value2);
+            }
+            AllureManager.saveTextLog("Verify Equals: " + value1 + " != " + value2);
+            Assert.assertEquals(value1, value2, message);
+        }
+        return result;
+    }
+
+    @Step("Verify Contains: {0} ---AND--- {1}")
+    public static boolean verifyContains(String value1, String value2) {
+        boolean result = value1.contains(value2);
+        if (result == true) {
+            Log.info("Verify Equals: " + value1 + " CONTAINS " + value2);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.pass("Verify Contains: " + value1 + " CONTAINS " + value2);
+            }
+            AllureManager.saveTextLog("Verify Contains: " + value1 + "CONTAINS" + value2);
+        } else {
+            Log.info("Verify Contains: " + value1 + " NOT CONTAINS " + value2);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.fail("Verify Contains: " + value1 + " NOT CONTAINS " + value2);
+            }
+            AllureManager.saveTextLog("Verify Contains: " + value1 + " NOT CONTAINS " + value2);
+
+            Assert.assertEquals(value1, value2, value1 + " NOT CONTAINS " + value2);
+        }
+        return result;
+    }
+
+    @Step("Verify Contains: {0} ---AND--- {1}")
+    public static boolean verifyContains(String value1, String value2, String message) {
+        boolean result = value1.contains(value2);
+        if (result == true) {
+            Log.info("Verify Equals: " + value1 + " CONTAINS " + value2);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.pass("Verify Contains: " + value1 + " CONTAINS " + value2);
+            }
+            AllureManager.saveTextLog("Verify Contains: " + value1 + "CONTAINS" + value2);
+        } else {
+            Log.info("Verify Contains: " + value1 + " NOT CONTAINS " + value2);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.fail("Verify Contains: " + value1 + " NOT CONTAINS " + value2);
+            }
+            AllureManager.saveTextLog("Verify Contains: " + value1 + " NOT CONTAINS " + value2);
+
+            Assert.assertEquals(value1, value2, message);
+        }
+        return result;
+    }
+
+    @Step("Verify TRUE with condition: {0}")
+    public static boolean verifyTrue(Boolean condition) {
+        if (condition == true) {
+            Log.info("Verify TRUE: " + condition);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.pass("Verify TRUE: " + condition);
+            }
+            AllureManager.saveTextLog("Verify TRUE: " + condition);
+        } else {
+            Log.info("Verify TRUE: " + condition);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.fail("Verify TRUE: " + condition);
+            }
+            AllureManager.saveTextLog("Verify TRUE: " + condition);
+
+            Assert.assertTrue(condition, "The condition is FALSE.");
+        }
+        return condition;
+    }
+
+    @Step("Verify TRUE with condition: {0}")
+    public static boolean verifyTrue(Boolean condition, String message) {
+        if (condition == true) {
+            Log.info("Verify TRUE: " + condition);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.pass("Verify TRUE: " + condition);
+            }
+            AllureManager.saveTextLog("Verify TRUE: " + condition);
+        } else {
+            Log.info("Verify TRUE: " + condition);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.fail("Verify TRUE: " + condition);
+            }
+            AllureManager.saveTextLog("Verify TRUE: " + condition);
+
+            Assert.assertTrue(condition, message);
+        }
+        return condition;
     }
 
     public static boolean verifyElementText(By by, String text) {
@@ -1917,7 +2032,7 @@ public class WebUI {
         smartWait();
         sleep(1);
         List<WebElement> totalRows = getWebElements(By.xpath("//tbody/tr"));
-        Log.info("Number of results for keyword (" + value + "): " + totalRows.size());
+        Log.info("Number of results for keywords (" + value + "): " + totalRows.size());
 
         if (totalRows.size() < 1) {
             Log.info("Not found value: " + value);
@@ -1943,7 +2058,7 @@ public class WebUI {
         smartWait();
         sleep(1);
         List<WebElement> totalRows = getWebElements(By.xpath("//tbody/tr"));
-        Log.info("Number of results for keyword (" + value + "): " + totalRows.size());
+        Log.info("Number of results for keywords (" + value + "): " + totalRows.size());
 
         if (totalRows.size() < 1) {
             Log.info("Not found value: " + value);
@@ -1972,7 +2087,7 @@ public class WebUI {
         //xpathToTRtagname is locator from table to "tr" tagname of data section: //tbody/tr, //div[@id='example_wrapper']//tbody/tr, ...
         List<WebElement> totalRows = DriverManager.getDriver().findElements(By.xpath(xpathToTRtagname));
         sleep(1);
-        Log.info("Number of results for keyword (" + value + "): " + totalRows.size());
+        Log.info("Number of results for keywords (" + value + "): " + totalRows.size());
 
         if (totalRows.size() < 1) {
             Log.info("Not found value: " + value);

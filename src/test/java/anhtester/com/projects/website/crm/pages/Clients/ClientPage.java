@@ -1,7 +1,10 @@
 package anhtester.com.projects.website.crm.pages.Clients;
 
 import anhtester.com.enums.FailureHandling;
-import anhtester.com.keyword.WebUI;
+import anhtester.com.keywords.WebUI;
+
+import static anhtester.com.keywords.WebUI.*;
+
 import anhtester.com.projects.website.crm.models.ClientModel;
 import anhtester.com.projects.website.crm.pages.CommonPage;
 import org.openqa.selenium.By;
