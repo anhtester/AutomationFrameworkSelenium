@@ -24,8 +24,7 @@ import java.util.Hashtable;
 @Feature("Sign In Test")
 public class SignInTest extends BaseTest {
 
-    @BeforeMethod
-    public void setupPage() {
+    public SignInTest() {
         signInPage = new SignInPage();
     }
 
