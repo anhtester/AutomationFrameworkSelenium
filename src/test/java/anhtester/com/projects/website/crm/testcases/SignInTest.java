@@ -45,7 +45,7 @@ public class SignInTest extends BaseTest {
     @Test(priority = 3, description = "TC03_signInTestClientRole")
     public void signInTestClientRole() {
         signInPage.signInWithClientRole();
-        verifyEquals(getPageTitle(), "Anh Tester");
+        verifyEquals(getPageTitle(), "Dashboard | RISE - Ultimate Project Manager and CRM");
 
     }
 
