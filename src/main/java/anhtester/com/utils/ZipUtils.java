@@ -13,6 +13,10 @@ import static anhtester.com.constants.FrameworkConstants.*;
 
 public class ZipUtils {
 
+    private ZipUtils() {
+        super();
+    }
+
     /* Make Zip file of Extent Reports in Project Root folder */
     public static void zip() {
         if (ZIP_FOLDER.toLowerCase().trim().equals(YES)) {

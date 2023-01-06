@@ -7,6 +7,7 @@ package anhtester.com.projects.website.crm.testcases;
 
 import anhtester.com.common.BaseTest;
 import anhtester.com.dataprovider.DataProviderManager;
+import anhtester.com.driver.DriverManager;
 import anhtester.com.keywords.WebUI;
 
 import static anhtester.com.keywords.WebUI.*;
@@ -15,6 +16,7 @@ import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -47,6 +49,15 @@ public class SignInTest extends BaseTest {
         signInPage.signInWithClientRole();
         verifyEquals(getPageTitle(), "Dashboard | RISE - Ultimate Project Manager and CRM");
 
+    }
+
+    @Test
+    public void testLoginCrmPerfex() {
+        getURL("https://crm.anhtester.com/admin/authentication");
+        clearAndFillText(By.xpath("//input[@id='email']"), "admin@example.com");
+        clearAndFillText(By.xpath("//input[@id='password']"), "123456");
+        clickElement(By.xpath("//button[normalize-space()='Login']"));
+        verifyEquals(getPageTitle(), "Dashboard");
     }
 
 }

@@ -18,6 +18,7 @@ import static anhtester.com.constants.FrameworkConstants.*;
 public final class ReportUtils {
 
     private ReportUtils() {
+        super();
     }
 
     public static String createExtentReportPath() {

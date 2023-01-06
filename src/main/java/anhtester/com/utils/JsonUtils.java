@@ -26,6 +26,7 @@ public class JsonUtils {
     private static Map<String, String> CONFIGMAP;
 
     private JsonUtils() {
+        super();
     }
 
     //Được sử dụng để khởi tạo thành viên dữ liệu static. (CONFIGMAP)

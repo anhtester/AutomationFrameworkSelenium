@@ -11,6 +11,10 @@ import org.openqa.selenium.html5.WebStorage;
 
 public class LocalStorageUtils {
 
+    private LocalStorageUtils() {
+        super();
+    }
+
     public static String getItem(String key) {
         LocalStorage localStorage = ((WebStorage) DriverManager.getDriver()).getLocalStorage();
         return localStorage.getItem(key);

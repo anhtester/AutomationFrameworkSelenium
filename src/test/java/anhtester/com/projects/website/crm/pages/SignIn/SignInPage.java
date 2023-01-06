@@ -33,6 +33,7 @@ public class SignInPage extends CommonPage {
     ExcelHelpers excelHelpers;
 
     public SignInPage() {
+        super();
         excelHelpers = new ExcelHelpers();
     }
 

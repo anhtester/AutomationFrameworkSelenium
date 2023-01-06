@@ -22,8 +22,7 @@ public class PropertiesHelpers {
     private static FileInputStream file;
     private static FileOutputStream out;
     private static String relPropertiesFilePathDefault = "src/test/resources/config/config.properties";
-
-    @Step("Loaded all properties files")
+    
     public static Properties loadAllFiles() {
         LinkedList<String> files = new LinkedList<>();
         // Add tất cả file Properties vào đây theo mẫu

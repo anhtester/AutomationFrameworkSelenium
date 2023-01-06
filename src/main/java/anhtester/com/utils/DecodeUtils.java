@@ -14,6 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
 public final class DecodeUtils {
 
     private DecodeUtils() {
+        super();
     }
 
     //Encrypt and Decrypt data

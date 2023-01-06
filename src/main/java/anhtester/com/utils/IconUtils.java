@@ -12,6 +12,7 @@ import static anhtester.com.constants.FrameworkConstants.*;
 public final class IconUtils {
 
     private IconUtils() {
+        super();
     }
 
     public static String getBrowserIcon() {

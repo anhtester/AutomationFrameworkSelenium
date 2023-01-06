@@ -11,6 +11,10 @@ import java.sql.SQLException;
 
 public class DatabaseHelpers {
 
+    public DatabaseHelpers() {
+        super();
+    }
+
     public static Connection getMySQLConnection(String hostName, String dbName, String userName, String password) throws SQLException {
 
         // Ví dụ: jdbc:mysql://localhost:3306/saleserp

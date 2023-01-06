@@ -14,7 +14,7 @@ import java.util.Hashtable;
 public class ClientPage extends CommonPage {
 
     public ClientPage() {
-
+        super();
     }
 
     public String pageText = "Total clients";

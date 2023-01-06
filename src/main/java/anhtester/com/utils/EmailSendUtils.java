@@ -15,6 +15,10 @@ import static anhtester.com.mail.EmailConfig.*;
 
 public class EmailSendUtils {
 
+    private EmailSendUtils() {
+        super();
+    }
+
     public static void sendEmail(int count_totalTCs, int count_passedTCs, int count_failedTCs, int count_skippedTCs) {
 
         if (FrameworkConstants.SEND_EMAIL_TO_USERS.trim().equalsIgnoreCase(FrameworkConstants.YES)) {

@@ -9,6 +9,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 public class LanguageUtils {
+
+    private LanguageUtils() {
+        super();
+    }
+
     private static final char[] SOURCE_CHARACTERS = {'À', 'Á', 'Â', 'Ã', 'È', 'É',
             'Ê', 'Ì', 'Í', 'Ò', 'Ó', 'Ô', 'Õ', 'Ù', 'Ú', 'Ý', 'à', 'á', 'â',
             'ã', 'è', 'é', 'ê', 'ì', 'í', 'ò', 'ó', 'ô', 'õ', 'ù', 'ú', 'ý',

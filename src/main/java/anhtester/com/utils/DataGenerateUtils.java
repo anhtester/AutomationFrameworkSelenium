@@ -11,6 +11,10 @@ import java.util.UUID;
 
 public class DataGenerateUtils {
 
+    private DataGenerateUtils() {
+        super();
+    }
+
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static SecureRandom random = new SecureRandom();
 

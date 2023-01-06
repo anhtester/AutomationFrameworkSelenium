@@ -6,6 +6,9 @@
         <parameter name="BROWSER" value="chrome"/>
         <classes>
             <class name="anhtester.com.projects.website.crm.testcases.SignInTest">
+                <methods>
+                    <include name="testLoginCrmPerfex"/>
+                </methods>
             </class>
         </classes>
     </test>

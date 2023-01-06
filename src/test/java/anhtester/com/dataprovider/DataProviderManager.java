@@ -18,6 +18,7 @@ import java.util.Hashtable;
 public final class DataProviderManager {
 
     private DataProviderManager() {
+        super();
     }
 
     @Test(dataProvider = "getSignInDataHashTable")

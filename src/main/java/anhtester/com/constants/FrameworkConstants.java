@@ -14,6 +14,7 @@ public final class FrameworkConstants {
 
     //private -> We do not want anyone to create the object of this class
     private FrameworkConstants() {
+        super();
     }
 
     public static final String PROJECT_PATH = Helpers.getCurrentDir();

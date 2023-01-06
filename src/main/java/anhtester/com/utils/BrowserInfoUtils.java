@@ -12,6 +12,7 @@ import static anhtester.com.constants.FrameworkConstants.BROWSER;
 public final class BrowserInfoUtils {
 
     private BrowserInfoUtils() {
+        super();
     }
 
     private static final String OS = System.getProperty("os.name").toLowerCase();

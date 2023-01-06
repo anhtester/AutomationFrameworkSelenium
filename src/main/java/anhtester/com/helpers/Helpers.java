@@ -14,6 +14,10 @@ import java.util.regex.Pattern;
 
 public final class Helpers {
 
+    public Helpers() {
+        super();
+    }
+
     private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
     private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
 

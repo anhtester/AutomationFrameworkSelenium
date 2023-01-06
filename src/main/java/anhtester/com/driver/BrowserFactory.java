@@ -7,6 +7,8 @@ package anhtester.com.driver;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.exceptions.HeadlessNotSupportedException;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.bonigarcia.wdm.config.DriverManagerType;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -25,7 +27,7 @@ public enum BrowserFactory {
     CHROME {
         @Override
         public WebDriver createDriver() {
-            //WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
+            WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
 
             return new ChromeDriver(getOptions());
         }
@@ -42,7 +44,7 @@ public enum BrowserFactory {
     }, FIREFOX {
         @Override
         public WebDriver createDriver() {
-            //WebDriverManager.getInstance(DriverManagerType.FIREFOX).setup();
+            WebDriverManager.getInstance(DriverManagerType.FIREFOX).setup();
 
             return new FirefoxDriver(getOptions());
         }
@@ -57,7 +59,7 @@ public enum BrowserFactory {
     }, EDGE {
         @Override
         public WebDriver createDriver() {
-            //WebDriverManager.getInstance(DriverManagerType.EDGE).setup();
+            WebDriverManager.getInstance(DriverManagerType.EDGE).setup();
 
             return new EdgeDriver(getOptions());
         }
@@ -72,7 +74,7 @@ public enum BrowserFactory {
     }, SAFARI {
         @Override
         public WebDriver createDriver() {
-            //WebDriverManager.getInstance(DriverManagerType.SAFARI).setup();
+            WebDriverManager.getInstance(DriverManagerType.SAFARI).setup();
 
             return new SafariDriver(getOptions());
         }

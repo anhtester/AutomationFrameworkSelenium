@@ -9,7 +9,11 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.List;
 
-public class TxtFileHelpers {
+public class FileHelpers {
+
+    public FileHelpers() {
+        super();
+    }
 
     public static void writeTxtFile(String filepath, String text) {
         try {

@@ -13,6 +13,7 @@ import org.openqa.selenium.By;
 public class DashboardPage extends CommonPage {
 
     public DashboardPage() {
+        super();
     }
 
     public String pageText = "Dashboard";
