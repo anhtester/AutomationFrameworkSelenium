@@ -22,6 +22,6 @@ jobs:
         distribution: 'adopt'
 
     - name: Publish to GitHub Packages Apache Maven
-      run: mvn --bacth-mode deloy
+      run: mvn deloy
       env:
         GITHUB_TOKEN: ${{ secrets.JAVA_TOKEN }}
