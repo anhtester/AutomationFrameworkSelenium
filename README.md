@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Java CI with Maven on Windows](https://github.com/anhtester/AutomationFrameworkSelenium/actions/workflows/maven.yml/badge.svg)](https://github.com/anhtester/AutomationFrameworkSelenium/actions/workflows/maven.yml)
 
-## Automation Framework Selenium Java with TestNG building by Anh Tester
+## Test Automation Framework Selenium Java with TestNG building by Anh Tester
 
 🔆 **SOME FEATURES IN FRAMEWORK**
 
@@ -114,7 +114,8 @@
 
 **8. Read data test from Excel file**
 
-- Create function with annotaion **DataProvider** on **src/test/java/anhtester/com/projects/website/crm/dataprovider/DataProviderManager.java**
+- Create function with annotaion **DataProvider** on *
+  *src/test/java/anhtester/com/projects/website/crm/dataprovider/DataProviderManager.java**
 - Read excel with Map and Hashtable
 
 **9. Base function in the package**
@@ -221,7 +222,6 @@ theo: https://www.selenium.dev/documentation/webdriver/getting_started/install_d
 ![image](https://user-images.githubusercontent.com/87883620/200506279-e1496849-70ab-4602-be44-0f44926ab826.png)
 
 ![image](https://user-images.githubusercontent.com/87883620/200506218-dbe10f1c-7e65-47e4-a7ac-f29a2b2db43b.png)
-
 
 ### 🔆 Project structure
 
