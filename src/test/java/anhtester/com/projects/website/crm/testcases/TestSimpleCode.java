@@ -73,15 +73,6 @@ public class TestSimpleCode {
     }
 
     @Test
-    public void testGetAndSetPropertiesFile() {
-        PropertiesHelpers.loadAllFiles();
-
-        WebUI.logConsole(PropertiesHelpers.getValue("BROWSER"));
-        WebUI.logConsole(PropertiesHelpers.getValue("buttonTag"));
-        WebUI.logConsole(PropertiesHelpers.getValue("buttonDangNhap"));
-    }
-
-    @Test
     public void testSplitString() {
         String s1 = "Automation, Testing, Selenium, Java";
 
@@ -112,7 +103,7 @@ public class TestSimpleCode {
         WebUI.logConsole(PropertiesHelpers.getValue("URL_CRM"));
         WebUI.logConsole(PropertiesHelpers.getValue("AUTHOR"));
         WebUI.logConsole(Helpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH"));
-//        PropertiesHelpers.setFile("src/test/resources/config/datatest.properties");
+//        PropertiesHelpers.setFile("src/test/resources/config/data.properties");
 //        PropertiesHelpers.setValue("base_url", "https://anhtetser.com");
     }
 
@@ -146,45 +137,38 @@ public class TestSimpleCode {
     public void testExcelFile2() throws Exception {
         PropertiesHelpers.loadAllFiles();
         ExcelHelpers excelHelpers = new ExcelHelpers();
-        WebUI.logConsole(excelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignInModel", 1, 2));
+        WebUI.logConsole(excelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn", 1, 2));
     }
 
-    @Test
-    public void connectDBMySQL() throws SQLException, ClassNotFoundException {
-        //Này connect DB mẫu Free. Các bạn dùng thằng khác thì đổi thông tin connect mẫu bên dưới là được.
-//        https://www.phpmyadmin.co/
-//        Host: sql6.freesqldatabase.com
-//        Database name: sql6464696
-//        Database user: sql6464696
-//        Database password: LIAGIkgd44
-//        Port number: 3306
-
-        Connection connection = DatabaseHelpers.getMySQLConnection("sql6.freesqldatabase.com", "sql6464696", "sql6464696", "LIAGIkgd44");
-
-        // Tạo đối tượng Statement.
-        Statement statement = connection.createStatement();
-
-        String sql = "SELECT * FROM `company`";
-
-        // Thực thi câu lệnh SQL trả về đối tượng ResultSet.
-        ResultSet rs = statement.executeQuery(sql);
-
-        WebUI.logConsole(rs);
-
-        // Duyệt trên kết quả trả về.
-        while (rs.next()) {// Di chuyển con trỏ xuống bản ghi kế tiếp.
-            int Id = rs.getInt(1);
-            String COMPANY_ID = rs.getString("COMPANY_ID");
-            String COMPANY_NAME = rs.getString("COMPANY_NAME");
-            String COMPANY_CITY = rs.getString("COMPANY_CITY");
-            WebUI.logConsole("--------------------");
-            WebUI.logConsole("COMPANY_ID:" + COMPANY_ID);
-            WebUI.logConsole("COMPANY_NAME:" + COMPANY_NAME);
-            WebUI.logConsole("COMPANY_CITY:" + COMPANY_CITY);
-        }
-
-        // Đóng kết nối
-        connection.close();
-    }
+//    @Test
+//    public void connectDBMySQL() throws SQLException, ClassNotFoundException {
+//
+//        Connection connection = DatabaseHelpers.getMySQLConnection("sql6.freesqldatabase.com", "sql6464696", "sql6464696", "LIAGIkgd44");
+//
+//        // Tạo đối tượng Statement.
+//        Statement statement = connection.createStatement();
+//
+//        String sql = "SELECT * FROM `company`";
+//
+//        // Thực thi câu lệnh SQL trả về đối tượng ResultSet.
+//        ResultSet rs = statement.executeQuery(sql);
+//
+//        WebUI.logConsole(rs);
+//
+//        // Duyệt trên kết quả trả về.
+//        while (rs.next()) {// Di chuyển con trỏ xuống bản ghi kế tiếp.
+//            int Id = rs.getInt(1);
+//            String COMPANY_ID = rs.getString("COMPANY_ID");
+//            String COMPANY_NAME = rs.getString("COMPANY_NAME");
+//            String COMPANY_CITY = rs.getString("COMPANY_CITY");
+//            WebUI.logConsole("--------------------");
+//            WebUI.logConsole("COMPANY_ID:" + COMPANY_ID);
+//            WebUI.logConsole("COMPANY_NAME:" + COMPANY_NAME);
+//            WebUI.logConsole("COMPANY_CITY:" + COMPANY_CITY);
+//        }
+//
+//        // Đóng kết nối
+//        connection.close();
+//    }
 
 }

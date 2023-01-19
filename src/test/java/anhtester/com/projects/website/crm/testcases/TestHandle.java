@@ -42,6 +42,8 @@ public class TestHandle {
     public void setupDriver() {
         driver = new BaseTest().createBrowser("chrome"); //Initialization method 1
         // new BaseTest().createDriver("chrome"); //Initialization method 2
+
+        driver.manage().window().maximize();
     }
 
     @AfterMethod
@@ -102,7 +104,7 @@ public class TestHandle {
 
         //Set key=value in Sign in page
         LocalStorageUtils.setItem("email", "admin@demo.com");
-        LocalStorageUtils.setItem("password", "riseDemo");
+        LocalStorageUtils.setItem("PASSWORD", "riseDemo");
 
         By inputEmail = By.xpath("//input[@id='email']");
         By inputPassword = By.xpath("//input[@id='password']");
@@ -112,14 +114,14 @@ public class TestHandle {
 
         //Get data from Local Storage was set above
         WebUI.clearAndFillText(inputEmail, LocalStorageUtils.getItem("email"));
-        WebUI.clearAndFillText(inputPassword, LocalStorageUtils.getItem("password"));
+        WebUI.clearAndFillText(inputPassword, LocalStorageUtils.getItem("PASSWORD"));
         WebUI.clickElement(buttonSignIn);
         WebUI.waitForPageLoaded();
 
         //Get value from Local Storage in Clients page
         WebUI.clickElement(menuClients);
         WebUI.waitForPageLoaded();
-        WebUI.logConsole(LocalStorageUtils.getItem("password"));
+        WebUI.logConsole(LocalStorageUtils.getItem("PASSWORD"));
 
         //Get value from Local Storage in Projects page
         WebUI.clickElement(menuProjects);
@@ -133,7 +135,6 @@ public class TestHandle {
     public void handleHTML5ValidationMessage() {
         WebUI.getURL("https://anhtester.com/login");
         WebUI.waitForPageLoaded();
-        WebUI.sleep(1);
 
         By button_Login = By.id("login");
         By input_Email = By.xpath("//input[@placeholder='Email']");
@@ -142,13 +143,13 @@ public class TestHandle {
 
         WebUI.logConsole("Verify required field: " + WebUI.verifyHTML5RequiredField(input_Email));
 
-        WebUI.sleep(1);
+        WebUI.sleep(2);
 
         WebUI.logConsole("Message from field: " + WebUI.getHTML5MessageField(input_Email));
         Assert.assertEquals("Please fill out this field.", WebUI.getHTML5MessageField(input_Email));
 
         WebUI.setText(input_Email, "abc@ ");
-        WebUI.sleep(1);
+        WebUI.sleep(2);
         WebUI.logConsole("Verify valid value: " + WebUI.verifyHTML5ValidValueField(input_Email));
         WebUI.logConsole("Message from field: " + WebUI.getHTML5MessageField(input_Email));
 
@@ -266,10 +267,11 @@ public class TestHandle {
 
     @Test
     public void handleNotificationsBrowser() {
-        driver = new ChromeDriver(WebUI.notificationsBlock()); //
+        WebDriver driver = new ChromeDriver(WebUI.notificationsBlock()); //
         driver.manage().window().maximize();
         WebUI.getURL("https://oto.com.vn/mua-ban-xe");
         WebUI.sleep(4);
+        driver.quit();
     }
 
     @Test
@@ -355,7 +357,7 @@ public class TestHandle {
         String originalWindow = driver.getWindowHandle();
 
         WebUI.setText(By.id("email"), "admin@gmail.com");
-        WebUI.setText(By.id("password"), "123456");
+        WebUI.setText(By.id("PASSWORD"), "123456");
         WebUI.clickElement(By.xpath("//button[normalize-space()='Login']"));
         WebUI.waitForPageLoaded();
         WebUI.clickElement(By.xpath("//span[normalize-space()='Sale']"));

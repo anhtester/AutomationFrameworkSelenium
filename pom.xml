@@ -6,7 +6,7 @@
 
     <groupId>com.anhtester.core</groupId>
     <artifactId>anhtester-selenium-java</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <packaging>jar</packaging>
     <name>AutomationFrameworkSelenium</name>
     <url>https://github.com/anhtester/AutomationFrameworkSelenium</url>
@@ -14,7 +14,7 @@
 
     <distributionManagement>
         <repository>
-            <id>github</id>
+            <id>anhtester</id>
             <name>AutomationFrameworkSelenium</name>
             <url>https://maven.pkg.github.com/anhtester/AutomationFrameworkSelenium</url>
         </repository>
@@ -33,7 +33,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java-compiler.version>11</java-compiler.version>
-        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M8</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <selenium.version>4.7.2</selenium.version>
         <testng.version>7.4.0</testng.version>
