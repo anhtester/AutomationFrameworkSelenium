@@ -163,6 +163,7 @@ public class WebUI {
         return check;
     }
 
+    
     public static Boolean verifyDownloadFileEqualsNameCompletedWaitTimeout(String fileName, int timeoutSeconds) {
         boolean check = false;
         int i = 0;
@@ -207,7 +208,8 @@ public class WebUI {
         }
     }
 
-    public static Boolean verifyFileDownloadedWithJS(String fileName) {
+    @Step("Verify File Downloaded With JS [Equals]: {0}")
+    public static Boolean verifyFileDownloadedWithJS_Equals(String fileName) {
         getURL("chrome://downloads");
         sleep(3);
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
@@ -216,6 +218,22 @@ public class WebUI {
         Log.info(element);
         Log.info(file.getName());
         if (file.exists() && file.getName().trim().equals(fileName)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Step("Verify File Downloaded With JS [Contains]: {0}")
+    public static Boolean verifyFileDownloadedWithJS_Contains(String fileName) {
+        getURL("chrome://downloads");
+        sleep(3);
+        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+        String element = (String) js.executeScript("return document.querySelector('downloads-manager').shadowRoot.querySelector('#downloadsList downloads-item').shadowRoot.querySelector('#show').getAttribute('title')");
+        File file = new File(element);
+        Log.info(element);
+        Log.info(file.getName());
+        if (file.exists() && file.getName().trim().contains(fileName)) {
             return true;
         } else {
             return false;

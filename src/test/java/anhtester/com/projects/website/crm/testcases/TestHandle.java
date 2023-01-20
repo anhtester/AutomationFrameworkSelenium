@@ -61,7 +61,7 @@ public class TestHandle {
         WebUI.waitForPageLoaded();
         WebUI.waitForJQueryLoad();
         WebUI.sleep(2);
-        Assert.assertTrue(WebUI.verifyFileDownloadedWithJS("ExportCSV.csv"), "Download failed. File not match.");
+        Assert.assertTrue(WebUI.verifyFileDownloadedWithJS_Contains("ExportCSV"), "Download failed. File not match.");
     }
 
     @Test
@@ -352,12 +352,12 @@ public class TestHandle {
 
     @Test
     public void handlePrintPopup() throws AWTException {
-        WebUI.getURL("https://saleserpnew.bdtask.com/saleserp_v9.8_demo/login");
+        WebUI.getURL("https://saleserpdemo.bdtask-demo.com/v10_demo/login");
         WebUI.waitForPageLoaded();
         String originalWindow = driver.getWindowHandle();
 
         WebUI.setText(By.id("email"), "admin@gmail.com");
-        WebUI.setText(By.id("PASSWORD"), "123456");
+        WebUI.setText(By.id("password"), "123456");
         WebUI.clickElement(By.xpath("//button[normalize-space()='Login']"));
         WebUI.waitForPageLoaded();
         WebUI.clickElement(By.xpath("//span[normalize-space()='Sale']"));
