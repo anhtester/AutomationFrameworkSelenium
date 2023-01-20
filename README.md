@@ -179,32 +179,32 @@
 
 (tải bản Latest stable version)
 
-**selenium-server-4.6.0.jar** (updated 04/11/2022)
+**selenium-server-4.7.2.jar** (updated 13/12/2022)
 
 2. Thiết đặt PATH cho driver của từng Browser:
 
 Xem link làm
 theo: https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/#2-the-path-environment-variable
 
-🔆 Đặt file **selenium-server-4.6.0.jar** vào thư mục nào đó và mở CMD tại thư mục đó lên
+🔆 Đặt file **selenium-server-4.7.2.jar** vào thư mục nào đó và mở CMD tại thư mục đó lên
 
 ### ---------------------- Run default -------------------
 
 ✅ Mở 1 hub với 1 node mặc định (port 4444)
 
-> java -jar selenium-server-4.6.0.jar standalone
+> java -jar selenium-server-4.7.2.jar standalone
 
 ### -------------------- Run multi Node ----------------
 
 ✅ Mở 1 hub với 3 node: (chạy 4 lệnh mở 4 CMD nhé)
 
-> java -jar selenium-server-4.6.0.jar hub
+> java -jar selenium-server-4.7.2.jar hub
 
-> java -jar selenium-server-4.6.0.jar node --port 5556
+> java -jar selenium-server-4.7.2.jar node --port 5556
 
-> java -jar selenium-server-4.6.0.jar node --port 6667
+> java -jar selenium-server-4.7.2.jar node --port 6667
 
-> java -jar selenium-server-4.6.0.jar node --port 7778
+> java -jar selenium-server-4.7.2.jar node --port 7778
 
 
 **NOTE: Thực thi nhiều lệnh thì mở nhiều CMD**

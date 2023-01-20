@@ -38,6 +38,7 @@ public class SignInPage extends CommonPage {
     }
 
     public DashboardPage signInWithAdminRole() {
+        ExcelHelpers excelHelpers = new ExcelHelpers();
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
         getURL(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");
@@ -54,6 +55,7 @@ public class SignInPage extends CommonPage {
     }
 
     public DashboardPage signInWithClientRole() {
+        ExcelHelpers excelHelpers = new ExcelHelpers();
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
         getURL(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");
