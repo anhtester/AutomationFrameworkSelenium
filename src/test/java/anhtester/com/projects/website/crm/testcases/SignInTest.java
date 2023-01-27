@@ -56,7 +56,7 @@ public class SignInTest extends BaseTest {
 
     }
 
-    @Test
+    @Test(priority = 4, description = "TC04_testLoginCrmPerfex")
     public void testLoginCrmPerfex() {
         getURL("https://crm.anhtester.com/admin/authentication");
         clearAndFillText(By.xpath("//input[@id='email']"), "admin@example.com");
