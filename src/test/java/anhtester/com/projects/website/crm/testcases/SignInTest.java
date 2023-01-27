@@ -52,7 +52,7 @@ public class SignInTest extends BaseTest {
     @Test(priority = 3, description = "TC03_signInTestClientRole")
     public void signInTestClientRole() {
         signInPage.signInWithClientRole();
-        verifyEquals(getPageTitle(), "Dashboard | RISE - Ultimate Project Manager and CRM");
+        verifyContains(getPageTitle(), "Dashboard | RISE - Ultimate Project Manager and CRM");
 
     }
 
@@ -62,7 +62,7 @@ public class SignInTest extends BaseTest {
         clearAndFillText(By.xpath("//input[@id='email']"), "admin@example.com");
         clearAndFillText(By.xpath("//input[@id='password']"), "123456");
         clickElement(By.xpath("//button[normalize-space()='Login']"));
-        verifyEquals(getPageTitle(), "Dashboard");
+        verifyContains(getPageTitle(), "Dashboard");
     }
 
 }

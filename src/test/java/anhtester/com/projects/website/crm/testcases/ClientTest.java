@@ -32,7 +32,7 @@ public class ClientTest extends BaseTest {
     }
 
     @FrameworkAnnotation(author = {AuthorType.AnhTester, AuthorType.Robert}, category = {CategoryType.REGRESSION})
-    @Test(priority = 1, description = "TC04_testAddClient", dataProvider = "getClientDataHashTable", dataProviderClass = DataProviderManager.class)
+    @Test(priority = 1, description = "TC05_testAddClient", dataProvider = "getClientDataHashTable", dataProviderClass = DataProviderManager.class)
     public void testAddClient(Hashtable<String, String> data) {
         dashboardPage = signInPage.signInWithAdminRole();
         clientPage = dashboardPage.openClientPage();
@@ -41,7 +41,7 @@ public class ClientTest extends BaseTest {
     }
 
     @FrameworkAnnotation(author = {AuthorType.James}, category = {CategoryType.SANITY, CategoryType.REGRESSION})
-    @Test(priority = 2, description = "TC05_testSearchClient")
+    @Test(priority = 2, description = "TC06_testSearchClient")
     public void testSearchClient() {
         dashboardPage = signInPage.signInWithAdminRole();
         clientPage = dashboardPage.openClientPage();
