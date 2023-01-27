@@ -3,6 +3,7 @@ package anhtester.com.common;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.driver.TargetFactory;
 import anhtester.com.helpers.PropertiesHelpers;
+import anhtester.com.listeners.AllureListener;
 import anhtester.com.listeners.TestListener;
 import anhtester.com.projects.website.crm.pages.CommonPage;
 import io.github.bonigarcia.wdm.WebDriverManager;

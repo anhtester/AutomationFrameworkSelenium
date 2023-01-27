@@ -7,8 +7,10 @@ public class ConfigFactory {
     private ConfigFactory() {
     }
 
-    public static Configuration getConfig() {
+    public static Configuration getConfigs() {
         return ConfigCache.getOrCreate(Configuration.class);
+
     }
+
 }
 

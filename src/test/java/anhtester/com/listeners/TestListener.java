@@ -1,8 +1,10 @@
 package anhtester.com.listeners;
 
 import anhtester.com.annotations.FrameworkAnnotation;
+import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.enums.AuthorType;
+import anhtester.com.enums.Browser;
 import anhtester.com.enums.CategoryType;
 import anhtester.com.helpers.CaptureHelpers;
 import anhtester.com.helpers.PropertiesHelpers;
@@ -16,16 +18,20 @@ import anhtester.com.utils.EmailSendUtils;
 import anhtester.com.utils.Log;
 import anhtester.com.utils.ZipUtils;
 import com.aventstack.extentreports.Status;
-import io.qameta.allure.listener.TestLifecycleListener;
+import com.github.automatedowl.tools.AllureEnvironmentWriter;
+import com.google.common.collect.ImmutableMap;
 import io.qameta.allure.model.TestResult;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.*;
 
 import java.awt.*;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import static anhtester.com.constants.FrameworkConstants.*;
 
-public class TestListener implements ITestListener, ISuiteListener, IInvokedMethodListener, TestLifecycleListener {
+public class TestListener implements ITestListener, ISuiteListener, IInvokedMethodListener {
 
     static int count_totalTCs;
     static int count_passedTCs;
@@ -65,7 +71,6 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void onStart(ISuite iSuite) {
-        System.out.println("");
         System.out.println("========= INSTALLING CONFIGURATION DATA =========");
         PropertiesHelpers.loadAllFiles();
         AllureManager.setAllureEnvironmentInformation();
@@ -73,27 +78,38 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         System.out.println("========= INSTALLED CONFIGURATION DATA =========");
         System.out.println("");
         Log.info("Starting Suite: " + iSuite.getName());
-
-//        //Gọi hàm startRecord video trong CaptureHelpers class
-//        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
-//            CaptureHelpers.startRecord(iSuite.getName());
-//        }
     }
 
     @Override
     public void onFinish(ISuite iSuite) {
         Log.info("End Suite: " + iSuite.getName());
         WebUI.stopSoftAssertAll();
-        //Kết thúc Suite và thực thi Extents Report, đóng gói Folder report và send mail
+        //End Suite and execute Extents Report
         ExtentReportManager.flushReports();
+        //Zip Folder report
         ZipUtils.zip();
+        //Send notification to Telegram
         TelegramManager.sendReportPath();
+        //Send mail
         EmailSendUtils.sendEmail(count_totalTCs, count_passedTCs, count_failedTCs, count_skippedTCs);
 
-        //Gọi hàm stopRecord video trong CaptureHelpers class
-//        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
-//            CaptureHelpers.stopRecord();
-//        }
+        //Write information in Allure Report
+        AllureEnvironmentWriter.allureEnvironmentWriter(
+                ImmutableMap.<String, String>builder().
+                        put("Test URL", FrameworkConstants.URL_CRM).
+                        put("Target Execution", FrameworkConstants.TARGET).
+                        put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT)).
+                        put("Page Load Timeout", String.valueOf(FrameworkConstants.WAIT_PAGE_LOADED)).
+                        put("Headless Mode", FrameworkConstants.HEADLESS).
+                        put("Local Browser", String.valueOf(Browser.CHROME)).
+                        put("Remote URL", FrameworkConstants.REMOTE_URL).
+                        put("Remote Port", FrameworkConstants.REMOTE_PORT).
+                        put("TCs Total", String.valueOf(count_totalTCs)).
+                        put("TCs Passed", String.valueOf(count_passedTCs)).
+                        put("TCs Skipped", String.valueOf(count_skippedTCs)).
+                        put("TCs Failed", String.valueOf(count_failedTCs)).
+                        build());
+
     }
 
     public AuthorType[] getAuthorType(ITestResult iTestResult) {
@@ -195,12 +211,5 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.error("Test failed but it is in defined success ratio: " + getTestDescription(iTestResult));
         ExtentReportManager.logMessage("Test failed but it is in defined success ratio: " + getTestDescription(iTestResult));
     }
-
-//    @Override
-//    public void beforeTestStop(TestResult result) {
-//        if (result.getStatus().equals(Status.FAIL) || result.getStatus().equals(Status.SKIP)) {
-//            AllureManager.takeScreenshotStep();
-//        }
-//    }
 
 }

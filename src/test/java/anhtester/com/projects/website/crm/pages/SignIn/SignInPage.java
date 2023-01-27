@@ -2,8 +2,10 @@ package anhtester.com.projects.website.crm.pages.SignIn;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.helpers.ExcelHelpers;
+import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.keywords.WebUI;
 
+import static anhtester.com.config.ConfigFactory.getConfigs;
 import static anhtester.com.keywords.WebUI.*;
 
 import anhtester.com.projects.website.crm.models.SignInModel;
@@ -29,15 +31,11 @@ public class SignInPage extends CommonPage {
     public By labelEmailError = By.xpath("//span[@id='email-error']");
     public By labelPasswordError = By.xpath("//span[@id='password-error']");
 
-
-    ExcelHelpers excelHelpers;
-
     public SignInPage() {
-        super();
-        excelHelpers = new ExcelHelpers();
     }
 
     public DashboardPage signInWithAdminRole() {
+        ExcelHelpers excelHelpers = new ExcelHelpers();
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
         getURL(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");
@@ -54,6 +52,7 @@ public class SignInPage extends CommonPage {
     }
 
     public DashboardPage signInWithClientRole() {
+        ExcelHelpers excelHelpers = new ExcelHelpers();
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
         getURL(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");

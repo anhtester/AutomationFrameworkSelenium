@@ -31,14 +31,12 @@ public class ExcelHelpers {
     private Map<String, Integer> columns = new HashMap<>();
 
     public ExcelHelpers() {
-        super();
-        PropertiesHelpers.loadAllFiles();
     }
 
-    //    Set Excel file
+    //Set Excel File
     public void setExcelFile(String excelPath, String sheetName) {
-        Log.info("Set Excel file " + excelPath);
-        Log.info("Selected Sheet: " + sheetName);
+        Log.info("Set Excel File: " + excelPath);
+        Log.info("Sheet Name: " + sheetName);
 
         try {
             File f = new File(excelPath);
@@ -65,7 +63,7 @@ public class ExcelHelpers {
             sheet = workbook.getSheet(sheetName);
             //sh = wb.getSheetAt(0); //0 - index of 1st sheet
             if (sheet == null) {
-//                sh = wb.createSheet(sheetName);
+                //sh = wb.createSheet(sheetName);
                 try {
                     Log.info("Sheet name not found.");
                     throw new InvalidPathForExcelException("Sheet name not found.");
@@ -172,7 +170,7 @@ public class ExcelHelpers {
 
     public Object[][] getDataHashTable(String excelPath, String sheetName, int startRow, int endRow) {
         Log.info("Excel File: " + excelPath);
-        Log.info("Selected Sheet: " + sheetName);
+        Log.info("Sheet Name: " + sheetName);
 
         Object[][] data = null;
 

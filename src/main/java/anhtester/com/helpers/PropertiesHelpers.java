@@ -40,11 +40,18 @@ public class PropertiesHelpers {
                 tempProp.load(file);
                 properties.putAll(tempProp);
             }
+            file.close();
             Log.info("Loaded all properties files.");
+            Log.info(properties);
             return properties;
-        } catch (IOException ioe) {
+        } catch (IOException e) {
+            Log.info("Warning !! Can not Load All File.");
             return new Properties();
         }
+    }
+
+    public static Properties getProperties() {
+        return properties;
     }
 
     public static void setFile(String relPropertiesFilePath) {
@@ -72,9 +79,9 @@ public class PropertiesHelpers {
     }
 
     public static String getValue(String key) {
-        String keyval = null;
+        String keyValue = null;
         try {
-            if (file == null) {
+            if (file == null && properties == null) {
                 properties = new Properties();
                 linkFile = Helpers.getCurrentDir() + relPropertiesFilePathDefault;
                 file = new FileInputStream(linkFile);
@@ -82,12 +89,12 @@ public class PropertiesHelpers {
                 file.close();
             }
             // Lấy giá trị từ file đã Set
-            keyval = properties.getProperty(key);
-            return LanguageUtils.convertCharset_ISO_8859_1_To_UTF8(keyval);
+            keyValue = properties.getProperty(key);
+            return LanguageUtils.convertCharset_ISO_8859_1_To_UTF8(keyValue);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return keyValue;
         }
-        return keyval;
     }
 
     public static void setValue(String key, String keyValue) {
@@ -103,7 +110,7 @@ public class PropertiesHelpers {
             out = new FileOutputStream(linkFile);
             System.out.println(linkFile);
             properties.setProperty(key, keyValue);
-            properties.store(out, null);
+            properties.store(out, "Set value to properties file success.");
             out.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());

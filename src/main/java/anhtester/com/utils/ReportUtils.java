@@ -15,22 +15,23 @@ import java.io.IOException;
 
 import static anhtester.com.constants.FrameworkConstants.*;
 
-public final class ReportUtils {
+public class ReportUtils {
 
     private ReportUtils() {
-        super();
+        
     }
 
     public static String createExtentReportPath() {
         String link = "";
         if (OVERRIDE_REPORTS.trim().equals(NO)) {
             System.out.println("OVERRIDE_REPORTS = " + OVERRIDE_REPORTS);
-            link = EXTENT_REPORT_FOLDER_PATH + "/" + DateUtils.getCurrentDate() + "_"
+            link = EXTENT_REPORT_FOLDER_PATH + File.separator + DateUtils.getCurrentDate() + "_"
                     + EXTENT_REPORT_FILE_NAME;
             System.out.println("Created link report: " + link);
             return link;
         } else {
-            link = EXTENT_REPORT_FOLDER_PATH + "/" + EXTENT_REPORT_FILE_NAME;
+            System.out.println("OVERRIDE_REPORTS = " + OVERRIDE_REPORTS);
+            link = EXTENT_REPORT_FOLDER_PATH + File.separator + EXTENT_REPORT_FILE_NAME;
             System.out.println("Created link report: " + link);
             return link;
         }

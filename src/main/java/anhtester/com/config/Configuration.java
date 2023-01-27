@@ -1,34 +1,37 @@
 package anhtester.com.config;
 
 import org.aeonbits.owner.Config;
+import org.aeonbits.owner.Config.Sources;
 import org.aeonbits.owner.Config.LoadPolicy;
 import org.aeonbits.owner.Config.LoadType;
 
 @LoadPolicy(LoadType.MERGE)
-@Config.Sources({
-        "system:properties",
-        "classpath:config.properties",
-        "classpath:datatest.properties",
-})
+@Sources({"system:properties",
+        "system:env",
+        "file:./src/test/resources/config/config.properties",
+        "file:./src/test/resources/config/data.properties"})
 
 public interface Configuration extends Config {
 
     @Key("TARGET")
-    String target();
+    String TARGET();
 
     @Key("BROWSER")
-    String browser();
+    String BROWSER();
 
     @Key("HEADLESS")
-    Boolean headless();
+    Boolean HEADLESS();
 
     @Key("URL_CRM")
-    String baseUrl();
+    String URL_CRM();
 
     @Key("REMOTE_URL")
-    String gridUrl();
+    String REMOTE_URL();
 
     @Key("REMOTE_PORT")
-    String gridPort();
+    String REMOTE_PORT();
+
+    @Key("EXCEL_DATA_FILE_PATH")
+    String EXCEL_DATA_FILE_PATH();
 
 }

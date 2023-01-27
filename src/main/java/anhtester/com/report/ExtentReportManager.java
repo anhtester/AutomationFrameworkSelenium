@@ -25,7 +25,7 @@ import java.util.Objects;
 
 import static anhtester.com.constants.FrameworkConstants.*;
 
-public final class ExtentReportManager {
+public class ExtentReportManager {
 
     private static ExtentReports extentReports;
     private static String link = "";
@@ -35,12 +35,13 @@ public final class ExtentReportManager {
             extentReports = new ExtentReports();
 
             if (OVERRIDE_REPORTS.trim().equals(NO)) {
-                System.out.println("OVERRIDE_REPORTS = " + OVERRIDE_REPORTS);
-                link = EXTENT_REPORT_FOLDER_PATH + "/" + DateUtils.getCurrentDateTimeCustom("_") + "_" + EXTENT_REPORT_FILE_NAME;
-                System.out.println("link report:" + link);
+                System.out.println("OVERRIDE EXTENT REPORTS = " + OVERRIDE_REPORTS);
+                link = EXTENT_REPORT_FOLDER_PATH + File.separator + DateUtils.getCurrentDateTimeCustom("_") + "_" + EXTENT_REPORT_FILE_NAME;
+                System.out.println("Link Extent Report: " + link);
             } else {
+                System.out.println("OVERRIDE EXTENT REPORTS = " + OVERRIDE_REPORTS);
                 link = EXTENT_REPORT_FILE_PATH;
-                System.out.println("link report:" + link);
+                System.out.println("Link Extent Report: " + link);
             }
 
             ExtentPDFReporter pdf = new ExtentPDFReporter("reports/ExtentReports/PdfReport.pdf");

@@ -8,6 +8,7 @@ package anhtester.com.projects.website.crm.testcases;
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.helpers.*;
 import anhtester.com.keywords.WebUI;
+import anhtester.com.projects.website.crm.models.SignInModel;
 import anhtester.com.report.TelegramManager;
 import anhtester.com.utils.*;
 import org.testng.annotations.Test;
@@ -16,6 +17,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import static anhtester.com.config.ConfigFactory.getConfigs;
+import static anhtester.com.keywords.WebUI.*;
 
 public class TestSimpleCode {
 
@@ -102,6 +106,7 @@ public class TestSimpleCode {
         WebUI.logConsole(PropertiesHelpers.getValue("BROWSER"));
         WebUI.logConsole(PropertiesHelpers.getValue("URL_CRM"));
         WebUI.logConsole(PropertiesHelpers.getValue("AUTHOR"));
+        WebUI.logConsole(FrameworkConstants.EXCEL_DATA_FILE_PATH);
         WebUI.logConsole(Helpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH"));
 //        PropertiesHelpers.setFile("src/test/resources/config/data.properties");
 //        PropertiesHelpers.setValue("base_url", "https://anhtetser.com");

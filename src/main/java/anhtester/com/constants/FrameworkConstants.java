@@ -9,12 +9,16 @@ import anhtester.com.helpers.Helpers;
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.utils.ReportUtils;
 
-//final -> We do not want any class to extend this class
+import java.io.File;
+
 public final class FrameworkConstants {
 
-    //private -> We do not want anyone to create the object of this class
     private FrameworkConstants() {
-        super();
+    }
+
+    static {
+        PropertiesHelpers.loadAllFiles();
+        System.out.println("Data From FrameworkConstants: " + PropertiesHelpers.getProperties());
     }
 
     public static final String PROJECT_PATH = Helpers.getCurrentDir();
@@ -58,7 +62,7 @@ public final class FrameworkConstants {
 
     public static final String EXTENT_REPORT_FOLDER_PATH = PROJECT_PATH + EXTENT_REPORT_FOLDER;
     public static final String EXTENT_REPORT_FILE_NAME = EXTENT_REPORT_NAME + ".html";
-    public static String EXTENT_REPORT_FILE_PATH = EXTENT_REPORT_FOLDER_PATH + "/" + EXTENT_REPORT_FILE_NAME;
+    public static String EXTENT_REPORT_FILE_PATH = EXTENT_REPORT_FOLDER_PATH + File.separator + EXTENT_REPORT_FILE_NAME;
 
     //Zip file for Report folder
     public static final String ZIPPED_EXTENT_REPORTS_FOLDER = EXTENT_REPORT_FOLDER + ".zip";

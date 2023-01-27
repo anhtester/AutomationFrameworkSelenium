@@ -18,8 +18,7 @@ import static org.openqa.selenium.OutputType.BYTES;
 
 public class AllureManager {
 
-    public AllureManager() {
-        super();
+    private AllureManager() {
     }
 
     public static void setAllureEnvironmentInformation() {
@@ -34,6 +33,8 @@ public class AllureManager {
                         put("Remote URL", FrameworkConstants.REMOTE_URL).
                         put("Remote Port", FrameworkConstants.REMOTE_PORT).
                         build());
+
+        System.out.println("Allure Reports is installed.");
 
     }
 

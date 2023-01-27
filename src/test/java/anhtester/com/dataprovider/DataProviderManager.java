@@ -8,6 +8,7 @@ package anhtester.com.dataprovider;
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.helpers.ExcelHelpers;
 import anhtester.com.helpers.Helpers;
+import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.projects.website.crm.models.ClientModel;
 import anhtester.com.projects.website.crm.models.SignInModel;
 import org.testng.annotations.DataProvider;
@@ -19,6 +20,7 @@ public final class DataProviderManager {
 
     private DataProviderManager() {
         super();
+        PropertiesHelpers.loadAllFiles();
     }
 
     @Test(dataProvider = "getSignInDataHashTable")
