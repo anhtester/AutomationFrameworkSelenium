@@ -24,8 +24,26 @@ import static anhtester.com.keywords.WebUI.*;
 public class TestSimpleCode {
 
     @Test
-    public void testZIPfolder() {
-        ZipUtils.zip();
+    public void testDataFaker() {
+        //DataFakerUtils.setLocate("vi");
+        System.out.println(DataFakerUtils.getFaker().address().fullAddress());
+        System.out.println(DataFakerUtils.getFaker().job().title());
+    }
+
+    @Test
+    public void testZipFolder() {
+        ZipUtils.zipFolder("reports/ExtentReports", "ExtentReports");
+    }
+
+    @Test
+    public void testZipFile() {
+        ZipUtils.zipFile("src/test/resources/pdf-config.json", "pdf-config");
+    }
+
+    @Test
+    public void testUnZipFile() {
+        //ZipUtils.unZip("pdf-config.zip", "target/pdf-config");
+        ZipUtils.unZipFile("pdf-config.zip", "target/abc/pdf-config");
     }
 
     @Test

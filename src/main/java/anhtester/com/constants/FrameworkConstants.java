@@ -53,6 +53,8 @@ public final class FrameworkConstants {
     public static final String ZIP_FOLDER_NAME = PropertiesHelpers.getValue("ZIP_FOLDER_NAME");
     public static final String VIDEO_RECORD = PropertiesHelpers.getValue("VIDEO_RECORD");
 
+    public static final String LOCATE = PropertiesHelpers.getValue("LOCATE");
+
     public static final int WAIT_DEFAULT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_DEFAULT"));
     public static final int WAIT_IMPLICIT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_IMPLICIT"));
     public static final int WAIT_EXPLICIT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_EXPLICIT"));

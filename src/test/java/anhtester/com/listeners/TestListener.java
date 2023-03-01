@@ -20,13 +20,9 @@ import anhtester.com.utils.ZipUtils;
 import com.aventstack.extentreports.Status;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
 import com.google.common.collect.ImmutableMap;
-import io.qameta.allure.model.TestResult;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.testng.*;
 
 import java.awt.*;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import static anhtester.com.constants.FrameworkConstants.*;
@@ -87,7 +83,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         //End Suite and execute Extents Report
         ExtentReportManager.flushReports();
         //Zip Folder report
-        ZipUtils.zip();
+        ZipUtils.zipReportFolder();
         //Send notification to Telegram
         TelegramManager.sendReportPath();
         //Send mail
