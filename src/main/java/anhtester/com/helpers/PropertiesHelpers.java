@@ -6,8 +6,7 @@
 package anhtester.com.helpers;
 
 import anhtester.com.utils.LanguageUtils;
-import anhtester.com.utils.Log;
-import io.qameta.allure.Step;
+import anhtester.com.utils.LogUtils;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -41,11 +40,11 @@ public class PropertiesHelpers {
                 properties.putAll(tempProp);
             }
             file.close();
-            Log.info("Loaded all properties files.");
-            Log.info(properties);
+            LogUtils.info("Loaded all properties files.");
+            LogUtils.info(properties);
             return properties;
         } catch (IOException e) {
-            Log.info("Warning !! Can not Load All File.");
+            LogUtils.info("Warning !! Can not Load All File.");
             return new Properties();
         }
     }

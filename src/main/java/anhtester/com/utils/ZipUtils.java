@@ -25,17 +25,17 @@ public class ZipUtils {
         if (ZIP_FOLDER.toLowerCase().trim().equals(YES)) {
             if ((ZIP_FOLDER_PATH != null || !ZIP_FOLDER_PATH.isEmpty()) && (ZIP_FOLDER_NAME != null || !ZIP_FOLDER_NAME.isEmpty())) {
                 ZipUtil.pack(new File(ZIP_FOLDER_PATH), new File(ZIP_FOLDER_NAME));
-                Log.info("Zipped " + ZIPPED_EXTENT_REPORTS_FOLDER + " successfully !!");
+                LogUtils.info("Zipped " + ZIPPED_EXTENT_REPORTS_FOLDER + " successfully !!");
             } else {
                 ZipUtil.pack(new File(EXTENT_REPORT_FOLDER_PATH), new File(ZIPPED_EXTENT_REPORTS_FOLDER));
-                Log.info("Zipped " + ZIPPED_EXTENT_REPORTS_FOLDER + " successfully !!");
+                LogUtils.info("Zipped " + ZIPPED_EXTENT_REPORTS_FOLDER + " successfully !!");
             }
         }
     }
 
     public static void zipFolder(String FolderPath, String ZipName) {
         ZipUtil.pack(new File(FolderPath), new File(ZipName + ".zip"));
-        Log.info("Zipped " + FolderPath + " successfully !!");
+        LogUtils.info("Zipped " + FolderPath + " successfully !!");
     }
 
     public static void zipFile(String FilePath, String ZipName) {
@@ -60,7 +60,7 @@ public class ZipUtils {
             fis.close();
             fos.close();
 
-            Log.info("Zipped " + FilePath + " successfully !!");
+            LogUtils.info("Zipped " + FilePath + " successfully !!");
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -69,7 +69,7 @@ public class ZipUtils {
 
     public static void unZip(String FileZipPath, String FolderOutput) {
         ZipUtil.unpack(new File(FileZipPath), new File(FolderOutput));
-        Log.info("Unzipped " + FileZipPath + " successfully !!");
+        LogUtils.info("Unzipped " + FileZipPath + " successfully !!");
     }
 
     public static void unZipFile(String FileZipPath, String FolderOutput) {
@@ -106,7 +106,7 @@ public class ZipUtils {
 
             zis.closeEntry();
             zis.close();
-            Log.info("Unzipped " + FileZipPath + " successfully !!");
+            LogUtils.info("Unzipped " + FileZipPath + " successfully !!");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

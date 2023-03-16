@@ -62,7 +62,7 @@ public class SignInTest extends BaseTest {
         clearAndFillText(By.xpath("//input[@id='email']"), "admin@example.com");
         clearAndFillText(By.xpath("//input[@id='password']"), "123456");
         clickElement(By.xpath("//button[normalize-space()='Login']"));
-        verifyContains(getPageTitle(), "Dashboard123");
+        verifyContains(getPageTitle(), "Dashboard");
 
     }
 

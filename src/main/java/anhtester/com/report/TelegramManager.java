@@ -2,7 +2,7 @@ package anhtester.com.report;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.helpers.Helpers;
-import anhtester.com.utils.Log;
+import anhtester.com.utils.LogUtils;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.request.ParseMode;
@@ -29,10 +29,10 @@ public class TelegramManager {
             success = ok;
             if (ok != true) {
                 Message message = sendResponse.message();
-                Log.warn("Message response from Telegram: " + message);
+                LogUtils.warn("Message response from Telegram: " + message);
             }
         } catch (Exception e) {
-            Log.error("Error Send Report HTML to Telegram: " + e.getMessage());
+            LogUtils.error("Error Send Report HTML to Telegram: " + e.getMessage());
         }
         return success;
     }
@@ -47,10 +47,10 @@ public class TelegramManager {
                 Success = ok;
                 if (ok != true) {
                     Message message = sendResponse.message();
-                    Log.warn("Message response from Telegram: " + message);
+                    LogUtils.warn("Message response from Telegram: " + message);
                 }
             } catch (Exception e) {
-                Log.error("Error Send Report HTML to Telegram: " + e.getMessage());
+                LogUtils.error("Error Send Report HTML to Telegram: " + e.getMessage());
             }
         }
     }
@@ -70,9 +70,9 @@ public class TelegramManager {
         SendResponse sendResponse = bot.execute(request);
         boolean ok = sendResponse.isOk();
         if (ok == true) {
-            Log.info("Send message to Telegram: " + messageText);
+            LogUtils.info("Send message to Telegram: " + messageText);
         } else {
-            Log.info("Send message to Telegram: " + ok);
+            LogUtils.info("Send message to Telegram: " + ok);
         }
         return ok;
     }

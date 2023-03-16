@@ -2,12 +2,8 @@
 
 <suite name="Regression Tests Parallel methods" parallel="methods" thread-count="8">
 
-    <listeners>
-        <listener class-name="anhtester.com.listeners.TestListener"/>
-    </listeners>
-
     <test name="Chrome execution Client Test">
-        <parameter name="BROWSER" value="chrome"/>
+        <parameter name="BROWSER" value="edge"/>
         <classes>
             <class name="anhtester.com.projects.website.crm.testcases.SignInTest"/>
         </classes>

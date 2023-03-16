@@ -34,15 +34,15 @@ public enum BrowserFactory {
 
         @Override
         public ChromeOptions getOptions() {
-            ChromeOptions chromeOptions = new ChromeOptions();
-            chromeOptions.addArguments("--disable-infobars");
-            chromeOptions.addArguments("--disable-notifications");
-            chromeOptions.addArguments("--remote-allow-origins=*");
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--disable-infobars");
+            options.addArguments("--disable-notifications");
+            options.addArguments("--remote-allow-origins=*");
             if(Boolean.valueOf(FrameworkConstants.HEADLESS) == true){
-                chromeOptions.addArguments("--headless=new");
+                options.addArguments("--headless=new");
             }
 
-            return chromeOptions;
+            return options;
         }
     }, FIREFOX {
         @Override
@@ -54,10 +54,12 @@ public enum BrowserFactory {
 
         @Override
         public FirefoxOptions getOptions() {
-            FirefoxOptions firefoxOptions = new FirefoxOptions();
-            firefoxOptions.setHeadless(Boolean.valueOf(FrameworkConstants.HEADLESS));
+            FirefoxOptions options = new FirefoxOptions();
+            if(Boolean.valueOf(FrameworkConstants.HEADLESS) == true){
+                options.addArguments("--headless");
+            }
 
-            return firefoxOptions;
+            return options;
         }
     }, EDGE {
         @Override
@@ -69,10 +71,12 @@ public enum BrowserFactory {
 
         @Override
         public EdgeOptions getOptions() {
-            EdgeOptions edgeOptions = new EdgeOptions();
-            edgeOptions.setHeadless(Boolean.valueOf(FrameworkConstants.HEADLESS));
+            EdgeOptions options = new EdgeOptions();
+            if(Boolean.valueOf(FrameworkConstants.HEADLESS) == true){
+                options.addArguments("--headless=new");
+            }
 
-            return edgeOptions;
+            return options;
         }
     }, SAFARI {
         @Override
@@ -84,13 +88,13 @@ public enum BrowserFactory {
 
         @Override
         public SafariOptions getOptions() {
-            SafariOptions safariOptions = new SafariOptions();
-            safariOptions.setAutomaticInspection(false);
+            SafariOptions options = new SafariOptions();
+            options.setAutomaticInspection(false);
 
             if (TRUE.equals(Boolean.valueOf(FrameworkConstants.HEADLESS)))
-                throw new HeadlessNotSupportedException(safariOptions.getBrowserName());
+                throw new HeadlessNotSupportedException(options.getBrowserName());
 
-            return safariOptions;
+            return options;
         }
     };
 

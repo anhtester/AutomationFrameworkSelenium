@@ -8,7 +8,7 @@ package anhtester.com.driver;
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.enums.Target;
 import anhtester.com.exceptions.TargetNotValidException;
-import anhtester.com.utils.Log;
+import anhtester.com.utils.LogUtils;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -62,10 +62,10 @@ public class TargetFactory {
 
             remoteWebDriver = new RemoteWebDriver(new URL(gridURL), capability);
         } catch (java.net.MalformedURLException e) {
-            Log.error("Grid URL is invalid or Grid Port is not available");
-            Log.error(String.format("Browser: %s", capability.getBrowserName()), e);
+            LogUtils.error("Grid URL is invalid or Grid Port is not available");
+            LogUtils.error(String.format("Browser: %s", capability.getBrowserName()), e);
         } catch (IllegalArgumentException e) {
-            Log.error(String.format("Browser %s is not valid or recognized", capability.getBrowserName()), e);
+            LogUtils.error(String.format("Browser %s is not valid or recognized", capability.getBrowserName()), e);
         }
 
         return remoteWebDriver;

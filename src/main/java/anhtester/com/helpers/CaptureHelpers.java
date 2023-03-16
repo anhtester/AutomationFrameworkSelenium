@@ -6,7 +6,7 @@
 package anhtester.com.helpers;
 
 import anhtester.com.constants.FrameworkConstants;
-import anhtester.com.utils.Log;
+import anhtester.com.utils.LogUtils;
 import org.apache.commons.io.FileUtils;
 import org.monte.media.Format;
 import org.monte.media.FormatKeys.MediaType;
@@ -95,20 +95,20 @@ public class CaptureHelpers extends ScreenRecorder {
             String path = Helpers.getCurrentDir() + FrameworkConstants.EXPORT_CAPTURE_PATH;
             File file = new File(path);
             if (!file.exists()) {
-                Log.info("No Folder: " + path);
+                LogUtils.info("No Folder: " + path);
                 file.mkdir();
-                Log.info("Folder created: " + file);
+                LogUtils.info("Folder created: " + file);
             }
 
-            Log.info("Driver for Screenshot: " + driver);
+            LogUtils.info("Driver for Screenshot: " + driver);
             // Tạo tham chiếu của TakesScreenshot
             TakesScreenshot ts = (TakesScreenshot) driver;
             // Gọi hàm capture screenshot - getScreenshotAs
             File source = ts.getScreenshotAs(OutputType.FILE);
             // result.getName() lấy tên của test case xong gán cho tên File chụp màn hình
             FileUtils.copyFile(source, new File(path + "/" + screenName + "_" + dateFormat.format(new Date()) + ".png"));
-            Log.info("Screenshot taken: " + screenName);
-            Log.info("Screenshot taken current URL: " + driver.getCurrentUrl());
+            LogUtils.info("Screenshot taken: " + screenName);
+            LogUtils.info("Screenshot taken current URL: " + driver.getCurrentUrl());
         } catch (Exception e) {
             System.out.println("Exception while taking screenshot: " + e.getMessage());
         }
@@ -128,7 +128,7 @@ public class CaptureHelpers extends ScreenRecorder {
         File folder = new File(path);
         if (!folder.exists()) {
             folder.mkdir();
-            Log.info("Folder created: " + folder);
+            LogUtils.info("Folder created: " + folder);
         }
 
         String filePath = path + File.separator + screenshotName + dateName + ".png";

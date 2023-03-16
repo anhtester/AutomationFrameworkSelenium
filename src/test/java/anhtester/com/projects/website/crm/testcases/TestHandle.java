@@ -14,7 +14,7 @@ import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import anhtester.com.utils.LocalStorageUtils;
-import anhtester.com.utils.Log;
+import anhtester.com.utils.LogUtils;
 import anhtester.com.utils.ObjectUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -66,14 +66,14 @@ public class TestHandle {
 
     @Test
     public void testDownloadFileWithJava() {
-        Log.info(WebUI.countFilesInDownloadDirectory());
+        LogUtils.info(WebUI.countFilesInDownloadDirectory());
         WebUI.getURL("https://www.onlinedatagenerator.com/home/demo");
         WebUI.waitForPageLoaded();
         WebUI.clickElementWithJs(By.xpath("//button[normalize-space()='Export']"));
         WebUI.waitForPageLoaded();
         WebUI.waitForJQueryLoad();
         WebUI.sleep(2);
-        Log.info(WebUI.countFilesInDownloadDirectory());
+        LogUtils.info(WebUI.countFilesInDownloadDirectory());
         //File name is ExportCSV.csv
         Assert.assertTrue(WebUI.verifyDownloadFileEqualsNameCompletedWaitTimeout("ExportCSV.csv", 5), "Download failed. File not found.");
     }

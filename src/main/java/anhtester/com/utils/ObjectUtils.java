@@ -112,7 +112,7 @@ public class ObjectUtils {
         String locator = PropertiesHelpers.getValue(elementName);
 
         if (locator.isEmpty()) {
-            Log.info("The Locator string " + elementName + " does not exist !!");
+            LogUtils.info("The Locator string " + elementName + " does not exist !!");
             try {
                 throw new Exception("The Locator " + elementName + " does not exist !!");
             } catch (Exception e) {
@@ -128,7 +128,7 @@ public class ObjectUtils {
         String locatorType = locator.split("&&")[0];
         String locatorValue = locator.split("&&")[1];
 
-        Log.info("Retrieving object of type '" + locatorType + "' and locator '" + locatorValue + "' from the object repository");
+        LogUtils.info("Retrieving object of type '" + locatorType + "' and locator '" + locatorValue + "' from the object repository");
 
         // Trả về một thể hiện của lớp By dựa trên loại định vị (id, name, xpath, css,...)
         // Đối tượng By có thể được sử dụng bởi driver.findElement (WebElement)
@@ -172,7 +172,7 @@ public class ObjectUtils {
 
         if (locator.isEmpty()) {
             try {
-                Log.info("The Locator " + elementName + " does not exist !!");
+                LogUtils.info("The Locator " + elementName + " does not exist !!");
                 throw new Exception("The Locator " + elementName + " does not exist !!");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -189,13 +189,13 @@ public class ObjectUtils {
 
             if (!locatorType.toLowerCase().trim().equals("xpath")) {
                 try {
-                    Log.info("The Locator Type of " + elementName + " does not XPATH !! => " + locatorType);
+                    LogUtils.info("The Locator Type of " + elementName + " does not XPATH !! => " + locatorType);
                     throw new Exception("The Locator Type of " + elementName + " does not XPATH !! => " + locatorType);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else {
-                Log.info("Retrieving Xpath with value '" + locatorValue + "' from the object repository");
+                LogUtils.info("Retrieving Xpath with value '" + locatorValue + "' from the object repository");
                 return locatorValue;
             }
         }
@@ -216,7 +216,7 @@ public class ObjectUtils {
     public static String getXpathDynamic(String xpath, Object... value) {
         if (xpath == null || xpath.equals("")) {
             try {
-                Log.info("Parameter passing error. The 'xpath' parameter is null.");
+                LogUtils.info("Parameter passing error. The 'xpath' parameter is null.");
                 throw new Exception("Warning. The xpath is null.");
             } catch (Exception e) {
                 e.printStackTrace();
