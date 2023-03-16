@@ -20,6 +20,7 @@
 12. Sample test all function in WebUI keyword
 13. Send message/report to Telegram Bot
 14. Run Selenium Grid (remote)
+15. Use DataFaker and JavaFaker to generate data
 
 ### ✳️ **SYSTEM REQUIREMENTS**
 
@@ -181,7 +182,7 @@
 
 **selenium-server-4.7.2.jar** (updated 13/12/2022)
 
-2. Thiết đặt PATH cho driver của từng Browser:
+2. Set PATH for driver in Environment variables:
 
 Xem link làm
 theo: https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/#2-the-path-environment-variable
@@ -223,6 +224,11 @@ theo: https://www.selenium.dev/documentation/webdriver/getting_started/install_d
 
 ![image](https://user-images.githubusercontent.com/87883620/200506218-dbe10f1c-7e65-47e4-a7ac-f29a2b2db43b.png)
 
+
+**15. Use DataFaker and JavaFaker to generate data**
+
+Document DataFaker: https://www.datafaker.net/documentation/getting-started/
+
 ### 🔆 Project structure
 
 ```
@@ -263,10 +269,12 @@ theo: https://www.selenium.dev/documentation/webdriver/getting_started/install_d
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CaptureHelpers.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DatabaseHelpers.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExcelHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FileHelpers.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Helpers.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PropertiesHelpers.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ScreenRecoderHelpers.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TxtFileHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ScreenRecoderHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂keywords
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WebUI.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂mail
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailAttachmentsSender.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜EmailConfig.java
@@ -277,6 +285,7 @@ theo: https://www.selenium.dev/documentation/webdriver/getting_started/install_d
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TelegramManager.java
  ┃ ┃ ┃ ┃ ┃ ┗ 📂utils
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserInfoUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DataFakerUtils.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DataGenerateUtils.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DateUtils.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DecodeUtils.java
@@ -285,14 +294,14 @@ theo: https://www.selenium.dev/documentation/webdriver/getting_started/install_d
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JsonUtils.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LanguageUtils.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LocalStorageUtils.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Log.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LogUtils.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ObjectUtils.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportUtils.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WebUI.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ZipUtils.java
  ┃ ┃ ┗ 📂resources
- ┃ ┃ ┃ ┣ 📜drag_and_drop_helper.js
- ┃ ┃ ┃ ┣ 📜jquery_load_helper.js
+ ┃ ┃ ┃ ┣ 📂META-INF
+ ┃ ┃ ┃ ┃ ┗ 📂services
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜io.qameta.allure.listener.TestLifecycleListener
  ┃ ┃ ┃ ┗ 📜log4j2.properties
  ┃ ┗ 📂test
  ┃ ┃ ┣ 📂java
@@ -303,6 +312,7 @@ theo: https://www.selenium.dev/documentation/webdriver/getting_started/install_d
  ┃ ┃ ┃ ┃ ┃ ┣ 📂dataprovider
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DataProviderManager.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂listeners
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureListener.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestListener.java
  ┃ ┃ ┃ ┃ ┃ ┗ 📂projects
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂website
@@ -331,7 +341,7 @@ theo: https://www.selenium.dev/documentation/webdriver/getting_started/install_d
  ┃ ┃ ┃ ┣ 📂config
  ┃ ┃ ┃ ┃ ┣ 📜config.json
  ┃ ┃ ┃ ┃ ┣ 📜config.properties
- ┃ ┃ ┃ ┃ ┗ 📜datatest.properties
+ ┃ ┃ ┃ ┃ ┗ 📜data.properties
  ┃ ┃ ┃ ┣ 📂objects
  ┃ ┃ ┃ ┃ ┗ 📜crm_locators.properties
  ┃ ┃ ┃ ┣ 📂suites
@@ -342,11 +352,12 @@ theo: https://www.selenium.dev/documentation/webdriver/getting_started/install_d
  ┃ ┃ ┃ ┃ ┣ 📜SignIn-parallel-methods.xml
  ┃ ┃ ┃ ┃ ┣ 📜SignIn-simple.xml
  ┃ ┃ ┃ ┃ ┗ 📜SuiteAll.xml
- ┃ ┃ ┃ ┗ 📂testdata
+ ┃ ┃ ┃ ┣ 📂testdata
  ┃ ┃ ┃ ┃ ┣ 📜ClientsDataExcel.xlsx
  ┃ ┃ ┃ ┃ ┣ 📜DOCX_File_01.docx
  ┃ ┃ ┃ ┃ ┣ 📜LoginCSV.csv
  ┃ ┃ ┃ ┃ ┗ 📜TxtFileData.txt
+ ┃ ┃ ┃ ┗ 📜pdf-config.json
  ┣ 📜pom.xml
  ┗ 📜README.md
 ```
