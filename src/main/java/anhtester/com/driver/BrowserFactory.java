@@ -20,6 +20,9 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static java.lang.Boolean.TRUE;
 
 public enum BrowserFactory {
@@ -35,10 +38,16 @@ public enum BrowserFactory {
         @Override
         public ChromeOptions getOptions() {
             ChromeOptions options = new ChromeOptions();
+            Map<String, Object> prefs = new HashMap<String, Object>();
+            prefs.put("profile.default_content_setting_values.notifications", 2);
+            prefs.put("credentials_enable_service", false);
+            prefs.put("profile.password_manager_enabled", false);
+            options.setExperimentalOption("prefs", prefs);
+            options.addArguments("--disable-extensions");
             options.addArguments("--disable-infobars");
             options.addArguments("--disable-notifications");
             options.addArguments("--remote-allow-origins=*");
-            if(Boolean.valueOf(FrameworkConstants.HEADLESS) == true){
+            if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
                 options.addArguments("--headless=new");
             }
 
@@ -55,7 +64,7 @@ public enum BrowserFactory {
         @Override
         public FirefoxOptions getOptions() {
             FirefoxOptions options = new FirefoxOptions();
-            if(Boolean.valueOf(FrameworkConstants.HEADLESS) == true){
+            if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
                 options.addArguments("--headless");
             }
 
@@ -72,7 +81,18 @@ public enum BrowserFactory {
         @Override
         public EdgeOptions getOptions() {
             EdgeOptions options = new EdgeOptions();
-            if(Boolean.valueOf(FrameworkConstants.HEADLESS) == true){
+            Map<String, Object> prefs = new HashMap<String, Object>();
+            prefs.put("profile.default_content_setting_values.notifications", 2);
+            prefs.put("credentials_enable_service", false);
+            prefs.put("profile.password_manager_enabled", false);
+            prefs.put("autofill.profile_enabled", false);
+            options.setExperimentalOption("prefs", prefs);
+            options.addArguments("--disable-extensions");
+            options.addArguments("--disable-infobars");
+            options.addArguments("--disable-notifications");
+            options.addArguments("--remote-allow-origins=*");
+
+            if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
                 options.addArguments("--headless=new");
             }
 

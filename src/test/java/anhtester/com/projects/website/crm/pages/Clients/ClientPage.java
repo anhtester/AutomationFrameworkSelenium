@@ -2,12 +2,10 @@ package anhtester.com.projects.website.crm.pages.Clients;
 
 import anhtester.com.enums.FailureHandling;
 import anhtester.com.keywords.WebUI;
-
-import static anhtester.com.keywords.WebUI.*;
-
 import anhtester.com.projects.website.crm.models.ClientModel;
 import anhtester.com.projects.website.crm.pages.CommonPage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 
 import java.util.Hashtable;
 
@@ -44,6 +42,7 @@ public class ClientPage extends CommonPage {
     public By labelOnClientPage = By.xpath("//span[normalize-space()='Total clients']");
     public By tabClient = By.xpath("//ul[@id='client-tabs']//li[2]");
     public By labelClientGroups = By.xpath("//li[@class='select2-search-choice']/div");
+    public By inputApplication = By.xpath("//label[normalize-space()='Application']/following-sibling::div//input");
 
 
     public void openClientTabPage() {
@@ -59,8 +58,7 @@ public class ClientPage extends CommonPage {
         WebUI.clickElement(buttonAddClient);
         WebUI.setText(inputCompanyName, data.get(ClientModel.getCompanyName()));
         WebUI.clickElement(selectOwner);
-        WebUI.setText(inputSearchOwner, data.get(ClientModel.getOwner()));
-        WebUI.clickElement(selectFirstItemOwner);
+        WebUI.setText(inputSearchOwner, data.get(ClientModel.getOwner()), Keys.ENTER);
         WebUI.setText(inputAddress, data.get(ClientModel.getAddress()));
         WebUI.setText(inputCity, data.get(ClientModel.getCity()));
         WebUI.setText(inputState, data.get(ClientModel.getState()));
@@ -69,8 +67,9 @@ public class ClientPage extends CommonPage {
         WebUI.setText(inputPhone, data.get(ClientModel.getPhone()));
         WebUI.setText(inputWebsite, data.get(ClientModel.getWebsite()));
         WebUI.setText(inputVat, data.get(ClientModel.getVat()));
-        WebUI.setText(inputClientGroups, data.get(ClientModel.getClientGroup()));
-        WebUI.clickElement(spanFirstItemClientGroups);
+        WebUI.setText(inputClientGroups, data.get(ClientModel.getClientGroup()), Keys.ENTER);
+        WebUI.setText(inputApplication, data.get(ClientModel.getApplication()));
+
         WebUI.clickElement(buttonSaveOnDialog);
         WebUI.waitForPageLoaded();
         WebUI.sleep(2);

@@ -33,6 +33,12 @@ public class ClientModel {
 
     public static String status = "STATUS";
 
+    public static String application = "APPLICATION";
+
+    public static String getApplication() {
+        return application;
+    }
+
     public static int getRow() {
         return row;
     }

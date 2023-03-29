@@ -1872,6 +1872,66 @@ public class WebUI {
     }
 
     /**
+     * Điền giá trị vào ô Text và nhập Keys
+     *
+     * @param by    an element of object type By
+     * @param value giá trị cần điền vào ô text
+     * @param keys  key ở bàn phím cần nhấn
+     */
+    @Step("Set text on textbox and press key")
+    public static void setText(By by, String value, Keys keys) {
+        waitForElementVisible(by).sendKeys(value, keys);
+        LogUtils.info("Set text " + value + " on " + by + " and press key " + keys.name());
+
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.pass("Set text " + value + " on " + by + " and press key " + keys.name());
+        }
+        AllureManager.saveTextLog("Set text " + value + " on " + by + " and press key " + keys.name());
+
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
+    }
+
+    /**
+     * Thao tác keys dưới bàn phím lên element by
+     *
+     * @param by   an element of object type By
+     * @param keys key ở bàn phím cần nhấn
+     */
+    @Step("Set text on textbox and press key")
+    public static void sendKeys(By by, Keys keys) {
+        waitForElementVisible(by).sendKeys(keys);
+        LogUtils.info("Press key " + keys.name() + " on element " + by);
+
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.pass("Press key " + keys.name() + " on element " + by);
+        }
+        AllureManager.saveTextLog("Press key " + keys.name() + " on element " + by);
+
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+    }
+
+    /**
+     * Thao tác keys dưới bàn phím lên element by
+     *
+     * @param by   an element of object type By
+     * @param keys key ở bàn phím cần nhấn
+     */
+    @Step("Set text on textbox and press key")
+    public static void sendKeys(Keys keys) {
+        Actions actions = new Actions(DriverManager.getDriver());
+        actions.sendKeys(keys);
+        LogUtils.info("Press key " + keys.name() + " on keyboard");
+
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.pass("Press key " + keys.name() + " on keyboard");
+        }
+        AllureManager.saveTextLog("Press key " + keys.name() + " on keyboard");
+
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+    }
+
+    /**
      * Xóa giá trị trong ô Text
      *
      * @param by an element of object type By
