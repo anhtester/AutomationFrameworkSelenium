@@ -70,12 +70,12 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
     @Override
     public void onStart(ISuite iSuite) {
         System.out.println("========= INSTALLING CONFIGURATION DATA =========");
-        try {
-            FileUtils.deleteDirectory(new File("target/allure-results"));
-            System.out.println("Deleted Directory target/allure-results");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            FileUtils.deleteDirectory(new File("target/allure-results"));
+//            System.out.println("Deleted Directory target/allure-results");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
         PropertiesHelpers.loadAllFiles();
         AllureManager.setAllureEnvironmentInformation();
         ExtentReportManager.initReports();

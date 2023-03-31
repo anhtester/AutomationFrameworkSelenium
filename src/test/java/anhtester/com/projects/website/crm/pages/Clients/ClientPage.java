@@ -68,7 +68,7 @@ public class ClientPage extends CommonPage {
         WebUI.setText(inputWebsite, data.get(ClientModel.getWebsite()));
         WebUI.setText(inputVat, data.get(ClientModel.getVat()));
         WebUI.setText(inputClientGroups, data.get(ClientModel.getClientGroup()), Keys.ENTER);
-        WebUI.setText(inputApplication, data.get(ClientModel.getApplication()));
+        //WebUI.setText(inputApplication, data.get(ClientModel.getApplication()));
 
         WebUI.clickElement(buttonSaveOnDialog);
         WebUI.waitForPageLoaded();

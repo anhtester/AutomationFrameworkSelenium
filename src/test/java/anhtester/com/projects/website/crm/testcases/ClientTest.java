@@ -24,7 +24,7 @@ import org.testng.annotations.Test;
 import java.util.Hashtable;
 
 @Epic("Regression Test CRM")
-@Feature("Clients Test")
+@Feature("Client Test")
 public class ClientTest extends BaseTest {
 
     public ClientTest() {
