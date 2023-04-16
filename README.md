@@ -24,8 +24,8 @@
 
 ### ✳️ **SYSTEM REQUIREMENTS**
 
-- **JDK All Version** (recommend JDK >=11)
-- Chrome Browser, Edge Browser, Firefox Browser
+- Install JDK (recommend JDK >=11)
+- Install Chrome Browser, Edge Browser, Firefox Browser
 - Run well on the **Windows** platform
 - Setup **Allure ENV**:
   https://mvnrepository.com/artifact/io.qameta.allure/allure-java-commons
@@ -35,7 +35,7 @@
 
   ![image](https://user-images.githubusercontent.com/87883620/161661705-b8706957-5a26-4faf-8ddf-2f9aef78418e.png)
 
-- **IntelliJ IDEA** is the best choice (easy change the JDK version)
+- Use **IntelliJ IDEA** is the best choice (easy change the JDK version)
 
 ![image](https://user-images.githubusercontent.com/87883620/161707184-7ad558f2-0d7d-4851-bfd6-2796d4e46593.png)
 
@@ -151,13 +151,13 @@
 - Example: src/test/java/anhtester/com/projects/website/crm/testcases/TestSimpleCode.java
 - Call in TestListener at onFinish TelegramManager.sendReportPath()
 
-======How to get Token and start Bot=======
+===How to get Token and start Bot===
 
 - Read blog: https://blog.devgenius.io/automation-of-reporting-2abe7f101801
 - Copy Token of your Bot => Paste to TelegramManager class
 - Click your Bot => input **/start** to start your Bot
 
-======How to get ChatID=======
+===How to get ChatID===
 
 - After starting your Bot, your use Postman and using your Token:
   Get: https://api.telegram.org/bot{token}/getUpdates => chat.id
@@ -174,43 +174,43 @@
 
 **14. Use Selenium Grid**
 
-### ---------------- Download and Install --------------
+### Download and Install
 
 1. Download Selenium Grid 4: https://www.selenium.dev/downloads/
 
 (tải bản Latest stable version)
 
-**selenium-server-4.7.2.jar** (updated 13/12/2022)
+**selenium-server-4.8.3.jar** (updated 27/03/2023)
 
 2. Set PATH for driver in Environment variables:
 
-Xem link làm
-theo: https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/#2-the-path-environment-variable
+Follow with link:
+https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/#2-the-path-environment-variable
 
-🔆 Đặt file **selenium-server-4.7.2.jar** vào thư mục nào đó và mở CMD tại thư mục đó lên
+🔆 Đặt file **selenium-server-4.8.3.jar** vào thư mục nào đó và mở CMD tại thư mục đó lên
 
-### ---------------------- Run default -------------------
+### Run default 1 node
 
 ✅ Mở 1 hub với 1 node mặc định (port 4444)
 
-> java -jar selenium-server-4.7.2.jar standalone
+> java -jar selenium-server-4.8.3.jar standalone
 
-### -------------------- Run multi Node ----------------
+### Run multi Node
 
 ✅ Mở 1 hub với 3 node: (chạy 4 lệnh mở 4 CMD nhé)
 
-> java -jar selenium-server-4.7.2.jar hub
+> java -jar selenium-server-4.8.3.jar hub
 
-> java -jar selenium-server-4.7.2.jar node --port 5556
+> java -jar selenium-server-4.8.3.jar node --port 5556
 
-> java -jar selenium-server-4.7.2.jar node --port 6667
+> java -jar selenium-server-4.8.3.jar node --port 6667
 
-> java -jar selenium-server-4.7.2.jar node --port 7778
+> java -jar selenium-server-4.8.3.jar node --port 7778
 
 
-**NOTE: Thực thi nhiều lệnh thì mở nhiều CMD**
+**📝 NOTE: Thực thi nhiều lệnh thì mở nhiều CMD**
 
-### ----------- Edit Grid in Config.properties -----------
+### Edit Grid in Config.properties
 
 > TARGET=remote
 
