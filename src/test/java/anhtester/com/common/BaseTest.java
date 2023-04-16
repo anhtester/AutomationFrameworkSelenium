@@ -3,18 +3,15 @@ package anhtester.com.common;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.driver.TargetFactory;
 import anhtester.com.helpers.PropertiesHelpers;
-import anhtester.com.listeners.AllureListener;
 import anhtester.com.listeners.TestListener;
-import anhtester.com.projects.website.crm.pages.CommonPage;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import anhtester.com.projects.cms.CommonPageCMS;
+import anhtester.com.projects.crm.pages.CommonPageCRM;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.testng.annotations.*;
 
-import java.lang.reflect.Method;
-
 @Listeners({TestListener.class})
-public class BaseTest extends CommonPage {
+public class BaseTest extends CommonPageCMS {
 
     @Parameters("BROWSER")
     @BeforeMethod(alwaysRun = true)

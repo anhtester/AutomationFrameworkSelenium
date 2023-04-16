@@ -4,14 +4,13 @@ bin/
 allure-results/
 ExportData/
 ExtentReports/
-ExtentReports.zip
 logs/
 target/
 test-output/
 reports/
 *.png
 *.jpg
-src/main/java/anhtester/com/mail/EmailConfig.java
-src/test/resources/config/config.properties
+*.mp4
+*.avi
 *.zip
 

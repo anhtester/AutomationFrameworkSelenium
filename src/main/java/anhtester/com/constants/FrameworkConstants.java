@@ -24,9 +24,14 @@ public final class FrameworkConstants {
     public static final String PROJECT_PATH = Helpers.getCurrentDir();
     public static final String EXCEL_DATA_FILE_PATH = PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH");
     public static final String JSON_DATA_FILE_PATH = PropertiesHelpers.getValue("JSON_DATA_FILE_PATH");
+    public static final String EXCEL_CMS_LOGIN = PropertiesHelpers.getValue("EXCEL_CMS_LOGIN");
+    public static final String EXCEL_CMS_DATA = PropertiesHelpers.getValue("EXCEL_CMS_DATA");
+    public static final String EXCEL_CMS_PRODUCTS_USER = PropertiesHelpers.getValue("EXCEL_CMS_PRODUCTS_USER");
 
     public static final String BROWSER = PropertiesHelpers.getValue("BROWSER");
     public static final String URL_CRM = PropertiesHelpers.getValue("URL_CRM");
+    public static final String URL_CMS_ADMIN = PropertiesHelpers.getValue("URL_CMS_ADMIN");
+    public static final String URL_CMS_USER = PropertiesHelpers.getValue("URL_CMS_USER");
     public static final String REMOTE_URL = PropertiesHelpers.getValue("REMOTE_URL");
     public static final String REMOTE_PORT = PropertiesHelpers.getValue("REMOTE_PORT");
     public static final String PROJECT_NAME = PropertiesHelpers.getValue("PROJECT_NAME");

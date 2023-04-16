@@ -2,14 +2,10 @@
 
 <suite name="Regression Test CRM" data-provider-thread-count="1">
 
-    <listeners>
-        <listener class-name="anhtester.com.listeners.TestListener"/>
-    </listeners>
-
     <test name="Client Test">
-        <parameter name="BROWSER" value="firefox"/>
+        <parameter name="BROWSER" value="chrome"/>
         <classes>
-            <class name="anhtester.com.projects.website.crm.testcases.ClientTest">
+            <class name="anhtester.com.projects.crm.testcases.ClientTest">
                 <methods>
                     <include name="testAddClient"/>
                 </methods>

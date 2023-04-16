@@ -289,6 +289,10 @@ public class ExcelHelpers {
         return getCellData(rowNum, columns.get(columnName));
     }
 
+    public String getCellData(String columnName, int rowNum) {
+        return getCellData(rowNum, columns.get(columnName));
+    }
+
     // Write data to excel sheet
     public void setCellData(String text, int rowNumber, int colNumber) {
         try {
@@ -311,7 +315,7 @@ public class ExcelHelpers {
             if (text == "fail" || text == "failed" || text == "failure") {
                 style.setFillForegroundColor(IndexedColors.RED.getIndex());
             }
-            style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            style.setFillPattern(FillPatternType.NO_FILL);
             style.setAlignment(HorizontalAlignment.CENTER);
             style.setVerticalAlignment(VerticalAlignment.CENTER);
 

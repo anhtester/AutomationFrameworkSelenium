@@ -818,10 +818,58 @@ public class WebUI {
     }
 
 
-    public static void switchToWindowOrTab(int position) {
+    public static void switchToWindowOrTabByPosition(int position) {
         sleep(WAIT_SLEEP_STEP);
 
         DriverManager.getDriver().switchTo().window(DriverManager.getDriver().getWindowHandles().toArray()[position].toString());
+    }
+
+    public static void switchToWindowOrTabByTitle(String title) {
+        sleep(WAIT_SLEEP_STEP);
+
+        //Store the ID of the original window
+        String originalWindow = DriverManager.getDriver().getWindowHandle();
+
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+        //Wait for the new window or tab
+        wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+
+        //Loop through until we find a new window handle
+        for (String windowHandle : DriverManager.getDriver().getWindowHandles()) {
+            if (!originalWindow.contentEquals(windowHandle)) {
+                DriverManager.getDriver().switchTo().window(windowHandle);
+                if(DriverManager.getDriver().getTitle().equals(title)){
+                    break;
+                }
+            }
+        }
+
+    }
+
+    public static void switchToWindowOrTabByUrl(String url) {
+        sleep(WAIT_SLEEP_STEP);
+
+        //Store the ID of the original window
+        String originalWindow = DriverManager.getDriver().getWindowHandle();
+
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+        //Wait for the new window or tab
+        wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+
+        //Loop through until we find a new window handle
+        for (String windowHandle : DriverManager.getDriver().getWindowHandles()) {
+            if (!originalWindow.contentEquals(windowHandle)) {
+                DriverManager.getDriver().switchTo().window(windowHandle);
+                if(DriverManager.getDriver().getCurrentUrl().equals(url)){
+                    break;
+                }
+            }
+        }
+
+    }
+
+    public static void closeCurrentWindow(){
+        DriverManager.getDriver().close();
     }
 
     public static boolean verifyNumberOfWindowsOrTab(int number) {
@@ -1565,7 +1613,7 @@ public class WebUI {
     }
 
     @Step("Scroll to element {0}")
-    public static void scrollToElement(By by) {
+    public static void scrollToElementToTop(By by) {
         smartWait();
 
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
@@ -1574,11 +1622,29 @@ public class WebUI {
     }
 
     @Step("Scroll to element {0}")
-    public static void scrollToElement(WebElement element) {
+    public static void scrollToElementToBottom(By by) {
+        smartWait();
+
+        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+        js.executeScript("arguments[0].scrollIntoView(false);", getWebElement(by));
+        LogUtils.info("Scroll to element " + by);
+    }
+
+    @Step("Scroll to element {0}")
+    public static void scrollToElementToTop(WebElement element) {
         smartWait();
 
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         js.executeScript("arguments[0].scrollIntoView(true);", element);
+        LogUtils.info("Scroll to element " + element);
+    }
+
+    @Step("Scroll to element {0}")
+    public static void scrollToElementToBottom(WebElement element) {
+        smartWait();
+
+        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+        js.executeScript("arguments[0].scrollIntoView(false);", element);
         LogUtils.info("Scroll to element " + element);
     }
 
@@ -1805,6 +1871,29 @@ public class WebUI {
             LogUtils.info("Highlight on element " + by);
         }
         return getWebElement(by);
+    }
+
+    /**
+     * Open website with URL
+     *
+     * @param URL
+     */
+    @Step("Open website with URL {0}")
+    public static void openURL(String URL) {
+        sleep(WAIT_SLEEP_STEP);
+
+        DriverManager.getDriver().get(URL);
+        waitForPageLoaded();
+
+        LogUtils.info("Open URL: " + URL);
+
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.pass("Open URL: " + URL);
+        }
+        AllureManager.saveTextLog("Open URL: " + URL);
+
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
@@ -2259,7 +2348,7 @@ public class WebUI {
             if (check == true) {
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             } else {
-                scrollToElement(by);
+                scrollToElementToTop(by);
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             }
         } catch (Throwable error) {
@@ -2285,7 +2374,7 @@ public class WebUI {
             if (check == true) {
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             } else {
-                scrollToElement(by);
+                scrollToElementToTop(by);
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             }
         } catch (Throwable error) {

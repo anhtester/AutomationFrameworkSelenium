@@ -9,7 +9,7 @@
     <test name="Client Test">
         <parameter name="BROWSER" value="edge"/>
         <classes>
-            <class name="anhtester.com.projects.website.crm.testcases.ClientTest">
+            <class name="anhtester.com.projects.crm.testcases.ClientTest">
                 <methods>
                     <include name="testSearchClient"/>
                 </methods>
