@@ -83,12 +83,18 @@ public class AddProductPage extends CommonPageCMS {
         String nameImage = Helpers.splitString(imgName, "[.]").get(0);
         //Search and select images
         WebUI.setText(inputSearchImg, nameImage, Keys.ENTER);
+        WebUI.waitForJQueryLoad();
+        WebUI.sleep(2);
         WebUI.clickElementWithJs(selectGalleryImages);
         WebUI.clickElement(buttonAddFileImgs);
+        WebUI.waitForPageLoaded();
         WebUI.clickElement(selectChooseThumbnailImgs);
         WebUI.setText(inputSearchImg, nameImage, Keys.ENTER);
+        WebUI.waitForJQueryLoad();
+        WebUI.sleep(2);
         WebUI.clickElementWithJs(selectThumbnailImages);
         WebUI.clickElement(buttonAddFileImgs);
+        WebUI.waitForPageLoaded();
         WebUI.verifyElementVisible(blockProductPrice, "Product price block is NOT displayed");
         WebUI.setText(inputUnitPrice, String.valueOf(unitPrice));
         WebUI.setText(selectDate, discountDate);
@@ -103,14 +109,20 @@ public class AddProductPage extends CommonPageCMS {
         WebUI.setText(inputDescription, description);
         WebUI.clickElement(selectChooseMetaImage);
         WebUI.setText(inputSearchImg, nameImage, Keys.ENTER);
+        WebUI.waitForJQueryLoad();
+        WebUI.sleep(2);
         WebUI.clickElementWithJs(selectThumbnailImages);
-        WebUI.clickElement(buttonAddFileImgs);
+        WebUI.clickElementWithJs(buttonAddFileImgs);
         //Click Save & Publish
+        WebUI.waitForPageLoaded();
+        WebUI.scrollToElementToBottom(buttonSavePublish);
         WebUI.clickElement(buttonSavePublish);
         WebUI.verifyElementVisible(messageAddProductSuccess, "Add Product is failed");
         WebUI.clickElement(menuAllProducts);
-        WebUI.setText(inputSearchProduct, productName, Keys.ENTER);
         WebUI.waitForPageLoaded();
+        WebUI.setText(inputSearchProduct, productName, Keys.ENTER);
+        WebUI.waitForJQueryLoad();
+        WebUI.sleep(2);
         WebUI.waitForElementVisible(newProduct);
         nameProductVerify = WebUI.getTextElement(newProduct);
     }

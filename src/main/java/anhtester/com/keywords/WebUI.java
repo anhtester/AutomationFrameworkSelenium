@@ -30,8 +30,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v109.network.Network;
-import org.openqa.selenium.devtools.v109.network.model.Headers;
+import org.openqa.selenium.devtools.v112.network.Network;
+import org.openqa.selenium.devtools.v112.network.model.Headers;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -838,7 +838,7 @@ public class WebUI {
         for (String windowHandle : DriverManager.getDriver().getWindowHandles()) {
             if (!originalWindow.contentEquals(windowHandle)) {
                 DriverManager.getDriver().switchTo().window(windowHandle);
-                if(DriverManager.getDriver().getTitle().equals(title)){
+                if (DriverManager.getDriver().getTitle().equals(title)) {
                     break;
                 }
             }
@@ -860,7 +860,7 @@ public class WebUI {
         for (String windowHandle : DriverManager.getDriver().getWindowHandles()) {
             if (!originalWindow.contentEquals(windowHandle)) {
                 DriverManager.getDriver().switchTo().window(windowHandle);
-                if(DriverManager.getDriver().getCurrentUrl().equals(url)){
+                if (DriverManager.getDriver().getCurrentUrl().equals(url)) {
                     break;
                 }
             }
@@ -868,7 +868,7 @@ public class WebUI {
 
     }
 
-    public static void closeCurrentWindow(){
+    public static void closeCurrentWindow() {
         DriverManager.getDriver().close();
     }
 
@@ -2107,7 +2107,7 @@ public class WebUI {
         waitForElementPresent(by);
         //Scroll to element với Javascript Executor`
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-        js.executeScript("arguments[0].scrollIntoView(true);", getWebElement(by));
+        js.executeScript("arguments[0].scrollIntoView(false);", getWebElement(by));
         //Click with JS
         js.executeScript("arguments[0].click();", getWebElement(by));
 

@@ -35,7 +35,7 @@
         <java-compiler.version>11</java-compiler.version>
         <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <selenium.version>4.8.3</selenium.version>
+        <selenium.version>4.9.0</selenium.version>
         <testng.version>7.7.1</testng.version>
         <webdrivermanager.version>5.3.2</webdrivermanager.version>
         <aspectjweaver.version>1.9.9.1</aspectjweaver.version>
@@ -53,7 +53,6 @@
         <commons-io.version>2.11.0</commons-io.version>
         <owner.version>1.0.12</owner.version>
         <assertj.version>3.24.2</assertj.version>
-        <javafaker.version>1.0.2</javafaker.version>
         <datafaker.version>1.8.1</datafaker.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <mysql-connector-java.version>8.0.32</mysql-connector-java.version>
@@ -161,13 +160,6 @@
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${assertj.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
-        <dependency>
-            <groupId>com.github.javafaker</groupId>
-            <artifactId>javafaker</artifactId>
-            <version>${javafaker.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/net.datafaker/datafaker -->
