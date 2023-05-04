@@ -20,11 +20,9 @@ import anhtester.com.utils.ZipUtils;
 import com.aventstack.extentreports.Status;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
 import com.google.common.collect.ImmutableMap;
-import org.apache.commons.io.FileUtils;
 import org.testng.*;
 
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 
 import static anhtester.com.constants.FrameworkConstants.*;
@@ -65,8 +63,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         // After every method in the Test Class
         //System.out.println(method.getTestMethod().getMethodName());
     }
-
-
+    
     @Override
     public void onStart(ISuite iSuite) {
         System.out.println("========= INSTALLING CONFIGURATION DATA =========");
@@ -76,6 +73,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
+
         PropertiesHelpers.loadAllFiles();
         AllureManager.setAllureEnvironmentInformation();
         ExtentReportManager.initReports();
@@ -113,7 +111,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
                         put("TCs Skipped", String.valueOf(count_skippedTCs)).
                         put("TCs Failed", String.valueOf(count_failedTCs)).
                         build());
-        
+
 
     }
 

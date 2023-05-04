@@ -38,11 +38,11 @@
         <selenium.version>4.9.0</selenium.version>
         <testng.version>7.7.1</testng.version>
         <webdrivermanager.version>5.3.2</webdrivermanager.version>
-        <aspectjweaver.version>1.9.9.1</aspectjweaver.version>
+        <aspectjweaver.version>1.9.19</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <log4j.version>2.20.0</log4j.version>
-        <slf4j.version>2.0.6</slf4j.version>
-        <allure-testng.version>2.19.0</allure-testng.version>
+        <slf4j.version>2.0.7</slf4j.version>
+        <allure-testng.version>2.22.0</allure-testng.version>
         <allure-maven.version>2.12.0</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
@@ -53,15 +53,15 @@
         <commons-io.version>2.11.0</commons-io.version>
         <owner.version>1.0.12</owner.version>
         <assertj.version>3.24.2</assertj.version>
-        <datafaker.version>1.8.1</datafaker.version>
+        <datafaker.version>1.9.0</datafaker.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
-        <mysql-connector-java.version>8.0.32</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <google.zxing.version>3.5.1</google.zxing.version>
         <lombok.version>1.18.26</lombok.version>
         <google.guava.version>31.1-jre</google.guava.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.15</zip.version>
-        <jackson.version>2.14.2</jackson.version>
+        <jackson.version>2.15.0</jackson.version>
 
         <!-- Suite XML path -->
         <suite.signin.simple>src/test/resources/suites/SignIn-simple.xml</suite.signin.simple>
@@ -143,7 +143,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.6</version>
+            <version>${slf4j.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -151,7 +151,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>2.0.6</version>
+            <version>${slf4j.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -324,7 +324,7 @@
         <dependency>
             <groupId>com.github.pengrad</groupId>
             <artifactId>java-telegram-bot-api</artifactId>
-            <version>6.5.0</version>
+            <version>6.7.0</version>
         </dependency>
 
     </dependencies>
@@ -506,19 +506,19 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>4.0.0-M5</version>
+                    <version>4.0.0-M8</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.1.1</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>3.0.0-M7</version>
+                    <version>3.0.0</version>
                 </plugin>
 
             </plugins>

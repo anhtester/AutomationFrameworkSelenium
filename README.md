@@ -180,32 +180,32 @@
 
 (tải bản Latest stable version)
 
-**selenium-server-4.8.3.jar** (updated 27/03/2023)
+**selenium-server-4.9.0.jar** (updated 21/04/2023)
 
 2. Set PATH for driver in Environment variables:
 
 Follow with link:
 https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/#2-the-path-environment-variable
 
-🔆 Đặt file **selenium-server-4.8.3.jar** vào thư mục nào đó và mở CMD tại thư mục đó lên
+🔆 Đặt file **selenium-server-4.9.0.jar** vào thư mục nào đó và mở CMD tại thư mục đó lên
 
 ### Run default 1 node
 
-✅ Mở 1 hub với 1 node mặc định (port 4444)
+✅ Mở 1 Hub với 1 Node mặc định (port 4444)
 
-> java -jar selenium-server-4.8.3.jar standalone
+> java -jar selenium-server-4.9.0.jar standalone
 
 ### Run multi Node
 
-✅ Mở 1 hub với 3 node: (chạy 4 lệnh mở 4 CMD nhé)
+✅ Mở 1 Hub với 3 Node: (chạy 4 lệnh mở 4 CMD nhé)
 
-> java -jar selenium-server-4.8.3.jar hub
+> java -jar selenium-server-4.9.0.jar hub
 
-> java -jar selenium-server-4.8.3.jar node --port 5556
+> java -jar selenium-server-4.9.0.jar node --port 5556
 
-> java -jar selenium-server-4.8.3.jar node --port 6667
+> java -jar selenium-server-4.9.0.jar node --port 6667
 
-> java -jar selenium-server-4.8.3.jar node --port 7778
+> java -jar selenium-server-4.9.0.jar node --port 7778
 
 
 **📝 NOTE: Thực thi nhiều lệnh thì mở nhiều CMD**
@@ -224,7 +224,6 @@ https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers
 
 ![image](https://user-images.githubusercontent.com/87883620/200506218-dbe10f1c-7e65-47e4-a7ac-f29a2b2db43b.png)
 
-
 **15. Use DataFaker and JavaFaker to generate data**
 
 Document DataFaker: https://www.datafaker.net/documentation/getting-started/
@@ -233,6 +232,9 @@ Document DataFaker: https://www.datafaker.net/documentation/getting-started/
 
 ```
 📦AutomationFrameworkSelenium
+ ┣ 📂.github
+ ┃ ┗ 📂workflows
+ ┃ ┃ ┗ 📜maven.yml
  ┣ 📂src
  ┃ ┣ 📂main
  ┃ ┃ ┣ 📂java
@@ -310,35 +312,68 @@ Document DataFaker: https://www.datafaker.net/documentation/getting-started/
  ┃ ┃ ┃ ┃ ┃ ┣ 📂common
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BaseTest.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂dataprovider
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DataProviderAddProduct.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DataProviderManager.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂listeners
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureListener.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestListener.java
  ┃ ┃ ┃ ┃ ┃ ┗ 📂projects
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂website
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂crm
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂models
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientModel.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInModel.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂pages
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Clients
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ClientPage.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Dashboard
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂cms
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂admin
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂model
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂pages
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂brands
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BrandPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂category
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CategoryPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂logins
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜LoginPageCMS.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂products
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜AddProductPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂testcases
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AddProductTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CategoryTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜OrderTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProductInfoTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂users
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂model
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂pages
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dashboard
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DashboardPage.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Projects
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProjectPage.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂SignIn
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInPage.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Tasks
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TaskPage.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommonPage.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂testcases
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientTest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SignInTest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TestHandle.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestSimpleCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂logins
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂order
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜OrderPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂products
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProductInfoPageCMS.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂profiles
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfilePage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommonPageCMS.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂crm
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂models
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientModel.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInModel.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂pages
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Clients
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ClientPageCRM.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Dashboard
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DashboardPageCRM.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Projects
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProjectPageCRM.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂SignIn
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInPageCRM.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Tasks
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TaskPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommonPageCRM.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂testcases
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SignInTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TestHandle.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestSimpleCode.java
  ┃ ┃ ┗ 📂resources
  ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┣ 📜allure.properties
  ┃ ┃ ┃ ┃ ┣ 📜config.json
  ┃ ┃ ┃ ┃ ┣ 📜config.properties
  ┃ ┃ ┃ ┃ ┗ 📜data.properties
@@ -352,12 +387,197 @@ Document DataFaker: https://www.datafaker.net/documentation/getting-started/
  ┃ ┃ ┃ ┃ ┣ 📜SignIn-parallel-methods.xml
  ┃ ┃ ┃ ┃ ┣ 📜SignIn-simple.xml
  ┃ ┃ ┃ ┃ ┗ 📜SuiteAll.xml
- ┃ ┃ ┃ ┣ 📂testdata
+ ┃ ┃ ┃ ┣ 📂testdataCMS
+ ┃ ┃ ┃ ┃ ┣ 📜Book1.xlsx
+ ┃ ┃ ┃ ┃ ┣ 📜ChocoPie.jpg
+ ┃ ┃ ┃ ┃ ┣ 📜CMS_DATA.xlsx
+ ┃ ┃ ┃ ┃ ┣ 📜CocaCola.png
+ ┃ ┃ ┃ ┃ ┣ 📜Cosy.png
+ ┃ ┃ ┃ ┃ ┣ 📜GetProductInfo.xlsx
+ ┃ ┃ ┃ ┃ ┣ 📜Login.xlsx
+ ┃ ┃ ┃ ┃ ┣ 📜Nabati.jpg
+ ┃ ┃ ┃ ┃ ┗ 📜quatet.jpg
+ ┃ ┃ ┃ ┣ 📂testdataCRM
  ┃ ┃ ┃ ┃ ┣ 📜ClientsDataExcel.xlsx
  ┃ ┃ ┃ ┃ ┣ 📜DOCX_File_01.docx
  ┃ ┃ ┃ ┃ ┣ 📜LoginCSV.csv
  ┃ ┃ ┃ ┃ ┗ 📜TxtFileData.txt
  ┃ ┃ ┃ ┗ 📜pdf-config.json
+ ┣ 📂target
+ ┃ ┣ 📂classes
+ ┃ ┃ ┣ 📂anhtester
+ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┣ 📂annotations
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkAnnotation.class
+ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ConfigFactory.class
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜Configuration.class
+ ┃ ┃ ┃ ┃ ┣ 📂constants
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkConstants.class
+ ┃ ┃ ┃ ┃ ┣ 📂driver
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory$1.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory$2.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory$3.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory$4.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜DriverManager.class
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜TargetFactory.class
+ ┃ ┃ ┃ ┃ ┣ 📂enums
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthorType.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Browser.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CategoryType.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜FailureHandling.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Platform.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Project.class
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜Target.class
+ ┃ ┃ ┃ ┃ ┣ 📂exceptions
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜FrameworkException.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜HeadlessNotSupportedException.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForExcelException.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForExtentReportFileException.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForFilesException.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidRemoteWebDriverURLException.class
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜TargetNotValidException.class
+ ┃ ┃ ┃ ┃ ┣ 📂helpers
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CaptureHelpers.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜DatabaseHelpers.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExcelHelpers.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜FileHelpers.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Helpers.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜PropertiesHelpers.class
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜ScreenRecoderHelpers.class
+ ┃ ┃ ┃ ┃ ┣ 📂keywords
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜WebUI.class
+ ┃ ┃ ┃ ┃ ┣ 📂mail
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailAttachmentsSender$1.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailAttachmentsSender.class
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜EmailConfig.class
+ ┃ ┃ ┃ ┃ ┣ 📂report
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureManager.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtentReportManager.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtentTestManager.class
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜TelegramManager.class
+ ┃ ┃ ┃ ┃ ┗ 📂utils
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserInfoUtils.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜DataFakerUtils.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜DataGenerateUtils.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜DateUtils.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜DecodeUtils.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailSendUtils.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜IconUtils.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜JsonUtils$1.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜JsonUtils.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜LanguageUtils.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜LocalStorageUtils.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜LogUtils.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ObjectUtils.class
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportUtils.class
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜ZipUtils.class
+ ┃ ┃ ┣ 📂META-INF
+ ┃ ┃ ┃ ┗ 📂services
+ ┃ ┃ ┃ ┃ ┗ 📜io.qameta.allure.listener.TestLifecycleListener
+ ┃ ┃ ┗ 📜log4j2.properties
+ ┃ ┣ 📂generated-sources
+ ┃ ┃ ┗ 📂annotations
+ ┃ ┣ 📂generated-test-sources
+ ┃ ┃ ┗ 📂test-annotations
+ ┃ ┗ 📂test-classes
+ ┃ ┃ ┣ 📂anhtester
+ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┣ 📂common
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜BaseTest.class
+ ┃ ┃ ┃ ┃ ┣ 📂dataprovider
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜DataProviderAddProduct.class
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜DataProviderManager.class
+ ┃ ┃ ┃ ┃ ┣ 📂listeners
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureListener.class
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestListener.class
+ ┃ ┃ ┃ ┃ ┗ 📂projects
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂cms
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂admin
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂model
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂pages
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂brands
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BrandPage.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂category
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CategoryPage.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂logins
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜LoginPageCMS.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂products
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜AddProductPage.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂testcases
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AddProductTest.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CategoryTest.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginTest.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜OrderTest.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProductInfoTest.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileTest.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂users
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂model
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂pages
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dashboard
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DashboardPage.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂logins
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂order
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜OrderPage.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂products
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProductInfoPageCMS.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂profiles
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfilePage.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommonPageCMS.class
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂crm
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂models
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientModel.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInModel.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂pages
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Clients
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ClientPageCRM.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Dashboard
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DashboardPageCRM.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Projects
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProjectPageCRM.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂SignIn
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInPageCRM.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Tasks
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TaskPage.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommonPageCRM.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂testcases
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientTest.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SignInTest.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TestHandle.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestSimpleCode.class
+ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┣ 📜allure.properties
+ ┃ ┃ ┃ ┣ 📜config.json
+ ┃ ┃ ┃ ┣ 📜config.properties
+ ┃ ┃ ┃ ┗ 📜data.properties
+ ┃ ┃ ┣ 📂objects
+ ┃ ┃ ┃ ┗ 📜crm_locators.properties
+ ┃ ┃ ┣ 📂suites
+ ┃ ┃ ┃ ┣ 📜Clients-parallel.xml
+ ┃ ┃ ┃ ┣ 📜Clients-simple.xml
+ ┃ ┃ ┃ ┣ 📜Clients-testAddClient.xml
+ ┃ ┃ ┃ ┣ 📜Clients-testSearch.xml
+ ┃ ┃ ┃ ┣ 📜SignIn-parallel-methods.xml
+ ┃ ┃ ┃ ┣ 📜SignIn-simple.xml
+ ┃ ┃ ┃ ┗ 📜SuiteAll.xml
+ ┃ ┃ ┣ 📂testdataCMS
+ ┃ ┃ ┃ ┣ 📜Book1.xlsx
+ ┃ ┃ ┃ ┣ 📜ChocoPie.jpg
+ ┃ ┃ ┃ ┣ 📜CMS_DATA.xlsx
+ ┃ ┃ ┃ ┣ 📜CocaCola.png
+ ┃ ┃ ┃ ┣ 📜Cosy.png
+ ┃ ┃ ┃ ┣ 📜GetProductInfo.xlsx
+ ┃ ┃ ┃ ┣ 📜Login.xlsx
+ ┃ ┃ ┃ ┣ 📜Nabati.jpg
+ ┃ ┃ ┃ ┗ 📜quatet.jpg
+ ┃ ┃ ┣ 📂testdataCRM
+ ┃ ┃ ┃ ┣ 📜ClientsDataExcel.xlsx
+ ┃ ┃ ┃ ┣ 📜DOCX_File_01.docx
+ ┃ ┃ ┃ ┣ 📜LoginCSV.csv
+ ┃ ┃ ┃ ┗ 📜TxtFileData.txt
+ ┃ ┃ ┗ 📜pdf-config.json
+ ┣ 📜.gitignore
  ┣ 📜pom.xml
  ┗ 📜README.md
 ```
