@@ -1,0 +1,10 @@
+{
+   "name": "Jenkins",
+   "type": "jenkins",
+   "url": "https://anhtester.com",
+   "buildOrder": 1,
+   "buildName": "Allure Report Customize | Anh Tester",
+   "buildUrl": "https://anhtester.com",
+   "reportUrl": "https://anhtester.com",
+   "reportName": "Allure Report Customize | Anh Tester"
+}

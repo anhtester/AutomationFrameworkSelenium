@@ -7,9 +7,6 @@ package anhtester.com.projects.crm.testcases;
 
 import anhtester.com.common.BaseTest;
 import anhtester.com.dataprovider.DataProviderManager;
-
-import static anhtester.com.keywords.WebUI.*;
-
 import anhtester.com.projects.crm.pages.Dashboard.DashboardPageCRM;
 import anhtester.com.projects.crm.pages.SignIn.SignInPageCRM;
 import io.qameta.allure.Epic;
@@ -18,6 +15,8 @@ import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 import java.util.Hashtable;
+
+import static anhtester.com.keywords.WebUI.*;
 
 @Epic("Regression Test CRM")
 @Feature("Sign In Test")
@@ -57,7 +56,7 @@ public class SignInTest extends BaseTest {
         clearAndFillText(By.xpath("//input[@id='email']"), "admin@example.com");
         clearAndFillText(By.xpath("//input[@id='password']"), "123456");
         clickElement(By.xpath("//button[normalize-space()='Login']"));
-        verifyContains(getPageTitle(), "Dashboard");
+        verifyContains(getPageTitle(), "Dashboard123");
 
     }
 

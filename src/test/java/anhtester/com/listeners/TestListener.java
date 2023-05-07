@@ -7,6 +7,7 @@ import anhtester.com.enums.AuthorType;
 import anhtester.com.enums.Browser;
 import anhtester.com.enums.CategoryType;
 import anhtester.com.helpers.CaptureHelpers;
+import anhtester.com.helpers.FileHelpers;
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.helpers.ScreenRecoderHelpers;
 import anhtester.com.keywords.WebUI;
@@ -63,7 +64,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         // After every method in the Test Class
         //System.out.println(method.getTestMethod().getMethodName());
     }
-    
+
     @Override
     public void onStart(ISuite iSuite) {
         System.out.println("========= INSTALLING CONFIGURATION DATA =========");
@@ -96,22 +97,11 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         EmailSendUtils.sendEmail(count_totalTCs, count_passedTCs, count_failedTCs, count_skippedTCs);
 
         //Write information in Allure Report
-        AllureEnvironmentWriter.allureEnvironmentWriter(
-                ImmutableMap.<String, String>builder().
-                        put("Test URL", FrameworkConstants.URL_CRM).
-                        put("Target Execution", FrameworkConstants.TARGET).
-                        put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT)).
-                        put("Page Load Timeout", String.valueOf(FrameworkConstants.WAIT_PAGE_LOADED)).
-                        put("Headless Mode", FrameworkConstants.HEADLESS).
-                        put("Local Browser", String.valueOf(Browser.CHROME)).
-                        put("Remote URL", FrameworkConstants.REMOTE_URL).
-                        put("Remote Port", FrameworkConstants.REMOTE_PORT).
-                        put("TCs Total", String.valueOf(count_totalTCs)).
-                        put("TCs Passed", String.valueOf(count_passedTCs)).
-                        put("TCs Skipped", String.valueOf(count_skippedTCs)).
-                        put("TCs Failed", String.valueOf(count_failedTCs)).
-                        build());
+        AllureEnvironmentWriter.allureEnvironmentWriter(ImmutableMap.<String, String>builder().put("Test URL", FrameworkConstants.URL_CRM).put("Target Execution", FrameworkConstants.TARGET).put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT)).put("Page Load Timeout", String.valueOf(FrameworkConstants.WAIT_PAGE_LOADED)).put("Headless Mode", FrameworkConstants.HEADLESS).put("Local Browser", String.valueOf(Browser.CHROME)).put("Remote URL", FrameworkConstants.REMOTE_URL).put("Remote Port", FrameworkConstants.REMOTE_PORT).put("TCs Total", String.valueOf(count_totalTCs)).put("TCs Passed", String.valueOf(count_passedTCs)).put("TCs Skipped", String.valueOf(count_skippedTCs)).put("TCs Failed", String.valueOf(count_failedTCs)).build());
 
+        //FileHelpers.copyFile("src/test/resources/config/allure/environment.xml", "target/allure-results/environment.xml");
+        FileHelpers.copyFile("src/test/resources/config/allure/categories.json", "target/allure-results/categories.json");
+        FileHelpers.copyFile("src/test/resources/config/allure/executor.json", "target/allure-results/executor.json");
 
     }
 
@@ -176,20 +166,22 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
         }
 
+        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
+            screenRecorder.stopRecording(true);
+        }
+
         //Allure report screenshot file and log
         LogUtils.error("FAILED !! Screenshot for test case: " + getTestName(iTestResult));
         LogUtils.error(iTestResult.getThrowable());
-
-        AllureManager.takeScreenshotToAttachOnAllureReport();
-        AllureManager.saveTextLog(iTestResult.getThrowable().toString());
 
         //Extent report screenshot file and log
         ExtentReportManager.addScreenShot(Status.FAIL, getTestName(iTestResult));
         ExtentReportManager.logMessage(Status.FAIL, iTestResult.getThrowable().toString());
 
-        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
-            screenRecorder.stopRecording(true);
-        }
+        AllureManager.takeScreenshotToAttachOnAllureReport();
+        //AllureManager.saveTextLog(iTestResult.getThrowable().toString());
+
+        AllureManager.addAttachmentVideoAVI();
 
     }
 

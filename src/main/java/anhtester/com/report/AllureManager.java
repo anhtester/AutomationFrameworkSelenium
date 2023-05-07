@@ -8,11 +8,18 @@ package anhtester.com.report;
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.enums.Browser;
+import anhtester.com.helpers.FileHelpers;
 import anhtester.com.utils.BrowserInfoUtils;
+import anhtester.com.utils.LogUtils;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.io.Files;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.TakesScreenshot;
+
+import java.io.File;
+import java.io.IOException;
 
 import static org.openqa.selenium.OutputType.BYTES;
 
@@ -38,7 +45,7 @@ public class AllureManager {
 
     }
 
-    @Attachment(value = "Failed test screenshot", type = "image/png")
+    @Attachment(value = "Failed test Screenshot", type = "image/png")
     public static byte[] takeScreenshotToAttachOnAllureReport() {
         try {
             return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(BYTES);
@@ -48,7 +55,7 @@ public class AllureManager {
         return new byte[0];
     }
 
-    @Attachment(value = "Take step screenshot", type = "image/png")
+    @Attachment(value = "Take step Screenshot", type = "image/png")
     public static byte[] takeScreenshotStep() {
         try {
             return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(BYTES);
@@ -74,6 +81,40 @@ public class AllureManager {
     @Attachment(value = "{0}", type = "text/html")
     public static String attachHtml(String html) {
         return html;
+    }
+
+    public static void addAttachmentVideoAVI() {
+        try {
+            //Get file Last Modified in folder
+            File video = FileHelpers.getFileLastModified("ExportData/Videos");
+            if (video != null) {
+                Allure.addAttachment("Failed test Video record AVI", "video/avi", Files.asByteSource(video).openStream(), ".avi");
+            } else {
+                LogUtils.warn("Video record not found.");
+                LogUtils.warn("Can not attachment Video in Allure report");
+            }
+
+        } catch (IOException e) {
+            LogUtils.error("Can not attachment Video in Allure report");
+            e.printStackTrace();
+        }
+    }
+
+    public static void addAttachmentVideoMP4() {
+        try {
+            //Get file Last Modified in folder
+            File video = FileHelpers.getFileLastModified("ExportData/Videos");
+            if (video != null) {
+                Allure.addAttachment("Failed test Video record MP4", "video/mp4", Files.asByteSource(video).openStream(), ".mp4");
+            } else {
+                LogUtils.warn("Video record not found.");
+                LogUtils.warn("Can not attachment Video in Allure report");
+            }
+
+        } catch (IOException e) {
+            LogUtils.error("Can not attachment Video in Allure report");
+            e.printStackTrace();
+        }
     }
 
 }

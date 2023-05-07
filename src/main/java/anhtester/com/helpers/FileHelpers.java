@@ -5,9 +5,15 @@
 
 package anhtester.com.helpers;
 
+import anhtester.com.utils.LogUtils;
+
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class FileHelpers {
 
@@ -60,5 +66,28 @@ public class FileHelpers {
         }
     }
 
+    public static void copyFile(String source_FilePath, String target_FilePath) {
+        try {
+            Files.copy(Paths.get(source_FilePath), Paths.get(target_FilePath), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static File getFileLastModified(String folderPath) {
+        File dir = new File(folderPath);
+        if (dir.isDirectory()) {
+            Optional<File> opFile = Arrays.stream(dir.listFiles(File::isFile)).max((f1, f2) -> Long.compare(f1.lastModified(), f2.lastModified()));
+            if (opFile.isPresent()) {
+                LogUtils.info("getFileLastModified: " + opFile.get().getPath());
+                return opFile.get();
+            } else {
+                LogUtils.info("getFileLastModified: " + opFile.get().getPath());
+                return null;
+            }
+        }
+
+        return null;
+    }
 
 }
