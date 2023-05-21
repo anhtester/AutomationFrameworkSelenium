@@ -2,7 +2,6 @@ package anhtester.com.projects.cms.admin.pages.logins;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.helpers.PropertiesHelpers;
-import anhtester.com.keywords.WebUI;
 import anhtester.com.projects.cms.CommonPageCMS;
 import anhtester.com.projects.cms.users.pages.dashboard.DashboardPage;
 import org.openqa.selenium.By;
@@ -12,7 +11,7 @@ import static anhtester.com.keywords.WebUI.*;
 public class LoginPageCMS extends CommonPageCMS {
 
     private By closeAdvertisementPopup = By.xpath("//i[@class='la la-close fs-20']");
-    private By buttonLogin = By.xpath("//a[normalize-space() = 'Login' and @class = 'text-reset d-inline-block opacity-60 py-2']");
+    private By buttonLogin = By.xpath("(//a[normalize-space()='Registration']/parent::li)/preceding-sibling::li");
     private By buttonCopyAdminAcc = By.xpath("//button[normalize-space()='Copy']");
     private By buttonSubmitLogin = By.xpath("//button[normalize-space()='Login']");
     private By titleLoginPage = By.xpath("//h1[normalize-space() = 'Login to your account.']");
@@ -34,7 +33,7 @@ public class LoginPageCMS extends CommonPageCMS {
         verifyElementVisible(titleLoginPage, "Login page is NOT displayed");
     }
 
-    public void verifyRedirectToAdminPage(){
+    public void verifyRedirectToAdminPage() {
         verifyElementVisible(avatarProfile, "Can not redirect to Admin page.");
     }
 

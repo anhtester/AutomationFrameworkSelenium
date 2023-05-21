@@ -2374,12 +2374,12 @@ public class WebUI {
             if (check == true) {
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             } else {
-                scrollToElementToTop(by);
+                scrollToElementToBottom(by);
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             }
         } catch (Throwable error) {
-            Assert.fail("Timeout waiting for the element Visible. " + by.toString());
             LogUtils.error("Timeout waiting for the element Visible. " + by.toString());
+            Assert.fail("Timeout waiting for the element Visible. " + by.toString());
         }
         return null;
     }

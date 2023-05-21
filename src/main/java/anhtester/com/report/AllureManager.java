@@ -21,6 +21,8 @@ import org.openqa.selenium.TakesScreenshot;
 import java.io.File;
 import java.io.IOException;
 
+import static anhtester.com.constants.FrameworkConstants.VIDEO_RECORD;
+import static anhtester.com.constants.FrameworkConstants.YES;
 import static org.openqa.selenium.OutputType.BYTES;
 
 public class AllureManager {
@@ -84,19 +86,21 @@ public class AllureManager {
     }
 
     public static void addAttachmentVideoAVI() {
-        try {
-            //Get file Last Modified in folder
-            File video = FileHelpers.getFileLastModified("ExportData/Videos");
-            if (video != null) {
-                Allure.addAttachment("Failed test Video record AVI", "video/avi", Files.asByteSource(video).openStream(), ".avi");
-            } else {
-                LogUtils.warn("Video record not found.");
-                LogUtils.warn("Can not attachment Video in Allure report");
-            }
+        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
+            try {
+                //Get file Last Modified in folder
+                File video = FileHelpers.getFileLastModified("ExportData/Videos");
+                if (video != null) {
+                    Allure.addAttachment("Failed test Video record AVI", "video/avi", Files.asByteSource(video).openStream(), ".avi");
+                } else {
+                    LogUtils.warn("Video record not found.");
+                    LogUtils.warn("Can not attachment Video in Allure report");
+                }
 
-        } catch (IOException e) {
-            LogUtils.error("Can not attachment Video in Allure report");
-            e.printStackTrace();
+            } catch (IOException e) {
+                LogUtils.error("Can not attachment Video in Allure report");
+                e.printStackTrace();
+            }
         }
     }
 

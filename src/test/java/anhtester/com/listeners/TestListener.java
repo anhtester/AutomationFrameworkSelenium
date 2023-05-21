@@ -178,10 +178,8 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         ExtentReportManager.addScreenShot(Status.FAIL, getTestName(iTestResult));
         ExtentReportManager.logMessage(Status.FAIL, iTestResult.getThrowable().toString());
 
-        AllureManager.takeScreenshotToAttachOnAllureReport();
+        //AllureManager.takeScreenshotToAttachOnAllureReport();
         //AllureManager.saveTextLog(iTestResult.getThrowable().toString());
-
-        AllureManager.addAttachmentVideoAVI();
 
     }
 

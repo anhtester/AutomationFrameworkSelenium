@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Regression Tests Login CMS">
+
+    <test name="Login Test CMS">
+        <parameter name="BROWSER" value="chrome"/>
+        <classes>
+            <class name="anhtester.com.projects.cms.testcases.LoginTest"/>
+        </classes>
+    </test>
+
+</suite>

@@ -1,10 +1,10 @@
 package anhtester.com.projects.cms.users.pages.order;
 
 import anhtester.com.helpers.PropertiesHelpers;
-import anhtester.com.projects.cms.CommonPageCMS;
 import anhtester.com.keywords.WebUI;
-import anhtester.com.projects.cms.users.pages.products.ProductInfoPageCMS;
+import anhtester.com.projects.cms.CommonPageCMS;
 import anhtester.com.projects.cms.users.pages.dashboard.DashboardPage;
+import anhtester.com.projects.cms.users.pages.products.ProductInfoPageCMS;
 import anhtester.com.utils.LogUtils;
 import org.openqa.selenium.By;
 
@@ -50,11 +50,13 @@ public class OrderPage extends CommonPageCMS {
         String priceProduct01AsString = WebUI.getTextElement(ProductInfoPageCMS.productPrice).trim();
         WebUI.scrollToElementToBottom(buttonAddToCart);
         WebUI.clickElement(buttonAddToCart);
-        WebUI.verifyElementVisible(popupAddToCartSucceeded, "Add to cart is failed");
+        WebUI.waitForPageLoaded();
+        WebUI.verifyElementVisible(popupAddToCartSucceeded, "Add to cart is failed. ");
         WebUI.clickElement(buttonBackToShopping);
         WebUI.waitForPageLoaded();
         WebUI.sleep(2);
         WebUI.setText(DashboardPage.inputSearchProduct, PropertiesHelpers.getValue("product_P02"));
+        WebUI.waitForJQueryLoad();
         WebUI.sleep(3);
         WebUI.clickElement(By.xpath("//div[@id='search-content']//div[contains(text(),'" + PropertiesHelpers.getValue("product_P02") + "')]"));
         WebUI.waitForPageLoaded();
