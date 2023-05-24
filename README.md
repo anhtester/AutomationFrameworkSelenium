@@ -21,6 +21,7 @@
 13. Send message/report to Telegram Bot
 14. Run Selenium Grid (remote)
 15. Use DataFaker and JavaFaker to generate data
+16. Retry Failed Test in TestNG with IRetryAnalyzer and IAnnotationTransformer
 
 ### ✳️ **SYSTEM REQUIREMENTS**
 
