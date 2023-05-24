@@ -2,6 +2,10 @@
 
 <suite name="Regression Test CRM" data-provider-thread-count="1">
 
+    <listeners>
+        <listener class-name="anhtester.com.listeners.AnnotationTransformer"/>
+    </listeners>
+    
     <test name="Client Test">
         <parameter name="BROWSER" value="chrome"/>
         <classes>

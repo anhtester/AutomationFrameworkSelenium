@@ -59,6 +59,7 @@ public final class FrameworkConstants {
     public static final String VIDEO_RECORD = PropertiesHelpers.getValue("VIDEO_RECORD");
 
     public static final String LOCATE = PropertiesHelpers.getValue("LOCATE");
+    public static final String RETRY_TEST_FAIL = PropertiesHelpers.getValue("RETRY_TEST_FAIL");
 
     public static final int WAIT_DEFAULT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_DEFAULT"));
     public static final int WAIT_IMPLICIT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_IMPLICIT"));

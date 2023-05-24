@@ -1,6 +1,10 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="Regression Tests Parallel methods" parallel="methods" thread-count="8">
+<suite name="Regression Tests Parallel methods" parallel="methods">
+
+    <listeners>
+        <listener class-name="anhtester.com.listeners.AnnotationTransformer"/>
+    </listeners>
 
     <test name="SignIn Test">
         <parameter name="BROWSER" value="chrome"/>

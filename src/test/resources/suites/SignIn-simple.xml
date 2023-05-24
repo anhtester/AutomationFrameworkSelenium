@@ -3,7 +3,7 @@
 <suite name="Regression Tests">
 
     <listeners>
-        <listener class-name="anhtester.com.listeners.TestListener"/>
+        <listener class-name="anhtester.com.listeners.AnnotationTransformer"/>
     </listeners>
 
     <test name="Sign In Test">
