@@ -15,6 +15,51 @@ import org.testng.annotations.Test;
 public class TestSimpleCode {
 
     @Test
+    public void testReadDataFromJSON_01() {
+        //JSONPath Online Evaluator - https://jsonpath.com/
+
+        //Get book đầu tiên
+        System.out.println(JsonUtils.getData("$.store.book[0]"));
+        System.out.println(JsonUtils.getData("$['store']['book'][0]"));
+
+
+        //Get category của Book đầu tiên
+        System.out.println(JsonUtils.getData("$.store.book[0].category"));
+        System.out.println(JsonUtils.getData("$['store']['book'][0].category"));
+
+        //Get bicycle
+        System.out.println(JsonUtils.getData("$.store.bicycle"));
+        System.out.println(JsonUtils.getData("$['store']['bicycle']"));
+    }
+
+    @Test
+    public void testReadDataFromJSON_02() {
+        JsonUtils.setJsonFile("src/test/resources/datajson/tools.json");
+
+        //Get name
+        System.out.println(JsonUtils.getData("$.tool.jsonpath.creator.name"));
+
+        //Get location
+        System.out.println(JsonUtils.getData("$.tool.jsonpath.creator.name"));
+    }
+
+    @Test
+    public void testReadDataFromJSON_03() {
+        //Create JsonHelpers to run parallel
+        JsonHelpers jsonHelpers = new JsonHelpers();
+
+        //Set Json file
+        jsonHelpers.setJsonFile("src/test/resources/datajson/book.json");
+
+        //Get title of book
+        System.out.println(jsonHelpers.getData("$.book[1].title"));
+
+        //Get cheap
+        System.out.println(jsonHelpers.getData("$.['price range'].cheap"));
+    }
+
+
+    @Test
     public void testDataFaker() {
         //DataFakerUtils.setLocate("vi");
         System.out.println(DataFakerUtils.getFaker().address().fullAddress());

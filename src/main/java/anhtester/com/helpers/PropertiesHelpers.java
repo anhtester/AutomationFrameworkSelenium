@@ -41,7 +41,7 @@ public class PropertiesHelpers {
             }
             file.close();
             LogUtils.info("Loaded all properties files.");
-            LogUtils.info(properties);
+            //LogUtils.info(properties);
             return properties;
         } catch (IOException e) {
             LogUtils.info("Warning !! Can not Load All File.");

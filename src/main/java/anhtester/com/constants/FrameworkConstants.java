@@ -18,7 +18,7 @@ public final class FrameworkConstants {
 
     static {
         PropertiesHelpers.loadAllFiles();
-        System.out.println("Data From FrameworkConstants: " + PropertiesHelpers.getProperties());
+        //System.out.println("Data From FrameworkConstants: " + PropertiesHelpers.getProperties());
     }
 
     public static final String PROJECT_PATH = Helpers.getCurrentDir();
