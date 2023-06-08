@@ -33,9 +33,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java-compiler.version>11</java-compiler.version>
-        <maven-surefire-plugin.version>3.1.0</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <selenium.version>4.9.1</selenium.version>
+        <selenium.version>4.10.0</selenium.version>
         <testng.version>7.8.0</testng.version>
         <webdrivermanager.version>5.3.3</webdrivermanager.version>
         <aspectjweaver.version>1.9.19</aspectjweaver.version>
@@ -50,7 +50,7 @@
         </allure.cmd.download.url>
         <extentreports.version>5.0.9</extentreports.version>
         <apache-poi.version>5.2.3</apache-poi.version>
-        <commons-io.version>2.12.0</commons-io.version>
+        <commons-io.version>2.13.0</commons-io.version>
         <owner.version>1.0.12</owner.version>
         <assertj.version>3.24.2</assertj.version>
         <datafaker.version>1.9.0</datafaker.version>
@@ -58,10 +58,10 @@
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <google.zxing.version>3.5.1</google.zxing.version>
         <lombok.version>1.18.28</lombok.version>
-        <google.guava.version>31.1-jre</google.guava.version>
+        <google.guava.version>32.0.0-jre</google.guava.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.15</zip.version>
-        <jackson.version>2.15.1</jackson.version>
+        <jackson.version>2.15.2</jackson.version>
 
         <!-- Suite XML path -->
         <suite.signin.simple>src/test/resources/suites/SignIn-simple.xml</suite.signin.simple>
