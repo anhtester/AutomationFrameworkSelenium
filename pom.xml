@@ -53,7 +53,7 @@
         <commons-io.version>2.13.0</commons-io.version>
         <owner.version>1.0.12</owner.version>
         <assertj.version>3.24.2</assertj.version>
-        <datafaker.version>2.0.0</datafaker.version>
+        <datafaker.version>1.9.0</datafaker.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <google.zxing.version>3.5.1</google.zxing.version>

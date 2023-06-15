@@ -1,7 +1,10 @@
 v1.9.5
 ======
 Jun 16, 2023
-
+* Update Selenium 4.10.0
+* Update TestNG 7.8.0
+* Update WebUI keyword
+* Fixed "clearText" function in WebUI keyword
 
 v1.9.4
 ======
@@ -11,7 +14,7 @@ May 25, 2023
 * Add Data Faker
 * Add Retry Failed Test (IAnnotationTransformer)
 * Add Test cases sample for CMS system
-* Fix run headless mode
+* Fixed run headless mode
 
 v1.9.3
 ======
@@ -58,7 +61,7 @@ Oct 7, 2022
 
 v1.8.1
 ======
-* Sep 20, 2022
+Sep 20, 2022
 * Fix read Excel data
 * Config Telegram Token and ChatID
 
@@ -92,14 +95,14 @@ AND MORE
 
 v1.5.1
 ======
-* Jun 14, 2022
+Jun 14, 2022
 * Change the way to read data from ExcelHelper to support parallel running
 * Update test case sample
 * Update version for dependency in pom.xml (Selenium 4.2.2, Apache POI 5.2.2, ...)
 
 v1.5.0
 ======
-* Jun 3, 2022
+Jun 3, 2022
 * Support for all Java version
 * Optimize WebUI keyword
 * Add function get Xpath dynamic
