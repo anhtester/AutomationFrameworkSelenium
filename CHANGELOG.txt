@@ -1,0 +1,166 @@
+v1.9.5
+======
+Jun 16, 2023
+
+
+v1.9.4
+======
+May 25, 2023
+* Update Selenium 4.9.1
+* Update all dependency version
+* Add Data Faker
+* Add Retry Failed Test (IAnnotationTransformer)
+* Add Test cases sample for CMS system
+* Fix run headless mode
+
+v1.9.3
+======
+Jan 28, 2023
+* Upgrade Selenium 4.8.0
+* Upgrade TestNG 7.7.1
+* Update WebUI keyword to support CDP Chromium v109 and logs detail for some methods
+* Fixed added an attachment screenshot to Allure Report with TestNG > 7.4.0
+* Added io.qameta.allure.listener.TestLifecycleListener and AllureListener
+* Fixed read Multiple Properties files
+
+v1.9.2
+======
+Dec 29, 2022
+* Update Selenium 4.7.2
+* Update WebUI keyword
+* Update logs for Report (Extent and Allure)
+
+v1.9.1
+======
+Nov 25, 2022
+* Fixed issue https://github.com/anhtester/AutomationFrameworkSelenium/issues/6
+* Error reason: the screenshot with Base64 type can not display in the PDF report. I converted it to a file attachment from this source.
+* Update ExtentReportManager class to update addScreenShot method
+* Added getScreenshot function in CaptureHelper class
+
+v1.9.0
+======
+Nov 8, 2022
+* Update Selenium 4.6.0
+* Use Selenium Manager to auto-download the Binary Browser version
+* Remove WebDriverManger in BrowserFactory
+* Update WebUI keyword
+* Update Config for Selenium Grid
+* Update README
+
+v1.8.2
+======
+Oct 7, 2022
+* Add PDF report
+* Update Selenium 4.5.0
+* Update WebUI keyword
+* Update README
+
+v1.8.1
+======
+* Sep 20, 2022
+* Fix read Excel data
+* Config Telegram Token and ChatID
+
+v1.8.0
+======
+Sep 19, 2022
+* Add send message or report file to Telegram Bot
+* Add verify download file
+* Add Drag and Drop HTML 5 ( WebUI.dragAndDropHTML5(fromElement, toElement) )
+* Optimize WebUI keyword (wait, function,...)
+* Fix error when checking data in the table by column
+* Update data test and change website demo
+
+v1.7.0
+======
+Aug 11, 2022
+* Optimize wait in WebUI keyword
+* Add function convert WebElement to By
+* Change source to Page Object Model read object in class page. Remove object from the properties file
+* Update Selenium v4.4.0 and WebDriverManager v5.2.3 (support Chrome 104 CDP)
+
+v1.6.0
+======
+Jul 25, 2022
+* Add more complete verify functions in the WebUI keyword
+* Remove IE browser
+* Update Selenium 4.3.0 and WebDriverManager 5.2.1 and more in pom.xml
+* Update test cases sample
+* Add config: smartWait, Record video, Zip folder,...
+AND MORE
+
+v1.5.1
+======
+* Jun 14, 2022
+* Change the way to read data from ExcelHelper to support parallel running
+* Update test case sample
+* Update version for dependency in pom.xml (Selenium 4.2.2, Apache POI 5.2.2, ...)
+
+v1.5.0
+======
+* Jun 3, 2022
+* Support for all Java version
+* Optimize WebUI keyword
+* Add function get Xpath dynamic
+* Remove the test-supplier library
+* Change the way to read test data from Excel
+* Update dependencies version in pom.xml (Selenium, WebDriverManager,...)
+
+v1.4.0
+======
+May 18, 2022
+* Add function and optimize wait in WebUI keyword
+* Add LanguageUtils to removeAccent for Vietnamese and convertCharset
+* Add function makeSlug to convert string to slug
+* Add config screenshot_all_steps to screenshot all steps and import them to Allure Report, ExportData (in WebUI keyword)
+* Add config WAIT_SLEEP_STEP for every step (in WebUI keyword)
+* Update FrameworkAnnotation is not required before @test annotation (in TestListener)
+* Format value from properties file for UTF-8
+* Add Authentication using Selenium 4 in the WebUI keyword
+* Add getQRCode using google.zxing library in WebUI keyword
+
+v1.3.0
+======
+May 9, 2022
+* Add LocalStorageUtils class to handle local storage
+* Add functions in keyword WebUI: handle Window and Tab, screenshotElement, printPage, setWindowPosition,...
+* Optimize code in keyword
+* Add and optimize code sample in TestHandle class (testcases package)
+* Update version dependencies in pom.xml: Selenium 4.1.4,...
+...more...
+
+v1.2.0
+======
+Apr 21, 2022
+* Add and update functions to the WebUI keyword (softAssert, verifyElementTextEquals,...)
+* Optimize functions Wait and some handle functions in the WebUI class
+* Delete and update class in the Utils package
+* Add FailureHandling enum to check flow control (STOP_ON_FAILURE, CONTINUE_ON_FAILURE, OPTIONAL)
+* Add read data from Excel file with Hashtable (in SignInTest)
+* Add read data from the JSON file (JsonUtils)
+* Update ClientTest class
+
+v1.1.0
+======
+Apr 10, 2022
+* Delete class not used
+* Update version in pom.xml
+* Update information for the test case in ExtentReport
+* Add an icon for the browser in ExtentReport
+* Add function in some class
+* Customize parallel sample test case
+
+v1.0.0
+======
+Apr 5, 2022
+SOME FEATURES IN VERSION 1.0
+* Run the parallel test case
+* Read Object web element from a properties file
+* Extent Report
+* Allure Report
+* Send Mail after the run test (Report information and HTML file attachment)
+* Logfile
+* Record video and Screenshot test case for failed
+* Read data test form Excel file (xlsx, csv, json,...) with class define fields (param: Client client)
+* Base function in the library (WebUI, Utils,...) ...etc.. (wait, dynamic xpath,...)
