@@ -75,7 +75,7 @@ public class TestHandle {
         WebUI.sleep(2);
         LogUtils.info(WebUI.countFilesInDownloadDirectory());
         //File name is ExportCSV.csv
-        Assert.assertTrue(WebUI.verifyDownloadFileEqualsNameCompletedWaitTimeout("ExportCSV.csv", 5), "Download failed. File not found.");
+        Assert.assertTrue(WebUI.verifyDownloadFileEqualsName("ExportCSV.csv", 5), "Download failed. File not found.");
     }
 
     @Test

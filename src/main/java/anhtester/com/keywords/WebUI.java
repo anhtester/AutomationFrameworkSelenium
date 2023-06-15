@@ -148,7 +148,7 @@ public class WebUI {
         }
     }
 
-    public static Boolean verifyDownloadFileContainsNameCompletedWaitTimeout(String fileName, int timeoutSeconds) {
+    public static Boolean verifyDownloadFileContainsName(String fileName, int timeoutSeconds) {
         boolean check = false;
         int i = 0;
         while (i < timeoutSeconds) {
@@ -164,7 +164,7 @@ public class WebUI {
     }
 
 
-    public static Boolean verifyDownloadFileEqualsNameCompletedWaitTimeout(String fileName, int timeoutSeconds) {
+    public static Boolean verifyDownloadFileEqualsName(String fileName, int timeoutSeconds) {
         boolean check = false;
         int i = 0;
         while (i < timeoutSeconds) {
@@ -350,7 +350,6 @@ public class WebUI {
         return message;
     }
 
-
     /**
      * Khôi phục cửa sổ và đặt kích thước cửa sổ.
      *
@@ -464,6 +463,7 @@ public class WebUI {
      *
      * @return giá trị đã setup Allow - thuộc đối tượng ChromeOptions
      */
+    @Step("Allow Notifications")
     public static ChromeOptions notificationsAllow() {
         // Tạo Map để lưu trữ các tùy chọn
         Map<String, Object> prefs = new HashMap<String, Object>();
@@ -487,6 +487,7 @@ public class WebUI {
      *
      * @return giá trị đã setup Block - thuộc đối tượng ChromeOptions
      */
+    @Step("Blocked Notifications")
     public static ChromeOptions notificationsBlock() {
         // Tạo Map để lưu trữ các tùy chọn
         Map<String, Object> prefs = new HashMap<String, Object>();
@@ -511,7 +512,7 @@ public class WebUI {
      * @param by       là element thuộc kiểu By
      * @param filePath đường dẫn tuyệt đối đến file trên máy tính của bạn
      */
-    @Step("Upload File With Local Form")
+    @Step("Upload File with open Local Form")
     public static void uploadFileWithLocalForm(By by, String filePath) {
         smartWait();
 
@@ -576,11 +577,11 @@ public class WebUI {
             robot.keyRelease(KeyEvent.VK_ENTER);
         }
 
-        LogUtils.info("Upload File With Local Form: " + filePath);
+        LogUtils.info("Upload File with Local Form: " + filePath);
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.info("Upload File With Local Form: " + filePath);
+            ExtentReportManager.info("Upload File with Local Form: " + filePath);
         }
-        AllureManager.saveTextLog("Upload File With Local Form: " + filePath);
+        AllureManager.saveTextLog("Upload File with Local Form: " + filePath);
 
     }
 
@@ -627,11 +628,13 @@ public class WebUI {
         return title;
     }
 
-    public static boolean getPageTitle(String pageTitle) {
+    @Step("Verify Page Title equals {0}")
+    public static boolean VerifyPageTitle(String pageTitle) {
         smartWait();
         return getPageTitle().equals(pageTitle);
     }
 
+    @Step("Verify Page sources Contains Text {0}")
     public static boolean verifyPageContainsText(String text) {
         smartWait();
         return DriverManager.getDriver().getPageSource().contains(text);
@@ -639,6 +642,7 @@ public class WebUI {
 
     //Handle checkbox and radio button
 
+    @Step("Verify Element Checked {0}")
     public static boolean verifyElementChecked(By by) {
         smartWait();
 
@@ -651,6 +655,7 @@ public class WebUI {
         }
     }
 
+    @Step("Verify Element Checked {0}")
     public static boolean verifyElementChecked(By by, String message) {
         smartWait();
 
@@ -675,6 +680,7 @@ public class WebUI {
      * @param text           giá trị cần chọn dạng Text của item
      * @return click chọn một item chỉ định với giá trị Text
      */
+    @Step("Select Option Dynamic by Text {0}")
     public static boolean selectOptionDynamic(By objectListItem, String text) {
         smartWait();
         //Đối với dropdown động (div, li, span,...không phải dạng select option)
@@ -695,6 +701,7 @@ public class WebUI {
         return false;
     }
 
+    @Step("Verify Option Dynamic Exist by Text {0}")
     public static boolean verifyOptionDynamicExist(By objectListItem, String text) {
         smartWait();
 
@@ -714,6 +721,7 @@ public class WebUI {
         return false;
     }
 
+    @Step("Get total of Option Dynamic with list element {0}")
     public static int getOptionDynamicTotal(By objectListItem) {
         smartWait();
 
@@ -728,12 +736,14 @@ public class WebUI {
     }
 
     //Dropdown (Select Option)
+    @Step("Select Option by Text {0}")
     public static void selectOptionByText(By by, String text) {
         smartWait();
         Select select = new Select(getWebElement(by));
         select.selectByVisibleText(text);
     }
 
+    @Step("Select Option by Value {0}")
     public static void selectOptionByValue(By by, String value) {
         smartWait();
 
@@ -741,6 +751,7 @@ public class WebUI {
         select.selectByValue(value);
     }
 
+    @Step("Select Option by Index {0}")
     public static void selectOptionByIndex(By by, int index) {
         smartWait();
 
@@ -748,6 +759,7 @@ public class WebUI {
         select.selectByIndex(index);
     }
 
+    @Step("Verify Option Total equals {0}")
     public static void verifyOptionTotal(By element, int total) {
         smartWait();
 
@@ -755,24 +767,27 @@ public class WebUI {
         Assert.assertEquals(total, select.getOptions().size());
     }
 
+    @Step("Verify Selected Option by Text {0}")
     public static boolean verifySelectedByText(By by, String text) {
-        sleep(WAIT_SLEEP_STEP);
+        smartWait();
 
         Select select = new Select(getWebElement(by));
-        LogUtils.info("Option Selected by text: " + select.getFirstSelectedOption().getText());
+        LogUtils.info("Verify Option Selected by text: " + select.getFirstSelectedOption().getText());
         return select.getFirstSelectedOption().getText().equals(text);
     }
 
+    @Step("Verify Selected Option by Value {0}")
     public static boolean verifySelectedByValue(By by, String optionValue) {
-        sleep(WAIT_SLEEP_STEP);
+        smartWait();
 
         Select select = new Select(getWebElement(by));
-        LogUtils.info("Option Selected by value: " + select.getFirstSelectedOption().getAttribute("value"));
+        LogUtils.info("Verify Option Selected by value: " + select.getFirstSelectedOption().getAttribute("value"));
         return select.getFirstSelectedOption().getAttribute("value").equals(optionValue);
     }
 
+    @Step("Verify Selected Option by Index {0}")
     public static boolean verifySelectedByIndex(By by, int index) {
-        sleep(WAIT_SLEEP_STEP);
+        smartWait();
 
         boolean res = false;
         Select select = new Select(getWebElement(by));
@@ -787,45 +802,50 @@ public class WebUI {
         return res;
     }
 
-    //Handle frame iframe
+    //Handle frame iframe Window Tab
 
+    @Step("Switch to Frame by Index: {0}")
     public static void switchToFrameByIndex(int index) {
-        sleep(WAIT_SLEEP_STEP);
+        smartWait();
 
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(index));
         //DriverManager.getDriver().switchTo().frame(Index);
     }
 
+    @Step("Switch to Frame by ID or Name: {0}")
     public static void switchToFrameByIdOrName(String IdOrName) {
-        sleep(WAIT_SLEEP_STEP);
+        smartWait();
 
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(IdOrName));
     }
 
+    @Step("Switch to Frame by Element {0}")
     public static void switchToFrameByElement(By by) {
-        sleep(WAIT_SLEEP_STEP);
+        smartWait();
 
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(by));
     }
 
+    @Step("Switch to Default Content")
     public static void switchToDefaultContent() {
-        sleep(WAIT_SLEEP_STEP);
+        smartWait();
 
         DriverManager.getDriver().switchTo().defaultContent();
     }
 
-
+    @Step("Switch to Window or Tab by Position: {0}")
     public static void switchToWindowOrTabByPosition(int position) {
-        sleep(WAIT_SLEEP_STEP);
+        smartWait();
 
         DriverManager.getDriver().switchTo().window(DriverManager.getDriver().getWindowHandles().toArray()[position].toString());
     }
 
+    @Step("Switch to Window or Tab by Title: {0}")
     public static void switchToWindowOrTabByTitle(String title) {
-        sleep(WAIT_SLEEP_STEP);
+        smartWait();
 
         //Store the ID of the original window
         String originalWindow = DriverManager.getDriver().getWindowHandle();
@@ -846,9 +866,9 @@ public class WebUI {
 
     }
 
+    @Step("Switch to Window or Tab by Url: {0}")
     public static void switchToWindowOrTabByUrl(String url) {
-        sleep(WAIT_SLEEP_STEP);
-
+        smartWait();
         //Store the ID of the original window
         String originalWindow = DriverManager.getDriver().getWindowHandle();
 
@@ -868,75 +888,77 @@ public class WebUI {
 
     }
 
+    @Step("Close current Window")
     public static void closeCurrentWindow() {
         DriverManager.getDriver().close();
     }
 
-    public static boolean verifyNumberOfWindowsOrTab(int number) {
+    @Step("Verify total of Windows or Tab")
+    public static boolean verifyTotalOfWindowsOrTab(int number) {
         return new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT)).until(ExpectedConditions.numberOfWindowsToBe(number));
     }
 
+    @Step("Open new Tab")
     public static void openNewTab() {
-        sleep(WAIT_SLEEP_STEP);
-
+        smartWait();
         // Opens a new tab and switches to new tab
         DriverManager.getDriver().switchTo().newWindow(WindowType.TAB);
     }
 
+    @Step("Open new Window")
     public static void openNewWindow() {
-        sleep(WAIT_SLEEP_STEP);
+        smartWait();
         // Opens a new window and switches to new window
         DriverManager.getDriver().switchTo().newWindow(WindowType.WINDOW);
     }
 
+    @Step("Switch to Main Window")
     public static void switchToMainWindow() {
-        sleep(WAIT_SLEEP_STEP);
+        smartWait();
         DriverManager.getDriver().switchTo().window(DriverManager.getDriver().getWindowHandles().toArray()[0].toString());
     }
 
+    @Step("Switch to Main Window by ID {0}")
     public static void switchToMainWindow(String originalWindow) {
-        sleep(WAIT_SLEEP_STEP);
+        smartWait();
         DriverManager.getDriver().switchTo().window(originalWindow);
     }
 
+    @Step("Switch to Last Window")
     public static void switchToLastWindow() {
         smartWait();
-
         Set<String> windowHandles = DriverManager.getDriver().getWindowHandles();
         DriverManager.getDriver().switchTo().window(DriverManager.getDriver().getWindowHandles().toArray()[windowHandles.size() - 1].toString());
     }
 
-    /*
-        ========== Handle Alert ==================
-     */
+    //========== Handle Alert ==========
 
+    @Step("Click Accept on Alert")
     public static void alertAccept() {
-        smartWait();
-
+        sleep(WAIT_SLEEP_STEP);
         DriverManager.getDriver().switchTo().alert().accept();
     }
 
+    @Step("Click Dismiss on Alert")
     public static void alertDismiss() {
-        smartWait();
-
+        sleep(WAIT_SLEEP_STEP);
         DriverManager.getDriver().switchTo().alert().dismiss();
     }
 
+    @Step("Get text on Alert")
     public static void alertGetText() {
-        smartWait();
-
+        sleep(WAIT_SLEEP_STEP);
         DriverManager.getDriver().switchTo().alert().getText();
     }
 
+    @Step("Set text on Alert {0}")
     public static void alertSetText(String text) {
-        smartWait();
-
+        sleep(WAIT_SLEEP_STEP);
         DriverManager.getDriver().switchTo().alert().sendKeys(text);
     }
 
+    @Step("Verify Alert present with timeout {0}")
     public static boolean verifyAlertPresent(int timeOut) {
-        smartWait();
-
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
             wait.until(ExpectedConditions.alertIsPresent());
@@ -948,7 +970,7 @@ public class WebUI {
     }
 
     //Handle Elements
-
+    @Step("Get List Element {0}")
     public static List<String> getListElementsText(By by) {
         smartWait();
 
@@ -965,6 +987,7 @@ public class WebUI {
         return listText;
     }
 
+    @Step("Verify element exists {0}")
     public static boolean verifyElementExists(By by) {
         smartWait();
 
@@ -2028,12 +2051,35 @@ public class WebUI {
     @Step("Clear value in textbox")
     public static void clearText(By by) {
         waitForElementVisible(by).clear();
-        LogUtils.info("Clear value in textbox " + by.toString());
+        LogUtils.info("Clear text in textbox " + by.toString());
 
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass("Clear value in textbox " + by.toString());
+            ExtentReportManager.pass("Clear text in textbox " + by.toString());
         }
-        AllureManager.saveTextLog("Clear value in textbox");
+        AllureManager.saveTextLog("Clear text in textbox");
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
+    }
+
+    /**
+     * Xóa giá trị trong ô Text
+     *
+     * @param by an element of object type By
+     */
+    @Step("Clear text in textbox with Ctrl A")
+    public static void clearTextCtrlA(By by) {
+        waitForElementVisible(by);
+        Actions actions = new Actions(DriverManager.getDriver());
+        actions.click(getWebElement(by)).build().perform();
+        //actions.moveToElement(getWebElement(by)).click().build();
+        actions.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).build().perform();
+        actions.sendKeys(Keys.DELETE).build().perform();
+
+        LogUtils.info("Clear text in textbox " + by.toString());
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.pass("Clear text in textbox " + by.toString());
+        }
+        AllureManager.saveTextLog("Clear text in textbox");
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
     }
