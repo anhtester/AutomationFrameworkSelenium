@@ -13,4 +13,4 @@ reports/
 *.mp4
 *.avi
 *.zip
-
+allure-report/
