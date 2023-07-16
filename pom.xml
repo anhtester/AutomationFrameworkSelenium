@@ -40,9 +40,9 @@
         <webdrivermanager.version>5.4.0</webdrivermanager.version>
         <aspectjweaver.version>1.9.19</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
-        <log4j.version>2.20.0</log4j.version>
+        <log4j.version>3.0.0-alpha1</log4j.version>
         <slf4j.version>2.0.7</slf4j.version>
-        <allure-testng.version>2.22.2</allure-testng.version>
+        <allure-testng.version>2.23.0</allure-testng.version>
         <allure-maven.version>2.12.0</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
@@ -58,7 +58,7 @@
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <google.zxing.version>3.5.1</google.zxing.version>
         <lombok.version>1.18.28</lombok.version>
-        <google.guava.version>32.0.1-jre</google.guava.version>
+        <google.guava.version>32.1.1-jre</google.guava.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.15</zip.version>
         <jackson.version>2.15.2</jackson.version>
@@ -187,7 +187,7 @@
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-plugin-api</artifactId>
-            <version>2.22.4</version>
+            <version>2.23.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
