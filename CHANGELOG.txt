@@ -1,3 +1,10 @@
+v1.9.6
+======
+Aug 1, 2023
+* Update Selenium 4.11.0
+* Support Chrome browser 115
+* Remove WebDriverManager in BrowserFactory enum
+
 v1.9.5
 ======
 Jun 16, 2023
