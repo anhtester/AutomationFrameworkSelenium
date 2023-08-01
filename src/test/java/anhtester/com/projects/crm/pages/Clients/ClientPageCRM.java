@@ -34,7 +34,7 @@ public class ClientPageCRM extends CommonPageCRM {
     public By inputClientGroups = By.xpath("(//label[normalize-space()='Client groups']/following-sibling::div//input)[1]");
     public By spanFirstItemClientGroups = By.xpath("//span[@class='select2-match']");
     public By buttonSaveOnDialog = By.xpath("//div[@id='ajaxModalContent']//button[normalize-space()='Save']");
-    public By inputSearch = By.xpath("//input[@placeholder='Search']");
+    public By inputSearch = By.xpath("//div[@id='client-table_filter']//input");
     public By itemClientFirstRow = By.xpath("//table[@id='client-table']//tbody/tr[1]/td[2]/a");
     public By tabClientInfo = By.xpath("//a[normalize-space()='Client info']");
     public By ownerDetail = By.xpath("//div[@id='s2id_created_by']//a[@class='select2-choice']/span[1]");

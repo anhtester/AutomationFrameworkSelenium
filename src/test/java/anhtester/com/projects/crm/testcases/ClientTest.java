@@ -50,11 +50,11 @@ public class ClientTest extends BaseTest {
         clientPageCRM = dashboardPageCRM.openClientPage();
         clientPageCRM.openClientTabPage();
         // Search the first
-        clientPageCRM.enterDataSearchClient("Schamberger Inc");
-        checkContainsValueOnTableByColumn(2, "Schamberger Inc");
+        clientPageCRM.enterDataSearchClient("Adrain Ondricka");
+        checkContainsValueOnTableByColumn(2, "Adrain Ondricka");
         // Search the second
-        clientPageCRM.enterDataSearchClient("Kassulke LLC");
-        checkContainsValueOnTableByColumn(2, "Kassulke LLC");
+        clientPageCRM.enterDataSearchClient("Birdie Erdman");
+        checkContainsValueOnTableByColumn(2, "Birdie Erdman");
 
     }
 

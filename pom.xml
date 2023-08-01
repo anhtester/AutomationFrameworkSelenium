@@ -6,7 +6,7 @@
 
     <groupId>com.anhtester.core</groupId>
     <artifactId>anhtester-selenium-java</artifactId>
-    <version>1.9.5</version>
+    <version>1.9.6</version>
     <packaging>jar</packaging>
     <name>AutomationFrameworkSelenium</name>
     <url>https://github.com/anhtester/AutomationFrameworkSelenium</url>
@@ -35,9 +35,9 @@
         <java-compiler.version>11</java-compiler.version>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <selenium.version>4.10.0</selenium.version>
+        <selenium.version>4.11.0</selenium.version>
         <testng.version>7.8.0</testng.version>
-        <webdrivermanager.version>5.4.0</webdrivermanager.version>
+        <webdrivermanager.version>5.4.1</webdrivermanager.version>
         <aspectjweaver.version>1.9.19</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <log4j.version>3.0.0-alpha1</log4j.version>
@@ -56,9 +56,9 @@
         <datafaker.version>1.9.0</datafaker.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
-        <google.zxing.version>3.5.1</google.zxing.version>
+        <google.zxing.version>3.5.2</google.zxing.version>
         <lombok.version>1.18.28</lombok.version>
-        <google.guava.version>32.1.1-jre</google.guava.version>
+        <google.guava.version>32.1.2-jre</google.guava.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.15</zip.version>
         <jackson.version>2.15.2</jackson.version>
