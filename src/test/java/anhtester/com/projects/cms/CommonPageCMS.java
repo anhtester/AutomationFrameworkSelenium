@@ -68,6 +68,7 @@ public class CommonPageCMS {
     private By buttonSave = By.xpath("//button[normalize-space()='Save']");
     private By inputSearch = By.xpath("//input[@id='search']");
     public By avatarProfile = By.xpath("//span[contains(@class,'avatar avatar-sm')]");
+    public By buttonCookies = By.xpath("//button[normalize-space()='Ok. I Understood']");
 
 
     public void enterDataOnSearchDataTable(String value) {

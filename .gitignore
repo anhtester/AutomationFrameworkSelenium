@@ -8,8 +8,6 @@ logs/
 target/
 test-output/
 reports/
-*.png
-*.jpg
 *.mp4
 *.avi
 *.zip

@@ -44,6 +44,7 @@ public class OrderPage extends CommonPageCMS {
     public void order(String noteForOrder) {
         WebUI.waitForPageLoaded();
         WebUI.setText(DashboardPage.inputSearchProduct, PropertiesHelpers.getValue("product_P01"));
+        WebUI.waitForJQueryLoad();
         WebUI.sleep(3);
         WebUI.clickElement(By.xpath("//div[@id='search-content']//div[contains(text(),'" + PropertiesHelpers.getValue("product_P01") + "')]"));
         WebUI.waitForPageLoaded();
@@ -102,6 +103,7 @@ public class OrderPage extends CommonPageCMS {
         WebUI.clickElement(buttonCompleteOrder);
         WebUI.verifyElementVisible(messageOrderSuccess, "Order is failed");
         LogUtils.info(WebUI.getTextElement(labelOrderCode));
+        WebUI.sleep(2);
     }
 
 }

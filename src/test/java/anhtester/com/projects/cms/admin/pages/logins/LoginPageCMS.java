@@ -7,10 +7,11 @@ import anhtester.com.projects.cms.users.pages.dashboard.DashboardPage;
 import org.openqa.selenium.By;
 
 import static anhtester.com.keywords.WebUI.*;
+import static anhtester.com.keywords.WebUI.clickElement;
 
 public class LoginPageCMS extends CommonPageCMS {
 
-    private By closeAdvertisementPopup = By.xpath("//i[@class='la la-close fs-20']");
+    private By closeAdvertisementPopup = By.xpath("//button[@data-key='website-popup']");
     private By buttonLogin = By.xpath("(//a[normalize-space()='Registration']/parent::li)/preceding-sibling::li");
     private By buttonCopyAdminAcc = By.xpath("//button[normalize-space()='Copy']");
     private By buttonSubmitLogin = By.xpath("//button[normalize-space()='Login']");
@@ -28,8 +29,10 @@ public class LoginPageCMS extends CommonPageCMS {
 
     public void openLoginPage() {
         openURL(FrameworkConstants.URL_CMS_USER);
-        clickCloseAdvertisementPopup();
+        clickElement(closeAdvertisementPopup);
+        clickElement(buttonCookies);
         clickElement(buttonLogin);
+        waitForPageLoaded();
         verifyElementVisible(titleLoginPage, "Login page is NOT displayed");
     }
 
@@ -37,8 +40,9 @@ public class LoginPageCMS extends CommonPageCMS {
         verifyElementVisible(avatarProfile, "Can not redirect to Admin page.");
     }
 
-    public void loginFailWithNullEmail() {
+    public void loginFailWithEmailNull() {
         openLoginPage();
+        waitForPageLoaded();
         clickElement(buttonSubmitLogin);
         verifyEquals(getTextElement(messageRequiredEmail).trim(), "The email field is required when phone is not present.", "");
     }
@@ -48,6 +52,7 @@ public class LoginPageCMS extends CommonPageCMS {
         setText(inputEmail, email);
         setText(inputPassword, password);
         clickElement(buttonSubmitLogin);
+        waitForPageLoaded();
         verifyElementVisible(messageAccDoesNotExist, "Email is incorrect but valid is NOT displayed.");
     }
 
@@ -55,7 +60,9 @@ public class LoginPageCMS extends CommonPageCMS {
         openLoginPage();
         setText(inputEmail, email);
         clickElement(buttonSubmitLogin);
-        verifyElementVisible(messageRequiredPassword, "Password is NULL but valid is NOT displayed.");
+        waitForPageLoaded();
+        sleep(1);
+        verifyElementPresent(messageRequiredPassword, "No warning password input");
     }
 
     public void loginFailWithIncorrectPassword(String email, String password) {
@@ -73,6 +80,7 @@ public class LoginPageCMS extends CommonPageCMS {
         clearText(inputPassword);
         setText(inputPassword, password);
         clickElement(buttonSubmitLogin);
+        waitForPageLoaded();
         waitForElementVisible(DashboardPage.titleDashboard);
         verifyElementVisible(DashboardPage.titleDashboard, "Dashboard page is NOT displayed.");
     }

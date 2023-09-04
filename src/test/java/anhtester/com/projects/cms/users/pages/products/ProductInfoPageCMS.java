@@ -20,8 +20,10 @@ public class ProductInfoPageCMS extends CommonPageCMS {
     public ArrayList productInfo(String product) {
         WebUI.waitForPageLoaded();
         WebUI.setText(DashboardPage.inputSearchProduct, product);
+        WebUI.waitForJQueryLoad();
         WebUI.clickElement(selectProductName);
         WebUI.waitForPageLoaded();
+        WebUI.sleep(2);
         String name = WebUI.getTextElement(By.xpath("//h1[contains(.,'" + product + "')]"));
         String price = WebUI.getTextElement(productPrice);
         String unit = WebUI.getTextElement(productUnit);

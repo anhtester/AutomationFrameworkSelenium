@@ -9,14 +9,12 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 
 public class ProductInfoTest extends BaseTest {
-    public ExcelHelpers excel;
-    public ExcelHelpers excel2;
 
     @Test
     public void TC_GetProductInfo() {
-        excel = new ExcelHelpers();
+        ExcelHelpers excel = new ExcelHelpers();
         excel.setExcelFile(FrameworkConstants.EXCEL_CMS_PRODUCTS_USER, "ProductInfo");
-        excel2 = new ExcelHelpers();
+        ExcelHelpers excel2 = new ExcelHelpers();
         excel2.setExcelFile(FrameworkConstants.EXCEL_CMS_LOGIN, "Login");
         getLoginPageCMS().loginSuccessWithCustomerAccount(excel2.getCellData(4, "email"), excel2.getCellData(4, "password"));
         ArrayList productInfo = getProductInfoPage().productInfo(PropertiesHelpers.getValue("product_P01"));

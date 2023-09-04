@@ -73,17 +73,15 @@ public class ExtentReportManager {
     }
 
     public static void createTest(String testCaseName) {
-        // ExtentManager.setExtentTest(extent.createTest(testCaseName));
-        ExtentTestManager.setExtentTest(extentReports.createTest(IconUtils.getBrowserIcon() + " : " + testCaseName));
+        ExtentTestManager.setExtentTest(extentReports.createTest(IconUtils.getBrowserIcon() + " " + testCaseName));
+        //ExtentTestManager.setExtentTest(extentReports.createTest(testCaseName));
     }
 
     public static void createTest(String testCaseName, String description) {
-        // ExtentManager.setExtentTest(extent.createTest(testCaseName));
         ExtentTestManager.setExtentTest(extentReports.createTest(testCaseName, description));
     }
 
     public static void removeTest(String testCaseName) {
-        // ExtentManager.setExtentTest(extent.createTest(testCaseName));
         extentReports.removeTest(testCaseName);
     }
 

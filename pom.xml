@@ -6,8 +6,7 @@
 
     <groupId>com.anhtester.core</groupId>
     <artifactId>anhtester-selenium-java</artifactId>
-    <version>1.9.6</version>
-    <packaging>jar</packaging>
+    <version>1.9.7</version>
     <name>AutomationFrameworkSelenium</name>
     <url>https://github.com/anhtester/AutomationFrameworkSelenium</url>
     <description>Test Automation Framework Selenium Java with TestNG building by Anh Tester</description>
@@ -35,20 +34,20 @@
         <java-compiler.version>11</java-compiler.version>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <selenium.version>4.11.0</selenium.version>
+        <selenium.version>4.12.0</selenium.version>
         <testng.version>7.8.0</testng.version>
-        <webdrivermanager.version>5.4.1</webdrivermanager.version>
-        <aspectjweaver.version>1.9.19</aspectjweaver.version>
+        <webdrivermanager.version>5.5.3</webdrivermanager.version>
+        <aspectjweaver.version>1.9.20</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <log4j.version>3.0.0-alpha1</log4j.version>
-        <slf4j.version>2.0.7</slf4j.version>
-        <allure-testng.version>2.23.0</allure-testng.version>
+        <slf4j.version>2.0.9</slf4j.version>
+        <allure-testng.version>2.24.0</allure-testng.version>
         <allure-maven.version>2.12.0</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
             https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
         </allure.cmd.download.url>
-        <extentreports.version>5.0.9</extentreports.version>
+        <extentreports.version>5.1.0</extentreports.version>
         <apache-poi.version>5.2.3</apache-poi.version>
         <commons-io.version>2.13.0</commons-io.version>
         <owner.version>1.0.12</owner.version>
@@ -63,12 +62,16 @@
         <zip.version>1.15</zip.version>
         <jackson.version>2.15.2</jackson.version>
 
-        <!-- Suite XML path -->
+        <!-- Suite XML path - CRM -->
         <suite.signin.simple>src/test/resources/suites/SignIn-simple.xml</suite.signin.simple>
         <suite.signin.parallel>src/test/resources/suites/SignIn-parallel-methods.xml</suite.signin.parallel>
         <suite.client.parallel>src/test/resources/suites/Clients-parallel.xml</suite.client.parallel>
         <suite.client.simple>src/test/resources/suites/Clients-simple.xml</suite.client.simple>
         <suite.all>src/test/resources/suites/SuiteAll.xml</suite.all>
+
+        <!-- Suite XML path - CMS -->
+        <suite.login>src/test/resources/suites/CMS/LoginTestCMS.xml</suite.login>
+        <suite.order>src/test/resources/suites/CMS/OrderProductCMS.xml</suite.order>
 
         <maven.test.skip>false</maven.test.skip>
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
@@ -187,7 +190,7 @@
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-plugin-api</artifactId>
-            <version>2.23.0</version>
+            <version>2.24.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
@@ -331,139 +334,139 @@
         <dependency>
             <groupId>com.github.pengrad</groupId>
             <artifactId>java-telegram-bot-api</artifactId>
-            <version>6.7.0</version>
+            <version>6.8.0</version>
         </dependency>
 
     </dependencies>
 
     <!-- This profile execute the TestNG suite inside the suites folder on test/resources/suites -->
-    <profiles>
-        <profile>
-            <id>signin-parallel</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>${suite.signin.parallel}</suiteXmlFile>
-                            </suiteXmlFiles>
-                            <argLine>
-                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"
-                            </argLine>
-                            <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>
-                            <systemPropertyVariables>
-                                <allure.results.directory>target/allure-results</allure.results.directory>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+<!--    <profiles>-->
+<!--        <profile>-->
+<!--            <id>signin-parallel</id>-->
+<!--            <build>-->
+<!--                <plugins>-->
+<!--                    <plugin>-->
+<!--                        <groupId>org.apache.maven.plugins</groupId>-->
+<!--                        <artifactId>maven-surefire-plugin</artifactId>-->
+<!--                        <version>${maven-surefire-plugin.version}</version>-->
+<!--                        <configuration>-->
+<!--                            <suiteXmlFiles>-->
+<!--                                <suiteXmlFile>${suite.signin.parallel}</suiteXmlFile>-->
+<!--                            </suiteXmlFiles>-->
+<!--                            <argLine>-->
+<!--                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"-->
+<!--                            </argLine>-->
+<!--                            <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>-->
+<!--                            <systemPropertyVariables>-->
+<!--                                <allure.results.directory>target/allure-results</allure.results.directory>-->
+<!--                            </systemPropertyVariables>-->
+<!--                        </configuration>-->
+<!--                    </plugin>-->
+<!--                </plugins>-->
+<!--            </build>-->
+<!--        </profile>-->
 
-        <profile>
-            <id>signin-simple</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>${suite.signin.simple}</suiteXmlFile>
-                            </suiteXmlFiles>
-                            <argLine>
-                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"
-                            </argLine>
-                            <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>
-                            <systemPropertyVariables>
-                                <allure.results.directory>target/allure-results</allure.results.directory>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+<!--        <profile>-->
+<!--            <id>signin-simple</id>-->
+<!--            <build>-->
+<!--                <plugins>-->
+<!--                    <plugin>-->
+<!--                        <groupId>org.apache.maven.plugins</groupId>-->
+<!--                        <artifactId>maven-surefire-plugin</artifactId>-->
+<!--                        <version>${maven-surefire-plugin.version}</version>-->
+<!--                        <configuration>-->
+<!--                            <suiteXmlFiles>-->
+<!--                                <suiteXmlFile>${suite.signin.simple}</suiteXmlFile>-->
+<!--                            </suiteXmlFiles>-->
+<!--                            <argLine>-->
+<!--                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"-->
+<!--                            </argLine>-->
+<!--                            <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>-->
+<!--                            <systemPropertyVariables>-->
+<!--                                <allure.results.directory>target/allure-results</allure.results.directory>-->
+<!--                            </systemPropertyVariables>-->
+<!--                        </configuration>-->
+<!--                    </plugin>-->
+<!--                </plugins>-->
+<!--            </build>-->
+<!--        </profile>-->
 
-        <profile>
-            <id>clients-parallel</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>${suite.client.parallel}</suiteXmlFile>
-                            </suiteXmlFiles>
-                            <argLine>
-                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"
-                            </argLine>
-                            <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>
-                            <systemPropertyVariables>
-                                <allure.results.directory>target/allure-results</allure.results.directory>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+<!--        <profile>-->
+<!--            <id>clients-parallel</id>-->
+<!--            <build>-->
+<!--                <plugins>-->
+<!--                    <plugin>-->
+<!--                        <groupId>org.apache.maven.plugins</groupId>-->
+<!--                        <artifactId>maven-surefire-plugin</artifactId>-->
+<!--                        <version>${maven-surefire-plugin.version}</version>-->
+<!--                        <configuration>-->
+<!--                            <suiteXmlFiles>-->
+<!--                                <suiteXmlFile>${suite.client.parallel}</suiteXmlFile>-->
+<!--                            </suiteXmlFiles>-->
+<!--                            <argLine>-->
+<!--                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"-->
+<!--                            </argLine>-->
+<!--                            <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>-->
+<!--                            <systemPropertyVariables>-->
+<!--                                <allure.results.directory>target/allure-results</allure.results.directory>-->
+<!--                            </systemPropertyVariables>-->
+<!--                        </configuration>-->
+<!--                    </plugin>-->
+<!--                </plugins>-->
+<!--            </build>-->
+<!--        </profile>-->
 
-        <profile>
-            <id>clients-simple</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>${suite.client.simple}</suiteXmlFile>
-                            </suiteXmlFiles>
-                            <argLine>
-                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"
-                            </argLine>
-                            <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>
-                            <systemPropertyVariables>
-                                <allure.results.directory>target/allure-results</allure.results.directory>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+<!--        <profile>-->
+<!--            <id>clients-simple</id>-->
+<!--            <build>-->
+<!--                <plugins>-->
+<!--                    <plugin>-->
+<!--                        <groupId>org.apache.maven.plugins</groupId>-->
+<!--                        <artifactId>maven-surefire-plugin</artifactId>-->
+<!--                        <version>${maven-surefire-plugin.version}</version>-->
+<!--                        <configuration>-->
+<!--                            <suiteXmlFiles>-->
+<!--                                <suiteXmlFile>${suite.client.simple}</suiteXmlFile>-->
+<!--                            </suiteXmlFiles>-->
+<!--                            <argLine>-->
+<!--                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"-->
+<!--                            </argLine>-->
+<!--                            <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>-->
+<!--                            <systemPropertyVariables>-->
+<!--                                <allure.results.directory>target/allure-results</allure.results.directory>-->
+<!--                            </systemPropertyVariables>-->
+<!--                        </configuration>-->
+<!--                    </plugin>-->
+<!--                </plugins>-->
+<!--            </build>-->
+<!--        </profile>-->
 
-        <profile>
-            <id>suite-all</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>${suite.all}</suiteXmlFile>
-                            </suiteXmlFiles>
-                            <argLine>
-                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"
-                            </argLine>
-                            <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>
-                            <systemPropertyVariables>
-                                <allure.results.directory>target/allure-results</allure.results.directory>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+<!--        <profile>-->
+<!--            <id>suite-all</id>-->
+<!--            <build>-->
+<!--                <plugins>-->
+<!--                    <plugin>-->
+<!--                        <groupId>org.apache.maven.plugins</groupId>-->
+<!--                        <artifactId>maven-surefire-plugin</artifactId>-->
+<!--                        <version>${maven-surefire-plugin.version}</version>-->
+<!--                        <configuration>-->
+<!--                            <suiteXmlFiles>-->
+<!--                                <suiteXmlFile>${suite.all}</suiteXmlFile>-->
+<!--                            </suiteXmlFiles>-->
+<!--                            <argLine>-->
+<!--                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"-->
+<!--                            </argLine>-->
+<!--                            <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>-->
+<!--                            <systemPropertyVariables>-->
+<!--                                <allure.results.directory>target/allure-results</allure.results.directory>-->
+<!--                            </systemPropertyVariables>-->
+<!--                        </configuration>-->
+<!--                    </plugin>-->
+<!--                </plugins>-->
+<!--            </build>-->
+<!--        </profile>-->
 
-    </profiles>
+<!--    </profiles>-->
 
 
     <build>
@@ -487,7 +490,7 @@
                     <configuration>
                         <suiteXmlFiles>
                             <!-- Call Suite name global set up above -->
-                            <suiteXmlFile>${suite.signin.parallel}</suiteXmlFile>
+                            <suiteXmlFile>src/test/resources/suites/BuildApp.xml</suiteXmlFile>
                         </suiteXmlFiles>
                         <argLine>
                             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"

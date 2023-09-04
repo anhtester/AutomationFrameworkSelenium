@@ -1,5 +1,6 @@
 package anhtester.com.projects.cms.admin.pages.products;
 
+import anhtester.com.driver.DriverManager;
 import anhtester.com.helpers.Helpers;
 import anhtester.com.keywords.WebUI;
 import anhtester.com.projects.cms.CommonPageCMS;
@@ -28,6 +29,7 @@ public class AddProductPage extends CommonPageCMS {
     private By selectChooseThumbnailImgs = By.xpath("//label[contains(text(),'Thumbnail Image')]/following-sibling::div//div[contains(text(),'Choose File')]");
     private By uploadNewImageTab = By.xpath("//a[normalize-space()='Upload New']");
     private By buttonBrowseImages = By.xpath("//button[normalize-space()='Browse']");
+    private By inputGalleryImages = By.xpath("//input[@class = 'uppy-Dashboard-input']");
     private By buttonAddFileImgs = By.xpath("//button[normalize-space()='Add Files']");
     private By selectFileTab = By.xpath("//a[normalize-space()='Select File']");
     private By selectGalleryImages = By.xpath("(//img[@class='img-fit'])[1]");
@@ -51,6 +53,7 @@ public class AddProductPage extends CommonPageCMS {
     private By allCategoriesTabUI = By.xpath("//a[normalize-space()='All categories']");
     private By unitUI = By.xpath("//span[@class='opacity-70']");
     private By descriptionUI = By.xpath("//div[@class = 'mw-100 overflow-auto text-left aiz-editor-data']//p");
+
     int randomNumber = new Random().nextInt(1000000);
     private By menuAllProducts = By.xpath("//span[normalize-space()='All products']");
     private By newProduct = By.xpath("(//span[@class='text-muted text-truncate-2'])[1]");
@@ -76,20 +79,22 @@ public class AddProductPage extends CommonPageCMS {
         WebUI.clickElement(selectChooseGalleryImgs);
         WebUI.clickElement(uploadNewImageTab);
         //Upload images Gallery with Form
-        WebUI.uploadFileWithLocalForm(buttonBrowseImages, Helpers.getCurrentDir() + "src\\test\\resources\\testdataCMS\\" + imgName);
+        //WebUI.uploadFileWithLocalForm(buttonBrowseImages, Helpers.getCurrentDir() + "src\\test\\resources\\testdataCMS\\" + imgName);
+        //Upload images Gallery with sendKeys
+        DriverManager.getDriver().findElement(inputGalleryImages).sendKeys(Helpers.getCurrentDir() + "src\\test\\resources\\testdataCMS\\" + imgName);
         WebUI.clickElement(selectFileTab);
         LogUtils.info(imgName);
         LogUtils.info(Helpers.splitString(imgName, "[.]"));
-        String nameImage = Helpers.splitString(imgName, "[.]").get(0);
+        String imageName = Helpers.splitString(imgName, "[.]").get(0);
         //Search and select images
-        WebUI.setText(inputSearchImg, nameImage, Keys.ENTER);
+        WebUI.setText(inputSearchImg, imageName, Keys.ENTER);
         WebUI.waitForJQueryLoad();
         WebUI.sleep(2);
         WebUI.clickElementWithJs(selectGalleryImages);
         WebUI.clickElement(buttonAddFileImgs);
         WebUI.waitForPageLoaded();
         WebUI.clickElement(selectChooseThumbnailImgs);
-        WebUI.setText(inputSearchImg, nameImage, Keys.ENTER);
+        WebUI.setText(inputSearchImg, imageName, Keys.ENTER);
         WebUI.waitForJQueryLoad();
         WebUI.sleep(2);
         WebUI.clickElementWithJs(selectThumbnailImages);
@@ -108,7 +113,7 @@ public class AddProductPage extends CommonPageCMS {
         WebUI.setText(inputMetaTitle, productName);
         WebUI.setText(inputDescription, description);
         WebUI.clickElement(selectChooseMetaImage);
-        WebUI.setText(inputSearchImg, nameImage, Keys.ENTER);
+        WebUI.setText(inputSearchImg, imageName, Keys.ENTER);
         WebUI.waitForJQueryLoad();
         WebUI.sleep(2);
         WebUI.clickElementWithJs(selectThumbnailImages);
@@ -133,16 +138,18 @@ public class AddProductPage extends CommonPageCMS {
         WebUI.switchToWindowOrTabByTitle(nameProductVerify);
         getLoginPageCMS().clickCloseAdvertisementPopup();
         WebUI.waitForPageLoaded();
+        WebUI.sleep(2);
         WebUI.verifyEquals(WebUI.getTextElement(By.xpath("//h1[normalize-space()='" + nameProductVerify + "']")).trim(), nameProductVerify, "Product name displayed wrong");
         WebUI.verifyEquals(WebUI.getTextElement(unitUI).trim(), "/" + unit, "Unit displayed wrong");
-        WebUI.scrollToElementToTop(descriptionUI);
+        WebUI.scrollToElementToBottom(descriptionUI);
         WebUI.verifyEquals(WebUI.getTextElement(descriptionUI).trim(), description, "Description displayed wrong");
+        WebUI.sleep(2);
         //Check Product in Category
         WebUI.clickElement(allCategoriesTabUI);
         WebUI.waitForPageLoaded();
         WebUI.clickElement(By.xpath("//a[contains(text(),'" + category + "')]"));
+        WebUI.waitForPageLoaded();
+        WebUI.sleep(2);
         WebUI.verifyElementVisible(By.xpath("(//a[normalize-space()='" + nameProductVerify + "'])"), "Product is NOT displayed in Category");
-        WebUI.closeCurrentWindow();
-        WebUI.switchToMainWindow();
     }
 }

@@ -8,11 +8,9 @@ import org.testng.annotations.Test;
 
 public class ProfileTest extends BaseTest {
 
-    private ExcelHelpers excel;
-
     @Test(priority = 1)
-    public void updateProfile() {
-        excel = new ExcelHelpers();
+    public void TC_UpdateProfile() {
+        ExcelHelpers excel = new ExcelHelpers();
         excel.setExcelFile(FrameworkConstants.EXCEL_CMS_LOGIN, "Login");
         getLoginPageCMS().loginSuccessWithCustomerAccount(excel.getCellData(4, "email"), excel.getCellData(4, "password"));
         getProfilePage().updateProfile();
@@ -27,8 +25,8 @@ public class ProfileTest extends BaseTest {
 //    }
 
     @Test(priority = 3)
-    public void addNewAddress() {
-        excel = new ExcelHelpers();
+    public void TC_AddNewAddress() {
+        ExcelHelpers excel = new ExcelHelpers();
         excel.setExcelFile(FrameworkConstants.EXCEL_CMS_LOGIN, "Login");
         getLoginPageCMS().loginSuccessWithCustomerAccount(excel.getCellData(4, "email"), excel.getCellData(4, "password"));
         getProfilePage().addNewAddress();

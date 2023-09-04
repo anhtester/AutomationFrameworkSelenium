@@ -13,7 +13,7 @@ import org.testng.annotations.*;
 public class BaseTest extends CommonPageCMS {
 
     @Parameters("BROWSER")
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod
     public void createDriver(@Optional("chrome") String browser) {
         System.setProperty("webdriver.http.factory", "jdk-http-client");
         WebDriver driver = ThreadGuard.protect(new TargetFactory().createInstance(browser));

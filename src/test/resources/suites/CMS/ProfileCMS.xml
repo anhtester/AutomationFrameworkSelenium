@@ -6,10 +6,10 @@
         <listener class-name="anhtester.com.listeners.AnnotationTransformer"/>
     </listeners>
     
-    <test name="Tests Add Product CMS">
+    <test name="Tests Update Profile CMS">
         <parameter name="BROWSER" value="chrome"/>
         <classes>
-            <class name="anhtester.com.projects.cms.testcases.AddProductTest"/>
+            <class name="anhtester.com.projects.cms.testcases.ProfileTest"/>
         </classes>
     </test>
 

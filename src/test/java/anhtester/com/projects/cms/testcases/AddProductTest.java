@@ -10,13 +10,10 @@ import java.util.Hashtable;
 
 public class AddProductTest extends BaseTest {
 
-    ExcelHelpers excelLogin;
-    ExcelHelpers excelAddProduct;
-
     @Test(dataProvider = "data_provider_add_product", dataProviderClass = DataProviderAddProduct.class)
     public void TC_AddNewProductAdmin(Hashtable<String, String> data) {
-        excelLogin = new ExcelHelpers();
-        excelAddProduct = new ExcelHelpers();
+        ExcelHelpers excelLogin = new ExcelHelpers();
+        ExcelHelpers excelAddProduct = new ExcelHelpers();
         excelLogin.setExcelFile(FrameworkConstants.EXCEL_CMS_LOGIN, "Login");
         excelAddProduct.setExcelFile(FrameworkConstants.EXCEL_CMS_DATA, "AddProduct");
         getLoginPageCMS().loginSuccessAdminPage(excelLogin.getCellData(5, "email"), excelLogin.getCellData(5, "password"));
