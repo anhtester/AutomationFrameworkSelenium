@@ -6,18 +6,10 @@
 
     <groupId>com.anhtester.core</groupId>
     <artifactId>anhtester-selenium-java</artifactId>
-    <version>1.9.7</version>
+    <version>1.9.8</version>
     <name>AutomationFrameworkSelenium</name>
     <url>https://github.com/anhtester/AutomationFrameworkSelenium</url>
     <description>Test Automation Framework Selenium Java with TestNG building by Anh Tester</description>
-
-    <distributionManagement>
-        <repository>
-            <id>anhtester</id>
-            <name>AutomationFrameworkSelenium</name>
-            <url>https://maven.pkg.github.com/anhtester/AutomationFrameworkSelenium</url>
-        </repository>
-    </distributionManagement>
 
     <developers>
         <developer>
