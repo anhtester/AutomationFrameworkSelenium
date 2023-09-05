@@ -99,7 +99,7 @@
 **6. Write Log to file**
 
 - Call class: Log.info , Log.pass, Log.error,... (**Log** is a custom global class from Log4j2)
-  (**_import anhtester.com.utils.LogUtils.java_**)
+  (**_import utils.com.anhtester.LogUtils.java_**)
 
 ![image](https://user-images.githubusercontent.com/87883620/161657858-d333ac1d-9e7b-4c1b-baac-151a237a1fa0.png)
 

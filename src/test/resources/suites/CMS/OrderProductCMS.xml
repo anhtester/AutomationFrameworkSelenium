@@ -3,13 +3,13 @@
 <suite name="Regression Tests CMS">
 
     <listeners>
-        <listener class-name="anhtester.com.listeners.AnnotationTransformer"/>
+        <listener class-name="com.anhtester.listeners.AnnotationTransformer"/>
     </listeners>
     
     <test name="Tests Order Product CMS">
         <parameter name="BROWSER" value="chrome"/>
         <classes>
-            <class name="anhtester.com.projects.cms.testcases.OrderTest"/>
+            <class name="com.anhtester.projects.cms.testcases.OrderTest"/>
         </classes>
     </test>
 

@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Regression Test CRM">
+
+    <listeners>
+        <listener class-name="com.anhtester.listeners.AnnotationTransformer"/>
+    </listeners>
+
+    <test name="Client Test">
+        <parameter name="BROWSER" value="chrome"/>
+        <classes>
+            <class name="com.anhtester.projects.crm.testcases.ClientTest"/>
+        </classes>
+    </test>
+
+</suite>

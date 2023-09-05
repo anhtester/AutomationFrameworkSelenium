@@ -3,13 +3,13 @@
 <suite name="Regression Tests CMS">
 
     <listeners>
-        <listener class-name="anhtester.com.listeners.AnnotationTransformer"/>
+        <listener class-name="com.anhtester.listeners.AnnotationTransformer"/>
     </listeners>
 
     <test name="Login Test CMS" parallel="methods">
-        <parameter name="BROWSER" value="edge"/>
+        <parameter name="BROWSER" value="chrome"/>
         <classes>
-            <class name="anhtester.com.projects.cms.testcases.LoginTest"/>
+            <class name="com.anhtester.projects.cms.testcases.LoginTest"/>
         </classes>
     </test>
 

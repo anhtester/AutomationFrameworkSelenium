@@ -1,0 +1,20 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Regression Test CRM">
+
+    <listeners>
+        <listener class-name="com.anhtester.listeners.TestListener"/>
+    </listeners>
+
+    <test name="Client Test">
+        <parameter name="BROWSER" value="edge"/>
+        <classes>
+            <class name="com.anhtester.projects.crm.testcases.ClientTest">
+                <methods>
+                    <include name="testSearchClient"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>

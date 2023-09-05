@@ -34,10 +34,10 @@
         <java-compiler.version>11</java-compiler.version>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <selenium.version>4.12.0</selenium.version>
+        <selenium.version>4.12.1</selenium.version>
         <testng.version>7.8.0</testng.version>
         <webdrivermanager.version>5.5.3</webdrivermanager.version>
-        <aspectjweaver.version>1.9.20</aspectjweaver.version>
+        <aspectjweaver.version>1.9.20.1</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <log4j.version>3.0.0-alpha1</log4j.version>
         <slf4j.version>2.0.9</slf4j.version>
@@ -59,7 +59,7 @@
         <lombok.version>1.18.28</lombok.version>
         <google.guava.version>32.1.2-jre</google.guava.version>
         <javax.mail.version>1.6.2</javax.mail.version>
-        <zip.version>1.15</zip.version>
+        <zip.version>1.16</zip.version>
         <jackson.version>2.15.2</jackson.version>
 
         <!-- Suite XML path - CRM -->
