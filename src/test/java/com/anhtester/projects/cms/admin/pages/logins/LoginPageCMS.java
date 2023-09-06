@@ -42,22 +42,27 @@ public class LoginPageCMS extends CommonPageCMS {
 
     public void loginFailWithEmailNull() {
         openLoginPage();
-        waitForPageLoaded();
+        sleep(2);
         clickElement(buttonSubmitLogin);
+        waitForPageLoaded();
+        sleep(1);
         verifyEquals(getTextElement(messageRequiredEmail).trim(), "The email field is required when phone is not present.", "");
     }
 
     public void loginFailWithEmailDoesNotExist(String email, String password) {
         openLoginPage();
+        sleep(2);
         setText(inputEmail, email);
         setText(inputPassword, password);
         clickElement(buttonSubmitLogin);
         waitForPageLoaded();
+        sleep(1);
         verifyElementVisible(messageAccDoesNotExist, "Email is incorrect but valid is NOT displayed.");
     }
 
     public void loginFailWithNullPassword(String email) {
         openLoginPage();
+        sleep(2);
         setText(inputEmail, email);
         clickElement(buttonSubmitLogin);
         waitForPageLoaded();
@@ -67,20 +72,25 @@ public class LoginPageCMS extends CommonPageCMS {
 
     public void loginFailWithIncorrectPassword(String email, String password) {
         openLoginPage();
-        setText(inputEmail, email);
-        clearText(inputPassword);
-        setText(inputPassword, password);
-        clickElement(buttonSubmitLogin);
-        verifyElementVisible(messageAccDoesNotExist, "Password is failed but valid is NOT displayed.");
-    }
-
-    public void loginSuccessWithCustomerAccount(String email, String password) {
-        openLoginPage();
+        sleep(2);
         setText(inputEmail, email);
         clearText(inputPassword);
         setText(inputPassword, password);
         clickElement(buttonSubmitLogin);
         waitForPageLoaded();
+        sleep(1);
+        verifyElementVisible(messageAccDoesNotExist, "Password is failed but valid is NOT displayed.");
+    }
+
+    public void loginSuccessWithCustomerAccount(String email, String password) {
+        openLoginPage();
+        sleep(2);
+        setText(inputEmail, email);
+        clearText(inputPassword);
+        setText(inputPassword, password);
+        clickElement(buttonSubmitLogin);
+        waitForPageLoaded();
+        sleep(1);
         waitForElementVisible(DashboardPage.titleDashboard);
         verifyElementVisible(DashboardPage.titleDashboard, "Dashboard page is NOT displayed.");
     }

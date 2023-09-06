@@ -18,7 +18,7 @@ import java.util.Hashtable;
 
 import static com.anhtester.keywords.WebUI.*;
 
-@Epic("Regression Test")
+@Epic("Regression Test CRM")
 @Feature("Sign In Test")
 public class SignInTest extends BaseTest {
 

@@ -4,10 +4,14 @@ import com.anhtester.common.BaseTest;
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.dataprovider.DataProviderAddProduct;
 import com.anhtester.helpers.ExcelHelpers;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 
 import java.util.Hashtable;
 
+@Epic("Regression Test CMS")
+@Feature("Add Product Test")
 public class AddProductTest extends BaseTest {
 
     @Test(dataProvider = "data_provider_add_product", dataProviderClass = DataProviderAddProduct.class)
