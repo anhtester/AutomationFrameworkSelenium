@@ -1,3 +1,18 @@
+v2.0.0
+======
+Sep 27, 2023
+* Update Selenium 4.13.0
+* Support Chrome browser 117
+* Update javadoc for all functions in WebUI keywords
+* Update all dependency latest version in pom.xml
+
+v1.9.9
+======
+Sep 6, 2023
+* Update Selenium 4.12.1
+* Support Chrome browser 116
+* Update test cases sample CMS
+
 v1.9.8
 ======
 Sep 5, 2023
