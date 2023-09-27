@@ -33,7 +33,7 @@ public class SignInPageCRM extends CommonPageCRM {
     public DashboardPageCRM signInWithAdminRole() {
         ExcelHelpers excelHelpers = new ExcelHelpers();
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
-        getURL(FrameworkConstants.URL_CRM);
+        openWebsite(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");
         verifyEquals(getPageTitle(), pageTitle, "The title of sign in page not match.");
         clearText(inputEmail);
@@ -50,7 +50,7 @@ public class SignInPageCRM extends CommonPageCRM {
     public DashboardPageCRM signInWithClientRole() {
         ExcelHelpers excelHelpers = new ExcelHelpers();
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
-        getURL(FrameworkConstants.URL_CRM);
+        openWebsite(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");
         verifyEquals(getPageTitle(), pageTitle, "The title of sign in page not match.");
         clearText(inputEmail);
@@ -65,7 +65,7 @@ public class SignInPageCRM extends CommonPageCRM {
     }
 
     public DashboardPageCRM signIn(String email, String password) {
-        getURL(FrameworkConstants.URL_CRM);
+        openWebsite(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");
         verifyEquals(getPageTitle(), pageTitle, "The title of sign in page not match.");
         clearText(inputEmail);
@@ -80,7 +80,7 @@ public class SignInPageCRM extends CommonPageCRM {
     }
 
     public DashboardPageCRM signIn(Hashtable<String, String> data) {
-        getURL(FrameworkConstants.URL_CRM);
+        openWebsite(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");
         verifyEquals(getPageTitle(), pageTitle, "The title of sign in page not match.");
         clearText(inputEmail);

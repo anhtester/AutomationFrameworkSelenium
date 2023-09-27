@@ -112,7 +112,7 @@ public class TestSimpleCode {
 
     @Test
     public void testRemoveAccent() {
-        WebUI.logConsole(LanguageUtils.removeAccent("Võ Thái An"));
+        WebUI.logConsole(LanguageUtils.removeAccent("Anh Tester"));
     }
 
     @Test
@@ -206,18 +206,18 @@ public class TestSimpleCode {
 //
 //        Connection connection = DatabaseHelpers.getMySQLConnection("sql6.freesqldatabase.com", "sql6464696", "sql6464696", "LIAGIkgd44");
 //
-//        // Tạo đối tượng Statement.
+//        // Create Statement object.
 //        Statement statement = connection.createStatement();
 //
 //        String sql = "SELECT * FROM `company`";
 //
-//        // Thực thi câu lệnh SQL trả về đối tượng ResultSet.
+//        // Execute the SQL statement that returns the ResultSet object.
 //        ResultSet rs = statement.executeQuery(sql);
 //
 //        WebUI.logConsole(rs);
 //
-//        // Duyệt trên kết quả trả về.
-//        while (rs.next()) {// Di chuyển con trỏ xuống bản ghi kế tiếp.
+//        // Use while to Loop the returned results.
+//        while (rs.next()) {// Move the cursor down to the next record.
 //            int Id = rs.getInt(1);
 //            String COMPANY_ID = rs.getString("COMPANY_ID");
 //            String COMPANY_NAME = rs.getString("COMPANY_NAME");
@@ -228,7 +228,7 @@ public class TestSimpleCode {
 //            WebUI.logConsole("COMPANY_CITY:" + COMPANY_CITY);
 //        }
 //
-//        // Đóng kết nối
+//        // Close connection
 //        connection.close();
 //    }
 

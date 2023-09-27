@@ -52,7 +52,7 @@ public class SignInTest extends BaseTest {
 
     @Test(priority = 4, description = "TC04_loginPerfexCRM")
     public void loginPerfexCRM() {
-        getURL("https://crm.anhtester.com/admin/authentication");
+        openWebsite("https://crm.anhtester.com/admin/authentication");
         clearAndFillText(By.xpath("//input[@id='email']"), "admin@example.com");
         clearAndFillText(By.xpath("//input[@id='password']"), "123456");
         clickElement(By.xpath("//button[normalize-space()='Login']"));

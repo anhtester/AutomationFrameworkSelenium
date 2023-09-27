@@ -52,22 +52,32 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.List;
 import java.util.*;
 
 /**
- * Keyword WebUI là class chung làm thư viện xử lý sẵn với nhiều hàm custom từ Selenium và Java.
- * Trả về là một Class chứa các hàm Static. Gọi lại dùng bằng cách lấy tên class chấm tên hàm (WebUI.method)
+ * Keyword WebUI is a generic class that is a preprocessed library with many custom functions from Selenium and Java.
+ * Returns is a Class containing Static functions. Callback is used by taking the class name and dotting the function name (WebUI.method)
  */
 public class WebUI {
 
+    /**
+     * The SoftAssert object is created
+     */
     private static SoftAssert softAssert = new SoftAssert();
 
+    /**
+     * Stop the Soft Assert of TestNG
+     */
     public static void stopSoftAssertAll() {
         softAssert.assertAll();
     }
 
+    /**
+     * Smart Waits contains waitForPageLoaded and sleep functions
+     */
     public static void smartWait() {
         if (FrameworkConstants.ACTIVE_PAGE_LOADED.trim().toLowerCase().equals("true")) {
             waitForPageLoaded();
@@ -75,16 +85,84 @@ public class WebUI {
         sleep(FrameworkConstants.WAIT_SLEEP_STEP);
     }
 
-    public static void addScreenshotToReport(String screenshotName) {
+    /**
+     * Take entire-page screenshot and add to Extent report and Allure report
+     *
+     * @param screenName Screenshot name
+     */
+    public static void addScreenshotToReport(String screenName) {
         if (FrameworkConstants.SCREENSHOT_ALL_STEPS.equals(FrameworkConstants.YES)) {
             if (ExtentTestManager.getExtentTest() != null) {
-                ExtentReportManager.addScreenShot(Helpers.makeSlug(screenshotName));
+                ExtentReportManager.addScreenShot(Helpers.makeSlug(screenName));
             }
             //CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug(screenshotName));
             AllureManager.takeScreenshotStep();
         }
     }
 
+    /**
+     * Take a screenshot of a specific web element. The captured image will be saved in '.png' format.
+     *
+     * @param screenName Screenshot name
+     */
+    public static void takeElementScreenshot(By by, String screenName) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
+        try {
+            String path = Helpers.getCurrentDir() + FrameworkConstants.EXPORT_CAPTURE_PATH;
+            File file = new File(path);
+            if (!file.exists()) {
+                LogUtils.info("No Folder: " + path);
+                file.mkdir();
+                LogUtils.info("Folder created: " + file);
+            }
+
+            File source = getWebElement(by).getScreenshotAs(OutputType.FILE);
+            // result.getName() gets the name of the test case and assigns it to the screenshot file name
+            FileUtils.copyFile(source, new File(path + "/" + screenName + "_" + dateFormat.format(new Date()) + ".png"));
+            LogUtils.info("Screenshot taken: " + screenName);
+            LogUtils.info("Screenshot taken current URL: " + getCurrentUrl());
+        } catch (Exception e) {
+            System.out.println("Exception while taking screenshot: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Take entire-page screenshot, including overflow parts. The captured image will be saved in '.png' format.
+     * This method simulates a scroll action to take a number of shots and merge them together to make a full-page screenshot.
+     *
+     * @param screenName Screenshot name
+     */
+    public static void takeFullPageScreenshot(String screenName) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
+        try {
+            String path = Helpers.getCurrentDir() + FrameworkConstants.EXPORT_CAPTURE_PATH;
+            File file = new File(path);
+            if (!file.exists()) {
+                LogUtils.info("No Folder: " + path);
+                file.mkdir();
+                LogUtils.info("Folder created: " + file);
+            }
+
+            LogUtils.info("Driver for Screenshot: " + DriverManager.getDriver());
+            // Create reference of TakesScreenshot
+            TakesScreenshot ts = (TakesScreenshot) DriverManager.getDriver();
+            // Call the capture screenshot function - getScreenshotAs
+            File source = ts.getScreenshotAs(OutputType.FILE);
+            // result.getName() gets the name of the test case and assigns it to the screenshot file name
+            FileUtils.copyFile(source, new File(path + "/" + screenName + "_" + dateFormat.format(new Date()) + ".png"));
+            LogUtils.info("Screenshot taken: " + screenName);
+            LogUtils.info("Screenshot taken current URL: " + getCurrentUrl());
+        } catch (Exception e) {
+            System.out.println("Exception while taking screenshot: " + e.getMessage());
+        }
+    }
+
+
+    /**
+     * Get the Download Directory path
+     *
+     * @return the download directory path
+     */
     public static String getPathDownloadDirectory() {
         String path = "";
         String machine_name = System.getProperty("user.home");
@@ -92,6 +170,11 @@ public class WebUI {
         return path;
     }
 
+    /**
+     * Count files in Download Directory
+     *
+     * @return files total in download directory
+     */
     public static int countFilesInDownloadDirectory() {
         String pathFolderDownload = getPathDownloadDirectory();
         File file = new File(pathFolderDownload);
@@ -104,6 +187,12 @@ public class WebUI {
         return i;
     }
 
+    /**
+     * Verify files in the Download Directory contain the specified file (CONTAIN)
+     *
+     * @param fileName the specified file
+     * @return true if file is contain in download directory, else is false
+     */
     public static boolean verifyFileContainsInDownloadDirectory(String fileName) {
         boolean flag = false;
         try {
@@ -125,6 +214,12 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify files in the Download Directory contain the specified file (EQUALS)
+     *
+     * @param fileName the specified file
+     * @return true if file is contain in download directory, else is false
+     */
     public static boolean verifyFileEqualsInDownloadDirectory(String fileName) {
         boolean flag = false;
         try {
@@ -146,7 +241,14 @@ public class WebUI {
         }
     }
 
-    public static Boolean verifyDownloadFileContainsName(String fileName, int timeoutSeconds) {
+    /**
+     * Verify the file is downloaded (CONTAIN)
+     *
+     * @param fileName       the specified file
+     * @param timeoutSeconds System will wait at most timeout (seconds) to return result
+     * @return true if file is downloaded, else is false
+     */
+    public static boolean verifyDownloadFileContainsName(String fileName, int timeoutSeconds) {
         boolean check = false;
         int i = 0;
         while (i < timeoutSeconds) {
@@ -161,8 +263,14 @@ public class WebUI {
         return check;
     }
 
-
-    public static Boolean verifyDownloadFileEqualsName(String fileName, int timeoutSeconds) {
+    /**
+     * Verify the file is downloaded (EQUALS)
+     *
+     * @param fileName       the specified file
+     * @param timeoutSeconds System will wait at most timeout (seconds) to return result
+     * @return true if file is downloaded, else is false
+     */
+    public static boolean verifyDownloadFileEqualsName(String fileName, int timeoutSeconds) {
         boolean check = false;
         int i = 0;
         while (i < timeoutSeconds) {
@@ -177,6 +285,9 @@ public class WebUI {
         return check;
     }
 
+    /**
+     * Delete all files in Download Directory
+     */
     public static void deleteAllFileInDownloadDirectory() {
         try {
             String pathFolderDownload = getPathDownloadDirectory();
@@ -192,6 +303,11 @@ public class WebUI {
         }
     }
 
+    /**
+     * Delete all files in Download Directory
+     *
+     * @param pathDirectory the Download Directory path
+     */
     public static void deleteAllFileInDirectory(String pathDirectory) {
         try {
             File file = new File(pathDirectory);
@@ -206,9 +322,15 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify the file is downloaded with JavascriptExecutor (EQUALS)
+     *
+     * @param fileName the specified file
+     * @return true if file is downloaded, else is false
+     */
     @Step("Verify File Downloaded With JS [Equals]: {0}")
-    public static Boolean verifyFileDownloadedWithJS_Equals(String fileName) {
-        getURL("chrome://downloads");
+    public static boolean verifyFileDownloadedWithJS_Equals(String fileName) {
+        openWebsite("chrome://downloads");
         sleep(3);
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         String element = (String) js.executeScript("return document.querySelector('downloads-manager').shadowRoot.querySelector('#downloadsList downloads-item').shadowRoot.querySelector('#show').getAttribute('title')");
@@ -222,9 +344,15 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify the file is downloaded with JavascriptExecutor (CONTAINS)
+     *
+     * @param fileName the specified file
+     * @return true if file is downloaded, else is false
+     */
     @Step("Verify File Downloaded With JS [Contains]: {0}")
-    public static Boolean verifyFileDownloadedWithJS_Contains(String fileName) {
-        getURL("chrome://downloads");
+    public static boolean verifyFileDownloadedWithJS_Contains(String fileName) {
+        openWebsite("chrome://downloads");
         sleep(3);
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         String element = (String) js.executeScript("return document.querySelector('downloads-manager').shadowRoot.querySelector('#downloadsList downloads-item').shadowRoot.querySelector('#show').getAttribute('title')");
@@ -267,7 +395,7 @@ public class WebUI {
         LogUtils.info("getToUrlAuthentication with Username: " + username);
         LogUtils.info("getToUrlAuthentication with Password: " + password);
         // Load the application url
-        getURL(url);
+        openWebsite(url);
         Uninterruptibles.sleepUninterruptibly(Duration.ofSeconds(3));
     }
 
@@ -310,10 +438,10 @@ public class WebUI {
     //Handle HTML5 validation message and valid value
 
     /**
-     * Kiểm tra field có bắt buộc nhập hay không
+     * Verify HTML5 message of element required field
      *
-     * @param by là element thuộc kiểu By
-     * @return true/false tương ứng với required
+     * @param by is an element of type By
+     * @return true/false corresponds to required
      */
     @Step("Verify HTML5 message of element {0} required field")
     public static Boolean verifyHTML5RequiredField(By by) {
@@ -323,10 +451,10 @@ public class WebUI {
     }
 
     /**
-     * Kiểm tra giá trị trong field nhập có hợp lệ hay chưa
+     * Verify the HTML5 message of the element has a value of Valid
      *
-     * @param by là element thuộc kiểu By
-     * @return true/false tương ứng với Valid
+     * @param by is an element of type By
+     * @return true/false corresponds to Valid
      */
     @Step("Verify HTML5 message of element {0} valid")
     public static Boolean verifyHTML5ValidValueField(By by) {
@@ -336,10 +464,10 @@ public class WebUI {
     }
 
     /**
-     * Lấy ra câu thông báo từ HTML5 của field
+     * Get HTML5 message of element
      *
-     * @param by là element thuộc kiểu By
-     * @return giá trị chuỗi Text của câu thông báo (String)
+     * @param by is an element of type By
+     * @return the Text string value of the notification (String)
      */
     @Step("Get HTML5 message of element {0}")
     public static String getHTML5MessageField(By by) {
@@ -349,7 +477,7 @@ public class WebUI {
     }
 
     /**
-     * Khôi phục cửa sổ và đặt kích thước cửa sổ.
+     * Set window sizes.
      *
      * @param widthPixel  is Width with Pixel
      * @param heightPixel is Height with Pixel
@@ -359,28 +487,34 @@ public class WebUI {
     }
 
     /**
-     * Di chuyển cửa sổ đến vị trí đã chọn X, Y tính từ 0 gốc trái trên cùng
+     * Move the window to the selected position X, Y from the top left corner 0
      *
-     * @param X (int) - ngang
-     * @param Y (int) - dọc
+     * @param X (int) - horizontal
+     * @param Y (int) - vertical
      */
     public static void setWindowPosition(int X, int Y) {
         DriverManager.getDriver().manage().window().setPosition(new Point(X, Y));
     }
 
+    /**
+     * Maximize window
+     */
     public static void maximizeWindow() {
         DriverManager.getDriver().manage().window().maximize();
     }
 
+    /**
+     * Minimize window
+     */
     public static void minimizeWindow() {
         DriverManager.getDriver().manage().window().minimize();
     }
 
     /**
-     * Chụp ảnh màn hình tại vị trí element. Không chụp hết cả màn hình.
+     * Take a screenshot at the element location. Do not capture the entire screen.
      *
-     * @param by          là element thuộc kiểu By
-     * @param elementName để đặt tên file ảnh .png
+     * @param by          is an element of type By
+     * @param elementName to name the .png image file
      */
     public static void screenshotElement(By by, String elementName) {
         File scrFile = getWebElement(by).getScreenshotAs(OutputType.FILE);
@@ -392,10 +526,10 @@ public class WebUI {
     }
 
     /**
-     * In trang hiện tại trong trình duyệt.
-     * Note: Chỉ hoạt động ở chế độ headless
+     * Print the current page in the browser.
+     * Note: Only works in headless mode
      *
-     * @param endPage là tổng số trang cần in ra. Tính từ 1.
+     * @param endPage is the total number of pages to print. Adjective 1.
      * @return is content of page form PDF file
      */
     public static String printPage(int endPage) {
@@ -407,46 +541,49 @@ public class WebUI {
         return pdf.getContent();
     }
 
+    /**
+     * Get the JavascriptExecutor object created
+     *
+     * @return JavascriptExecutor
+     */
     public static JavascriptExecutor getJsExecutor() {
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         return js;
     }
 
     /**
-     * Chuyển đổi đối tượng dạng By sang WebElement
-     * Để tìm kiếm một element
+     * Convert the By object to the WebElement
      *
-     * @param by là element thuộc kiểu By
-     * @return Trả về là một đối tượng WebElement
+     * @param by is an element of type By
+     * @return Returns a WebElement object
      */
     public static WebElement getWebElement(By by) {
         return DriverManager.getDriver().findElement(by);
     }
 
     /**
-     * Chuyển đổi đối tượng dạng By sang WebElement
-     * Để tìm kiếm nhiều element
+     * Find multiple elements with the locator By object
      *
-     * @param by là element thuộc kiểu By
-     * @return Trả về là Danh sách đối tượng WebElement
+     * @param by is an element of type By
+     * @return Returns a List of WebElement objects
      */
     public static List<WebElement> getWebElements(By by) {
         return DriverManager.getDriver().findElements(by);
     }
 
     /**
-     * In ra câu message trong Console log
+     * Print out the message in the Console log
      *
-     * @param object truyền vào object bất kỳ
+     * @param object passes any object
      */
     public static void logConsole(@Nullable Object object) {
         System.out.println(object);
     }
 
     /**
-     * Chờ đợi ép buộc với đơn vị là Giây
+     * Forced wait with unit of Seconds
      *
-     * @param second là số nguyên dương tương ứng số Giây
+     * @param second is a positive integer corresponding to the number of Seconds
      */
     public static void sleep(double second) {
         try {
@@ -457,69 +594,69 @@ public class WebUI {
     }
 
     /**
-     * Allow popup notifications của browser trên website
+     * Allow browser popup notifications on the website
      *
-     * @return giá trị đã setup Allow - thuộc đối tượng ChromeOptions
+     * @return the value set Allow - belongs to the ChromeOptions object
      */
     @Step("Allow Notifications")
     public static ChromeOptions notificationsAllow() {
-        // Tạo Map để lưu trữ các tùy chọn
+        // Create a Map to store options
         Map<String, Object> prefs = new HashMap<String, Object>();
 
-        // Thêm khóa và giá trị vào Map như sau để tắt thông báo của trình duyệt
-        // Truyền đối số 1 để CHO PHÉP và 2 để CHẶN
+        // Add keys and values to Map as follows to disable browser notifications
+        // Pass argument 1 to ALLOW and 2 to BLOCK
         prefs.put("profile.default_content_setting_values.notifications", 1);
 
-        // Tạo một phiên ChromeOptions
+        // Create a ChromeOptions session
         ChromeOptions options = new ChromeOptions();
 
-        // Dùng hàm setExperimentalOption thực thi giá trị thông qua đối tượng prefs trên
+        // Use the setExperimentalOption function to execute the value through the above prefs object
         options.setExperimentalOption("prefs", prefs);
 
-        //Trả về giá trị đã setup thuộc đối tượng ChromeOptions
+        //Returns the set value of the ChromeOptions object
         return options;
     }
 
     /**
-     * Block popup notifications của browser trên website
+     * Block browser popup notifications on the website
      *
-     * @return giá trị đã setup Block - thuộc đối tượng ChromeOptions
+     * @return the value of the setup Block - belongs to the ChromeOptions object
      */
     @Step("Blocked Notifications")
     public static ChromeOptions notificationsBlock() {
-        // Tạo Map để lưu trữ các tùy chọn
+        // Create a Map to store options
         Map<String, Object> prefs = new HashMap<String, Object>();
 
-        // Thêm khóa và giá trị vào Map như sau để tắt thông báo của trình duyệt
-        // Truyền đối số 1 để CHO PHÉP và 2 để CHẶN
+        // Add keys and values to Map as follows to disable browser notifications
+        // Pass argument 1 to ALLOW and 2 to BLOCK
         prefs.put("profile.default_content_setting_values.notifications", 2);
 
-        // Tạo một phiên ChromeOptions
+        // Create a ChromeOptions session
         ChromeOptions options = new ChromeOptions();
 
-        // Dùng hàm setExperimentalOption thực thi giá trị thông qua đối tượng prefs trên
+        // Use the setExperimentalOption function to execute the value through the above prefs object
         options.setExperimentalOption("prefs", prefs);
 
-        //Trả về giá trị đã setup thuộc đối tượng ChromeOptions
+        //Returns the set value of the ChromeOptions object
         return options;
     }
 
     /**
-     * Upload file kiểu click hiện form chọn file local trong máy tính của bạn
+     * Uploading files with a click shows a form to select local files on your computer
      *
-     * @param by       là element thuộc kiểu By
-     * @param filePath đường dẫn tuyệt đối đến file trên máy tính của bạn
+     * @param by       is an element of type By
+     * @param filePath the absolute path to the file on your computer
      */
     @Step("Upload File with open Local Form")
     public static void uploadFileWithLocalForm(By by, String filePath) {
         smartWait();
 
         Actions action = new Actions(DriverManager.getDriver());
-        //Click để mở form upload
+        //Click to open form upload
         action.moveToElement(getWebElement(by)).click().perform();
         sleep(3);
 
-        // Khởi tạo Robot class
+        // Create Robot class
         Robot robot = null;
         try {
             robot = new Robot();
@@ -527,21 +664,21 @@ public class WebUI {
             e.printStackTrace();
         }
 
-        // Copy File path vào Clipboard
+        // Copy File path to Clipboard
         StringSelection str = new StringSelection(filePath);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(str, null);
 
         //Check OS for Windows
         if (BrowserInfoUtils.isWindows()) {
-            // Nhấn Control+V để dán
+            // Press Control+V to paste
             robot.keyPress(KeyEvent.VK_CONTROL);
             robot.keyPress(KeyEvent.VK_V);
 
-            // Xác nhận Control V trên
+            // Release the Control V
             robot.keyRelease(KeyEvent.VK_CONTROL);
             robot.keyRelease(KeyEvent.VK_V);
             robot.delay(2000);
-            // Nhấn Enter
+            // Press Enter
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
         }
@@ -584,10 +721,10 @@ public class WebUI {
     }
 
     /**
-     * Upload file kiểu kéo link trực tiếp vào ô input
+     * Upload files by dragging the link directly into the input box
      *
-     * @param by       truyền vào an element of object type By
-     * @param filePath đường dẫn tuyệt đối đến file
+     * @param by       passes an element of object type By
+     * @param filePath absolute path to the file
      */
     @Step("Upload File with SendKeys")
     public static void uploadFileWithSendKeys(By by, String filePath) {
@@ -603,6 +740,11 @@ public class WebUI {
 
     }
 
+    /**
+     * Get current URL from current driver
+     *
+     * @return the current URL as String
+     */
     @Step("Get Current URL")
     public static String getCurrentUrl() {
         smartWait();
@@ -614,6 +756,11 @@ public class WebUI {
         return DriverManager.getDriver().getCurrentUrl();
     }
 
+    /**
+     * Get current web page's title
+     *
+     * @return the current URL as String
+     */
     @Step("Get Page Title")
     public static String getPageTitle() {
         smartWait();
@@ -626,45 +773,68 @@ public class WebUI {
         return title;
     }
 
+    /**
+     * Verify the web page's title equals with the specified title
+     *
+     * @param pageTitle The title of the web page that needs verifying
+     * @return the current URL as String
+     */
     @Step("Verify Page Title equals {0}")
     public static boolean VerifyPageTitle(String pageTitle) {
         smartWait();
         return getPageTitle().equals(pageTitle);
     }
 
+
+    /**
+     * Verify if the given text presents anywhere in the page source.
+     *
+     * @param text
+     * @return true/false
+     */
     @Step("Verify Page sources Contains Text {0}")
     public static boolean verifyPageContainsText(String text) {
         smartWait();
         return DriverManager.getDriver().getPageSource().contains(text);
     }
 
-    //Handle checkbox and radio button
-
+    /**
+     * Verify if the given web element is checked.
+     *
+     * @param by Represent a web element as the By object
+     * @return true if the element is checked, otherwise false.
+     */
     @Step("Verify Element Checked {0}")
     public static boolean verifyElementChecked(By by) {
         smartWait();
 
         boolean checked = getWebElement(by).isSelected();
-
-        if (checked) {
+        if (checked == true) {
             return true;
         } else {
+            Assert.assertTrue(false, "The element NOT checked.");
             return false;
         }
     }
 
+    /**
+     * Verify if the given web element is checked.
+     *
+     * @param by      Represent a web element as the By object
+     * @param message the custom message if false
+     * @return true if the element is checked, otherwise false.
+     */
     @Step("Verify Element Checked {0}")
     public static boolean verifyElementChecked(By by, String message) {
         smartWait();
-
         waitForElementVisible(by);
 
         boolean checked = getWebElement(by).isSelected();
 
-        if (checked) {
+        if (checked == true) {
             return true;
         } else {
-            Assert.fail(message);
+            Assert.assertTrue(false, message);
             return false;
         }
     }
@@ -672,16 +842,16 @@ public class WebUI {
     //Handle dropdown
 
     /**
-     * Chọn giá trị trong dropdown với dạng động (không phải Select Option thuần)
+     * Select value in dropdown dynamic (not pure Select Option)
      *
-     * @param objectListItem là locator của list item dạng đối tượng By
-     * @param text           giá trị cần chọn dạng Text của item
-     * @return click chọn một item chỉ định với giá trị Text
+     * @param objectListItem is the locator of the list item as a By object
+     * @param text           the value to select as Text of the item
+     * @return click to select a specified item with Text value
      */
     @Step("Select Option Dynamic by Text {0}")
     public static boolean selectOptionDynamic(By objectListItem, String text) {
         smartWait();
-        //Đối với dropdown động (div, li, span,...không phải dạng select option)
+        //For dynamic dropdowns (div, li, span,...not select options)
         try {
             List<WebElement> elements = getWebElements(objectListItem);
 
@@ -699,13 +869,20 @@ public class WebUI {
         return false;
     }
 
+    /**
+     * Verify All Options contains the specified text (select option)
+     *
+     * @param by   Represent a web element as the By object
+     * @param text the specified text
+     * @return true if all option contains the specified text
+     */
     @Step("Verify Option Dynamic Exist by Text {0}")
-    public static boolean verifyOptionDynamicExist(By objectListItem, String text) {
+    public static boolean verifyOptionDynamicExist(By by, String text) {
         smartWait();
 
         try {
-            List<WebElement> elements = getWebElements(objectListItem);
-
+            List<WebElement> elements = getWebElements(by);
+            
             for (WebElement element : elements) {
                 LogUtils.info(element.getText());
                 if (element.getText().toLowerCase().trim().contains(text.toLowerCase().trim())) {
@@ -719,10 +896,17 @@ public class WebUI {
         return false;
     }
 
+    /**
+     * Get total number of options the given web element has. (select option)
+     *
+     * @param objectListItem Represent a web element as the By object
+     * @return total number of options
+     */
     @Step("Get total of Option Dynamic with list element {0}")
     public static int getOptionDynamicTotal(By objectListItem) {
         smartWait();
 
+        LogUtils.info("Get total of Option Dynamic with list element. " + objectListItem);
         try {
             List<WebElement> elements = getWebElements(objectListItem);
             return elements.size();
@@ -733,75 +917,136 @@ public class WebUI {
         return 0;
     }
 
-    //Dropdown (Select Option)
+    /**
+     * Select the options with the given label (displayed text).
+     *
+     * @param by   Represent a web element as the By object
+     * @param text the specified text of option
+     */
     @Step("Select Option by Text {0}")
     public static void selectOptionByText(By by, String text) {
         smartWait();
         Select select = new Select(getWebElement(by));
         select.selectByVisibleText(text);
+        LogUtils.info("Select Option " + by + "by text " + text);
     }
 
+    /**
+     * Select the options with the given value.
+     *
+     * @param by    Represent a web element as the By object
+     * @param value the specified value of option
+     */
     @Step("Select Option by Value {0}")
     public static void selectOptionByValue(By by, String value) {
         smartWait();
 
         Select select = new Select(getWebElement(by));
         select.selectByValue(value);
+        LogUtils.info("Select Option " + by + "by value " + value);
     }
 
+    /**
+     * Select the options with the given index.
+     *
+     * @param by    Represent a web element as the By object
+     * @param index the specified index of option
+     */
     @Step("Select Option by Index {0}")
     public static void selectOptionByIndex(By by, int index) {
         smartWait();
 
         Select select = new Select(getWebElement(by));
         select.selectByIndex(index);
+        LogUtils.info("Select Option " + by + "by index " + index);
     }
 
+    /**
+     * Verify the number of options equals the specified total
+     *
+     * @param by    Represent a web element as the By object
+     * @param total the specified options total
+     */
     @Step("Verify Option Total equals {0}")
-    public static void verifyOptionTotal(By element, int total) {
+    public static void verifyOptionTotal(By by, int total) {
         smartWait();
 
-        Select select = new Select(getWebElement(element));
+        Select select = new Select(getWebElement(by));
+        LogUtils.info("Verify Option Total equals: " + total);
         Assert.assertEquals(total, select.getOptions().size());
     }
 
+    /**
+     * Verify if the options at the given text are selected.
+     *
+     * @param by   Represent a web element as the By object
+     * @param text the specified options text
+     * @return true if options given selected, else is false
+     */
     @Step("Verify Selected Option by Text {0}")
     public static boolean verifySelectedByText(By by, String text) {
         smartWait();
 
         Select select = new Select(getWebElement(by));
         LogUtils.info("Verify Option Selected by text: " + select.getFirstSelectedOption().getText());
-        return select.getFirstSelectedOption().getText().equals(text);
+
+        if (select.getFirstSelectedOption().getText().equals(text)) {
+            return true;
+        } else {
+            Assert.assertEquals(select.getFirstSelectedOption().getText(), text, "The option NOT selected. " + by);
+            return false;
+        }
     }
 
+    /**
+     * Verify if the options at the given value are selected.
+     *
+     * @param by    Represent a web element as the By object
+     * @param value the specified options value
+     * @return true if options given selected, else is false
+     */
     @Step("Verify Selected Option by Value {0}")
-    public static boolean verifySelectedByValue(By by, String optionValue) {
+    public static boolean verifySelectedByValue(By by, String value) {
         smartWait();
 
         Select select = new Select(getWebElement(by));
         LogUtils.info("Verify Option Selected by value: " + select.getFirstSelectedOption().getAttribute("value"));
-        return select.getFirstSelectedOption().getAttribute("value").equals(optionValue);
+        if (select.getFirstSelectedOption().getAttribute("value").equals(value)) {
+            return true;
+        } else {
+            Assert.assertEquals(select.getFirstSelectedOption().getAttribute("value"), value, "The option NOT selected. " + by);
+            return false;
+        }
     }
 
+    /**
+     * Verify if the options at the given index are selected.
+     *
+     * @param by    Represent a web element as the By object
+     * @param index the specified options index
+     * @return true if options given selected, else is false
+     */
     @Step("Verify Selected Option by Index {0}")
     public static boolean verifySelectedByIndex(By by, int index) {
         smartWait();
 
-        boolean res = false;
         Select select = new Select(getWebElement(by));
         int indexFirstOption = select.getOptions().indexOf(select.getFirstSelectedOption());
         LogUtils.info("The First Option selected by index: " + indexFirstOption);
         LogUtils.info("Expected index: " + index);
         if (indexFirstOption == index) {
-            res = true;
+            return true;
         } else {
-            res = false;
+            Assert.assertTrue(false, "The option NOT selected. " + by);
+            return false;
         }
-        return res;
     }
 
-    //Handle frame iframe Window Tab
-
+    /**
+     * Switch to iframe by index of iframe tag
+     *
+     * @param index index of iframe tag
+     */
     @Step("Switch to Frame by Index: {0}")
     public static void switchToFrameByIndex(int index) {
         smartWait();
@@ -809,38 +1054,66 @@ public class WebUI {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(index));
         //DriverManager.getDriver().switchTo().frame(Index);
+        LogUtils.info("Switch to Frame by Index. " + index);
     }
 
+    /**
+     * Switch to iframe by ID or Name of iframe tag
+     *
+     * @param IdOrName ID or Name of iframe tag
+     */
     @Step("Switch to Frame by ID or Name: {0}")
     public static void switchToFrameByIdOrName(String IdOrName) {
         smartWait();
 
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(IdOrName));
+        LogUtils.info("Switch to Frame by ID or Name. " + IdOrName);
     }
 
+    /**
+     * Switch to iframe by Element is this iframe tag
+     *
+     * @param by iframe tag
+     */
     @Step("Switch to Frame by Element {0}")
     public static void switchToFrameByElement(By by) {
         smartWait();
 
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(by));
+        LogUtils.info("Switch to Frame by Element. " + by);
     }
 
+    /**
+     * Switch to Default Content
+     */
     @Step("Switch to Default Content")
     public static void switchToDefaultContent() {
         smartWait();
 
         DriverManager.getDriver().switchTo().defaultContent();
+        LogUtils.info("Switch to Default Content");
     }
 
+    /**
+     * Switch to iframe by position of iframe tag
+     *
+     * @param position index of iframe tag
+     */
     @Step("Switch to Window or Tab by Position: {0}")
     public static void switchToWindowOrTabByPosition(int position) {
         smartWait();
 
         DriverManager.getDriver().switchTo().window(DriverManager.getDriver().getWindowHandles().toArray()[position].toString());
+        LogUtils.info("Switch to Window or Tab by Position: " + position);
     }
 
+    /**
+     * Switch to popup window by title
+     *
+     * @param title title of popup window
+     */
     @Step("Switch to Window or Tab by Title: {0}")
     public static void switchToWindowOrTabByTitle(String title) {
         smartWait();
@@ -864,6 +1137,11 @@ public class WebUI {
 
     }
 
+    /**
+     * Switch to popup window by URL
+     *
+     * @param url url of popup window
+     */
     @Step("Switch to Window or Tab by Url: {0}")
     public static void switchToWindowOrTabByUrl(String url) {
         smartWait();
@@ -886,75 +1164,129 @@ public class WebUI {
 
     }
 
+    /**
+     * Close current Window
+     */
     @Step("Close current Window")
     public static void closeCurrentWindow() {
+        LogUtils.info("Close current Window." + getCurrentUrl());
         DriverManager.getDriver().close();
+        LogUtils.info("Close current Window");
     }
 
+
+    /**
+     * Get the total number of popup windows the given web page.
+     *
+     * @param number the specified number
+     * @return true/false
+     */
     @Step("Verify total of Windows or Tab")
     public static boolean verifyTotalOfWindowsOrTab(int number) {
         return new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT)).until(ExpectedConditions.numberOfWindowsToBe(number));
     }
 
+    /**
+     * Open new Tab
+     */
     @Step("Open new Tab")
     public static void openNewTab() {
         smartWait();
         // Opens a new tab and switches to new tab
         DriverManager.getDriver().switchTo().newWindow(WindowType.TAB);
+        LogUtils.info("Open new Tab");
     }
 
+    /**
+     * Open new Window
+     */
     @Step("Open new Window")
     public static void openNewWindow() {
         smartWait();
         // Opens a new window and switches to new window
         DriverManager.getDriver().switchTo().newWindow(WindowType.WINDOW);
+        LogUtils.info("Open new Window");
     }
 
+    /**
+     * Switch to Main Window
+     */
     @Step("Switch to Main Window")
     public static void switchToMainWindow() {
         smartWait();
         DriverManager.getDriver().switchTo().window(DriverManager.getDriver().getWindowHandles().toArray()[0].toString());
+        LogUtils.info("Switch to Main Window." + DriverManager.getDriver());
     }
 
+    /**
+     * Switch to Main Window by ID
+     *
+     * @param originalWindow ID of main window
+     */
     @Step("Switch to Main Window by ID {0}")
     public static void switchToMainWindow(String originalWindow) {
         smartWait();
         DriverManager.getDriver().switchTo().window(originalWindow);
+        LogUtils.info("Switch to Main Window." + originalWindow);
     }
 
+    /**
+     * Switch to Last Window
+     */
     @Step("Switch to Last Window")
     public static void switchToLastWindow() {
         smartWait();
         Set<String> windowHandles = DriverManager.getDriver().getWindowHandles();
-        DriverManager.getDriver().switchTo().window(DriverManager.getDriver().getWindowHandles().toArray()[windowHandles.size() - 1].toString());
+        WebDriver newDriver = DriverManager.getDriver().switchTo().window(DriverManager.getDriver().getWindowHandles().toArray()[windowHandles.size() - 1].toString());
+        LogUtils.info("Switch to Last Window." + newDriver.getCurrentUrl());
     }
 
-    //========== Handle Alert ==========
-
+    /**
+     * Click Accept on Alert
+     */
     @Step("Click Accept on Alert")
-    public static void alertAccept() {
+    public static void acceptAlert() {
         sleep(FrameworkConstants.WAIT_SLEEP_STEP);
         DriverManager.getDriver().switchTo().alert().accept();
+        LogUtils.info("Click Accept on Alert.");
     }
 
+    /**
+     * Click Dismiss on Alert
+     */
     @Step("Click Dismiss on Alert")
-    public static void alertDismiss() {
+    public static void dismissAlert() {
         sleep(FrameworkConstants.WAIT_SLEEP_STEP);
         DriverManager.getDriver().switchTo().alert().dismiss();
+        LogUtils.info("Click Dismiss on Alert.");
     }
 
+    /**
+     * Get text on Alert
+     */
     @Step("Get text on Alert")
-    public static void alertGetText() {
+    public static String getTextAlert() {
         sleep(FrameworkConstants.WAIT_SLEEP_STEP);
-        DriverManager.getDriver().switchTo().alert().getText();
+        LogUtils.info("Get text ion alert: " + DriverManager.getDriver().switchTo().alert().getText());
+        return DriverManager.getDriver().switchTo().alert().getText();
     }
 
+    /**
+     * Set text on Alert
+     */
     @Step("Set text on Alert {0}")
-    public static void alertSetText(String text) {
+    public static void setTextAlert(String text) {
         sleep(FrameworkConstants.WAIT_SLEEP_STEP);
         DriverManager.getDriver().switchTo().alert().sendKeys(text);
+        LogUtils.info("Set " + text + " on Alert.");
     }
 
+    /**
+     * Verify if alert does present
+     *
+     * @param timeOut Timeout waiting for alert to present.(in seconds)
+     * @return true/false
+     */
     @Step("Verify Alert present with timeout {0}")
     public static boolean verifyAlertPresent(int timeOut) {
         try {
@@ -962,12 +1294,18 @@ public class WebUI {
             wait.until(ExpectedConditions.alertIsPresent());
             return true;
         } catch (Throwable error) {
-            Assert.fail("Not found Alert.");
+            LogUtils.error("Alert NOT Present.");
+            Assert.fail("Alert NOT Present.");
             return false;
         }
     }
 
-    //Handle Elements
+    /**
+     * Get list text of specified elements
+     *
+     * @param by Represent a web element as the By object
+     * @return Text list of specified elements
+     */
     @Step("Get List Element {0}")
     public static List<String> getListElementsText(By by) {
         smartWait();
@@ -985,6 +1323,12 @@ public class WebUI {
         return listText;
     }
 
+    /**
+     * Verify if a web element is present (findElements.size > 0).
+     *
+     * @param by Represent a web element as the By object
+     * @return true/false
+     */
     @Step("Verify element exists {0}")
     public static boolean verifyElementExists(By by) {
         smartWait();
@@ -1002,6 +1346,14 @@ public class WebUI {
         return res;
     }
 
+
+    /**
+     * Verify if two object are equal.
+     *
+     * @param value1 The object one
+     * @param value2 The object two
+     * @return true/false
+     */
     @Step("Verify Equals: {0} ---AND--- {1}")
     public static boolean verifyEquals(Object value1, Object value2) {
         boolean result = value1.equals(value2);
@@ -1022,6 +1374,14 @@ public class WebUI {
         return result;
     }
 
+    /**
+     * Verify if two object are equal.
+     *
+     * @param value1  The object one
+     * @param value2  The object two
+     * @param message The custom message if false
+     * @return true/false
+     */
     @Step("Verify Equals: {0} ---AND--- {1}")
     public static boolean verifyEquals(Object value1, Object value2, String message) {
         boolean result = value1.equals(value2);
@@ -1042,6 +1402,13 @@ public class WebUI {
         return result;
     }
 
+    /**
+     * Verify if the first object contains the second object.
+     *
+     * @param value1 The first object
+     * @param value2 The second object
+     * @return true/false
+     */
     @Step("Verify Contains: {0} ---AND--- {1}")
     public static boolean verifyContains(String value1, String value2) {
         boolean result = value1.contains(value2);
@@ -1063,6 +1430,14 @@ public class WebUI {
         return result;
     }
 
+    /**
+     * Verify if the first object contains the second object.
+     *
+     * @param value1  The first object
+     * @param value2  The second object
+     * @param message The custom message if false
+     * @return true/false
+     */
     @Step("Verify Contains: {0} ---AND--- {1}")
     public static boolean verifyContains(String value1, String value2, String message) {
         boolean result = value1.contains(value2);
@@ -1084,6 +1459,11 @@ public class WebUI {
         return result;
     }
 
+    /**
+     * Verify the condition is true.
+     *
+     * @return true/false
+     */
     @Step("Verify TRUE with condition: {0}")
     public static boolean verifyTrue(Boolean condition) {
         if (condition == true) {
@@ -1104,6 +1484,12 @@ public class WebUI {
         return condition;
     }
 
+    /**
+     * Verify the condition is true.
+     *
+     * @param message the custom message if false
+     * @return true/false
+     */
     @Step("Verify TRUE with condition: {0}")
     public static boolean verifyTrue(Boolean condition, String message) {
         if (condition == true) {
@@ -1124,6 +1510,14 @@ public class WebUI {
         return condition;
     }
 
+
+    /**
+     * Verify text of an element. (equals)
+     *
+     * @param by   Represent a web element as the By object
+     * @param text Text of the element to verify.
+     * @return true if the element has the desired text, otherwise false.
+     */
     public static boolean verifyElementText(By by, String text) {
         smartWait();
         waitForElementVisible(by);
@@ -1131,6 +1525,14 @@ public class WebUI {
         return getTextElement(by).trim().equals(text.trim());
     }
 
+    /**
+     * Verify text of an element. (equals)
+     *
+     * @param by          Represent a web element as the By object
+     * @param text        Text of the element to verify.
+     * @param flowControl Specify failure handling schema (STOP_ON_FAILURE, CONTINUE_ON_FAILURE, OPTIONAL) to determine whether the execution should be allowed to continue or stop
+     * @return true if the element has the desired text, otherwise false.
+     */
     @Step("Verify text of an element [Equals]")
     public static boolean verifyElementTextEquals(By by, String text, FailureHandling flowControl) {
         smartWait();
@@ -1167,6 +1569,13 @@ public class WebUI {
         return getTextElement(by).trim().equals(text.trim());
     }
 
+    /**
+     * Verify text of an element. (equals)
+     *
+     * @param by   Represent a web element as the By object
+     * @param text Text of the element to verify.
+     * @return true if the element has the desired text, otherwise false.
+     */
     @Step("Verify text of an element [Equals]")
     public static boolean verifyElementTextEquals(By by, String text) {
         smartWait();
@@ -1193,6 +1602,14 @@ public class WebUI {
         return result;
     }
 
+    /**
+     * Verify text of an element. (contains)
+     *
+     * @param by          Represent a web element as the By object
+     * @param text        Text of the element to verify.
+     * @param flowControl Specify failure handling schema (STOP_ON_FAILURE, CONTINUE_ON_FAILURE, OPTIONAL) to determine whether the execution should be allowed to continue or stop
+     * @return true if the element has the desired text, otherwise false.
+     */
     @Step("Verify text of an element [Contains]")
     public static boolean verifyElementTextContains(By by, String text, FailureHandling flowControl) {
         smartWait();
@@ -1224,6 +1641,13 @@ public class WebUI {
         return getTextElement(by).trim().contains(text.trim());
     }
 
+    /**
+     * Verify text of an element. (contains)
+     *
+     * @param by   Represent a web element as the By object
+     * @param text Text of the element to verify.
+     * @return true if the element has the desired text, otherwise false.
+     */
     @Step("Verify text {1} of element [Contains] {0}")
     public static boolean verifyElementTextContains(By by, String text) {
         smartWait();
@@ -1249,6 +1673,12 @@ public class WebUI {
         return result;
     }
 
+    /**
+     * Verify if the given element is clickable.
+     *
+     * @param by Represent a web element as the By object
+     * @return true/false
+     */
     @Step("Verify element Clickable {0}")
     public static boolean verifyElementClickable(By by) {
         smartWait();
@@ -1269,6 +1699,13 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify if the given element is clickable. (in seconds)
+     *
+     * @param by      Represent a web element as the By object
+     * @param timeout System will wait at most timeout (seconds) to return result
+     * @return true/false
+     */
     @Step("Verify element Clickable {0} with timeout {1} second")
     public static boolean verifyElementClickable(By by, int timeout) {
         smartWait();
@@ -1290,6 +1727,14 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify if the given element is clickable. (in seconds)
+     *
+     * @param by      Represent a web element as the By object
+     * @param timeout System will wait at most timeout (seconds) to return result
+     * @param message the custom message if false
+     * @return true/false
+     */
     @Step("Verify element Clickable {0}")
     public static boolean verifyElementClickable(By by, int timeout, String message) {
         smartWait();
@@ -1311,6 +1756,12 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify if the given web element does present on DOM.
+     *
+     * @param by Represent a web element as the By object
+     * @return true/false
+     */
     @Step("Verify element present {0}")
     public static boolean verifyElementPresent(By by) {
         smartWait();
@@ -1332,6 +1783,13 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify if the given web element does present on DOM. (in seconds)
+     *
+     * @param by      Represent a web element as the By object
+     * @param timeout System will wait at most timeout (seconds) to return result
+     * @return true/false
+     */
     @Step("Verify element present {0} with timeout {1} second")
     public static boolean verifyElementPresent(By by, int timeout) {
         smartWait();
@@ -1353,6 +1811,13 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify if the given web element does present on DOM.
+     *
+     * @param by      Represent a web element as the By object
+     * @param message the custom message if false
+     * @return true/false
+     */
     @Step("Verify element present {0}")
     public static boolean verifyElementPresent(By by, String message) {
         smartWait();
@@ -1380,6 +1845,14 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify if the given web element does present on DOM. (in seconds)
+     *
+     * @param by      Represent a web element as the By object
+     * @param timeout System will wait at most timeout (seconds) to return result
+     * @param message the custom message if false
+     * @return true/false
+     */
     @Step("Verify element present {0} with timeout {1} second")
     public static boolean verifyElementPresent(By by, int timeout, String message) {
         smartWait();
@@ -1407,6 +1880,12 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify if the given web element does NOT present on the DOM.
+     *
+     * @param by Represent a web element as the By object
+     * @return true/false
+     */
     @Step("Verify element NOT present {0}")
     public static boolean verifyElementNotPresent(By by) {
         smartWait();
@@ -1422,6 +1901,13 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify if the given web element does NOT present on the DOM. (in seconds)
+     *
+     * @param by      Represent a web element as the By object
+     * @param timeout System will wait at most timeout (seconds) to return result
+     * @return true/false
+     */
     @Step("Verify element NOT present {0} with timeout {1} second")
     public static boolean verifyElementNotPresent(By by, int timeout) {
         smartWait();
@@ -1437,6 +1923,13 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify if the given web element does NOT present on the DOM.
+     *
+     * @param by      Represent a web element as the By object
+     * @param message the custom message if false
+     * @return true/false
+     */
     @Step("Verify element NOT present {0}")
     public static boolean verifyElementNotPresent(By by, String message) {
         smartWait();
@@ -1457,6 +1950,14 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify if the given web element does NOT present on the DOM. (in seconds)
+     *
+     * @param by      Represent a web element as the By object
+     * @param timeout System will wait at most timeout (seconds) to return result
+     * @param message the custom message if false
+     * @return true/false
+     */
     @Step("Verify element NOT present {0} with timeout {1} second")
     public static boolean verifyElementNotPresent(By by, int timeout, String message) {
         smartWait();
@@ -1477,8 +1978,15 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify element is visible. (in seconds)
+     *
+     * @param by      Represent a web element as the By object
+     * @param timeout System will wait at most timeout (seconds) to return result
+     * @return true/false
+     */
     @Step("Verify element visible {0}")
-    public static boolean isElementVisible(By by, long timeout) {
+    public static boolean isElementVisible(By by, int timeout) {
         smartWait();
 
         try {
@@ -1491,6 +1999,12 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify if the given web element is visible.
+     *
+     * @param by Represent a web element as the By object
+     * @return true/false
+     */
     @Step("Verify element visible {0}")
     public static boolean verifyElementVisible(By by) {
         smartWait();
@@ -1501,12 +2015,20 @@ public class WebUI {
             LogUtils.info("Verify element visible " + by);
             return true;
         } catch (Exception e) {
+            Assert.fail("The element is NOT visible. " + by);
             return false;
         }
     }
 
+    /**
+     * Verify if the given web element is visible. (in seconds)
+     *
+     * @param by      Represent a web element as the By object
+     * @param timeout System will wait at most timeout (seconds) to return result
+     * @return true/false
+     */
     @Step("Verify element visible {0} with timeout {1} second")
-    public static boolean verifyElementVisible(By by, long timeout) {
+    public static boolean verifyElementVisible(By by, int timeout) {
         smartWait();
 
         try {
@@ -1521,6 +2043,13 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify if the given web element is visible.
+     *
+     * @param by      Represent a web element as the By object
+     * @param message the custom message if false
+     * @return true/false
+     */
     @Step("Verify element visible {0}")
     public static boolean verifyElementVisible(By by, String message) {
         smartWait();
@@ -1542,6 +2071,14 @@ public class WebUI {
         }
     }
 
+    /**
+     * Verify if the given web element is visible. (in seconds)
+     *
+     * @param by      Represent a web element as the By object
+     * @param timeout System will wait at most timeout (seconds) to return result
+     * @param message the custom message if false
+     * @return true/false
+     */
     @Step("Verify element visible {0} with timeout {1} second")
     public static boolean verifyElementVisible(By by, int timeout, String message) {
         smartWait();
@@ -1563,43 +2100,66 @@ public class WebUI {
         }
     }
 
+
+    /**
+     * Verify if the given web element is NOT visible.
+     *
+     * @param by Represent a web element as the By object
+     * @return true/false
+     */
     @Step("Verify element NOT visible {0}")
     public static boolean verifyElementNotVisible(By by) {
         smartWait();
 
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-            wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+            return true;
+        } catch (Exception e) {
             LogUtils.error("FAILED. The element is visible " + by);
             Assert.fail("FAILED. The element is visible " + by);
             return false;
-        } catch (Exception e) {
-            return true;
         }
     }
 
+    /**
+     * Verify if the given web element is NOT visible. (in seconds)
+     *
+     * @param by      Represent a web element as the By object
+     * @param timeout System will wait at most timeout (seconds) to return result
+     * @return true/false
+     */
     @Step("Verify element NOT visible {0} with timeout {1} second")
     public static boolean verifyElementNotVisible(By by, int timeout) {
         smartWait();
 
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
-            wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+            return true;
+        } catch (Exception e) {
             LogUtils.error("FAILED. The element is visible " + by);
             Assert.fail("FAILED. The element is visible " + by);
             return false;
-        } catch (Exception e) {
-            return true;
         }
     }
 
+    /**
+     * Verify if the given web element is NOT visible.
+     *
+     * @param by      Represent a web element as the By object
+     * @param message the custom message if false
+     * @return true/false
+     */
     @Step("Verify element NOT visible {0}")
     public static boolean verifyElementNotVisible(By by, String message) {
         smartWait();
 
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-            wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+            return true;
+        } catch (Exception e) {
             if (message.isEmpty() || message == null) {
                 LogUtils.error("FAILED. The element is visible " + by);
                 Assert.fail("FAILED. The element is visible " + by);
@@ -1608,18 +2168,26 @@ public class WebUI {
                 Assert.fail(message + " " + by);
             }
             return false;
-        } catch (Exception e) {
-            return true;
         }
     }
 
+    /**
+     * Verify if the given web element is NOT visible. (in seconds)
+     *
+     * @param by      Represent a web element as the By object
+     * @param timeout System will wait at most timeout (seconds) to return result
+     * @param message the custom message if false
+     * @return true/false
+     */
     @Step("Verify element NOT visible {0} with timeout {1} second")
     public static boolean verifyElementNotVisible(By by, int timeout, String message) {
         smartWait();
 
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
-            wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+            return true;
+        } catch (Exception e) {
             if (message.isEmpty() || message == null) {
                 LogUtils.error("FAILED. The element is visible " + by);
                 Assert.fail("FAILED. The element is visible " + by);
@@ -1628,13 +2196,17 @@ public class WebUI {
                 Assert.fail(message + " " + by);
             }
             return false;
-        } catch (Exception e) {
-            return true;
         }
     }
 
+
+    /**
+     * Scroll an element into the visible area of the browser window. (at TOP)
+     *
+     * @param by Represent a web element as the By object
+     */
     @Step("Scroll to element {0}")
-    public static void scrollToElementToTop(By by) {
+    public static void scrollToElementAtTop(By by) {
         smartWait();
 
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
@@ -1642,8 +2214,13 @@ public class WebUI {
         LogUtils.info("Scroll to element " + by);
     }
 
+    /**
+     * Scroll an element into the visible area of the browser window. (at BOTTOM)
+     *
+     * @param by Represent a web element as the By object
+     */
     @Step("Scroll to element {0}")
-    public static void scrollToElementToBottom(By by) {
+    public static void scrollToElementAtBottom(By by) {
         smartWait();
 
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
@@ -1651,24 +2228,40 @@ public class WebUI {
         LogUtils.info("Scroll to element " + by);
     }
 
+    /**
+     * Scroll an element into the visible area of the browser window. (at TOP)
+     *
+     * @param webElement Represent a web element as the By object
+     */
     @Step("Scroll to element {0}")
-    public static void scrollToElementToTop(WebElement element) {
+    public static void scrollToElementAtTop(WebElement webElement) {
         smartWait();
 
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-        js.executeScript("arguments[0].scrollIntoView(true);", element);
-        LogUtils.info("Scroll to element " + element);
+        js.executeScript("arguments[0].scrollIntoView(true);", webElement);
+        LogUtils.info("Scroll to element " + webElement);
     }
 
+    /**
+     * Scroll an element into the visible area of the browser window. (at BOTTOM)
+     *
+     * @param webElement Represent a web element as the By object
+     */
     @Step("Scroll to element {0}")
-    public static void scrollToElementToBottom(WebElement element) {
+    public static void scrollToElementAtBottom(WebElement webElement) {
         smartWait();
 
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-        js.executeScript("arguments[0].scrollIntoView(false);", element);
-        LogUtils.info("Scroll to element " + element);
+        js.executeScript("arguments[0].scrollIntoView(false);", webElement);
+        LogUtils.info("Scroll to element " + webElement);
     }
 
+    /**
+     * Scroll to an offset location
+     *
+     * @param X x offset
+     * @param Y y offset
+     */
     @Step("Scroll to position X={0}, Y={1}")
     public static void scrollToPosition(int X, int Y) {
         smartWait();
@@ -1678,6 +2271,12 @@ public class WebUI {
         LogUtils.info("Scroll to position X = " + X + " ; Y = " + Y);
     }
 
+    /**
+     * Simulate users hovering a mouse over the given element.
+     *
+     * @param by Represent a web element as the By object
+     * @return true/false
+     */
     @Step("Hover on element {0}")
     public static boolean hoverOnElement(By by) {
         smartWait();
@@ -1692,6 +2291,12 @@ public class WebUI {
         }
     }
 
+    /**
+     * Simulate users hovering a mouse over the given element.
+     *
+     * @param by Represent a web element as the By object
+     * @return true/false
+     */
     @Step("Mouse hover on element {0}")
     public static boolean mouseHover(By by) {
         smartWait();
@@ -1706,6 +2311,13 @@ public class WebUI {
         }
     }
 
+    /**
+     * Drag and drop an element onto another element.
+     *
+     * @param fromElement represent the drag-able element
+     * @param toElement   represent the drop-able element
+     * @return true/false
+     */
     @Step("Drag from element {0} to element {1}")
     public static boolean dragAndDrop(By fromElement, By toElement) {
         smartWait();
@@ -1721,6 +2333,13 @@ public class WebUI {
         }
     }
 
+    /**
+     * Drag and drop an element onto another element. (HTML5)
+     *
+     * @param fromElement represent the drag-able element
+     * @param toElement   represent the drop-able element
+     * @return true/false
+     */
     @Step("Drag HTML5 from element {0} to element {1}")
     public static boolean dragAndDropHTML5(By fromElement, By toElement) {
         smartWait();
@@ -1737,7 +2356,7 @@ public class WebUI {
             int Y2 = getWebElement(toElement).getLocation().getY() + (getWebElement(toElement).getSize().getHeight() / 2);
             System.out.println(X2 + " , " + Y2);
 
-            //Chổ này lấy toạ độ hiện tại cộng thêm 120px là phần header của browser (1920x1080 current window)
+            //This place takes the current coordinates plus 120px which is the browser header (1920x1080 current window)
             //Header: chrome is being controlled by automated test software
             sleep(1);
             robot.mouseMove(X1, Y1 + 120);
@@ -1755,6 +2374,14 @@ public class WebUI {
         }
     }
 
+    /**
+     * Drag an object and drop it to an offset location.
+     *
+     * @param fromElement represent the drag-able element
+     * @param X           x offset
+     * @param Y           y offset
+     * @return true/false
+     */
     @Step("Drag from element {0} to X={1}, Y={2}")
     public static boolean dragAndDropToOffset(By fromElement, int X, int Y) {
         smartWait();
@@ -1767,7 +2394,7 @@ public class WebUI {
             System.out.println(X1 + " , " + Y1);
             sleep(1);
 
-            //Chổ này lấy toạ độ hiện tại cộng thêm 120px là phần header của browser (1920x1080 current window)
+            //This place takes the current coordinates plus 120px which is the browser header (1920x1080 current window)
             //Header: chrome is being controlled by automated test software
             robot.mouseMove(X1, Y1 + 120);
             robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
@@ -1783,6 +2410,12 @@ public class WebUI {
         }
     }
 
+    /**
+     * Move to the given element.
+     *
+     * @param toElement Represent a web element as the By object
+     * @return true/false
+     */
     @Step("Move to element {0}")
     public static boolean moveToElement(By toElement) {
         smartWait();
@@ -1797,6 +2430,13 @@ public class WebUI {
         }
     }
 
+    /**
+     * Move to an offset location.
+     *
+     * @param X x offset
+     * @param Y y offset
+     * @return true/false
+     */
     @Step("Move to offset X={0}, Y={1}")
     public static boolean moveToOffset(int X, int Y) {
         smartWait();
@@ -1811,62 +2451,9 @@ public class WebUI {
         }
     }
 
-    @Step("Press ENTER keyboard")
-    public static boolean pressENTER() {
-        smartWait();
-
-        try {
-            Robot robot = new Robot();
-            robot.keyPress(KeyEvent.VK_ENTER);
-            robot.keyRelease(KeyEvent.VK_ENTER);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    @Step("Press ESC keyboard")
-    public static boolean pressESC() {
-        smartWait();
-
-        try {
-            Robot robot = new Robot();
-            robot.keyPress(KeyEvent.VK_ESCAPE);
-            robot.keyRelease(KeyEvent.VK_ESCAPE);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    @Step("Press F5 keyboard")
-    public static boolean pressF5() {
-        smartWait();
-
-        try {
-            Robot robot = new Robot();
-            robot.keyPress(KeyEvent.VK_F5);
-            robot.keyRelease(KeyEvent.VK_F5);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    @Step("Press F11 keyboard")
-    public static boolean pressF11() {
-        smartWait();
-
-        try {
-            Robot robot = new Robot();
-            robot.keyPress(KeyEvent.VK_F11);
-            robot.keyRelease(KeyEvent.VK_F11);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
+    /**
+     * Reload the current web page.
+     */
     @Step("Reload page")
     public static void reloadPage() {
         smartWait();
@@ -1878,8 +2465,10 @@ public class WebUI {
 
 
     /**
-     * @param by truyền vào đối tượng element dạng By
-     * @return Tô màu viền đỏ cho Element trên website
+     * Fills the border color of the specified element.
+     *
+     * @param by passes the element object in the form By
+     * @return Colors red borders for Elements on the website
      */
     @Step("Highlight on element")
     public static WebElement highLightElement(By by) {
@@ -1895,55 +2484,32 @@ public class WebUI {
     }
 
     /**
-     * Open website with URL
+     * Navigate to the specified URL.
      *
-     * @param URL
+     * @param URL the specified url
      */
     @Step("Open website with URL {0}")
-    public static void openURL(String URL) {
+    public static void openWebsite(String URL) {
         sleep(FrameworkConstants.WAIT_SLEEP_STEP);
 
         DriverManager.getDriver().get(URL);
         waitForPageLoaded();
 
-        LogUtils.info("Open URL: " + URL);
+        LogUtils.info("Open website with URL: " + URL);
 
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass("Open URL: " + URL);
+            ExtentReportManager.pass("Open website with URL: " + URL);
         }
-        AllureManager.saveTextLog("Open URL: " + URL);
+        AllureManager.saveTextLog("Open website with URL: " + URL);
 
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
     }
 
     /**
-     * Open website with URL
+     * Navigate to the specified web page.
      *
-     * @param URL
-     */
-    @Step("Open website with URL {0}")
-    public static void getURL(String URL) {
-        sleep(FrameworkConstants.WAIT_SLEEP_STEP);
-
-        DriverManager.getDriver().get(URL);
-        waitForPageLoaded();
-
-        LogUtils.info("Open URL: " + URL);
-
-        if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass("Open URL: " + URL);
-        }
-        AllureManager.saveTextLog("Open URL: " + URL);
-
-        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
-
-    }
-
-    /**
-     * Open website with navigate to URL
-     *
-     * @param URL
+     * @param URL the specified url
      */
     @Step("Navigate to URL {0}")
     public static void navigateToUrl(String URL) {
@@ -1962,12 +2528,12 @@ public class WebUI {
     }
 
     /**
-     * Điền giá trị vào ô Text
+     * Set the value of an input field
      *
      * @param by    an element of object type By
-     * @param value giá trị cần điền vào ô text
+     * @param value the value to fill in the text box
      */
-    @Step("Set text on textbox")
+    @Step("Set text on text box")
     public static void setText(By by, String value) {
         waitForElementVisible(by).sendKeys(value);
         LogUtils.info("Set text " + value + " on " + by.toString());
@@ -1982,13 +2548,13 @@ public class WebUI {
     }
 
     /**
-     * Điền giá trị vào ô Text và nhập Keys
+     * Set the value of an input field and press the key on the keyboard
      *
      * @param by    an element of object type By
-     * @param value giá trị cần điền vào ô text
-     * @param keys  key ở bàn phím cần nhấn
+     * @param value the value to fill in the text box
+     * @param keys  key on the keyboard to press
      */
-    @Step("Set text on textbox and press key")
+    @Step("Set text on text box and press key")
     public static void setText(By by, String value, Keys keys) {
         waitForElementVisible(by).sendKeys(value, keys);
         LogUtils.info("Set text " + value + " on " + by + " and press key " + keys.name());
@@ -2003,12 +2569,12 @@ public class WebUI {
     }
 
     /**
-     * Thao tác keys dưới bàn phím lên element by
+     * Simulates keystroke events on the specified element, as though you typed the value key-by-key.
      *
      * @param by   an element of object type By
-     * @param keys key ở bàn phím cần nhấn
+     * @param keys key on the keyboard to press
      */
-    @Step("Set text on textbox and press key")
+    @Step("Set text on text box and press key")
     public static void sendKeys(By by, Keys keys) {
         waitForElementVisible(by).sendKeys(keys);
         LogUtils.info("Press key " + keys.name() + " on element " + by);
@@ -2022,12 +2588,11 @@ public class WebUI {
     }
 
     /**
-     * Thao tác keys dưới bàn phím lên element by
+     * Simulates keystroke events at the current position, as though you typed the value key-by-key.
      *
-     * @param by   an element of object type By
-     * @param keys key ở bàn phím cần nhấn
+     * @param keys key on the keyboard to press
      */
-    @Step("Set text on textbox and press key")
+    @Step("Set text on text box and press key")
     public static void sendKeys(Keys keys) {
         Actions actions = new Actions(DriverManager.getDriver());
         actions.sendKeys(keys);
@@ -2042,11 +2607,11 @@ public class WebUI {
     }
 
     /**
-     * Xóa giá trị trong ô Text
+     * Clear all text of the element.
      *
      * @param by an element of object type By
      */
-    @Step("Clear value in textbox")
+    @Step("Clear value in text box")
     public static void clearText(By by) {
         waitForElementVisible(by).clear();
         LogUtils.info("Clear text in textbox " + by.toString());
@@ -2060,11 +2625,11 @@ public class WebUI {
     }
 
     /**
-     * Xóa giá trị trong ô Text
+     * Clear all text of the element with press Ctrl A > Delete
      *
      * @param by an element of object type By
      */
-    @Step("Clear text in textbox with Ctrl A")
+    @Step("Clear text in text box with Ctrl A")
     public static void clearTextCtrlA(By by) {
         waitForElementVisible(by);
         Actions actions = new Actions(DriverManager.getDriver());
@@ -2083,10 +2648,10 @@ public class WebUI {
     }
 
     /**
-     * Điền giá trị vào ô Text
+     * Clear all text of the element then set the text on that element.
      *
      * @param by    an element of object type By
-     * @param value giá trị cần điền vào ô text
+     * @param value the value to fill in the text box
      */
     @Step("Clear and Fill text on text box")
     public static void clearAndFillText(By by, String value) {
@@ -2104,7 +2669,7 @@ public class WebUI {
     }
 
     /**
-     * Click on element
+     * Click on the specified element.
      *
      * @param by an element of object type By
      */
@@ -2142,14 +2707,14 @@ public class WebUI {
     }
 
     /**
-     * Click chuột vào Element trên web với Javascript (click ngầm không sợ bị che)
+     * Click on Elements on the web with Javascript (click implicitly without fear of being hidden)
      *
      * @param by an element of object type By
      */
     @Step("Click on the element by Javascript {0}")
     public static void clickElementWithJs(By by) {
         waitForElementPresent(by);
-        //Scroll to element với Javascript Executor`
+        //Scroll to element với Javascript Executor
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         js.executeScript("arguments[0].scrollIntoView(false);", getWebElement(by));
         //Click with JS
@@ -2186,7 +2751,7 @@ public class WebUI {
     }
 
     /**
-     * Click chuột phải vào đối tượng Element trên web
+     * Right-click on the Element object on the web
      *
      * @param by an element of object type By
      */
@@ -2218,11 +2783,11 @@ public class WebUI {
     }
 
     /**
-     * Lấy giá trị từ thuộc tính của element
+     * Get the value from the element's attribute
      *
      * @param by            an element of object type By
-     * @param attributeName tên thuộc tính
-     * @return giá trị thuộc tính của element
+     * @param attributeName attribute name
+     * @return element's attribute value
      */
     @Step("Get attribute {1} of element {0}")
     public static String getAttributeElement(By by, String attributeName) {
@@ -2233,7 +2798,7 @@ public class WebUI {
     /**
      * Get CSS value of an element
      *
-     * @param by      an element of object type By
+     * @param by      Represent a web element as the By object
      * @param cssName is CSS attribute name
      * @return value of CSS attribute
      */
@@ -2243,31 +2808,47 @@ public class WebUI {
         return waitForElementVisible(by).getCssValue(cssName);
     }
 
+    /**
+     * Get size of specified element
+     *
+     * @param by Represent a web element as the By object
+     * @return Dimension
+     */
     @Step("Get Size of element {0}")
     public static Dimension getSizeElement(By by) {
         smartWait();
         return waitForElementVisible(by).getSize();
     }
 
+    /**
+     * Get location of specified element
+     *
+     * @param by Represent a web element as the By object
+     * @return Point
+     */
     @Step("Get Location of element {0}")
     public static Point getLocationElement(By by) {
         smartWait();
         return waitForElementVisible(by).getLocation();
     }
 
+    /**
+     * Get tag name (HTML tag) of specified element
+     *
+     * @param by Represent a web element as the By object
+     * @return Tag name as String
+     */
     @Step("Get Tag Name of element {0}")
     public static String getTagNameElement(By by) {
         smartWait();
         return waitForElementVisible(by).getTagName();
     }
 
-    //Handle Table
-
     /**
-     * Kiểm tra giá trị từng cột của table khi tìm kiếm theo điều kiện BẰNG (equals)
+     * Check the value of each column of the table when searching according to EQUAL conditions (equals)
      *
-     * @param column vị trí cột
-     * @param value  giá trị cần so sánh
+     * @param column column position
+     * @param value  value to compare
      */
     @Step("Check data by EQUALS type after searching on the Table by Column.")
     public static void checkEqualsValueOnTableByColumn(int column, String value) {
@@ -2290,10 +2871,10 @@ public class WebUI {
     }
 
     /**
-     * Kiểm tra giá trị từng cột của table khi tìm kiếm theo điều kiện CHỨA (contains)
+     * Check the value of each column of the table when searching according to the CONTAINS condition (contains)
      *
-     * @param column vị trí cột
-     * @param value  giá trị cần so sánh
+     * @param column column position
+     * @param value  value to compare
      */
     @Step("Check data by CONTAINS type after searching on the Table by Column.")
     public static void checkContainsValueOnTableByColumn(int column, String value) {
@@ -2316,11 +2897,11 @@ public class WebUI {
     }
 
     /**
-     * Kiểm tra giá trị từng cột của table khi tìm kiếm theo điều kiện CHỨA với xpath tuỳ chỉnh
+     * Check the value of each column of the table when searching according to the CONTAINS condition with custom xpath
      *
-     * @param column           vị trí cột
-     * @param value            giá trị cần so sánh
-     * @param xpathToTRtagname giá trị xpath tính đến thẻ TR
+     * @param column           column position
+     * @param value            value to compare
+     * @param xpathToTRtagname xpath value up to TR tag
      */
     @Step("Check data by CONTAINS type after searching on the Table by Column.")
     public static void checkContainsValueOnTableByColumn(int column, String value, String xpathToTRtagname) {
@@ -2345,10 +2926,10 @@ public class WebUI {
     }
 
     /**
-     * Lấy giá trị của một cột từ table
+     * Get the value of a column from the table
      *
-     * @param column vị trí cột
-     * @return mảng danh sách giá trị của một cột
+     * @param column column position
+     * @return array of values of a column
      */
     public static ArrayList getValueTableByColumn(int column) {
         smartWait();
@@ -2376,13 +2957,13 @@ public class WebUI {
     //Wait Element
 
     /**
-     * Chờ đợi element sẵn sàng hiển thị để thao tác theo thời gian tuỳ ý
+     * Wait until the given web element is visible within the timeout.
      *
      * @param by      an element of object type By
-     * @param timeOut thời gian chờ tối đa
-     * @return một đối tượng WebElement đã sẵn sàng để thao tác
+     * @param timeOut maximum timeout as second
+     * @return a WebElement object ready to be visible
      */
-    public static WebElement waitForElementVisible(By by, long timeOut) {
+    public static WebElement waitForElementVisible(By by, int timeOut) {
         smartWait();
 
         try {
@@ -2392,7 +2973,7 @@ public class WebUI {
             if (check == true) {
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             } else {
-                scrollToElementToTop(by);
+                scrollToElementAtTop(by);
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             }
         } catch (Throwable error) {
@@ -2403,10 +2984,10 @@ public class WebUI {
     }
 
     /**
-     * Chờ đợi element sẵn sàng hiển thị để thao tác
+     * Wait until the given web element is visible.
      *
      * @param by an element of object type By
-     * @return một đối tượng WebElement đã sẵn sàng để thao tác
+     * @return a WebElement object ready to be visible
      */
     public static WebElement waitForElementVisible(By by) {
         smartWait();
@@ -2418,7 +2999,7 @@ public class WebUI {
             if (check == true) {
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             } else {
-                scrollToElementToBottom(by);
+                scrollToElementAtBottom(by);
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             }
         } catch (Throwable error) {
@@ -2429,11 +3010,11 @@ public class WebUI {
     }
 
     /**
-     * Chờ đợi element sẵn sàng hiển thị để CLICK theo thời gian tuỳ ý
+     * Wait for the given element to be clickable within the given time (in seconds).
      *
      * @param by      an element of object type By
-     * @param timeOut thời gian chờ tối đa
-     * @return một đối tượng WebElement đã sẵn sàng để CLICK
+     * @param timeOut maximum timeout as seconds
+     * @return a WebElement object ready to CLICK
      */
     public static WebElement waitForElementClickable(By by, long timeOut) {
         smartWait();
@@ -2449,10 +3030,10 @@ public class WebUI {
     }
 
     /**
-     * Chờ đợi element sẵn sàng hiển thị để CLICK
+     * Wait for the given element to be clickable.
      *
      * @param by an element of object type By
-     * @return một đối tượng WebElement đã sẵn sàng để CLICK
+     * @return a WebElement object ready to CLICK
      */
     public static WebElement waitForElementClickable(By by) {
         smartWait();
@@ -2468,11 +3049,11 @@ public class WebUI {
     }
 
     /**
-     * Chờ đợi element sẵn sàng tồn tại trong DOM theo thời gian tuỳ ý
+     * Wait for the given element to present within the given time (in seconds).
      *
      * @param by      an element of object type By
-     * @param timeOut thời gian chờ tối đa
-     * @return một đối tượng WebElement đã tồn tại
+     * @param timeOut maximum timeout as seconds
+     * @return an existing WebElement object
      */
     public static WebElement waitForElementPresent(By by, long timeOut) {
         smartWait();
@@ -2489,10 +3070,10 @@ public class WebUI {
     }
 
     /**
-     * Chờ đợi element sẵn sàng tồn tại trong DOM theo thời gian tuỳ ý
+     * Wait for the given element to present
      *
      * @param by an element of object type By
-     * @return một đối tượng WebElement đã tồn tại
+     * @return an existing WebElement object
      */
     public static WebElement waitForElementPresent(By by) {
         smartWait();
@@ -2508,74 +3089,109 @@ public class WebUI {
     }
 
     /**
-     * Chờ đợi thuộc tính của một element tồn tại
-     *
-     * @param by        an element of object type By
-     * @param attribute tên thuộc tính
-     * @return true/false
+     * Wait for an alert to present.
      */
-    public static boolean waitForElementHasAttribute(By by, String attribute) {
+    public static boolean waitForAlertPresent() {
         smartWait();
 
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-            return wait.until(ExpectedConditions.attributeToBeNotEmpty(waitForElementPresent(by), attribute));
+            wait.until(ExpectedConditions.alertIsPresent());
+            return true;
         } catch (Throwable error) {
-            LogUtils.error("Timeout for element " + by.toString() + " to exist attribute: " + attribute);
-            Assert.fail("Timeout for element " + by.toString() + " to exist attribute: " + attribute);
+            LogUtils.error("Alert NOT present.");
+            Assert.fail("Alert NOT present.");
+            return false;
+        }
+    }
+
+    /**
+     * Wait for an alert to present.
+     *
+     * @param timeOut Timeout waiting for an alert to present.
+     */
+    public static boolean waitForAlertPresent(int timeOut) {
+        smartWait();
+
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
+            wait.until(ExpectedConditions.alertIsPresent());
+            return true;
+        } catch (Throwable error) {
+            LogUtils.error("Alert NOT present.");
+            Assert.fail("Alert NOT present.");
+            return false;
+        }
+    }
+
+    /**
+     * Wait until the given web element has an attribute with the specified name.
+     *
+     * @param by            an element of object type By
+     * @param attributeName The name of the attribute to wait for.
+     * @return true/false
+     */
+    public static boolean waitForElementHasAttribute(By by, String attributeName) {
+        smartWait();
+
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+            return wait.until(ExpectedConditions.attributeToBeNotEmpty(waitForElementPresent(by), attributeName));
+        } catch (Throwable error) {
+            LogUtils.error("Timeout for element " + by.toString() + " to exist attribute: " + attributeName);
+            Assert.fail("Timeout for element " + by.toString() + " to exist attribute: " + attributeName);
         }
         return false;
     }
 
     /**
-     * Kiểm tra giá trị từ thuộc tính của một element có đúng hay không
+     * Verify if the web element has an attribute with the specified name and value.
      *
-     * @param by        an element of object type By
-     * @param attribute tên thuộc tính
-     * @param value     giá trị
+     * @param by             an element of object type By
+     * @param attributeName  The name of the attribute to wait for.
+     * @param attributeValue The value of attribute
      * @return true/false
      */
     @Step("Verify element {0} with attribute {1} has value is {2}")
-    public static boolean verifyElementAttributeValue(By by, String attribute, String value) {
+    public static boolean verifyElementAttributeValue(By by, String attributeName, String attributeValue) {
         smartWait();
 
         waitForElementVisible(by);
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-            wait.until(ExpectedConditions.attributeToBe(by, attribute, value));
+            wait.until(ExpectedConditions.attributeToBe(by, attributeName, attributeValue));
             return true;
         } catch (Throwable error) {
-            LogUtils.error("Object: " + by.toString() + ". Not found value: " + value + " with attribute type: " + attribute + ". Actual get Attribute value is: " + getAttributeElement(by, attribute));
-            Assert.fail("Object: " + by.toString() + ". Not found value: " + value + " with attribute type: " + attribute + ". Actual get Attribute value is: " + getAttributeElement(by, attribute));
+            LogUtils.error("Object: " + by.toString() + ". Not found value: " + attributeValue + " with attribute type: " + attributeName + ". Actual get Attribute value is: " + getAttributeElement(by, attributeName));
+            Assert.fail("Object: " + by.toString() + ". Not found value: " + attributeValue + " with attribute type: " + attributeName + ". Actual get Attribute value is: " + getAttributeElement(by, attributeName));
             return false;
         }
     }
 
     /**
-     * Chờ đợi thuộc tính của một element tồn tại với thời gian tuỳ chỉnh
+     * Verify if the web element has an attribute with the specified name.
      *
-     * @param by        an element of object type By
-     * @param attribute tên thuộc tính
+     * @param by            Represent a web element.
+     * @param attributeName The name of the attribute to wait for.
+     * @param timeOut       System will wait at most timeout (seconds) to return result
      * @return true/false
-     * @timeOut thời gian chờ tối đa
      */
     @Step("Verify element {0} has attribute {1} with timeout {2} second")
-    public static boolean verifyElementHasAttribute(By by, String attribute, int timeOut) {
+    public static boolean verifyElementHasAttribute(By by, String attributeName, int timeOut) {
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut));
-            wait.until(ExpectedConditions.attributeToBeNotEmpty(waitForElementPresent(by), attribute));
+            wait.until(ExpectedConditions.attributeToBeNotEmpty(waitForElementPresent(by), attributeName));
             return true;
         } catch (Throwable error) {
-            LogUtils.error("Not found Attribute " + attribute + " of element " + by.toString());
-            Assert.fail("Not found Attribute " + attribute + " of element " + by.toString());
+            LogUtils.error("Not found Attribute " + attributeName + " of element " + by.toString());
+            Assert.fail("Not found Attribute " + attributeName + " of element " + by.toString());
             return false;
         }
     }
 
-    // Wait Page loaded
 
     /**
-     * Chờ đợi trang tải xong (Javascript) với thời gian mặc định từ config
+     * Wait for a page to load with the default time from the config
      */
     public static void waitForPageLoaded() {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_PAGE_LOADED), Duration.ofMillis(500));
@@ -2595,13 +3211,39 @@ public class WebUI {
                 wait.until(jsLoad);
             } catch (Throwable error) {
                 error.printStackTrace();
-                Assert.fail("Timeout waiting for page load (Javascript). (" + FrameworkConstants.WAIT_PAGE_LOADED + "s)");
+                Assert.fail("Timeout waiting for page load. (" + FrameworkConstants.WAIT_PAGE_LOADED + "s)");
             }
         }
     }
 
     /**
-     * Chờ đợi JQuery tải xong với thời gian mặc định từ config
+     * Wait for a page to load within the given time (in seconds)
+     */
+    public static void waitForPageLoaded(int timeOut) {
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
+        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+
+        // wait for Javascript to loaded
+        ExpectedCondition<Boolean> jsLoad = driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
+
+        //Get JS is Ready
+        boolean jsReady = js.executeScript("return document.readyState").toString().equals("complete");
+
+        //Wait Javascript until it is Ready!
+        if (!jsReady) {
+            LogUtils.info("Javascript in NOT Ready!");
+            //Wait for Javascript to load
+            try {
+                wait.until(jsLoad);
+            } catch (Throwable error) {
+                error.printStackTrace();
+                Assert.fail("Timeout waiting for page load. (" + FrameworkConstants.WAIT_PAGE_LOADED + "s)");
+            }
+        }
+    }
+
+    /**
+     * Wait for JQuery to finish loading with default time from config
      */
     public static void waitForJQueryLoad() {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_PAGE_LOADED), Duration.ofMillis(500));
@@ -2628,10 +3270,8 @@ public class WebUI {
         }
     }
 
-    //Wait for Angular Load
-
     /**
-     * Chờ đợi Angular tải xong với thời gian mặc định từ config
+     * Wait for Angular to finish loading with default time from config
      */
     public static void waitForAngularLoad() {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_PAGE_LOADED), Duration.ofMillis(500));

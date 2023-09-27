@@ -49,7 +49,7 @@ public final class Helpers {
     }
 
     /**
-     * @return lấy đường dẫn đến thư mục nguồn source mình có thêm dấu / ở cuối luôn
+     * @return Get the path to your source directory with a / at the end
      */
     public static String getCurrentDir() {
         String current = System.getProperty("user.dir") + File.separator;
@@ -57,9 +57,9 @@ public final class Helpers {
     }
 
     /**
-     * Tạo folder rỗng
+     * Create folder empty
      *
-     * @param path đường dẫn cần tạo folder
+     * @param path is the path to create the folder
      */
     public static void createFolder(String path) {
         // File is a class inside java.io package
@@ -81,9 +81,9 @@ public final class Helpers {
     }
 
     /**
-     * @param str        chuỗi string cần tách ra theo điều kiện
-     * @param valueSplit ký tự cần tách chuỗi thành mảng giá trị
-     * @return mảng giá trị kiểu chuỗi sau khi tách
+     * @param str        is value as type is String to be split based on condition
+     * @param valueSplit the character to split the string into an array of values
+     * @return array of string values after splitting
      */
     public static ArrayList<String> splitString(String str, String valueSplit) {
         ArrayList<String> arrayListString = new ArrayList<>();

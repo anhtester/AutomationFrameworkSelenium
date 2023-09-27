@@ -49,7 +49,7 @@ public class OrderPage extends CommonPageCMS {
         WebUI.clickElement(By.xpath("//div[@id='search-content']//div[contains(text(),'" + PropertiesHelpers.getValue("product_P01") + "')]"));
         WebUI.waitForPageLoaded();
         String priceProduct01AsString = WebUI.getTextElement(ProductInfoPageCMS.productPrice).trim();
-        WebUI.scrollToElementToBottom(buttonAddToCart);
+        WebUI.scrollToElementAtBottom(buttonAddToCart);
         WebUI.clickElement(buttonAddToCart);
         WebUI.waitForPageLoaded();
         WebUI.verifyElementVisible(popupAddToCartSucceeded, "Add to cart is failed. ");
@@ -68,7 +68,7 @@ public class OrderPage extends CommonPageCMS {
         String quantities = WebUI.getAttributeElement(quantity, "value").trim();
         LogUtils.info("Quantity Product 02: " + quantities);
         WebUI.verifyEquals(WebUI.getAttributeElement(quantity, "value"), "2", "number of failed products");
-        WebUI.scrollToElementToBottom(buttonAddToCart);
+        WebUI.scrollToElementAtBottom(buttonAddToCart);
         WebUI.clickElement(buttonAddToCart);
         WebUI.verifyElementVisible(popupAddToCartSucceeded, "Add to cart is failed");
         WebUI.sleep(2);
@@ -81,11 +81,11 @@ public class OrderPage extends CommonPageCMS {
         WebUI.clickElement(buttonCheckout);
         WebUI.clickElement(buttonSelectAddress);
         WebUI.clickElement(buttonContinueToDeliveryInfo);
-        WebUI.scrollToElementToBottom(buttonContinueToPayment);
+        WebUI.scrollToElementAtBottom(buttonContinueToPayment);
         WebUI.clickElement(buttonContinueToPayment);
         WebUI.verifyElementVisible(paymentPage, "Step Payment is NOT displayed");
         WebUI.setText(textboxOrderInfo, noteForOrder);
-        WebUI.scrollToElementToBottom(checkboxAgreeTermAndConditions);
+        WebUI.scrollToElementAtBottom(checkboxAgreeTermAndConditions);
         WebUI.clickElement(checkboxAgreeTermAndConditions);
         WebUI.waitForPageLoaded();
         int priceProduct01AsInt = Integer.parseInt(priceProduct01AsString.replace("$", "").replace(",", "").split("\\.")[0]);

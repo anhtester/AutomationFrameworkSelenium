@@ -12,8 +12,8 @@ import static com.anhtester.constants.FrameworkConstants.REPORT_TITLE;
  */
 public class EmailConfig {
 
-    //Nhớ tạo mật khẩu app (App Password) cho Gmail mới gửi được nhen
-    //Nếu dùng mail của Hosting thì bình thường
+    //Remember to create an app password (App Password) for Gmail before sending
+    //If you use Hosting's email, it's normal
     //Enable Override Report and Send mail in config file => src/test/resources/config/config.properties
     //OVERRIDE_REPORTS=yes
     //send_email_to_users=yes

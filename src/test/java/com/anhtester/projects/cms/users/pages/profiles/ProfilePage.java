@@ -54,7 +54,7 @@ public class ProfilePage extends CommonPageCMS {
     public void updateEmail() {
         WebUI.waitForPageLoaded();
         WebUI.clickElement(menuManageProfile);
-        WebUI.scrollToElementToTop(titleChangeEmail);
+        WebUI.scrollToElementAtTop(titleChangeEmail);
         WebUI.verifyElementVisible(titleChangeEmail, "Title Change your email is NOT displayed");
         WebUI.setText(inputEmail, "cashierngan001@gmail.com");
         WebUI.clickElement(buttonUpdateEmail);
@@ -64,7 +64,7 @@ public class ProfilePage extends CommonPageCMS {
     public void addNewAddress() {
         WebUI.waitForPageLoaded();
         WebUI.clickElement(menuManageProfile);
-        WebUI.scrollToElementToBottom(titleAddress);
+        WebUI.scrollToElementAtBottom(titleAddress);
         WebUI.verifyElementVisible(titleAddress, "Change address block is NOT displayed");
         WebUI.clickElement(buttonAddNewAddress);
         WebUI.verifyElementVisible(titlePopupNewAddress, "Popup New Address is NOT displayed");
@@ -72,9 +72,9 @@ public class ProfilePage extends CommonPageCMS {
         WebUI.clickElement(selectCountry);
         WebUI.setText(inputSearchCountry, "Vietnam", Keys.ENTER);
         WebUI.clickElement(selectState);
-        WebUI.setText(inputSearchState, "Đồng Tháp", Keys.ENTER);
+        WebUI.setText(inputSearchState, "Dong Thap", Keys.ENTER);
         WebUI.clickElement(selectCity);
-        WebUI.setText(inputSearchCity, "Cao Lãnh", Keys.ENTER);
+        WebUI.setText(inputSearchCity, "Cao Lanh", Keys.ENTER);
         WebUI.setText(inputPostalCode, "87010");
         WebUI.setText(inputPhoneAddress, "0123456789");
         WebUI.clickElement(buttonSaveNewAddress);

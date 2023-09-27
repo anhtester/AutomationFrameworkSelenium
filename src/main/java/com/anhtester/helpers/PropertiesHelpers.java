@@ -87,9 +87,10 @@ public class PropertiesHelpers {
                 properties.load(file);
                 file.close();
             }
-            // Lấy giá trị từ file đã Set
+            // Get value from file
             keyValue = properties.getProperty(key);
             return LanguageUtils.convertCharset_ISO_8859_1_To_UTF8(keyValue);
+            //return keyValue;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return keyValue;
@@ -105,7 +106,7 @@ public class PropertiesHelpers {
                 file.close();
                 out = new FileOutputStream(Helpers.getCurrentDir() + relPropertiesFilePathDefault);
             }
-            //Ghi vào cùng file Prop với file lấy ra
+            //Write to the same Prop file as the extracted file
             out = new FileOutputStream(linkFile);
             System.out.println(linkFile);
             properties.setProperty(key, keyValue);

@@ -120,7 +120,7 @@ public class AddProductPage extends CommonPageCMS {
         WebUI.clickElementWithJs(buttonAddFileImgs);
         //Click Save & Publish
         WebUI.waitForPageLoaded();
-        WebUI.scrollToElementToBottom(buttonSavePublish);
+        WebUI.scrollToElementAtBottom(buttonSavePublish);
         WebUI.clickElement(buttonSavePublish);
         WebUI.verifyElementVisible(messageAddProductSuccess, "Add Product is failed");
         WebUI.clickElement(menuAllProducts);
@@ -141,7 +141,7 @@ public class AddProductPage extends CommonPageCMS {
         WebUI.sleep(2);
         WebUI.verifyEquals(WebUI.getTextElement(By.xpath("//h1[normalize-space()='" + nameProductVerify + "']")).trim(), nameProductVerify, "Product name displayed wrong");
         WebUI.verifyEquals(WebUI.getTextElement(unitUI).trim(), "/" + unit, "Unit displayed wrong");
-        WebUI.scrollToElementToBottom(descriptionUI);
+        WebUI.scrollToElementAtBottom(descriptionUI);
         WebUI.verifyEquals(WebUI.getTextElement(descriptionUI).trim(), description, "Description displayed wrong");
         WebUI.sleep(2);
         //Check Product in Category

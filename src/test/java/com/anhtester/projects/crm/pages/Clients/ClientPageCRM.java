@@ -46,7 +46,7 @@ public class ClientPageCRM extends CommonPageCRM {
 
 
     public void openClientTabPage() {
-        //Muốn chạy tiếp thì chọn FailureHandling.CONTINUE_ON_FAILURE
+        //If you want to continue running, select FailureHandling.CONTINUE_ON_FAILURE
         WebUI.verifyElementTextEquals(labelOnClientPage, pageText, FailureHandling.CONTINUE_ON_FAILURE);
         WebUI.sleep(1);
         WebUI.clickElement(tabClient);

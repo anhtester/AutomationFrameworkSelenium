@@ -28,7 +28,7 @@ public class LoginPageCMS extends CommonPageCMS {
     }
 
     public void openLoginPage() {
-        openURL(FrameworkConstants.URL_CMS_USER);
+        openWebsite(FrameworkConstants.URL_CMS_USER);
         clickElement(closeAdvertisementPopup);
         clickElement(buttonCookies);
         clickElement(buttonLogin);
@@ -96,7 +96,7 @@ public class LoginPageCMS extends CommonPageCMS {
     }
 
     public CommonPageCMS loginSuccessAdminPage(String email, String password) {
-        openURL(FrameworkConstants.URL_CMS_ADMIN);
+        openWebsite(FrameworkConstants.URL_CMS_ADMIN);
         setText(inputEmail, email);
         setText(inputPassword, password);
         clickElement(buttonSubmitLogin);
@@ -106,7 +106,7 @@ public class LoginPageCMS extends CommonPageCMS {
     }
 
     public CommonPageCMS loginSuccessAdminPage() {
-        openURL(FrameworkConstants.URL_CMS_ADMIN);
+        openWebsite(FrameworkConstants.URL_CMS_ADMIN);
         setText(inputEmail, PropertiesHelpers.getValue("email"));
         setText(inputPassword, PropertiesHelpers.getValue("password"));
         clickElement(buttonSubmitLogin);

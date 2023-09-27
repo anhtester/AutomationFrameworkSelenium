@@ -10,5 +10,4 @@ test-output/
 reports/
 *.mp4
 *.avi
-*.zip
 allure-report/

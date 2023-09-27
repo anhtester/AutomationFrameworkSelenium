@@ -55,7 +55,7 @@ public class TestHandle {
 
     @Test
     public void testDownloadFileWithJS() {
-        WebUI.getURL("https://www.onlinedatagenerator.com/home/demo");
+        WebUI.openWebsite("https://www.onlinedatagenerator.com/home/demo");
         WebUI.waitForPageLoaded();
         WebUI.clickElementWithJs(By.xpath("//button[normalize-space()='Export']"));
         WebUI.waitForPageLoaded();
@@ -67,7 +67,7 @@ public class TestHandle {
     @Test
     public void testDownloadFileWithJava() {
         LogUtils.info(WebUI.countFilesInDownloadDirectory());
-        WebUI.getURL("https://www.onlinedatagenerator.com/home/demo");
+        WebUI.openWebsite("https://www.onlinedatagenerator.com/home/demo");
         WebUI.waitForPageLoaded();
         WebUI.clickElementWithJs(By.xpath("//button[normalize-space()='Export']"));
         WebUI.waitForPageLoaded();
@@ -80,7 +80,7 @@ public class TestHandle {
 
     @Test
     public void testConvertWebElementToBy() {
-        WebUI.getURL(FrameworkConstants.URL_CRM);
+        WebUI.openWebsite(FrameworkConstants.URL_CRM);
         WebUI.waitForPageLoaded();
         SignInPageCRM signInPage = new SignInPageCRM();
 
@@ -99,7 +99,7 @@ public class TestHandle {
 
     @Test
     public void testLocalStorage() {
-        WebUI.getURL(FrameworkConstants.URL_CRM);
+        WebUI.openWebsite(FrameworkConstants.URL_CRM);
         WebUI.sleep(1);
 
         //Set key=value in Sign in page
@@ -133,7 +133,7 @@ public class TestHandle {
 
     @Test
     public void handleHTML5ValidationMessage() {
-        WebUI.getURL("https://anhtester.com/login");
+        WebUI.openWebsite("https://anhtester.com/login");
         WebUI.waitForPageLoaded();
 
         By button_Login = By.id("login");
@@ -158,7 +158,7 @@ public class TestHandle {
 
     @Test
     public void handleSetWindow() {
-        WebUI.getURL("https://anhtester.com");
+        WebUI.openWebsite("https://anhtester.com");
         WebUI.waitForPageLoaded();
         WebUI.setWindowSize(1000, 600);
         WebUI.sleep(2);
@@ -168,14 +168,14 @@ public class TestHandle {
 
     @Test
     public void handleScreenshotElement() {
-        WebUI.getURL("https://anhtester.com");
+        WebUI.openWebsite("https://anhtester.com");
         WebUI.waitForPageLoaded();
         WebUI.screenshotElement(By.xpath("//div[@class='col-lg-5']//div[@class='row']//div[1]//div[1]"), "Website_Testing_Module");
     }
 
     @Test
     public void testUploadFileFormDialog() {
-        WebUI.getURL("https://files.fm/");
+        WebUI.openWebsite("https://files.fm/");
         WebUI.waitForPageLoaded();
 
         By textOnPage = By.xpath("//div[@id='file_select_dragndrop_text']");
@@ -192,45 +192,45 @@ public class TestHandle {
     //Phân trang và check data in table
     @Test
     public void checkDataTableWithPagination() {
-        WebUI.getURL("https://datatables.net/");
+        WebUI.openWebsite("https://datatables.net/");
         WebUI.waitForPageLoaded();
 
         By title_H1 = By.xpath("//div[@class='fw-hero']//h1");
 
-        WebUI.scrollToElementToTop(title_H1);
+        WebUI.scrollToElementAtTop(title_H1);
 
         By button_Next = By.xpath("//a[@id='example_next']");
         By label_Info_PageTotal = By.xpath("//div[@id='example_info']");
         String info = driver.findElement(label_Info_PageTotal).getText(); //Showing 1 to 10 of 57 entries
         System.out.println("Chuỗi chứa số item: " + info);
 
-        //Mình tách cái chuỗi trên với ký tự khoảng trắng rồi lấy phần tử thứ 5 tính từ 0
-        //Để bắt tổng số Item
+        //I separate the above string with a space character and then get the 5th element starting from 0
+        //To get the total number of Items
         ArrayList<String> arrayListString = new ArrayList<>();
         for (String s : info.split(" ")) {
             arrayListString.add(s);
         }
 
-        //Showing 1 to 10 of 57 entries => Lấy ra số 57 á :))
+        //Showing 1 to 10 of 57 entries => Get 57 number
         int itemTotal = Integer.parseInt(arrayListString.get(5));
         System.out.println("Tổng số item: " + itemTotal);
 
-        int itemTotalOnePage = 10; //mặc định như mẫu. Tuỳ vào hệ thống mình thay đổi theo
-        //Hoặc lấy bằng auto số default luôn cũng được. Có gì biến tấu thêm hen.
+        int itemTotalOnePage = 10; //default as sample. Use your system to change accordingly
+        //Or you can also get the default automatic number. There are many additional variations.
         System.out.println("Số item trên 1 trang: " + itemTotalOnePage);
 
         double pageTotal = (double) itemTotal / (double) itemTotalOnePage;
 
-        DecimalFormat df = new DecimalFormat("#"); //Làm tròn số đến phần đơn vị của phần thập phân
-        //Ví dụ 5.7 thì làm tròn 6 kiểu vậy
+        DecimalFormat df = new DecimalFormat("#"); //Round the number to the decimal point
+        //For example, 5.7 is rounded to 6 like that
         int pageTotalInt = Integer.parseInt(df.format(pageTotal));
         System.out.println("Tổng số trang: " + pageTotalInt);
 
-        //FOR này chạy tới < pageTotalInt để nó không click thêm lần cuối cùng
-        //VD: 6 trang thì nó chỉ click 5 lần thôi chứ hả =))
+        //This FOR runs to < pageTotalInt so it doesn't click the last time
+        //For example, for 6 pages, it only clicks 5 times, right =))
         for (int i = 1; i <= pageTotalInt; i++) {
-            WebUI.scrollToElementToTop(title_H1);
-            //Gọi hàm Check data in table by column từ keywords WebUI
+            WebUI.scrollToElementAtTop(title_H1);
+            //Call the function Check data in table by column from keywords WebUI
             WebUI.checkContainsValueOnTableByColumn(1, "", "//div[@id='example_wrapper']//tbody/tr");
             WebUI.sleep(1);
             //Click Next
@@ -239,7 +239,7 @@ public class TestHandle {
             }
         }
 
-        WebUI.scrollToElementToTop(title_H1);
+        WebUI.scrollToElementAtTop(title_H1);
         WebUI.sleep(2);
 
     }
@@ -247,7 +247,7 @@ public class TestHandle {
 
     @Test
     public void QRCode() {
-        WebUI.getURL("http://qrcode.meetheed.com/qrcode_examples.php");
+        WebUI.openWebsite("http://qrcode.meetheed.com/qrcode_examples.php");
         WebUI.maximizeWindow();
         WebUI.waitForPageLoaded();
         WebUI.moveToElement(By.xpath("(//div[@class = 'topBox'])[1]/img"));
@@ -257,7 +257,7 @@ public class TestHandle {
 
     @Test
     public void handleZoomInZoomOut() {
-        WebUI.getURL("https://anhtester.com");
+        WebUI.openWebsite("https://anhtester.com");
         WebUI.sleep(1);
         //driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL,Keys.ADD));
         //driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL,Keys.SUBTRACT));
@@ -269,14 +269,14 @@ public class TestHandle {
     public void handleNotificationsBrowser() {
         WebDriver driver = new ChromeDriver(WebUI.notificationsBlock()); //
         driver.manage().window().maximize();
-        WebUI.getURL("https://oto.com.vn/mua-ban-xe");
+        WebUI.openWebsite("https://oto.com.vn/mua-ban-xe");
         WebUI.sleep(4);
         driver.quit();
     }
 
     @Test
     public void handleDragAndDrop() {
-        WebUI.getURL("http://demo.guru99.com/test/drag_drop.html");
+        WebUI.openWebsite("http://demo.guru99.com/test/drag_drop.html");
         By fromElement = By.xpath("//a[normalize-space()='BANK']");
         By toElement = By.xpath("(//div[@id='shoppingCart1']//div)[1]");
 
@@ -288,7 +288,7 @@ public class TestHandle {
 
     @Test
     public void handleDragAndDropHTML5() {
-        WebUI.getURL("https://david-desmaisons.github.io/draggable-example/");
+        WebUI.openWebsite("https://david-desmaisons.github.io/draggable-example/");
         WebUI.waitForPageLoaded();
 
         By fromElement = By.xpath("(//li[@class='list-group-item'])[1]");
@@ -301,7 +301,7 @@ public class TestHandle {
 
     @Test
     public void handleDragAndDropOffset() {
-        WebUI.getURL("https://david-desmaisons.github.io/draggable-example/");
+        WebUI.openWebsite("https://david-desmaisons.github.io/draggable-example/");
         WebUI.waitForPageLoaded();
 
         By fromElement = By.xpath("(//li[@class='list-group-item'])[1]");
@@ -313,9 +313,9 @@ public class TestHandle {
 
     @Test
     public void handleHighLightElement() {
-        WebUI.getURL("https://app.hrsale.com/");
+        WebUI.openWebsite("https://app.hrsale.com/");
         By button = By.xpath("//button[@type='submit']");
-        WebUI.highLightElement(button); //Tô màu viền đỏ cho Element trên website
+        WebUI.highLightElement(button); //Color the border red for Elements on the website
         WebUI.verifyElementAttributeValue(button, "type", "submit");
         WebUI.waitForElementClickable(button, 5);
         WebUI.sleep(2);
@@ -323,7 +323,7 @@ public class TestHandle {
 
     @Test
     public void handleUploadFile() {
-        WebUI.getURL("https://demoqa.com/upload-download");
+        WebUI.openWebsite("https://demoqa.com/upload-download");
         WebUI.waitForPageLoaded();
         WebUI.sleep(1);
 
@@ -346,13 +346,13 @@ public class TestHandle {
 
     @Test
     public void handleTable() {
-        WebUI.getURL("https://colorlib.com/polygon/notika/data-table.html");
+        WebUI.openWebsite("https://colorlib.com/polygon/notika/data-table.html");
         System.out.println(WebUI.getValueTableByColumn(2));
     }
 
     @Test
     public void handlePrintPopup() throws AWTException {
-        WebUI.getURL("https://saleserpdemo.bdtask-demo.com/v10_demo/login");
+        WebUI.openWebsite("https://saleserpdemo.bdtask-demo.com/v10_demo/login");
         WebUI.waitForPageLoaded();
         String originalWindow = driver.getWindowHandle();
 
@@ -368,10 +368,6 @@ public class TestHandle {
 
         Set<String> windowHandles = driver.getWindowHandles();
         WebUI.logConsole("Số cửa sổ hoặc tab: " + windowHandles.size());
-//        if (!windowHandles.isEmpty() && windowHandles.size() > 1) {
-//            //Chuyển sang tab thứ 2 (vị trí 1 tính từ vị trí 0)
-//            WebUI.switchToWindowOrTab(1);
-//        }
 
         //Or using for
         for (String windowHandle : driver.getWindowHandles()) {
@@ -383,15 +379,15 @@ public class TestHandle {
 
         WebUI.sleep(1);
         Robot robotClass = new Robot();
-        //Nhấn Tab để chuyển sang nút Cancel
+        //Press Tab to switch to the Cancel button
         robotClass.keyPress(KeyEvent.VK_TAB);
         robotClass.keyRelease(KeyEvent.VK_TAB);
         WebUI.sleep(2);
-        //Nhấn ENTER để xác nhận Cancel
+        //Press ENTER to confirm Cancel
         robotClass.keyPress(KeyEvent.VK_ENTER);
         robotClass.keyRelease(KeyEvent.VK_ENTER);
         WebUI.sleep(1);
-        //Chuyển về tab đầu (vị trí 0)
+        //Switch back to the first tab (position 0)
         WebUI.switchToMainWindow();
         //WebUI.switchToMainWindow(originalWindow);
         WebUI.sleep(1);

@@ -85,7 +85,7 @@ public class ExcelHelpers {
         }
     }
 
-    //Phương thức này nhận số hàng làm tham số và trả về dữ liệu của hàng đó.
+    //This method takes the row number as a parameter and returns the data for that row.
     public Row getRowData(int rowNum) {
         row = sheet.getRow(rowNum);
         return row;
@@ -138,13 +138,13 @@ public class ExcelHelpers {
             Cell cell;
             data = new Object[noOfRows - 1][noOfCols];
 
-            //Vòng lặp FOR chạy từ 1 để bỏ dòng tiêu đề (dòng tiêu đề là 0)
+            //FOR loop runs from 1 to drop header line (headline is 0)
             for (int i = 1; i < noOfRows; i++) {
                 for (int j = 0; j < noOfCols; j++) {
                     row = sheet.getRow(i);
                     cell = row.getCell(j);
 
-                    //Này dùng để xác định kiểu dữ liệu từ ô trong excel rồi chuển về String luôn cho tiện đọc
+                    //This is used to determine the data type from cells in Excel and then convert it to String for ease of reading
                     switch (cell.getCellType()) {
                         case STRING:
                             data[i - 1][j] = cell.getStringCellValue();
