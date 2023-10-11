@@ -1,3 +1,10 @@
+v2.0.1
+======
+Oct 12, 2023
+* Update Selenium 4.14.0
+* Support Chrome browser to 118
+* Remove selenium-http-jdk-client
+
 v2.0.0
 ======
 Sep 27, 2023
