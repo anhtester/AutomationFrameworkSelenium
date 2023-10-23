@@ -40,8 +40,9 @@ public enum BrowserFactory {
             prefs.put("profile.default_content_setting_values.notifications", 2);
             prefs.put("credentials_enable_service", false);
             prefs.put("profile.password_manager_enabled", false);
-            //prefs.put("autofill.profile_enabled", false);
+            prefs.put("autofill.profile_enabled", false);
             options.setExperimentalOption("prefs", prefs);
+
             options.addArguments("--disable-extensions");
             options.addArguments("--disable-infobars");
             options.addArguments("--disable-notifications");
@@ -89,6 +90,7 @@ public enum BrowserFactory {
             prefs.put("profile.password_manager_enabled", false);
             prefs.put("autofill.profile_enabled", false);
             options.setExperimentalOption("prefs", prefs);
+
             options.addArguments("--disable-extensions");
             options.addArguments("--disable-infobars");
             options.addArguments("--disable-notifications");

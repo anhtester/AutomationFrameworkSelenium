@@ -6,10 +6,14 @@
         <listener class-name="com.anhtester.listeners.AnnotationTransformer"/>
     </listeners>
     
-    <test name="Tests Update Profile CMS">
+    <test name="Test Profile CMS">
         <parameter name="BROWSER" value="chrome"/>
         <classes>
-            <class name="com.anhtester.projects.cms.testcases.ProfileTest"/>
+            <class name="com.anhtester.projects.cms.testcases.ProfileTest">
+                <methods>
+                    <include name="TC_AddNewAddress"/>
+                </methods>
+            </class>
         </classes>
     </test>
 

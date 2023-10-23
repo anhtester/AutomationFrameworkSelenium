@@ -21,9 +21,15 @@ import com.anhtester.utils.ZipUtils;
 import com.aventstack.extentreports.Status;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
 import com.google.common.collect.ImmutableMap;
+import io.qameta.allure.Allure;
+import io.qameta.allure.listener.TestLifecycleListener;
+import io.qameta.allure.model.TestResult;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.*;
 
 import java.awt.*;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import static com.anhtester.constants.FrameworkConstants.*;
@@ -123,7 +129,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        LogUtils.info("Test case: " + getTestDescription(iTestResult) + " is starting...");
+        LogUtils.info("Test case: " + getTestName(iTestResult) + " is starting...");
         count_totalTCs = count_totalTCs + 1;
 
         ExtentReportManager.createTest(iTestResult.getName());
@@ -141,14 +147,13 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
-        LogUtils.info("Test case: " + getTestDescription(iTestResult) + " is passed.");
+        LogUtils.info("Test case: " + getTestName(iTestResult) + " is passed.");
         count_passedTCs = count_passedTCs + 1;
 
         if (SCREENSHOT_PASSED_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
         }
 
-        AllureManager.saveTextLog("Test case: " + getTestName(iTestResult) + " is passed.");
         //ExtentReports log operation for passed tests.
         ExtentReportManager.logMessage(Status.PASS, "Test case: " + getTestName(iTestResult) + " is passed.");
 
@@ -159,7 +164,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-        LogUtils.error("Test case: " + getTestDescription(iTestResult) + " is failed.");
+        LogUtils.error("Test case: " + getTestName(iTestResult) + " is failed.");
         count_failedTCs = count_failedTCs + 1;
 
         if (SCREENSHOT_FAILED_STEPS.equals(YES)) {
@@ -185,7 +190,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
-        LogUtils.warn("Test case: " + getTestDescription(iTestResult) + " is skipped.");
+        LogUtils.warn("Test case: " + getTestName(iTestResult) + " is skipped.");
         count_skippedTCs = count_skippedTCs + 1;
 
         if (SCREENSHOT_SKIPPED_STEPS.equals(YES)) {
@@ -201,8 +206,8 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
-        LogUtils.error("Test failed but it is in defined success ratio: " + getTestDescription(iTestResult));
-        ExtentReportManager.logMessage("Test failed but it is in defined success ratio: " + getTestDescription(iTestResult));
+        LogUtils.error("Test failed but it is in defined success ratio: " + getTestName(iTestResult));
+        ExtentReportManager.logMessage("Test failed but it is in defined success ratio: " + getTestName(iTestResult));
     }
 
 }
