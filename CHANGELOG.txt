@@ -1,3 +1,10 @@
+v2.0.2
+======
+Nov 4, 2023
+* Update Selenium 4.15.0
+* Update support CDP 119 (Chrome)
+* Update devtools v119 in WebUI keyword
+
 v2.0.1
 ======
 Oct 12, 2023
