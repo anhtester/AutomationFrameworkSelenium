@@ -1,4 +1,5 @@
 bin/
+out/
 .idea/
 .allure/
 allure-results/
