@@ -7,7 +7,7 @@
     </listeners>
 
     <test name="SignIn Test" parallel="methods">
-        <parameter name="BROWSER" value="chrome"/>
+        <parameter name="BROWSER" value="edge"/>
         <classes>
             <class name="com.anhtester.projects.crm.testcases.SignInTest"/>
         </classes>
