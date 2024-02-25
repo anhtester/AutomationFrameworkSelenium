@@ -40,14 +40,17 @@ public class TargetFactory {
         Target target = Target.valueOf(FrameworkConstants.TARGET.toUpperCase());
         WebDriver webdriver;
 
+        String browserName = System.getProperty("browser") != null ? System.getProperty("browser")
+                : browser;
+
         switch (target) {
             case LOCAL:
                 //Create new driver from Enum setup in BrowserFactory class
-                webdriver = BrowserFactory.valueOf(browser.toUpperCase()).createDriver();
+                webdriver = BrowserFactory.valueOf(browserName.toUpperCase()).createDriver();
                 break;
             case REMOTE:
                 //Create new driver on Cloud (Selenium Grid, Docker) from method below
-                webdriver = createRemoteInstance(BrowserFactory.valueOf(browser.toUpperCase()).getOptions());
+                webdriver = createRemoteInstance(BrowserFactory.valueOf(browserName.toUpperCase()).getOptions());
                 break;
             default:
                 throw new TargetNotValidException(target.toString());

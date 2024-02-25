@@ -467,7 +467,7 @@
                     <configuration>
                         <suiteXmlFiles>
                             <!--<suiteXmlFile>${suite.all}</suiteXmlFile>-->
-                            <suiteXmlFile>src/test/resources/suites/BuildApp.xml</suiteXmlFile>
+                            <suiteXmlFile>src/test/resources/suites/CMS/LoginTestCMS.xml</suiteXmlFile>
                         </suiteXmlFiles>
                         <argLine>
                             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"
