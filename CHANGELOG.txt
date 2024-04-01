@@ -1,3 +1,9 @@
+v2.2.2
+======
+Apr 02, 2024
+* Update Selenium 4.19.1
+* Update support CDP 123 (Chromium)
+
 v2.2.0
 ======
 Jan 26, 2024
