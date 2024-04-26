@@ -1,3 +1,10 @@
+v2.2.3
+======
+Apr 26, 2024
+* Update Selenium 4.20.0
+* Update support CDP 124 (Chromium)
+* Update CDP Network in WebUI
+
 v2.2.2
 ======
 Apr 02, 2024
