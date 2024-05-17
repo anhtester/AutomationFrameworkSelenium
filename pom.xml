@@ -26,10 +26,9 @@
         <java-compiler.version>17</java-compiler.version>
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-        <selenium.version>4.20.0</selenium.version>
-        <testng.version>7.10.1</testng.version>
-        <webdrivermanager.version>5.8.0</webdrivermanager.version>
-        <aspectjweaver.version>1.9.22</aspectjweaver.version>
+        <selenium.version>4.21.0</selenium.version>
+        <testng.version>7.10.2</testng.version>
+        <aspectjweaver.version>1.9.22.1</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <log4j.version>2.23.1</log4j.version>
         <slf4j.version>2.0.13</slf4j.version>
@@ -50,13 +49,13 @@
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <google.zxing.version>3.5.3</google.zxing.version>
         <lombok.version>1.18.32</lombok.version>
-        <google.guava.version>33.1.0-jre</google.guava.version>
+        <google.guava.version>33.2.0-jre</google.guava.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.17</zip.version>
-        <jackson.version>2.17.0</jackson.version>
+        <jackson.version>2.17.1</jackson.version>
         <java-telegram-bot-api.version>7.2.1</java-telegram-bot-api.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
-        <mysql-connector-j.version>8.3.0</mysql-connector-j.version>
+        <mysql-connector-j.version>8.4.0</mysql-connector-j.version>
         <json-path.version>2.9.0</json-path.version>
 
         <!-- Suite XML path - CRM -->
