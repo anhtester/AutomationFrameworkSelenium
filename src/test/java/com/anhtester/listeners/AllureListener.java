@@ -11,6 +11,8 @@ import org.openqa.selenium.TakesScreenshot;
 
 import java.io.ByteArrayInputStream;
 
+import static com.anhtester.constants.FrameworkConstants.*;
+
 public class AllureListener implements TestLifecycleListener {
 
     @Override
@@ -39,12 +41,18 @@ public class AllureListener implements TestLifecycleListener {
 
     @Override
     public void beforeTestStop(TestResult result) {
-        if (result.getStatus() == Status.FAILED || result.getStatus() == Status.SKIPPED || result.getStatus() == Status.BROKEN) {
+        if (SCREENSHOT_PASSED_TCS.equals(YES)) {
+            if (DriverManager.getDriver() != null) {
+                Allure.addAttachment(result.getName() + "_Passed_Screenshot", new ByteArrayInputStream(((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES)));
+            }
+        }
+        if (SCREENSHOT_FAILED_TCS.equals(YES)) {
             if (DriverManager.getDriver() != null) {
                 Allure.addAttachment(result.getName() + "_Failed_Screenshot", new ByteArrayInputStream(((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES)));
             }
-            AllureManager.addAttachmentVideoAVI();
         }
+
+        //AllureManager.addAttachmentVideoMP4();
     }
 
     @Override

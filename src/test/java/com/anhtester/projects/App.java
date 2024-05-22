@@ -1,9 +1,10 @@
 package com.anhtester.projects;
 
+import com.anhtester.utils.LogUtils;
 import org.testng.annotations.Test;
 
 public class App {
     public static void main(String[] args) {
-        System.out.println("Build success !!");
+        LogUtils.info("Build success !!");
     }
 }

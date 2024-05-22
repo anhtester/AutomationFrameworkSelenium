@@ -9,7 +9,7 @@ import com.anhtester.enums.CategoryType;
 import com.anhtester.helpers.CaptureHelpers;
 import com.anhtester.helpers.FileHelpers;
 import com.anhtester.helpers.PropertiesHelpers;
-import com.anhtester.helpers.ScreenRecoderHelpers;
+import com.anhtester.helpers.ScreenRecorderHelpers;
 import com.anhtester.keywords.WebUI;
 import com.anhtester.report.AllureManager;
 import com.anhtester.report.ExtentReportManager;
@@ -22,8 +22,6 @@ import com.aventstack.extentreports.Status;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
 import com.google.common.collect.ImmutableMap;
 import io.qameta.allure.Allure;
-import io.qameta.allure.listener.TestLifecycleListener;
-import io.qameta.allure.model.TestResult;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.*;
@@ -41,11 +39,11 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
     static int count_skippedTCs;
     static int count_failedTCs;
 
-    private ScreenRecoderHelpers screenRecorder;
+    private ScreenRecorderHelpers screenRecorder;
 
     public TestListener() {
         try {
-            screenRecorder = new ScreenRecoderHelpers();
+            screenRecorder = new ScreenRecorderHelpers();
         } catch (IOException | AWTException e) {
             System.out.println(e.getMessage());
         }
@@ -73,7 +71,8 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void onStart(ISuite iSuite) {
-        System.out.println("========= INSTALLING CONFIGURATION DATA =========");
+        LogUtils.info("********** RUN STARTED **********");
+        LogUtils.info("========= INSTALLING CONFIGURATION DATA =========");
 //        try {
 //            FileUtils.deleteDirectory(new File("target/allure-results"));
 //            System.out.println("Deleted Directory target/allure-results");
@@ -84,15 +83,14 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         PropertiesHelpers.loadAllFiles();
         AllureManager.setAllureEnvironmentInformation();
         ExtentReportManager.initReports();
-        System.out.println("========= INSTALLED CONFIGURATION DATA =========");
-        System.out.println("");
-        LogUtils.info("Starting Suite: " + iSuite.getName());
+        LogUtils.info("========= INSTALLED CONFIGURATION DATA =========");
+        LogUtils.info("=====> Starting Suite: " + iSuite.getName());
     }
 
     @Override
     public void onFinish(ISuite iSuite) {
-        LogUtils.info("End Suite: " + iSuite.getName());
-        WebUI.stopSoftAssertAll();
+        LogUtils.info("********** RUN FINISHED **********");
+        LogUtils.info("=====> End Suite: " + iSuite.getName());
         //End Suite and execute Extents Report
         ExtentReportManager.flushReports();
         //Zip Folder report
@@ -103,7 +101,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         EmailSendUtils.sendEmail(count_totalTCs, count_passedTCs, count_failedTCs, count_skippedTCs);
 
         //Write information in Allure Report
-        AllureEnvironmentWriter.allureEnvironmentWriter(ImmutableMap.<String, String>builder().put("Test URL", FrameworkConstants.URL_CRM).put("Target Execution", FrameworkConstants.TARGET).put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT)).put("Page Load Timeout", String.valueOf(FrameworkConstants.WAIT_PAGE_LOADED)).put("Headless Mode", FrameworkConstants.HEADLESS).put("Local Browser", String.valueOf(Browser.CHROME)).put("Remote URL", FrameworkConstants.REMOTE_URL).put("Remote Port", FrameworkConstants.REMOTE_PORT).put("TCs Total", String.valueOf(count_totalTCs)).put("TCs Passed", String.valueOf(count_passedTCs)).put("TCs Skipped", String.valueOf(count_skippedTCs)).put("TCs Failed", String.valueOf(count_failedTCs)).build());
+        AllureEnvironmentWriter.allureEnvironmentWriter(ImmutableMap.<String, String>builder().put("Target Execution", FrameworkConstants.TARGET).put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT)).put("Page Load Timeout", String.valueOf(FrameworkConstants.WAIT_PAGE_LOADED)).put("Headless Mode", FrameworkConstants.HEADLESS).put("Local Browser", String.valueOf(Browser.CHROME)).put("Remote URL", FrameworkConstants.REMOTE_URL).put("Remote Port", FrameworkConstants.REMOTE_PORT).put("TCs Total", String.valueOf(count_totalTCs)).put("TCs Passed", String.valueOf(count_passedTCs)).put("TCs Skipped", String.valueOf(count_skippedTCs)).put("TCs Failed", String.valueOf(count_failedTCs)).build());
 
         //FileHelpers.copyFile("src/test/resources/config/allure/environment.xml", "target/allure-results/environment.xml");
         FileHelpers.copyFile("src/test/resources/config/allure/categories.json", "target/allure-results/categories.json");
@@ -136,7 +134,6 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         ExtentReportManager.addAuthors(getAuthorType(iTestResult));
         ExtentReportManager.addCategories(getCategoryType(iTestResult));
         ExtentReportManager.addDevices();
-
         ExtentReportManager.info(BrowserInfoUtils.getOSInfo());
 
         if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
@@ -150,50 +147,45 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         LogUtils.info("Test case: " + getTestName(iTestResult) + " is passed.");
         count_passedTCs = count_passedTCs + 1;
 
-        if (SCREENSHOT_PASSED_STEPS.equals(YES)) {
+        if (SCREENSHOT_PASSED_TCS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
+            ExtentReportManager.addScreenShot(Status.PASS, getTestName(iTestResult));
         }
 
-        //ExtentReports log operation for passed tests.
         ExtentReportManager.logMessage(Status.PASS, "Test case: " + getTestName(iTestResult) + " is passed.");
 
         if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+            WebUI.sleep(2);
             screenRecorder.stopRecording(true);
         }
     }
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-        LogUtils.error("Test case: " + getTestName(iTestResult) + " is failed.");
-        count_failedTCs = count_failedTCs + 1;
-
-        if (SCREENSHOT_FAILED_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
-        }
-
-        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
-            screenRecorder.stopRecording(true);
-        }
-
-        //Allure report screenshot file and log
-        LogUtils.error("FAILED !! Screenshot for test case: " + getTestName(iTestResult));
+        LogUtils.error("FAILED !! Test case " + getTestName(iTestResult) + " is failed.");
         LogUtils.error(iTestResult.getThrowable());
 
-        //Extent report screenshot file and log
-        ExtentReportManager.addScreenShot(Status.FAIL, getTestName(iTestResult));
+        count_failedTCs = count_failedTCs + 1;
+
+        if (SCREENSHOT_FAILED_TCS.equals(YES)) {
+            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
+            ExtentReportManager.addScreenShot(Status.FAIL, getTestName(iTestResult));
+        }
+
         ExtentReportManager.logMessage(Status.FAIL, iTestResult.getThrowable().toString());
 
-        //AllureManager.takeScreenshotToAttachOnAllureReport();
-        //AllureManager.saveTextLog(iTestResult.getThrowable().toString());
-
+        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
+            WebUI.sleep(2);
+            screenRecorder.stopRecording(true);
+        }
     }
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
-        LogUtils.warn("Test case: " + getTestName(iTestResult) + " is skipped.");
+        LogUtils.warn("WARNING!! Test case: " + getTestName(iTestResult) + " is skipped.");
         count_skippedTCs = count_skippedTCs + 1;
 
-        if (SCREENSHOT_SKIPPED_STEPS.equals(YES)) {
+        if (SCREENSHOT_SKIPPED_TCS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
         }
 
@@ -206,7 +198,6 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
-        LogUtils.error("Test failed but it is in defined success ratio: " + getTestName(iTestResult));
         ExtentReportManager.logMessage("Test failed but it is in defined success ratio: " + getTestName(iTestResult));
     }
 

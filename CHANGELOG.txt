@@ -1,3 +1,10 @@
+v2.4.0
+======
+May 22, 2024
+* Fix screenshot in report
+* Update add screenshot for all steps
+* Update config.properties
+
 v2.3.0
 ======
 May 17, 2024

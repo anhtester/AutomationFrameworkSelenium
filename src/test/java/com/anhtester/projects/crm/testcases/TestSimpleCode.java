@@ -143,7 +143,7 @@ public class TestSimpleCode {
 
     @Test
     public void testEncryptDecryptData() {
-        String pass = "riseDemo";
+        String pass = "123456";
         //Encrypt password
         WebUI.logConsole(DecodeUtils.encrypt(pass));
         //Decrypt password

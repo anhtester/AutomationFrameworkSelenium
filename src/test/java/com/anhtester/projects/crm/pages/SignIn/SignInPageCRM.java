@@ -16,7 +16,7 @@ import java.util.Hashtable;
 public class SignInPageCRM extends CommonPageCRM {
 
     private String pageUrl = "/signin";
-    private String pageTitle = "Sign in | RISE - Ultimate Project Manager and CRM";
+    private String pageTitle = "Sign in | RISE CRM | Anh Tester Demo";
 
     public By inputEmail = By.xpath("//input[@id='email']");
     public By inputPassword = By.xpath("//input[@id='password']");

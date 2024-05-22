@@ -5,10 +5,7 @@ import com.anhtester.driver.DriverManager;
 import com.anhtester.enums.AuthorType;
 import com.anhtester.enums.CategoryType;
 import com.anhtester.helpers.CaptureHelpers;
-import com.anhtester.utils.BrowserInfoUtils;
-import com.anhtester.utils.DateUtils;
-import com.anhtester.utils.IconUtils;
-import com.anhtester.utils.ReportUtils;
+import com.anhtester.utils.*;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
@@ -33,13 +30,13 @@ public class ExtentReportManager {
             extentReports = new ExtentReports();
 
             if (FrameworkConstants.OVERRIDE_REPORTS.trim().equals(FrameworkConstants.NO)) {
-                System.out.println("OVERRIDE EXTENT REPORTS = " + FrameworkConstants.OVERRIDE_REPORTS);
+                LogUtils.info("OVERRIDE EXTENT REPORTS = " + FrameworkConstants.OVERRIDE_REPORTS);
                 link = FrameworkConstants.EXTENT_REPORT_FOLDER_PATH + File.separator + DateUtils.getCurrentDateTimeCustom("_") + "_" + FrameworkConstants.EXTENT_REPORT_FILE_NAME;
-                System.out.println("Link Extent Report: " + link);
+                LogUtils.info("Link Extent Report: " + link);
             } else {
-                System.out.println("OVERRIDE EXTENT REPORTS = " + FrameworkConstants.OVERRIDE_REPORTS);
+                LogUtils.info("OVERRIDE EXTENT REPORTS = " + FrameworkConstants.OVERRIDE_REPORTS);
                 link = FrameworkConstants.EXTENT_REPORT_FILE_PATH;
-                System.out.println("Link Extent Report: " + link);
+                LogUtils.info("Link Extent Report: " + link);
             }
 
 //            ExtentPDFReporter pdf = new ExtentPDFReporter("reports/ExtentReports/PdfReport.pdf");
@@ -58,7 +55,7 @@ public class ExtentReportManager {
             extentReports.setSystemInfo("Framework Name", FrameworkConstants.REPORT_TITLE);
             extentReports.setSystemInfo("Author", FrameworkConstants.AUTHOR);
 
-            System.out.println("Extent Reports is installed.");
+            LogUtils.info("Extent Reports is installed.");
         }
     }
 
@@ -92,10 +89,10 @@ public class ExtentReportManager {
         String base64Image = "data:image/png;base64," + ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BASE64);
 
         //Base64 from Screenshot of Selenium
-        //ExtentTestManager.getExtentTest().log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromBase64String(base64Image).build());
+        ExtentTestManager.getExtentTest().log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromBase64String(base64Image).build());
 
         //File Path from Screenshot of Java
-        ExtentTestManager.getExtentTest().log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(String.valueOf(CaptureHelpers.getScreenshotFile(message))).build());
+        //ExtentTestManager.getExtentTest().log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(String.valueOf(CaptureHelpers.getScreenshotFile(message))).build());
 
     }
 
@@ -109,10 +106,10 @@ public class ExtentReportManager {
         String base64Image = "data:image/png;base64," + ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BASE64);
 
         //Base64 from Screenshot of Selenium
-        //ExtentTestManager.getExtentTest().log(status, MediaEntityBuilder.createScreenCaptureFromBase64String(base64Image).build());
+        ExtentTestManager.getExtentTest().log(status, MediaEntityBuilder.createScreenCaptureFromBase64String(base64Image).build());
 
         //File Path from Screenshot of Java
-        ExtentTestManager.getExtentTest().log(status, MediaEntityBuilder.createScreenCaptureFromPath(CaptureHelpers.getScreenshotAbsolutePath(message)).build());
+        //ExtentTestManager.getExtentTest().log(status, MediaEntityBuilder.createScreenCaptureFromPath(CaptureHelpers.getScreenshotAbsolutePath(message)).build());
 
     }
 
@@ -157,7 +154,7 @@ public class ExtentReportManager {
     }
 
     public static void pass(String message) {
-        //System.out.println("ExtentReportManager class: " + ExtentTestManager.getExtentTest());
+        //LogUtils.info("ExtentReportManager class: " + ExtentTestManager.getExtentTest());
         ExtentTestManager.getExtentTest().pass(message);
     }
 

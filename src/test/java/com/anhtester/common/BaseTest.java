@@ -3,6 +3,7 @@ package com.anhtester.common;
 import com.anhtester.driver.DriverManager;
 import com.anhtester.driver.TargetFactory;
 import com.anhtester.helpers.PropertiesHelpers;
+import com.anhtester.keywords.WebUI;
 import com.anhtester.listeners.AllureListener;
 import com.anhtester.listeners.TestListener;
 import com.anhtester.projects.cms.CommonPageCMS;
@@ -23,6 +24,7 @@ public class BaseTest extends CommonPageCMS {
 
     @AfterMethod(alwaysRun = true)
     public void closeDriver() {
+        WebUI.stopSoftAssertAll();
         DriverManager.quit();
     }
 

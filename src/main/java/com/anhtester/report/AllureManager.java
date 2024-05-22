@@ -16,11 +16,14 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Files;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
+import io.qameta.allure.Extension;
 import org.openqa.selenium.TakesScreenshot;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
+import static com.anhtester.constants.FrameworkConstants.EXPORT_VIDEO_PATH;
 import static org.openqa.selenium.OutputType.BYTES;
 
 public class AllureManager {
@@ -55,7 +58,7 @@ public class AllureManager {
         return new byte[0];
     }
 
-    @Attachment(value = "Take step Screenshot", type = "image/png")
+    @Attachment(value = "Step Screenshot", type = "image/png")
     public static byte[] takeScreenshotStep() {
         try {
             return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(BYTES);
@@ -87,9 +90,9 @@ public class AllureManager {
         if (FrameworkConstants.VIDEO_RECORD.toLowerCase().trim().equals(FrameworkConstants.YES)) {
             try {
                 //Get file Last Modified in folder
-                File video = FileHelpers.getFileLastModified("ExportData/Videos");
+                File video = FileHelpers.getFileLastModified(EXPORT_VIDEO_PATH);
                 if (video != null) {
-                    Allure.addAttachment("Failed test Video record AVI", "video/avi", Files.asByteSource(video).openStream(), ".avi");
+                    Allure.addAttachment("Video record AVI", "video/avi", new FileInputStream(video), "avi");
                 } else {
                     LogUtils.warn("Video record not found.");
                     LogUtils.warn("Can not attachment Video in Allure report");
@@ -105,9 +108,10 @@ public class AllureManager {
     public static void addAttachmentVideoMP4() {
         try {
             //Get file Last Modified in folder
-            File video = FileHelpers.getFileLastModified("ExportData/Videos");
+            File video = FileHelpers.getFileLastModified(EXPORT_VIDEO_PATH);
+            //File video = new File("ExportData/Videos/SampleVideo.mp4");
             if (video != null) {
-                Allure.addAttachment("Failed test Video record MP4", "video/mp4", Files.asByteSource(video).openStream(), ".mp4");
+                Allure.addAttachment("Video record MP4", "video/mp4", new FileInputStream(video), "mp4");
             } else {
                 LogUtils.warn("Video record not found.");
                 LogUtils.warn("Can not attachment Video in Allure report");
