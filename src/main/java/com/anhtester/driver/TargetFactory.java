@@ -40,7 +40,7 @@ public class TargetFactory {
         Target target = Target.valueOf(FrameworkConstants.TARGET.toUpperCase());
         WebDriver webdriver;
 
-        String browserName = System.getProperty("browser") != null ? System.getProperty("browser")
+        String browserName = (FrameworkConstants.BROWSER != null && !FrameworkConstants.BROWSER.isEmpty()) ? FrameworkConstants.BROWSER
                 : browser;
 
         switch (target) {
@@ -62,7 +62,7 @@ public class TargetFactory {
         RemoteWebDriver remoteWebDriver = null;
         try {
             String gridURL = String.format("http://%s:%s", FrameworkConstants.REMOTE_URL, FrameworkConstants.REMOTE_PORT);
-
+            LogUtils.info("Remote URL: " + gridURL);
             remoteWebDriver = new RemoteWebDriver(new URL(gridURL), capability);
         } catch (java.net.MalformedURLException e) {
             LogUtils.error("Grid URL is invalid or Grid Port is not available");
