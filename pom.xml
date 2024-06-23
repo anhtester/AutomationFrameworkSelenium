@@ -24,9 +24,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java-compiler.version>17</java-compiler.version>
-        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.3.0</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-        <selenium.version>4.21.0</selenium.version>
+        <selenium.version>4.22.0</selenium.version>
         <testng.version>7.10.2</testng.version>
         <aspectjweaver.version>1.9.22.1</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
@@ -43,17 +43,17 @@
         <apache-poi.version>5.2.5</apache-poi.version>
         <commons-io.version>2.16.1</commons-io.version>
         <owner.version>1.0.12</owner.version>
-        <assertj.version>3.25.3</assertj.version>
+        <assertj.version>3.26.0</assertj.version>
         <datafaker.version>2.2.2</datafaker.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <google.zxing.version>3.5.3</google.zxing.version>
         <lombok.version>1.18.32</lombok.version>
-        <google.guava.version>33.2.0-jre</google.guava.version>
+        <google.guava.version>33.2.1-jre</google.guava.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.17</zip.version>
         <jackson.version>2.17.1</jackson.version>
-        <java-telegram-bot-api.version>7.2.1</java-telegram-bot-api.version>
+        <java-telegram-bot-api.version>7.4.0</java-telegram-bot-api.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
         <mysql-connector-j.version>8.4.0</mysql-connector-j.version>
         <json-path.version>2.9.0</json-path.version>

@@ -41,12 +41,12 @@ public class AllureListener implements TestLifecycleListener {
 
     @Override
     public void beforeTestStop(TestResult result) {
-        if (SCREENSHOT_PASSED_TCS.equals(YES)) {
+        if (SCREENSHOT_PASSED_TCS.equals(YES) && result.getStatus().equals(Status.PASSED)) {
             if (DriverManager.getDriver() != null) {
                 Allure.addAttachment(result.getName() + "_Passed_Screenshot", new ByteArrayInputStream(((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES)));
             }
         }
-        if (SCREENSHOT_FAILED_TCS.equals(YES)) {
+        if (SCREENSHOT_FAILED_TCS.equals(YES) && result.getStatus().equals(Status.FAILED)) {
             if (DriverManager.getDriver() != null) {
                 Allure.addAttachment(result.getName() + "_Failed_Screenshot", new ByteArrayInputStream(((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES)));
             }

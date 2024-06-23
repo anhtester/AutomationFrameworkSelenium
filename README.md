@@ -26,7 +26,7 @@
 
 ### ✳️ **SYSTEM REQUIREMENTS**
 
-- Install JDK (recommend JDK >=11)
+- Install JDK (recommend JDK >= 11)
 - Install Chrome Browser, Edge Browser, Firefox Browser
 - Run well on the **Windows** platform
 - Setup **Allure ENV**:
@@ -74,7 +74,8 @@
 
 **4. Allure Report**
 
-- Open Terminal: **_allure serve target/allure-results_**
+- Open Terminal: `allure serve target/allure-results`
+- or command: `allure generate --single-file target/allure-results --clean`
 
 ![image](https://user-images.githubusercontent.com/87883620/161662507-9e4dc698-e452-4b43-a4f5-9808c81419a2.png)
 
@@ -182,32 +183,32 @@
 
 (tải bản Latest stable version)
 
-**selenium-server-4.9.0.jar** (updated 21/04/2023)
+**selenium-server-4.22.0.jar** (updated 24/06/2024)
 
 2. Set PATH for driver in Environment variables:
 
 Follow with link:
 https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/#2-the-path-environment-variable
 
-🔆 Đặt file **selenium-server-4.9.0.jar** vào thư mục nào đó và mở CMD tại thư mục đó lên
+🔆 Đặt file **selenium-server-4.22.0.jar** vào thư mục nào đó và mở CMD tại thư mục đó lên
 
 ### Run default 1 node
 
 ✅ Mở 1 Hub với 1 Node mặc định (port 4444)
 
-> java -jar selenium-server-4.9.0.jar standalone
+> java -jar selenium-server-4.22.0.jar standalone
 
 ### Run multi Node
 
 ✅ Mở 1 Hub với 3 Node: (chạy 4 lệnh mở 4 CMD nhé)
 
-> java -jar selenium-server-4.9.0.jar hub
+> java -jar selenium-server-4.22.0.jar hub
 
-> java -jar selenium-server-4.9.0.jar node --port 5556
+> java -jar selenium-server-4.22.0.jar node --port 5556
 
-> java -jar selenium-server-4.9.0.jar node --port 6667
+> java -jar selenium-server-4.22.0.jar node --port 6667
 
-> java -jar selenium-server-4.9.0.jar node --port 7778
+> java -jar selenium-server-4.22.0.jar node --port 7778
 
 
 **📝 NOTE: Thực thi nhiều lệnh thì mở nhiều CMD**
@@ -229,6 +230,8 @@ https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers
 **15. Use DataFaker and JavaFaker to generate data**
 
 Document DataFaker: https://www.datafaker.net/documentation/getting-started/
+or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-voi-datafaker
+
 
 ### 🔆 Project structure
 
@@ -584,10 +587,10 @@ Document DataFaker: https://www.datafaker.net/documentation/getting-started/
  ┗ 📜README.md
 ```
 
-### I shall write document for my Framework. Coming soon...
+### ⭐️ I will support your company if needed
 
-## Copyright 2022 Anh Tester
+## Copyright 2022-2024 Anh Tester
 
 > Anh Tester Blog: https://anhtester.com/
 
-![Alt text](https://anhtester.com/uploads/logo/anhtester_logo_512.png?raw=true "Anh Tester - Automation Testing")
+![Alt text](https://anhtester.com/uploads/logo/anhtester_logo_512.png?raw=true "Anh Tester Automation Testing")
