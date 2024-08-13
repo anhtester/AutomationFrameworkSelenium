@@ -53,7 +53,7 @@
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.17</zip.version>
         <jackson.version>2.17.2</jackson.version>
-        <java-telegram-bot-api.version>7.8.0</java-telegram-bot-api.version>
+        <java-telegram-bot-api.version>7.7.0</java-telegram-bot-api.version>
         <commons-lang3.version>3.16.0</commons-lang3.version>
         <mysql-connector-j.version>9.0.0</mysql-connector-j.version>
         <json-path.version>2.9.0</json-path.version>
