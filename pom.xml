@@ -6,7 +6,7 @@
 
     <groupId>com.anhtester</groupId>
     <artifactId>anhtester-selenium-java</artifactId>
-    <version>2.4.2</version>
+    <version>2.4.3</version>
     <name>AutomationFrameworkSelenium</name>
     <url>https://github.com/anhtester/AutomationFrameworkSelenium</url>
     <description>Test Automation Framework Selenium Java with TestNG building by Anh Tester</description>
@@ -26,15 +26,15 @@
         <java-compiler.version>17</java-compiler.version>
         <maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-        <selenium.version>4.23.0</selenium.version>
+        <selenium.version>4.23.1</selenium.version>
         <testng.version>7.10.2</testng.version>
         <aspectjweaver.version>1.9.22.1</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <log4j.version>2.23.1</log4j.version>
         <slf4j.version>2.0.13</slf4j.version>
-        <allure-testng.version>2.28.0</allure-testng.version>
+        <allure-testng.version>2.29.0</allure-testng.version>
         <allure-plugin-api.version>2.30.0</allure-plugin-api.version>
-        <allure-maven.version>2.12.0</allure-maven.version>
+        <allure-maven.version>2.13.0</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
             https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
@@ -53,8 +53,8 @@
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.17</zip.version>
         <jackson.version>2.17.2</jackson.version>
-        <java-telegram-bot-api.version>7.7.0</java-telegram-bot-api.version>
-        <commons-lang3.version>3.15.0</commons-lang3.version>
+        <java-telegram-bot-api.version>7.8.0</java-telegram-bot-api.version>
+        <commons-lang3.version>3.16.0</commons-lang3.version>
         <mysql-connector-j.version>9.0.0</mysql-connector-j.version>
         <json-path.version>2.9.0</json-path.version>
 
