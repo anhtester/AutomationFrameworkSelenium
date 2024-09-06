@@ -6,7 +6,7 @@
 
     <groupId>com.anhtester</groupId>
     <artifactId>anhtester-selenium-java</artifactId>
-    <version>2.4.4</version>
+    <version>2.4.5</version>
     <name>AutomationFrameworkSelenium</name>
     <url>https://github.com/anhtester/AutomationFrameworkSelenium</url>
     <description>Test Automation Framework Selenium Java with TestNG building by Anh Tester</description>
@@ -31,7 +31,7 @@
         <aspectjweaver.version>1.9.22.1</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <log4j.version>2.23.1</log4j.version>
-        <slf4j.version>2.0.13</slf4j.version>
+        <slf4j.version>2.0.16</slf4j.version>
         <allure-testng.version>2.29.0</allure-testng.version>
         <allure-plugin-api.version>2.30.0</allure-plugin-api.version>
         <allure-maven.version>2.13.0</allure-maven.version>
@@ -47,7 +47,6 @@
         <datafaker.version>2.3.1</datafaker.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
-        <google.zxing.version>3.5.3</google.zxing.version>
         <lombok.version>1.18.34</lombok.version>
         <google.guava.version>33.3.0-jre</google.guava.version>
         <javax.mail.version>1.6.2</javax.mail.version>
@@ -281,19 +280,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector-java.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.google.zxing/javase -->
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>javase</artifactId>
-            <version>${google.zxing.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>core</artifactId>
-            <version>${google.zxing.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->

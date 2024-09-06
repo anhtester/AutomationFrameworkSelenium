@@ -7,10 +7,8 @@ package com.anhtester.projects.crm.testcases;
 
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.helpers.*;
-import com.anhtester.helpers.*;
 import com.anhtester.keywords.WebUI;
 import com.anhtester.report.TelegramManager;
-import com.anhtester.utils.*;
 import com.anhtester.utils.*;
 import org.testng.annotations.Test;
 
@@ -117,7 +115,7 @@ public class TestSimpleCode {
 
     @Test
     public void testMakeSlug() {
-        WebUI.logConsole(Helpers.makeSlug("Anh Tester Automation Testing"));
+        WebUI.logConsole(SystemHelpers.makeSlug("Anh Tester Automation Testing"));
     }
 
     @Test
@@ -129,14 +127,14 @@ public class TestSimpleCode {
 
     @Test
     public void testGetCurrentDirectory() {
-        WebUI.logConsole(Helpers.getCurrentDir());
+        WebUI.logConsole(SystemHelpers.getCurrentDir());
     }
 
     @Test
     public void testSplitString() {
         String s1 = "Automation, Testing, Selenium, Java";
 
-        for (String arr : Helpers.splitString(s1, ", ")) {
+        for (String arr : SystemHelpers.splitString(s1, ", ")) {
             WebUI.logConsole(arr);
         }
     }
@@ -152,7 +150,7 @@ public class TestSimpleCode {
 
     @Test
     public void testCreateFolder() {
-        Helpers.createFolder("src/test/resources/TestCreateNewFolder");
+        SystemHelpers.createFolder("src/test/resources/TestCreateNewFolder");
     }
 
     @Test
@@ -163,7 +161,7 @@ public class TestSimpleCode {
         WebUI.logConsole(PropertiesHelpers.getValue("URL_CRM"));
         WebUI.logConsole(PropertiesHelpers.getValue("AUTHOR"));
         WebUI.logConsole(FrameworkConstants.EXCEL_DATA_FILE_PATH);
-        WebUI.logConsole(Helpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH"));
+        WebUI.logConsole(SystemHelpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH"));
 //        PropertiesHelpers.setFile("src/test/resources/config/data.properties");
 //        PropertiesHelpers.setValue("base_url", "https://anhtetser.com");
     }
@@ -185,10 +183,10 @@ public class TestSimpleCode {
     @Test
     public void testExcelFile1() {
         PropertiesHelpers.loadAllFiles();
-        WebUI.logConsole(Helpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH"));
+        WebUI.logConsole(SystemHelpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH"));
         //  Handle Excel file
         ExcelHelpers excelHelpers = new ExcelHelpers();
-        excelHelpers.setExcelFile(Helpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH"), "SignIn");
+        excelHelpers.setExcelFile(SystemHelpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH"), "SignIn");
         WebUI.logConsole(excelHelpers.getCellData(1, "EMAIL"));
         WebUI.logConsole(excelHelpers.getCellData(1, "PASSWORD"));
         excelHelpers.setCellData("pass", 1, "EXPECTED_TITLE");
@@ -198,7 +196,7 @@ public class TestSimpleCode {
     public void testExcelFile2() throws Exception {
         PropertiesHelpers.loadAllFiles();
         ExcelHelpers excelHelpers = new ExcelHelpers();
-        WebUI.logConsole(excelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn", 1, 2));
+        WebUI.logConsole(excelHelpers.getDataHashTable(SystemHelpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn", 1, 2));
     }
 
 //    @Test

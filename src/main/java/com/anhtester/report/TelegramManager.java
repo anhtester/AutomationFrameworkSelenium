@@ -1,7 +1,7 @@
 package com.anhtester.report;
 
 import com.anhtester.constants.FrameworkConstants;
-import com.anhtester.helpers.Helpers;
+import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.utils.LogUtils;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
@@ -22,7 +22,7 @@ public class TelegramManager {
     public static boolean sendFilePath(String filePath) {
         boolean success = false;
         try {
-            File input = new File(Helpers.getCurrentDir() + filePath);
+            File input = new File(SystemHelpers.getCurrentDir() + filePath);
             SendDocument request = new SendDocument(ChatId, input).parseMode(ParseMode.HTML).disableNotification(true);
             SendResponse sendResponse = bot.execute(request);
             boolean ok = sendResponse.isOk();

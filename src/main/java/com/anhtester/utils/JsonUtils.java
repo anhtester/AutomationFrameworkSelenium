@@ -6,7 +6,7 @@
 package com.anhtester.utils;
 
 import com.anhtester.constants.FrameworkConstants;
-import com.anhtester.helpers.Helpers;
+import com.anhtester.helpers.SystemHelpers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
@@ -31,7 +31,7 @@ public class JsonUtils {
     private static StringBuffer stringBuffer;
     private static DocumentContext jsonContext;
     private static String lines;
-    private static String jsonFilePathDefault = Helpers.getCurrentDir() + "src/test/resources/datajson/store.json";
+    private static String jsonFilePathDefault = SystemHelpers.getCurrentDir() + "src/test/resources/datajson/store.json";
 
     private JsonUtils() {
         super();
@@ -41,7 +41,7 @@ public class JsonUtils {
     //Nó được thực thi trước phương thức main tại lúc khởi tạo lớp này.
     static {
         try {
-            CONFIGMAP = new ObjectMapper().readValue(new File(Helpers.getCurrentDir() + FrameworkConstants.JSON_DATA_FILE_PATH), new TypeReference<HashMap<String, String>>() {
+            CONFIGMAP = new ObjectMapper().readValue(new File(SystemHelpers.getCurrentDir() + FrameworkConstants.JSON_DATA_FILE_PATH), new TypeReference<HashMap<String, String>>() {
             });
 
         } catch (FileNotFoundException e) {
@@ -64,7 +64,7 @@ public class JsonUtils {
 
     public static StringBuffer readJsonFile(String jsonPath) {
         try {
-            bufferedReader = new BufferedReader(new FileReader(Helpers.getCurrentDir() + jsonPath));
+            bufferedReader = new BufferedReader(new FileReader(SystemHelpers.getCurrentDir() + jsonPath));
             stringBuffer = new StringBuffer();
             while ((lines = bufferedReader.readLine()) != null) {
                 stringBuffer.append(lines);
@@ -79,7 +79,7 @@ public class JsonUtils {
 
     public static void setJsonFile(String jsonPath) {
         try {
-            bufferedReader = new BufferedReader(new FileReader(Helpers.getCurrentDir() + jsonPath));
+            bufferedReader = new BufferedReader(new FileReader(SystemHelpers.getCurrentDir() + jsonPath));
             stringBuffer = new StringBuffer();
             while ((lines = bufferedReader.readLine()) != null) {
                 stringBuffer.append(lines);

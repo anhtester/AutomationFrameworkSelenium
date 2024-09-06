@@ -92,7 +92,7 @@ public class CaptureHelpers extends ScreenRecorder {
 
     public static void captureScreenshot(WebDriver driver, String screenName) {
         try {
-            String path = Helpers.getCurrentDir() + FrameworkConstants.EXPORT_CAPTURE_PATH;
+            String path = SystemHelpers.getCurrentDir() + FrameworkConstants.EXPORT_CAPTURE_PATH;
             File file = new File(path);
             if (!file.exists()) {
                 LogUtils.info("No Folder: " + path);
@@ -124,7 +124,7 @@ public class CaptureHelpers extends ScreenRecorder {
             throw new RuntimeException(e);
         }
 
-        String path = Helpers.getCurrentDir() + FrameworkConstants.EXTENT_REPORT_FOLDER + File.separator + "images";
+        String path = SystemHelpers.getCurrentDir() + FrameworkConstants.EXTENT_REPORT_FOLDER + File.separator + "images";
         File folder = new File(path);
         if (!folder.exists()) {
             folder.mkdir();
@@ -151,7 +151,7 @@ public class CaptureHelpers extends ScreenRecorder {
             throw new RuntimeException(e);
         }
 
-        String path = Helpers.getCurrentDir() + FrameworkConstants.EXTENT_REPORT_FOLDER + File.separator + "images";
+        String path = SystemHelpers.getCurrentDir() + FrameworkConstants.EXTENT_REPORT_FOLDER + File.separator + "images";
 
         File folder = new File(path);
         if (!folder.exists()) {
@@ -182,7 +182,7 @@ public class CaptureHelpers extends ScreenRecorder {
             throw new RuntimeException(e);
         }
 
-        String path = Helpers.getCurrentDir() + FrameworkConstants.EXTENT_REPORT_FOLDER + File.separator + "images";
+        String path = SystemHelpers.getCurrentDir() + FrameworkConstants.EXTENT_REPORT_FOLDER + File.separator + "images";
 
         File folder = new File(path);
         if (!folder.exists()) {

@@ -14,11 +14,11 @@ public class JsonHelpers {
     private StringBuffer stringBuffer;
     private DocumentContext jsonContext;
     private String lines;
-    private String jsonFilePathDefault = Helpers.getCurrentDir() + "src/test/resources/datajson/store.json";
+    private String jsonFilePathDefault = SystemHelpers.getCurrentDir() + "src/test/resources/datajson/store.json";
 
     public void setJsonFile(String jsonPath) {
         try {
-            bufferedReader = new BufferedReader(new FileReader(Helpers.getCurrentDir() + jsonPath));
+            bufferedReader = new BufferedReader(new FileReader(SystemHelpers.getCurrentDir() + jsonPath));
             stringBuffer = new StringBuffer();
             while ((lines = bufferedReader.readLine()) != null) {
                 stringBuffer.append(lines);

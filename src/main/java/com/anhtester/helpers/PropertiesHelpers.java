@@ -34,7 +34,7 @@ public class PropertiesHelpers {
 
             for (String f : files) {
                 Properties tempProp = new Properties();
-                linkFile = Helpers.getCurrentDir() + f;
+                linkFile = SystemHelpers.getCurrentDir() + f;
                 file = new FileInputStream(linkFile);
                 tempProp.load(file);
                 properties.putAll(tempProp);
@@ -56,7 +56,7 @@ public class PropertiesHelpers {
     public static void setFile(String relPropertiesFilePath) {
         properties = new Properties();
         try {
-            linkFile = Helpers.getCurrentDir() + relPropertiesFilePath;
+            linkFile = SystemHelpers.getCurrentDir() + relPropertiesFilePath;
             file = new FileInputStream(linkFile);
             properties.load(file);
             file.close();
@@ -68,7 +68,7 @@ public class PropertiesHelpers {
     public static void setDefaultFile() {
         properties = new Properties();
         try {
-            linkFile = Helpers.getCurrentDir() + relPropertiesFilePathDefault;
+            linkFile = SystemHelpers.getCurrentDir() + relPropertiesFilePathDefault;
             file = new FileInputStream(linkFile);
             properties.load(file);
             file.close();
@@ -82,7 +82,7 @@ public class PropertiesHelpers {
         try {
             if (file == null && properties == null) {
                 properties = new Properties();
-                linkFile = Helpers.getCurrentDir() + relPropertiesFilePathDefault;
+                linkFile = SystemHelpers.getCurrentDir() + relPropertiesFilePathDefault;
                 file = new FileInputStream(linkFile);
                 properties.load(file);
                 file.close();
@@ -101,10 +101,10 @@ public class PropertiesHelpers {
         try {
             if (file == null) {
                 properties = new Properties();
-                file = new FileInputStream(Helpers.getCurrentDir() + relPropertiesFilePathDefault);
+                file = new FileInputStream(SystemHelpers.getCurrentDir() + relPropertiesFilePathDefault);
                 properties.load(file);
                 file.close();
-                out = new FileOutputStream(Helpers.getCurrentDir() + relPropertiesFilePathDefault);
+                out = new FileOutputStream(SystemHelpers.getCurrentDir() + relPropertiesFilePathDefault);
             }
             //Write to the same Prop file as the extracted file
             out = new FileOutputStream(linkFile);

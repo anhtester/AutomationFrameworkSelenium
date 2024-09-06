@@ -1,3 +1,9 @@
+v2.4.5
+======
+Sep 07, 2024
+* Optimize method in WebUI keyword
+* Remove handle QR Code (google.zxing)
+
 v2.4.4
 ======
 Sep 05, 2024

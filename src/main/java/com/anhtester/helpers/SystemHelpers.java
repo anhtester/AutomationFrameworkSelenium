@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-public final class Helpers {
+public final class SystemHelpers {
 
-    public Helpers() {
+    public SystemHelpers() {
         super();
     }
 

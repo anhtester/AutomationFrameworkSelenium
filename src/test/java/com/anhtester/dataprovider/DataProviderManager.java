@@ -7,7 +7,7 @@ package com.anhtester.dataprovider;
 
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.helpers.ExcelHelpers;
-import com.anhtester.helpers.Helpers;
+import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.helpers.PropertiesHelpers;
 import com.anhtester.projects.crm.models.ClientModel;
 import com.anhtester.projects.crm.models.SignInModel;
@@ -47,7 +47,7 @@ public final class DataProviderManager {
     @DataProvider(name = "getSignInDataHashTable", parallel = true)
     public static Object[][] getSignInData() {
         ExcelHelpers excelHelpers = new ExcelHelpers();
-        Object[][] data = excelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn", 1, 2);
+        Object[][] data = excelHelpers.getDataHashTable(SystemHelpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn", 1, 2);
         System.out.println("getSignInData: " + data);
         return data;
     }
@@ -55,7 +55,7 @@ public final class DataProviderManager {
     @DataProvider(name = "getClientDataHashTable", parallel = true)
     public static Object[][] getClientData() {
         ExcelHelpers excelHelpers = new ExcelHelpers();
-        Object[][] data = excelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_FILE_PATH, "Client", 1, 2);
+        Object[][] data = excelHelpers.getDataHashTable(SystemHelpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_FILE_PATH, "Client", 1, 2);
         System.out.println("getClientData: " + data);
         return data;
     }

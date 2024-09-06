@@ -5,7 +5,7 @@
 
 package com.anhtester.constants;
 
-import com.anhtester.helpers.Helpers;
+import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.helpers.PropertiesHelpers;
 import com.anhtester.utils.ReportUtils;
 
@@ -20,7 +20,7 @@ public final class FrameworkConstants {
         PropertiesHelpers.loadAllFiles();
     }
 
-    public static final String PROJECT_PATH = Helpers.getCurrentDir();
+    public static final String PROJECT_PATH = SystemHelpers.getCurrentDir();
     public static final String EXCEL_DATA_FILE_PATH = PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH");
     public static final String JSON_DATA_FILE_PATH = PropertiesHelpers.getValue("JSON_DATA_FILE_PATH");
     public static final String EXCEL_CMS_LOGIN = PropertiesHelpers.getValue("EXCEL_CMS_LOGIN");

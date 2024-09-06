@@ -8,7 +8,7 @@ package com.anhtester.projects.crm.testcases;
 import com.anhtester.common.BaseTest;
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.driver.DriverManager;
-import com.anhtester.helpers.Helpers;
+import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.keywords.WebUI;
 import com.anhtester.projects.crm.pages.Dashboard.DashboardPageCRM;
 import com.anhtester.projects.crm.pages.Projects.ProjectPageCRM;
@@ -182,7 +182,7 @@ public class TestHandle {
         By divFileUpload = By.xpath("//div[@id='uploadifive-file_upload']");
         By inputFileUpload = By.xpath("//div[@id='file_select_button']//input[@id='file_upload']");
 
-        String filePath = Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\TxtFileData.txt";
+        String filePath = SystemHelpers.getCurrentDir() + "src\\test\\resources\\testdata\\TxtFileData.txt";
 
         WebUI.uploadFileWithLocalForm(divFileUpload, filePath);
 
@@ -242,17 +242,6 @@ public class TestHandle {
         WebUI.scrollToElementAtTop(title_H1);
         WebUI.sleep(2);
 
-    }
-
-
-    @Test
-    public void QRCode() {
-        WebUI.openWebsite("http://qrcode.meetheed.com/qrcode_examples.php");
-        WebUI.maximizeWindow();
-        WebUI.waitForPageLoaded();
-        WebUI.moveToElement(By.xpath("(//div[@class = 'topBox'])[1]/img"));
-        WebUI.sleep(1);
-        WebUI.logConsole(WebUI.getQRCodeFromImage(By.xpath("(//div[@class = 'topBox'])[1]/img")));
     }
 
     @Test
@@ -327,8 +316,8 @@ public class TestHandle {
         WebUI.waitForPageLoaded();
         WebUI.sleep(1);
 
-        final String path1 = Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\DOCX_File_01.docx";
-        final String path2 = Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\LoginCSV.csv";
+        final String path1 = SystemHelpers.getCurrentDir() + "src\\test\\resources\\testdata\\DOCX_File_01.docx";
+        final String path2 = SystemHelpers.getCurrentDir() + "src\\test\\resources\\testdata\\LoginCSV.csv";
 
         //Cách 1 sendKeys link từ source
         WebUI.uploadFileWithSendKeys(By.xpath("//input[@id='uploadFile']"), path1);

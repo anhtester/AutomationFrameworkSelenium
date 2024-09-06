@@ -1,7 +1,7 @@
 package com.anhtester.projects.cms.admin.pages.products;
 
 import com.anhtester.driver.DriverManager;
-import com.anhtester.helpers.Helpers;
+import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.keywords.WebUI;
 import com.anhtester.projects.cms.CommonPageCMS;
 import com.anhtester.utils.LogUtils;
@@ -79,13 +79,13 @@ public class AddProductPage extends CommonPageCMS {
         WebUI.clickElement(selectChooseGalleryImgs);
         WebUI.clickElement(uploadNewImageTab);
         //Upload images Gallery with Form
-        //WebUI.uploadFileWithLocalForm(buttonBrowseImages, Helpers.getCurrentDir() + "src\\test\\resources\\testdataCMS\\" + imgName);
+        //WebUI.uploadFileWithLocalForm(buttonBrowseImages, SystemHelpers.getCurrentDir() + "src\\test\\resources\\testdataCMS\\" + imgName);
         //Upload images Gallery with sendKeys
-        DriverManager.getDriver().findElement(inputGalleryImages).sendKeys(Helpers.getCurrentDir() + "src\\test\\resources\\testdataCMS\\" + imgName);
+        DriverManager.getDriver().findElement(inputGalleryImages).sendKeys(SystemHelpers.getCurrentDir() + "src\\test\\resources\\testdataCMS\\" + imgName);
         WebUI.clickElement(selectFileTab);
         LogUtils.info(imgName);
-        LogUtils.info(Helpers.splitString(imgName, "[.]"));
-        String imageName = Helpers.splitString(imgName, "[.]").get(0);
+        LogUtils.info(SystemHelpers.splitString(imgName, "[.]"));
+        String imageName = SystemHelpers.splitString(imgName, "[.]").get(0);
         //Search and select images
         WebUI.setText(inputSearchImg, imageName, Keys.ENTER);
         WebUI.waitForJQueryLoad();
