@@ -48,7 +48,6 @@
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <lombok.version>1.18.34</lombok.version>
-        <google.guava.version>33.3.0-jre</google.guava.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.17</zip.version>
         <jackson.version>2.17.2</jackson.version>
@@ -204,13 +203,6 @@
         <!--            <artifactId>pdfextentreporter</artifactId>-->
         <!--            <version>1.3.2</version>-->
         <!--        </dependency>-->
-
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${google.guava.version}</version>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <dependency>
