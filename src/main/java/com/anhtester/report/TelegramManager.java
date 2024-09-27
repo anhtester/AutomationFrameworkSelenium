@@ -14,7 +14,6 @@ import java.io.File;
 
 public class TelegramManager {
     private static String Token = FrameworkConstants.TELEGRAM_TOKEN;
-    // https://api.telegram.org/bot18745845:AAHtlc_TL7zlPEABHuTJy3J72XumY5LxWcE/getUpdates
     private static String ChatId = FrameworkConstants.TELEGRAM_CHATID;
     private static TelegramBot bot = new TelegramBot(Token);
     private static File input = new File(FrameworkConstants.EXTENT_REPORT_FILE_PATH);
