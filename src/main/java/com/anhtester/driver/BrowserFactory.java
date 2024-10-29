@@ -52,28 +52,10 @@ public enum BrowserFactory {
 
             if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
                 options.addArguments("--headless=new");
-                options.addArguments("window-size=1800,900");
-            }
-
-            return options;
-        }
-    }, FIREFOX {
-        @Override
-        public WebDriver createDriver() {
-            //WebDriverManager.getInstance(DriverManagerType.FIREFOX).setup();
-
-            return new FirefoxDriver(getOptions());
-        }
-
-        @Override
-        public FirefoxOptions getOptions() {
-            FirefoxOptions options = new FirefoxOptions();
-
-            options.setAcceptInsecureCerts(true);
-
-            if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
-                options.addArguments("--headless");
-                options.addArguments("window-size=1800,900");
+                options.addArguments("--disable-gpu");
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
+                options.addArguments("--window-size=1880,1000");
             }
 
             return options;
@@ -105,7 +87,32 @@ public enum BrowserFactory {
 
             if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
                 options.addArguments("--headless=new");
-                options.addArguments("window-size=1800,900");
+                options.addArguments("--disable-gpu");
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
+                options.addArguments("--window-size=1880,1000");
+            }
+
+            return options;
+        }
+    }, FIREFOX {
+        @Override
+        public WebDriver createDriver() {
+            //WebDriverManager.getInstance(DriverManagerType.FIREFOX).setup();
+
+            return new FirefoxDriver(getOptions());
+        }
+
+        @Override
+        public FirefoxOptions getOptions() {
+            FirefoxOptions options = new FirefoxOptions();
+
+            options.setAcceptInsecureCerts(true);
+
+            if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
+                options.addArguments("-headless");
+                options.addArguments("--width=1920");
+                options.addArguments("--height=1080");
             }
 
             return options;

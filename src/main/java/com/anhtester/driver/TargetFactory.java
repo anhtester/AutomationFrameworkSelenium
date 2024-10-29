@@ -9,6 +9,7 @@ import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.enums.Target;
 import com.anhtester.exceptions.TargetNotValidException;
 import com.anhtester.utils.LogUtils;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -42,6 +43,8 @@ public class TargetFactory {
 
         String browserName = (FrameworkConstants.BROWSER != null && !FrameworkConstants.BROWSER.isEmpty()) ? FrameworkConstants.BROWSER
                 : browser;
+
+        Allure.step("\uD83E\uDD16 Run on browser: " + browserName);
 
         switch (target) {
             case LOCAL:
