@@ -77,10 +77,9 @@ public class ClientPageCRM extends CommonPageCRM {
         WebUI.waitForPageLoaded();
         WebUI.sleep(3);
         WebUI.checkContainsValueOnTableByColumn(2, data.get(ClientModel.getCompanyName()));
-        checkClientDetail(data);
     }
 
-    public void checkClientDetail(Hashtable<String, String> data) {
+    public void verifyClientDetail(Hashtable<String, String> data) {
         WebUI.clickElement(itemClientFirstRow);
         WebUI.waitForPageLoaded();
         WebUI.sleep(1);

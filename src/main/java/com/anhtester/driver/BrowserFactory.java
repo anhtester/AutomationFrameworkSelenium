@@ -36,11 +36,12 @@ public enum BrowserFactory {
         @Override
         public ChromeOptions getOptions() {
             ChromeOptions options = new ChromeOptions();
+
             Map<String, Object> prefs = new HashMap<String, Object>();
             prefs.put("profile.default_content_setting_values.notifications", 2);
             prefs.put("credentials_enable_service", false);
             prefs.put("profile.password_manager_enabled", false);
-            prefs.put("autofill.profile_enabled", false);
+            prefs.put("autofill.profile_enabled", false); //Turn off Save Address popup
             options.setExperimentalOption("prefs", prefs);
 
             options.addArguments("--disable-extensions");
@@ -55,7 +56,7 @@ public enum BrowserFactory {
                 options.addArguments("--disable-gpu");
                 options.addArguments("--no-sandbox");
                 options.addArguments("--disable-dev-shm-usage");
-                options.addArguments("--window-size=1880,1000");
+                options.addArguments("--window-size=1850,1000");
             }
 
             return options;
@@ -71,6 +72,7 @@ public enum BrowserFactory {
         @Override
         public EdgeOptions getOptions() {
             EdgeOptions options = new EdgeOptions();
+
             Map<String, Object> prefs = new HashMap<String, Object>();
             prefs.put("profile.default_content_setting_values.notifications", 2);
             prefs.put("credentials_enable_service", false);
@@ -90,7 +92,7 @@ public enum BrowserFactory {
                 options.addArguments("--disable-gpu");
                 options.addArguments("--no-sandbox");
                 options.addArguments("--disable-dev-shm-usage");
-                options.addArguments("--window-size=1880,1000");
+                options.addArguments("--window-size=1850,1000");
             }
 
             return options;
@@ -111,8 +113,8 @@ public enum BrowserFactory {
 
             if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
                 options.addArguments("-headless");
-                options.addArguments("--width=1920");
-                options.addArguments("--height=1080");
+                options.addArguments("--width=1850");
+                options.addArguments("--height=1000");
             }
 
             return options;

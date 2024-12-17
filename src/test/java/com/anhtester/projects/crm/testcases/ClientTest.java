@@ -26,21 +26,22 @@ import java.util.Hashtable;
 @Feature("Client Test")
 public class ClientTest extends BaseTest {
 
-    SignInPageCRM signInPageCRM;
-    DashboardPageCRM dashboardPageCRM;
-    ClientPageCRM clientPageCRM;
+    private SignInPageCRM signInPageCRM;
+    private DashboardPageCRM dashboardPageCRM;
+    private ClientPageCRM clientPageCRM;
 
     public ClientTest() {
         signInPageCRM = new SignInPageCRM();
     }
 
     @FrameworkAnnotation(author = {AuthorType.AnhTester, AuthorType.AnVo}, category = {CategoryType.REGRESSION})
-    @Test(priority = 1, description = "TC05_testAddClient", dataProvider = "getClientDataHashTable", dataProviderClass = DataProviderManager.class)
+    @Test(priority = 1, description = "Test Add New Client", dataProvider = "getClientDataHashTable", dataProviderClass = DataProviderManager.class)
     public void testAddClient(Hashtable<String, String> data) {
         dashboardPageCRM = signInPageCRM.signInWithAdminRole();
         clientPageCRM = dashboardPageCRM.openClientPage();
         clientPageCRM.openClientTabPage();
         clientPageCRM.addClient(data);
+        clientPageCRM.verifyClientDetail(data);
     }
 
     @FrameworkAnnotation(author = {AuthorType.James}, category = {CategoryType.SANITY, CategoryType.REGRESSION})
