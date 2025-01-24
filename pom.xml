@@ -6,7 +6,7 @@
 
     <groupId>com.anhtester</groupId>
     <artifactId>anhtester-selenium-java</artifactId>
-    <version>2.4.8</version>
+    <version>2.4.9</version>
     <name>AutomationFrameworkSelenium</name>
     <url>https://github.com/anhtester/AutomationFrameworkSelenium</url>
     <description>Test Automation Framework Selenium Java with TestNG building by Anh Tester</description>
@@ -25,7 +25,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java-compiler.version>17</java-compiler.version>
         <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
-        <selenium.version>4.27.0</selenium.version>
+        <selenium.version>4.28.1</selenium.version>
         <testng.version>7.10.2</testng.version>
         <aspectjweaver.version>1.9.22.1</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
@@ -37,10 +37,10 @@
             https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
         </allure.cmd.download.url>
         <extentreports.version>5.1.2</extentreports.version>
-        <apache-poi.version>5.3.0</apache-poi.version>
+        <apache-poi.version>5.4.0</apache-poi.version>
         <commons-io.version>2.18.0</commons-io.version>
         <owner.version>1.0.12</owner.version>
-        <assertj.version>3.26.3</assertj.version>
+        <assertj.version>3.27.3</assertj.version>
         <datafaker.version>2.4.2</datafaker.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
@@ -50,7 +50,7 @@
         <jackson.version>2.18.2</jackson.version>
         <java-telegram-bot-api.version>7.11.0</java-telegram-bot-api.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
-        <mysql-connector-j.version>9.1.0</mysql-connector-j.version>
+        <mysql-connector-j.version>9.2.0</mysql-connector-j.version>
         <json-path.version>2.9.0</json-path.version>
 
         <!-- Suite XML path - CRM -->
@@ -124,13 +124,13 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.24.1</version>
+            <version>2.24.3</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.24.1</version>
+            <version>2.24.3</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
@@ -205,7 +205,7 @@
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.13.0</version>
+            <version>4.0.0-beta-1</version>
             <type>maven-plugin</type>
         </dependency>
 
