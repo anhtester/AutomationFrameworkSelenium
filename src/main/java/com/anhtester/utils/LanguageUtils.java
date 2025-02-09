@@ -6,6 +6,7 @@
 package com.anhtester.utils;
 
 import java.nio.charset.StandardCharsets;
+import java.text.Normalizer;
 import java.util.Arrays;
 
 public class LanguageUtils {
@@ -46,13 +47,21 @@ public class LanguageUtils {
         return ch;
     }
 
-    public static String removeAccent(String str) {
-        StringBuilder sb = new StringBuilder(str);
+    public static String removeAccent(String text) {
+        StringBuilder sb = new StringBuilder(text);
         for (int i = 0; i < sb.length(); i++) {
             sb.setCharAt(i, removeAccent(sb.charAt(i)));
         }
         return sb.toString();
     }
+
+//    public static String removeAccent(String text) {
+//        // Chuẩn hóa chuỗi thành dạng Unicode tổ hợp (NFD)
+//        String normalized = Normalizer.normalize(text, Normalizer.Form.NFD);
+//        // Loại bỏ các ký tự dấu (dấu thanh, dấu móc, ...)
+//        String accentRemoved = normalized.replaceAll("\\p{M}", "");
+//        return accentRemoved;
+//    }
 
     public static String convertCharset_ISO_8859_1_To_UTF8(String text) {
         return new String(text.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
@@ -65,4 +74,10 @@ public class LanguageUtils {
     public static String convertCharset_US_ASCII_To_UTF8(String text) {
         return new String(text.getBytes(StandardCharsets.US_ASCII), StandardCharsets.UTF_8);
     }
+
+//    public static void main(String[] args) {
+//        String input = "Tiếng Việt có dấu";
+//        String output = removeAccent(input);
+//        System.out.println(output);
+//    }
 }

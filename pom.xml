@@ -30,7 +30,7 @@
         <aspectjweaver.version>1.9.22.1</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <allure-testng.version>2.29.1</allure-testng.version>
-        <allure-plugin-api.version>2.32.0</allure-plugin-api.version>
+        <allure-plugin-api.version>2.32.2</allure-plugin-api.version>
         <allure-maven.version>2.15.2</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
@@ -48,7 +48,7 @@
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.17</zip.version>
         <jackson.version>2.18.2</jackson.version>
-        <java-telegram-bot-api.version>7.11.0</java-telegram-bot-api.version>
+        <java-telegram-bot-api.version>8.1.0</java-telegram-bot-api.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <mysql-connector-j.version>9.2.0</mysql-connector-j.version>
         <json-path.version>2.9.0</json-path.version>
