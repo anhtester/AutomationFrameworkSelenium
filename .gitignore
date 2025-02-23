@@ -8,7 +8,6 @@ ExtentReports/
 logs/
 target/
 test-output/
-reports/
 *.mp4
 *.avi
 allure-report/
