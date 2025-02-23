@@ -26,7 +26,7 @@
 
 ### ✳️ **SYSTEM REQUIREMENTS**
 
-- Install JDK (recommend JDK >= 11)
+- Install Java JDK (recommend JDK >= 17)
 - Install Chrome Browser, Edge Browser, Firefox Browser
 - Run well on the **Windows** platform
 - Setup **Allure ENV**:

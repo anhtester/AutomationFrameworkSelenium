@@ -9,9 +9,9 @@ import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.driver.DriverManager;
 import com.anhtester.enums.FailureHandling;
 import com.anhtester.helpers.SystemHelpers;
-import com.anhtester.report.AllureManager;
-import com.anhtester.report.ExtentReportManager;
-import com.anhtester.report.ExtentTestManager;
+import com.anhtester.reports.AllureManager;
+import com.anhtester.reports.ExtentReportManager;
+import com.anhtester.reports.ExtentTestManager;
 import com.anhtester.utils.BrowserInfoUtils;
 import com.anhtester.utils.DateUtils;
 import com.anhtester.utils.LogUtils;
@@ -24,8 +24,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v132.network.Network;
-import org.openqa.selenium.devtools.v132.network.model.Headers;
+import org.openqa.selenium.devtools.v133.network.Network;
+import org.openqa.selenium.devtools.v133.network.model.Headers;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -78,7 +78,7 @@ public class WebUI {
     }
 
     /**
-     * Take entire-page screenshot and add to Extent report and Allure report
+     * Take entire-page screenshot and add to Extent reports and Allure reports
      *
      * @param screenName Screenshot name
      */

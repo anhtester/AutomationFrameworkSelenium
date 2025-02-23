@@ -11,9 +11,9 @@ import com.anhtester.helpers.FileHelpers;
 import com.anhtester.helpers.PropertiesHelpers;
 import com.anhtester.helpers.ScreenRecorderHelpers;
 import com.anhtester.keywords.WebUI;
-import com.anhtester.report.AllureManager;
-import com.anhtester.report.ExtentReportManager;
-import com.anhtester.report.TelegramManager;
+import com.anhtester.reports.AllureManager;
+import com.anhtester.reports.ExtentReportManager;
+import com.anhtester.reports.TelegramManager;
 import com.anhtester.utils.BrowserInfoUtils;
 import com.anhtester.utils.EmailSendUtils;
 import com.anhtester.utils.LogUtils;
@@ -21,13 +21,9 @@ import com.anhtester.utils.ZipUtils;
 import com.aventstack.extentreports.Status;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
 import com.google.common.collect.ImmutableMap;
-import io.qameta.allure.Allure;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.testng.*;
 
 import java.awt.*;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import static com.anhtester.constants.FrameworkConstants.*;
@@ -93,7 +89,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         LogUtils.info("=====> End Suite: " + iSuite.getName());
         //End Suite and execute Extents Report
         ExtentReportManager.flushReports();
-        //Zip Folder report
+        //Zip Folder reports
         ZipUtils.zipReportFolder();
         //Send notification to Telegram
         TelegramManager.sendReportPath();

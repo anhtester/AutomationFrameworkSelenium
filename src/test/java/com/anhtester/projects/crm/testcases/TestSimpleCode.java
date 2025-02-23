@@ -8,7 +8,7 @@ package com.anhtester.projects.crm.testcases;
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.helpers.*;
 import com.anhtester.keywords.WebUI;
-import com.anhtester.report.TelegramManager;
+import com.anhtester.reports.TelegramManager;
 import com.anhtester.utils.*;
 import org.testng.annotations.Test;
 

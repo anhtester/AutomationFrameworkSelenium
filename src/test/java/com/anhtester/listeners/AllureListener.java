@@ -1,7 +1,6 @@
 package com.anhtester.listeners;
 
 import com.anhtester.driver.DriverManager;
-import com.anhtester.report.AllureManager;
 import io.qameta.allure.Allure;
 import io.qameta.allure.listener.TestLifecycleListener;
 import io.qameta.allure.model.Status;

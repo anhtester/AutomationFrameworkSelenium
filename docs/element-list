@@ -29,5 +29,5 @@ com.anhtester.projects.crm.pages.Projects
 com.anhtester.projects.crm.pages.SignIn
 com.anhtester.projects.crm.pages.Tasks
 com.anhtester.projects.crm.testcases
-com.anhtester.report
+com.anhtester.reports
 com.anhtester.utils

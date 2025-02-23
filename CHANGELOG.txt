@@ -1,3 +1,9 @@
+v2.5.0
+======
+Feb 23, 2025
+* Update Selenium 4.29.0 support CDP 133
+* Update package name reports in src/main/java/com/anhtester/reports
+
 v2.4.9
 ======
 Jan 25, 2025
