@@ -56,7 +56,7 @@ public enum BrowserFactory {
                 options.addArguments("--disable-gpu");
                 options.addArguments("--no-sandbox");
                 options.addArguments("--disable-dev-shm-usage");
-                options.addArguments("--window-size=1850,1000");
+                options.addArguments("--window-size=1550,900");
             }
 
             return options;
@@ -92,7 +92,7 @@ public enum BrowserFactory {
                 options.addArguments("--disable-gpu");
                 options.addArguments("--no-sandbox");
                 options.addArguments("--disable-dev-shm-usage");
-                options.addArguments("--window-size=1850,1000");
+                options.addArguments("--window-size=1550,900");
             }
 
             return options;
@@ -113,8 +113,8 @@ public enum BrowserFactory {
 
             if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
                 options.addArguments("-headless");
-                options.addArguments("--width=1850");
-                options.addArguments("--height=1000");
+                options.addArguments("--width=1550");
+                options.addArguments("--height=900");
             }
 
             return options;

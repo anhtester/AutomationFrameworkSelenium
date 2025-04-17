@@ -93,6 +93,7 @@ public class AddProductPage extends CommonPageCMS {
         WebUI.clickElementWithJs(selectGalleryImages);
         WebUI.clickElement(buttonAddFileImgs);
         WebUI.waitForPageLoaded();
+        WebUI.sleep(2);
         WebUI.clickElement(selectChooseThumbnailImgs);
         WebUI.setText(inputSearchImg, imageName, Keys.ENTER);
         WebUI.waitForJQueryLoad();

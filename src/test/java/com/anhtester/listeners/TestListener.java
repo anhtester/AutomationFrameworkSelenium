@@ -6,10 +6,7 @@ import com.anhtester.driver.DriverManager;
 import com.anhtester.enums.AuthorType;
 import com.anhtester.enums.Browser;
 import com.anhtester.enums.CategoryType;
-import com.anhtester.helpers.CaptureHelpers;
-import com.anhtester.helpers.FileHelpers;
-import com.anhtester.helpers.PropertiesHelpers;
-import com.anhtester.helpers.ScreenRecorderHelpers;
+import com.anhtester.helpers.*;
 import com.anhtester.keywords.WebUI;
 import com.anhtester.reports.AllureManager;
 import com.anhtester.reports.ExtentReportManager;
@@ -24,7 +21,9 @@ import com.google.common.collect.ImmutableMap;
 import org.testng.*;
 
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import static com.anhtester.constants.FrameworkConstants.*;
 
@@ -103,7 +102,73 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         FileHelpers.copyFile("src/test/resources/config/allure/categories.json", "target/allure-results/categories.json");
         FileHelpers.copyFile("src/test/resources/config/allure/executor.json", "target/allure-results/executor.json");
 
+//        try {
+//            // Generate Allure report
+//            generateAllureReport();
+//            // Expose the report using ngrok
+//            exposeReportWithNgrok();
+//        } catch (IOException | InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
+
+//    private void generateAllureReport() throws IOException, InterruptedException {
+//        // Run the allure generate command
+//        ProcessBuilder pb = new ProcessBuilder("allure.bat", "generate", "target/allure-results", "-o", "allure-report", "--clean");
+//        pb.inheritIO(); // Outputs to console
+//        Process process = pb.start();
+//        process.waitFor();
+//        System.out.println("Allure report generated successfully.");
+//    }
+
+//    private void exposeReportWithNgrok() throws IOException, InterruptedException {
+//        // Step 1: Serve the allure-report folder with Python HTTP server (port 8000)
+//        ProcessBuilder servePb = new ProcessBuilder("python", "-m", "http.server", "8000");
+//        servePb.directory(new java.io.File(SystemHelpers.getCurrentDir() + "allure-report")); // Set working directory to allure-report
+//        servePb.inheritIO();
+//        Process serveProcess = servePb.start();
+//
+//        // Give the server a moment to start
+//        Thread.sleep(5000);
+//
+//        // Step 2: Start ngrok to expose port 8000
+//        ProcessBuilder ngrokPb = new ProcessBuilder("C:\\ngrok\\ngrok.exe", "http", "8000");
+//        ngrokPb.inheritIO();
+//        Process ngrokProcess = ngrokPb.start();
+//
+//        Thread.sleep(5000);
+//
+//        // Đọc và hiển thị đầu ra trong thread riêng
+//        new Thread(() -> {
+//            try (BufferedReader reader = new BufferedReader(new InputStreamReader(ngrokProcess.getInputStream()))) {
+//                String line;
+//                while ((line = reader.readLine()) != null) {
+//                    System.out.println(line);
+//                    if (line.contains("https://")) {
+//                        String url = line.split("->")[0].trim().replace("Forwarding", "").trim();
+//                        System.out.println("Public URL: " + url);
+//                    }
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }).start();
+//
+//        // Đọc lỗi (nếu có)
+//        new Thread(() -> {
+//            try (BufferedReader errorReader = new BufferedReader(new InputStreamReader(ngrokProcess.getErrorStream()))) {
+//                String line;
+//                while ((line = errorReader.readLine()) != null) {
+//                    System.err.println("ngrok Error: " + line);
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }).start();
+//
+//        Thread.sleep(5000);
+//        System.out.println("ngrok is running. Check console for the public URL.");
+//    }
 
     public AuthorType[] getAuthorType(ITestResult iTestResult) {
         if (iTestResult.getMethod().getConstructorOrMethod().getMethod().getAnnotation(FrameworkAnnotation.class) == null) {
