@@ -30,7 +30,7 @@
         <aspectjweaver.version>1.9.24</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <allure-testng.version>2.29.1</allure-testng.version>
-        <allure-plugin-api.version>2.33.0</allure-plugin-api.version>
+        <allure-plugin-api.version>2.34.0</allure-plugin-api.version>
         <allure-maven.version>2.15.2</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
