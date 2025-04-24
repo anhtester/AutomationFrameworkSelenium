@@ -2,7 +2,9 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Java CI with Maven on Windows](https://github.com/anhtester/AutomationFrameworkSelenium/actions/workflows/maven.yml/badge.svg)](https://github.com/anhtester/AutomationFrameworkSelenium/actions/workflows/maven.yml)
 
-## Test Automation Framework Selenium Java with TestNG building by Anh Tester
+## Test Automation Framework using Selenium Java and TestNG building by Anh Tester
+
+### **💥Important**: when clone this repo, you should select '**Recursive**' to get all submodules
 
 🔆 **SOME FEATURES IN FRAMEWORK**
 
@@ -45,8 +47,8 @@
 
 **1. Run parallel the test case**
 
-- Run test case in suite XML (**src/test/resources/suites/**)
-- Run test case from Maven pom.xml file
+- Run test cases in suite XML (**src/test/resources/suites/**)
+- Run test cases from Maven with setup in the pom.xml file 
   (**mvn clean test**)
 
   ![image](https://user-images.githubusercontent.com/87883620/161658761-5040e527-b410-46b3-8697-3298523e201d.png)
@@ -98,9 +100,9 @@
 
 ![image](https://user-images.githubusercontent.com/87883620/161659238-88337f69-b742-4cd7-87f2-76670519c8dd.png)
 
-**6. Write Log to file**
+**6. Write Logs to file**
 
-- Call class: Log.info , Log.pass, Log.error,... (**Log** is a custom global class from Log4j2)
+- Call class: LogUtils.info(), LogUtils.pass(), LogUtils.error(),... (**LogUtils** is a custom global class from Log4j2)
   (**_import utils.com.anhtester.LogUtils.java_**)
 
 ![image](https://user-images.githubusercontent.com/87883620/161657858-d333ac1d-9e7b-4c1b-baac-151a237a1fa0.png)
@@ -118,9 +120,8 @@
 
 **8. Read data test from Excel file**
 
-- Create function with annotaion **DataProvider** on *
-  *src/test/java/anhtester/com/projects/website/crm/dataprovider/DataProviderManager.java**
-- Read excel with Map and Hashtable
+- Create function with annotation **DataProvider** on **src/test/java/anhtester/com/projects/website/crm/dataprovider/DataProviderManager.java**
+- Read Excel file with Map and Hashtable
 
 **9. Base function in the package**
 
@@ -129,11 +130,11 @@
 
 **10. Read data test from JSON file**
 
-- **JsonUtils** class select the json file path and call **"get"** method with **key**
+- **JsonUtils** class selects the JSON file path and calls **"get"** method with **key**
 
 **11. Main Keyword: WebUI**
 
-- WebUI class is main keyword in Framework. It contains common functions
+- WebUI class is the main keyword in Framework. It contains common functions
 - How to use: WebUI.function_name
 - Example: WebUI.setWindowSize(1024, 768), WebUI.screenshotElement(By by, String elementName),...
 
@@ -157,13 +158,13 @@
 ===How to get Token and start Bot===
 
 - Read blog: https://blog.devgenius.io/automation-of-reporting-2abe7f101801
-- Copy Token of your Bot => Paste to TelegramManager class
-- Click your Bot => input **/start** to start your Bot
+- Copy Token of your Bot ⇒ Paste to TelegramManager class
+- Click your Bot ⇒ input **/start** to start your Bot
 
 ===How to get ChatID===
 
-- After starting your Bot, your use Postman and using your Token:
-  Get: https://api.telegram.org/bot{token}/getUpdates => chat.id
+- After starting your Bot, you use Postman tools and using your Token:
+  Get: https://api.telegram.org/bot{token}/getUpdates ⇒ chat.id
 - Example: https://api.telegram.org/bot19468772:AAHtlc_BH8zlJAGDHuTJy3J72XumY5LxWcE/getUpdates
 
 ```
@@ -231,7 +232,6 @@ https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers
 
 Document DataFaker: https://www.datafaker.net/documentation/getting-started/
 or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-voi-datafaker
-
 
 ### 🔆 Project structure
 
@@ -589,7 +589,7 @@ or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-
 
 ### ⭐️ I will support your company if needed
 
-## Copyright 2022-2024 Anh Tester
+## Copyright 2022-2025 Anh Tester
 
 > Anh Tester Blog: https://anhtester.com/
 
