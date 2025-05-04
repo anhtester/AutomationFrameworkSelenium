@@ -39,6 +39,7 @@ public enum BrowserFactory {
 
             Map<String, Object> prefs = new HashMap<String, Object>();
             prefs.put("profile.default_content_setting_values.notifications", 2);
+            prefs.put("profile.password_manager_leak_detection", false); // Turn off change your password
             prefs.put("credentials_enable_service", false);
             prefs.put("profile.password_manager_enabled", false);
             prefs.put("autofill.profile_enabled", false); //Turn off Save Address popup
@@ -75,6 +76,7 @@ public enum BrowserFactory {
 
             Map<String, Object> prefs = new HashMap<String, Object>();
             prefs.put("profile.default_content_setting_values.notifications", 2);
+            prefs.put("profile.password_manager_leak_detection", false); // Turn off change your password
             prefs.put("credentials_enable_service", false);
             prefs.put("profile.password_manager_enabled", false);
             prefs.put("autofill.profile_enabled", false);
