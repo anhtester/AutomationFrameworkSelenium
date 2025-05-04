@@ -8,6 +8,7 @@ package com.anhtester.helpers;
 import com.anhtester.utils.LogUtils;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -21,48 +22,76 @@ public class FileHelpers {
         super();
     }
 
-    public static void writeTxtFile(String filepath, String text) {
-        try {
-            File file = new File(filepath);
-            while (!file.exists()) {
-                file.createNewFile();
+    public static String readFile(String filePath) {
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8))) {
+            char[] buffer = new char[8192];
+            int read;
+            while ((read = reader.read(buffer)) != -1) {
+                content.append(buffer, 0, read);
             }
-            FileWriter fw = new FileWriter(file, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(text + "\n" + "\n");
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void readTxtFile(String filepath) {
-        try {
-            File f = new File(filepath);
-            FileReader fr = new FileReader(f);
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
-            }
-            fr.close();
-            br.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static String readLineTxtFile(String filepath, int line) {
-        List<String> lines;
-        String value;
-        try {
-            lines = Files.readAllLines(new File(filepath).toPath());
-            value = lines.get(line);
-            return value;
+            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+        return content.toString();
+    }
+
+    public static void writeTxtFile(String filepath, String text) {
+        File file = new File(filepath);
+
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            // Thay mọi kiểu newline về chuẩn Windows \r\n
+            String normalizedText = text.replaceAll("\\r?\\n", "\r\n");
+
+            try (BufferedWriter bw = new BufferedWriter(
+                    new OutputStreamWriter(new FileOutputStream(file, true), StandardCharsets.UTF_8))) {
+                bw.write(normalizedText);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String readTxtFile(String filepath) {
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(new FileInputStream(filepath), StandardCharsets.UTF_8))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                content.append(line).append(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return content.toString();
+    }
+
+    public static String readLineTxtFile(String filepath, int lineNumber) {
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(new FileInputStream(filepath), StandardCharsets.UTF_8))) {
+
+            String line;
+            int currentLine = 0;
+
+            while ((line = br.readLine()) != null) {
+                if (currentLine == lineNumber) {
+                    return line;
+                }
+                currentLine++;
+            }
+
+            throw new IndexOutOfBoundsException("Dòng số " + lineNumber + " không tồn tại trong file.");
+
+        } catch (IOException e) {
+            throw new RuntimeException("Lỗi khi đọc file: " + e.getMessage(), e);
         }
     }
 

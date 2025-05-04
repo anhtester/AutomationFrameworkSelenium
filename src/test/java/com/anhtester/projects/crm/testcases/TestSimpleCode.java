@@ -175,9 +175,13 @@ public class TestSimpleCode {
     public void testReadAndWriteTxtFile() {
         PropertiesHelpers.loadAllFiles();
         //Read all data
-        FileHelpers.readTxtFile(PropertiesHelpers.getValue("TXT_FILE_PATH"));
+        WebUI.logConsole(FileHelpers.readTxtFile(PropertiesHelpers.getValue("TXT_FILE_PATH")));
         //Read data by line number
         WebUI.logConsole(FileHelpers.readLineTxtFile(PropertiesHelpers.getValue("TXT_FILE_PATH"), 0));
+        WebUI.logConsole("-----------------------------");
+        FileHelpers.writeTxtFile(PropertiesHelpers.getValue("TXT_FILE_PATH"), "\nTest123");
+        WebUI.logConsole(FileHelpers.readTxtFile(PropertiesHelpers.getValue("TXT_FILE_PATH")));
+
     }
 
     @Test

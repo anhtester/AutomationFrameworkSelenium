@@ -7,6 +7,7 @@ package com.anhtester.helpers;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -14,8 +15,7 @@ import java.util.regex.Pattern;
 
 public final class SystemHelpers {
 
-    public SystemHelpers() {
-        super();
+    private SystemHelpers() {
     }
 
     private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
@@ -31,23 +31,6 @@ public final class SystemHelpers {
         return slug.toLowerCase(Locale.ENGLISH);
     }
 
-    public static String readFile(String file) throws IOException {
-        Charset cs = Charset.forName("UTF-8");
-        FileInputStream stream = new FileInputStream(file);
-        try {
-            Reader reader = new BufferedReader(new InputStreamReader(stream, cs));
-            StringBuilder builder = new StringBuilder();
-            char[] buffer = new char[8192];
-            int read;
-            while ((read = ((BufferedReader) reader).read(buffer, 0, buffer.length)) > 0) {
-                builder.append(buffer, 0, read);
-            }
-            return builder.toString();
-        } finally {
-            stream.close();
-        }
-    }
-
     /**
      * @return Get the path to your source directory with a / at the end
      */
@@ -57,26 +40,22 @@ public final class SystemHelpers {
     }
 
     /**
-     * Create folder empty
+     * Create a folder if it does not exist
      *
      * @param path is the path to create the folder
      */
     public static void createFolder(String path) {
-        // File is a class inside java.io package
-        File file = new File(path);
+        File folder = new File(path);
 
-        String result = null;
-
-        int lengthSum = path.length();
-        int lengthSub = path.substring(0, path.lastIndexOf('/')).length();
-
-        result = path.substring(lengthSub, lengthSum);
-
-        if (!file.exists()) {
-            file.mkdir();  // mkdir is used to create folder
-            System.out.println("Folder " + file.getName() + " created: " + path);
+        if (!folder.exists()) {
+            boolean created = folder.mkdirs();
+            if (created) {
+                System.out.println("Folder created: " + folder.getAbsolutePath());
+            } else {
+                System.out.println("Failed to create folder: " + folder.getAbsolutePath());
+            }
         } else {
-            System.out.println("Folder already created");
+            System.out.println("Folder already exists: " + folder.getAbsolutePath());
         }
     }
 
@@ -94,11 +73,15 @@ public final class SystemHelpers {
     }
 
     public static String removeAccent(String text) {
-        // Chuẩn hóa chuỗi thành dạng Unicode tổ hợp (NFD)
+        if (text == null) return null;
+        // Chuẩn hóa thành dạng tổ hợp Unicode (NFD)
         String normalized = Normalizer.normalize(text, Normalizer.Form.NFD);
-        // Loại bỏ các ký tự dấu (dấu thanh, dấu móc, ...)
-        String accentRemoved = normalized.replaceAll("\\p{M}", "");
-        return accentRemoved;
+        // Loại bỏ các dấu thanh, móc, mũ...
+        String withoutDiacritics = normalized.replaceAll("\\p{M}", "");
+        // Xử lý riêng cho đ, Đ
+        withoutDiacritics = withoutDiacritics.replace("đ", "d").replace("Đ", "D");
+
+        return withoutDiacritics;
     }
 
 }
