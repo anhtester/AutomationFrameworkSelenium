@@ -4,26 +4,52 @@
 name: Run Maven with GitHub CI
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+   push:
+      branches: [ "main" ]
+   pull_request:
+      branches: [ "main" ]
 
 jobs:
-  build:
+   build:
 
-    runs-on: windows-latest
+      runs-on: windows-latest
 
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          fetch-depth: 0
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'corretto'
-          java-version: '17'
-          cache: maven
-      - name: Build with Maven
-        run: mvn clean test --file pom.xml
+      steps:
+         -  uses: actions/checkout@v4
+            with:
+               submodules: recursive
+               fetch-depth: 0
+         -  name: Set up JDK 17
+            uses: actions/setup-java@v4
+            with:
+               distribution: 'corretto'
+               java-version: '17'
+               cache: maven
+         -  name: Build with Maven
+            run: mvn clean test allure:report --file pom.xml
+         -  name: Upload Extent Report
+            if: always()
+            uses: actions/upload-artifact@v4
+            with:
+               name: test-report
+               path: exports/ExtentReports/ExtentReports.html
+
+         -  name: Upload test videos
+            if: always()
+            uses: actions/upload-artifact@v4
+            with:
+               name: test-videos
+               path: exports/ExportData/Videos
+
+         -  name: Upload screenshots for tests
+            if: always()
+            uses: actions/upload-artifact@v4
+            with:
+               name: test-screenshots
+               path: exports/ExportData/Images
+         -  name: Upload Allure Report
+            if: always()
+            uses: actions/upload-artifact@v4
+            with:
+               name: allure-report
+               path: target/site/allure-maven-plugin/

@@ -25,7 +25,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java-compiler.version>17</java-compiler.version>
         <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
-        <selenium.version>4.31.0</selenium.version>
+        <selenium.version>4.32.0</selenium.version>
         <testng.version>7.11.0</testng.version>
         <aspectjweaver.version>1.9.24</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
@@ -47,10 +47,10 @@
         <lombok.version>1.18.38</lombok.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.17</zip.version>
-        <jackson.version>2.19.0-rc2</jackson.version>
+        <jackson.version>2.19.0</jackson.version>
         <java-telegram-bot-api.version>8.3.0</java-telegram-bot-api.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
-        <mysql-connector-j.version>9.2.0</mysql-connector-j.version>
+        <mysql-connector-j.version>9.3.0</mysql-connector-j.version>
         <json-path.version>2.9.0</json-path.version>
 
         <!-- Suite XML path - CRM -->
@@ -463,9 +463,9 @@
                     <artifactId>allure-maven</artifactId>
                     <version>${allure-maven.version}</version>
                     <configuration>
-                        <reportVersion>${allure-testng.version}</reportVersion>
+                        <reportVersion>2.34.0</reportVersion>
                         <allureDownloadUrl>
-                            ${allure.cmd.download.url}/${allure-testng.version}/allure-commandline-${allure-testng.version}.zip
+                            ${allure.cmd.download.url}/2.34.0/allure-commandline-2.34.0.zip
                         </allureDownloadUrl>
                     </configuration>
                 </plugin>

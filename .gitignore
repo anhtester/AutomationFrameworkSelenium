@@ -11,3 +11,4 @@ test-output/
 *.mp4
 *.avi
 allure-report/
+.allure/
