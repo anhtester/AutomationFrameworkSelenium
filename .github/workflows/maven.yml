@@ -25,16 +25,24 @@ jobs:
                distribution: 'corretto'
                java-version: '17'
                cache: maven
-         -  name: Build with Maven
+         -  name: Run test with Maven
             run: mvn clean test allure:report --file pom.xml
+
          -  name: Upload Extent Report
             if: always()
             uses: actions/upload-artifact@v4
             with:
-               name: test-report
+               name: extent-report
                path: exports/ExtentReports/ExtentReports.html
 
-         -  name: Upload test videos
+         -  name: Upload Allure Report
+            if: always()
+            uses: actions/upload-artifact@v4
+            with:
+               name: allure-report
+               path: target/site/allure-maven-plugin/
+
+         -  name: Upload videos for tests
             if: always()
             uses: actions/upload-artifact@v4
             with:
@@ -47,9 +55,3 @@ jobs:
             with:
                name: test-screenshots
                path: exports/ExportData/Images
-         -  name: Upload Allure Report
-            if: always()
-            uses: actions/upload-artifact@v4
-            with:
-               name: allure-report
-               path: target/site/allure-maven-plugin/
