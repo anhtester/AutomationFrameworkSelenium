@@ -1,43 +1,40 @@
 /*
- * Copyright (c) 2022 Anh Tester
+ * Copyright (c) 2025 Anh Tester
  * Automation Framework Selenium
  */
 
 package com.anhtester.utils;
 
 import com.anhtester.driver.DriverManager;
-import org.openqa.selenium.html5.LocalStorage;
-import org.openqa.selenium.html5.WebStorage;
+import org.openqa.selenium.JavascriptExecutor;
 
 public class LocalStorageUtils {
 
-    private LocalStorageUtils() {
-        super();
-    }
+   private LocalStorageUtils() {
+      super();
+   }
 
-    public static String getItem(String key) {
-        LocalStorage localStorage = ((WebStorage) DriverManager.getDriver()).getLocalStorage();
-        return localStorage.getItem(key);
-    }
+   private static JavascriptExecutor js() {
+      return (JavascriptExecutor) DriverManager.getDriver();
+   }
 
-    public static void setItem(String key, String value) {
-        LocalStorage localStorage = ((WebStorage) DriverManager.getDriver()).getLocalStorage();
-        localStorage.setItem(key, value);
-    }
+   public static String getItem(String key) {
+      return (String) js().executeScript("return window.localStorage.getItem(arguments[0]);", key);
+   }
 
-    public static void removeItem(String key) {
-        LocalStorage localStorage = ((WebStorage) DriverManager.getDriver()).getLocalStorage();
-        localStorage.removeItem(key);
-    }
+   public static void setItem(String key, String value) {
+      js().executeScript("window.localStorage.setItem(arguments[0], arguments[1]);", key, value);
+   }
 
-    public static void clear() {
-        LocalStorage localStorage = ((WebStorage) DriverManager.getDriver()).getLocalStorage();
-        localStorage.clear();
-    }
+   public static void removeItem(String key) {
+      js().executeScript("window.localStorage.removeItem(arguments[0]);", key);
+   }
 
-    public static int size() {
-        LocalStorage localStorage = ((WebStorage) DriverManager.getDriver()).getLocalStorage();
-        return localStorage.size();
-    }
+   public static void clear() {
+      js().executeScript("window.localStorage.clear();");
+   }
 
+   public static Long size() {
+      return (Long) js().executeScript("return window.localStorage.length;");
+   }
 }
