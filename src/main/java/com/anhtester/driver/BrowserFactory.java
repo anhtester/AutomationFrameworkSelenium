@@ -25,125 +25,123 @@ import static java.lang.Boolean.TRUE;
 
 public enum BrowserFactory {
 
-    CHROME {
-        @Override
-        public WebDriver createDriver() {
-            //WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
+   CHROME {
+      @Override
+      public WebDriver createDriver() {
+         return new ChromeDriver(getOptions());
+      }
 
-            return new ChromeDriver(getOptions());
-        }
+      @Override
+      public ChromeOptions getOptions() {
+         ChromeOptions options = new ChromeOptions();
 
-        @Override
-        public ChromeOptions getOptions() {
-            ChromeOptions options = new ChromeOptions();
+         Map<String, Object> prefs = new HashMap<String, Object>();
+         prefs.put("profile.default_content_setting_values.notifications", 2);
+         prefs.put("profile.password_manager_leak_detection", false); // Turn off change your password
+         prefs.put("credentials_enable_service", false);
+         prefs.put("profile.password_manager_enabled", false);
+         prefs.put("autofill.profile_enabled", false); //Turn off Save Address popup
+         options.setExperimentalOption("prefs", prefs);
 
-            Map<String, Object> prefs = new HashMap<String, Object>();
-            prefs.put("profile.default_content_setting_values.notifications", 2);
-            prefs.put("profile.password_manager_leak_detection", false); // Turn off change your password
-            prefs.put("credentials_enable_service", false);
-            prefs.put("profile.password_manager_enabled", false);
-            prefs.put("autofill.profile_enabled", false); //Turn off Save Address popup
-            options.setExperimentalOption("prefs", prefs);
+         options.addArguments("--disable-extensions");
+         options.addArguments("--disable-infobars");
+         options.addArguments("--disable-notifications");
+         options.addArguments("--remote-allow-origins=*");
 
-            options.addArguments("--disable-extensions");
-            options.addArguments("--disable-infobars");
-            options.addArguments("--disable-notifications");
-            options.addArguments("--remote-allow-origins=*");
+         options.setAcceptInsecureCerts(true);
 
-            options.setAcceptInsecureCerts(true);
+         if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
+            options.addArguments("--headless=new");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--window-size=1920,1080");
+            options.addArguments("--high-dpi-support=1");
+            options.addArguments("--force-device-scale-factor=1");
+         } else {
+            options.addArguments(START_MAXIMIZED);
+         }
 
-            if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
-                options.addArguments("--headless=new");
-                options.addArguments("--disable-gpu");
-                options.addArguments("--no-sandbox");
-                options.addArguments("--disable-dev-shm-usage");
-                options.addArguments("--window-size=1550,900");
-            }
+         return options;
+      }
+   }, EDGE {
+      @Override
+      public WebDriver createDriver() {
+         return new EdgeDriver(getOptions());
+      }
 
-            return options;
-        }
-    }, EDGE {
-        @Override
-        public WebDriver createDriver() {
-            //WebDriverManager.getInstance(DriverManagerType.EDGE).setup();
+      @Override
+      public EdgeOptions getOptions() {
+         EdgeOptions options = new EdgeOptions();
 
-            return new EdgeDriver(getOptions());
-        }
+         Map<String, Object> prefs = new HashMap<String, Object>();
+         prefs.put("profile.default_content_setting_values.notifications", 2);
+         prefs.put("profile.password_manager_leak_detection", false); // Turn off change your password
+         prefs.put("credentials_enable_service", false);
+         prefs.put("profile.password_manager_enabled", false);
+         prefs.put("autofill.profile_enabled", false);
+         options.setExperimentalOption("prefs", prefs);
 
-        @Override
-        public EdgeOptions getOptions() {
-            EdgeOptions options = new EdgeOptions();
+         options.addArguments("--disable-extensions");
+         options.addArguments("--disable-infobars");
+         options.addArguments("--disable-notifications");
+         options.addArguments("--remote-allow-origins=*");
 
-            Map<String, Object> prefs = new HashMap<String, Object>();
-            prefs.put("profile.default_content_setting_values.notifications", 2);
-            prefs.put("profile.password_manager_leak_detection", false); // Turn off change your password
-            prefs.put("credentials_enable_service", false);
-            prefs.put("profile.password_manager_enabled", false);
-            prefs.put("autofill.profile_enabled", false);
-            options.setExperimentalOption("prefs", prefs);
+         options.setAcceptInsecureCerts(true);
 
-            options.addArguments("--disable-extensions");
-            options.addArguments("--disable-infobars");
-            options.addArguments("--disable-notifications");
-            options.addArguments("--remote-allow-origins=*");
+         if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
+            options.addArguments("--headless=new");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--window-size=1920,1080");
+            options.addArguments("--high-dpi-support=1");
+            options.addArguments("--force-device-scale-factor=1");
+         } else {
+            options.addArguments(START_MAXIMIZED);
+         }
 
-            options.setAcceptInsecureCerts(true);
+         return options;
+      }
+   }, FIREFOX {
+      @Override
+      public WebDriver createDriver() {
+         return new FirefoxDriver(getOptions());
+      }
 
-            if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
-                options.addArguments("--headless=new");
-                options.addArguments("--disable-gpu");
-                options.addArguments("--no-sandbox");
-                options.addArguments("--disable-dev-shm-usage");
-                options.addArguments("--window-size=1550,900");
-            }
+      @Override
+      public FirefoxOptions getOptions() {
+         FirefoxOptions options = new FirefoxOptions();
 
-            return options;
-        }
-    }, FIREFOX {
-        @Override
-        public WebDriver createDriver() {
-            //WebDriverManager.getInstance(DriverManagerType.FIREFOX).setup();
+         options.setAcceptInsecureCerts(true);
 
-            return new FirefoxDriver(getOptions());
-        }
+         if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
+            options.addArguments("-headless");
+            options.addArguments("--width=1920");
+            options.addArguments("--height=1080");
+         }
 
-        @Override
-        public FirefoxOptions getOptions() {
-            FirefoxOptions options = new FirefoxOptions();
+         return options;
+      }
+   }, SAFARI {
+      @Override
+      public WebDriver createDriver() {
+         return new SafariDriver(getOptions());
+      }
 
-            options.setAcceptInsecureCerts(true);
+      @Override
+      public SafariOptions getOptions() {
+         SafariOptions options = new SafariOptions();
+         options.setAutomaticInspection(false);
 
-            if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
-                options.addArguments("-headless");
-                options.addArguments("--width=1550");
-                options.addArguments("--height=900");
-            }
+         if (TRUE.equals(Boolean.valueOf(FrameworkConstants.HEADLESS)))
+            throw new HeadlessNotSupportedException(options.getBrowserName());
 
-            return options;
-        }
-    }, SAFARI {
-        @Override
-        public WebDriver createDriver() {
-            //WebDriverManager.getInstance(DriverManagerType.SAFARI).setup();
+         return options;
+      }
+   };
 
-            return new SafariDriver(getOptions());
-        }
+   private static final String START_MAXIMIZED = "--start-maximized";
 
-        @Override
-        public SafariOptions getOptions() {
-            SafariOptions options = new SafariOptions();
-            options.setAutomaticInspection(false);
+   public abstract WebDriver createDriver();
 
-            if (TRUE.equals(Boolean.valueOf(FrameworkConstants.HEADLESS)))
-                throw new HeadlessNotSupportedException(options.getBrowserName());
-
-            return options;
-        }
-    };
-
-    private static final String START_MAXIMIZED = "--start-maximized";
-
-    public abstract WebDriver createDriver();
-
-    public abstract MutableCapabilities getOptions();
+   public abstract MutableCapabilities getOptions();
 }
