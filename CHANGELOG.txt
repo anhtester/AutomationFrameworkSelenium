@@ -1,3 +1,9 @@
+v2.8.0
+======
+Dec 09, 2025
+* Update Selenium 4.39.0 support CDP 143
+* Upgrade all libraries latest version
+
 v2.7.0
 ======
 Oct 27, 2025
