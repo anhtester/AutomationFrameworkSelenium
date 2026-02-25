@@ -478,8 +478,8 @@
                     <configuration>
                         <source>${java-compiler.version}</source>
                         <encoding>UTF-8</encoding>
+                        <outputDirectory>${project.basedir}/docs</outputDirectory>
                     </configuration>
-
                 </plugin>
 
             </plugins>

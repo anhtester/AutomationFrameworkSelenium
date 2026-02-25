@@ -83,3 +83,17 @@ jobs:
                github_token: ${{ secrets.GITHUB_TOKEN }}
                publish_branch: gh-pages
                publish_dir: target/site/allure-maven-plugin
+
+         -  name: Generate JavaDocs
+            if: always()
+            run: mvn javadoc:javadoc
+
+         -  name: Deploy JavaDoc to GitHub Pages
+            if: always()
+            uses: peaceiris/actions-gh-pages@v4
+            with:
+               github_token: ${{ secrets.GITHUB_TOKEN }}
+               publish_branch: gh-pages
+               publish_dir: docs
+               destination_dir: docs
+               keep_files: true
