@@ -1,0 +1,1 @@
+Clicked on the element By.xpath: //button[@class='applyBtn btn btn-sm btn-primary']

@@ -1,0 +1,1 @@
+Clicked on the element By.xpath: //label[contains(text(),'Gallery Images')]/following-sibling::div//div[contains(text(),'Choose File')]

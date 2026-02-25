@@ -1,1 +1,0 @@
-Set text cashierngan001@gmail.com on By.xpath: //input[@id='email']

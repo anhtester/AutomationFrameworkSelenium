@@ -1,0 +1,1 @@
+Set text gio-qua-2 on By.xpath: //input[@placeholder='Search your files'] and press key ENTER

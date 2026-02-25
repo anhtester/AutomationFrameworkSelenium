@@ -1,0 +1,1 @@
+Clear and Fill admin@example.com on By.xpath: //input[@id='email']

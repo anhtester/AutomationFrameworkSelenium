@@ -1,0 +1,1 @@
+Clicked on the element By.xpath: //button[@class='btn btn-soft-primary mr-2 add-to-cart fw-600']

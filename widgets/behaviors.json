@@ -1,1 +1,1 @@
-{"total":1,"items":[{"uid":"c3e1f562e85f91dac2437c043ee09f75","name":"Regression Test CMS","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}
+{"total":2,"items":[{"uid":"c3e1f562e85f91dac2437c043ee09f75","name":"Regression Test CMS","statistic":{"failed":0,"broken":0,"skipped":0,"passed":2,"unknown":0,"total":2}},{"uid":"8abd885d48dc4ef4f88684cff08d61c6","name":"Regression Test CRM","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}

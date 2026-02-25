@@ -1,0 +1,1 @@
+Clicked on the element By.xpath: //i[@class='la la-shopping-cart la-2x opacity-80']

@@ -1,0 +1,1 @@
+Click on element with JS: By.xpath: (//img[@class='img-fit'])[1]

@@ -1,0 +1,1 @@
+Clicked on the element By.xpath: (//div[@class='filter-option-inner-inner'][normalize-space()='Flat'])[1]

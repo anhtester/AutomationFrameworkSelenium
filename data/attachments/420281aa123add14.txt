@@ -1,0 +1,1 @@
+Clicked on the element By.xpath: //label[normalize-space()='Meta Image']/following-sibling::div//div[contains(text(),'Choose File')]

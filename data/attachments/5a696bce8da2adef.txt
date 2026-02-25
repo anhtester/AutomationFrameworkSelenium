@@ -1,0 +1,1 @@
+Clicked on the element By.xpath: (//i[@class='las la-eye'])[1]
