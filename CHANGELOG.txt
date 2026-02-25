@@ -1,3 +1,10 @@
+v2.9.0
+======
+Feb 25, 2026
+* Upgrade Selenium 4.41.0 support CDP v143, v144, v145
+* Upgrade TestNG 7.12.0
+* Update maven.yml to deploy report to GitHub Pages
+
 v2.8.0
 ======
 Dec 09, 2025

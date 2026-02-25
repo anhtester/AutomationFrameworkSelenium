@@ -12,3 +12,4 @@ test-output/
 *.avi
 allure-report/
 .allure/
+.vscode/

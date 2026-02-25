@@ -26,7 +26,27 @@ jobs:
                java-version: '17'
                cache: maven
          -  name: Run test with Maven
-            run: mvn clean test allure:report --file pom.xml
+            run: mvn clean test --file pom.xml
+
+         -  name: Get Allure history
+            uses: actions/checkout@v4
+            if: always()
+            continue-on-error: true
+            with:
+               ref: gh-pages
+               path: gh-pages
+
+         -  name: Copy Allure history
+            if: always()
+            continue-on-error: true
+            shell: bash
+            run: |
+               mkdir -p target/allure-results/history
+               cp -Rr gh-pages/history/* target/allure-results/history/ || true
+
+         -  name: Generate Allure Report
+            if: always()
+            run: mvn allure:report --file pom.xml
 
          -  name: Upload Extent Report
             if: always()
@@ -55,3 +75,11 @@ jobs:
             with:
                name: test-screenshots
                path: exports/ExportData/Images
+
+         -  name: Deploy Allure Report to GitHub Pages
+            if: always()
+            uses: peaceiris/actions-gh-pages@v4
+            with:
+               github_token: ${{ secrets.GITHUB_TOKEN }}
+               publish_branch: gh-pages
+               publish_dir: target/site/allure-maven-plugin
