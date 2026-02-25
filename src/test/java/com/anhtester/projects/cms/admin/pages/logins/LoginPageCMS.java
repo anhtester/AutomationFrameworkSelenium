@@ -4,6 +4,9 @@ import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.helpers.PropertiesHelpers;
 import com.anhtester.projects.cms.CommonPageCMS;
 import com.anhtester.projects.cms.users.pages.dashboard.DashboardPage;
+
+import io.qameta.allure.Step;
+
 import org.openqa.selenium.By;
 
 import static com.anhtester.keywords.WebUI.*;
@@ -16,7 +19,8 @@ public class LoginPageCMS extends CommonPageCMS {
     private By buttonCopyAdminAcc = By.xpath("//button[normalize-space()='Copy']");
     private By buttonSubmitLogin = By.xpath("//button[normalize-space()='Login']");
     private By titleLoginPage = By.xpath("//h1[normalize-space() = 'Login to your account.']");
-    private By messageRequiredEmail = By.xpath("//strong[contains(text(),'The email field is required when phone is not present.')]");
+    private By messageRequiredEmail = By
+            .xpath("//strong[contains(text(),'The email field is required when phone is not present.')]");
     private By inputEmail = By.xpath("//input[@id='email']");
     private By inputPassword = By.xpath("//input[@id='password']");
     private By messageAccDoesNotExist = By.xpath("//span[@data-notify='message']");
@@ -27,6 +31,7 @@ public class LoginPageCMS extends CommonPageCMS {
         clickElement(closeAdvertisementPopup);
     }
 
+    @Step("Open login page")
     public void openLoginPage() {
         openWebsite(FrameworkConstants.URL_CMS_USER);
         clickElement(closeAdvertisementPopup);
@@ -36,6 +41,7 @@ public class LoginPageCMS extends CommonPageCMS {
         verifyElementVisible(titleLoginPage, "Login page is NOT displayed");
     }
 
+    @Step("Verify redirect to Admin page")
     public void verifyRedirectToAdminPage() {
         verifyElementVisible(avatarProfile, "Can not redirect to Admin page.");
     }
@@ -46,7 +52,8 @@ public class LoginPageCMS extends CommonPageCMS {
         clickElement(buttonSubmitLogin);
         waitForPageLoaded();
         sleep(1);
-        verifyEquals(getTextElement(messageRequiredEmail).trim(), "The email field is required when phone is not present.", "");
+        verifyEquals(getTextElement(messageRequiredEmail).trim(),
+                "The email field is required when phone is not present.", "");
     }
 
     public void loginFailWithEmailDoesNotExist(String email, String password) {
@@ -82,6 +89,7 @@ public class LoginPageCMS extends CommonPageCMS {
         verifyElementVisible(messageAccDoesNotExist, "Password is failed but valid is NOT displayed.");
     }
 
+    @Step("Login with Customer account")
     public void loginSuccessWithCustomerAccount(String email, String password) {
         openLoginPage();
         sleep(2);
@@ -95,25 +103,23 @@ public class LoginPageCMS extends CommonPageCMS {
         verifyElementVisible(DashboardPage.titleDashboard, "Dashboard page is NOT displayed.");
     }
 
+    @Step("Login with Admin account")
     public CommonPageCMS loginSuccessAdminPage(String email, String password) {
         openWebsite(FrameworkConstants.URL_CMS_ADMIN);
         setText(inputEmail, email);
         setText(inputPassword, password);
         clickElement(buttonSubmitLogin);
-        waitForElementVisible(titleAnhTesterAdminPage);
         verifyElementVisible(titleAnhTesterAdminPage, "Admin page is NOT displayed.");
         return new CommonPageCMS();
     }
 
+    @Step("Login with email and password from properties file")
     public CommonPageCMS loginSuccessAdminPage() {
         openWebsite(FrameworkConstants.URL_CMS_ADMIN);
         setText(inputEmail, PropertiesHelpers.getValue("email"));
         setText(inputPassword, PropertiesHelpers.getValue("password"));
         clickElement(buttonSubmitLogin);
-        waitForElementVisible(titleAnhTesterAdminPage);
         verifyElementVisible(titleAnhTesterAdminPage, "Admin page is NOT displayed.");
         return new CommonPageCMS();
     }
 }
-
-

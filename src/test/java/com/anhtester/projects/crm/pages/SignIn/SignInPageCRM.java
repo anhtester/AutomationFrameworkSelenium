@@ -9,6 +9,9 @@ import com.anhtester.projects.crm.pages.CommonPageCRM;
 import com.anhtester.projects.crm.models.SignInModel;
 import com.anhtester.projects.crm.pages.Dashboard.DashboardPageCRM;
 import com.anhtester.utils.DecodeUtils;
+
+import io.qameta.allure.Step;
+
 import org.openqa.selenium.By;
 
 import java.util.Hashtable;
@@ -30,6 +33,7 @@ public class SignInPageCRM extends CommonPageCRM {
     public SignInPageCRM() {
     }
 
+    @Step("Sign in with Admin Role")
     public DashboardPageCRM signInWithAdminRole() {
         ExcelHelpers excelHelpers = new ExcelHelpers();
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
@@ -42,11 +46,13 @@ public class SignInPageCRM extends CommonPageCRM {
         setText(inputPassword, DecodeUtils.decrypt(excelHelpers.getCellData(1, SignInModel.getPassword())));
         clickElement(buttonSignIn);
         waitForPageLoaded();
-        verifyContains(getCurrentUrl(), getDashboardPage().pageUrl, "Sign in failed. Can not redirect to Dashboard page.");
+        verifyContains(getCurrentUrl(), getDashboardPage().pageUrl,
+                "Sign in failed. Can not redirect to Dashboard page.");
 
         return new DashboardPageCRM();
     }
 
+    @Step("Sign in with Client Role")
     public DashboardPageCRM signInWithClientRole() {
         ExcelHelpers excelHelpers = new ExcelHelpers();
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
@@ -59,11 +65,13 @@ public class SignInPageCRM extends CommonPageCRM {
         setText(inputPassword, DecodeUtils.decrypt(excelHelpers.getCellData(2, SignInModel.getPassword())));
         clickElement(buttonSignIn);
         waitForPageLoaded();
-        verifyContains(getCurrentUrl(), getDashboardPage().pageUrl, "Sign in failed. Can not redirect to Dashboard page.");
+        verifyContains(getCurrentUrl(), getDashboardPage().pageUrl,
+                "Sign in failed. Can not redirect to Dashboard page.");
 
         return new DashboardPageCRM();
     }
 
+    @Step("Sign in with email and password")
     public DashboardPageCRM signIn(String email, String password) {
         openWebsite(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");
@@ -74,11 +82,13 @@ public class SignInPageCRM extends CommonPageCRM {
         setText(inputPassword, password);
         clickElement(buttonSignIn);
         waitForPageLoaded();
-        verifyContains(getCurrentUrl(), getDashboardPage().pageUrl, "Sign in failed. Can not redirect to Dashboard page.");
+        verifyContains(getCurrentUrl(), getDashboardPage().pageUrl,
+                "Sign in failed. Can not redirect to Dashboard page.");
 
         return new DashboardPageCRM();
     }
 
+    @Step("Sign in with data")
     public DashboardPageCRM signIn(Hashtable<String, String> data) {
         openWebsite(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");
@@ -89,7 +99,8 @@ public class SignInPageCRM extends CommonPageCRM {
         setText(inputPassword, DecodeUtils.decrypt(data.get(SignInModel.getPassword())));
         clickElement(buttonSignIn);
         waitForPageLoaded();
-        verifyContains(getCurrentUrl(), getDashboardPage().pageUrl, "Sign in failed. Can not redirect to Dashboard page.");
+        verifyContains(getCurrentUrl(), getDashboardPage().pageUrl,
+                "Sign in failed. Can not redirect to Dashboard page.");
 
         return new DashboardPageCRM();
     }

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ProductInfoPageCMS extends CommonPageCMS {
     private By productName = By.xpath("//h1");
-    public static By productPrice = By.xpath("(//div[text()='Discount Price:']/parent::div)/following-sibling::div//strong");
+    public static By productPrice = By.xpath("(//div[text()='Price:']/parent::div)/following-sibling::div//strong");
     private By productUnit = By.xpath("//span[@class='opacity-70']");
     private By productDescription = By.xpath("//div[@class = 'mw-100 overflow-auto text-left aiz-editor-data']/p");
     private By selectProductName = By.xpath("(//div[contains(@class,'product-name')])[1]");

@@ -53,12 +53,13 @@
         <jackson.version>2.21.1</jackson.version>
 
         <!-- Suite XML path - CRM -->
-        <suite.signin.simple>src/test/resources/suites/SignIn-simple.xml</suite.signin.simple>
-        <suite.signin.parallel>src/test/resources/suites/SignIn-parallel-methods.xml</suite.signin.parallel>
-        <suite.client.parallel>src/test/resources/suites/Clients-parallel.xml</suite.client.parallel>
-        <suite.client.simple>src/test/resources/suites/Clients-simple.xml</suite.client.simple>
+        <suite.signin.simple>src/test/resources/suites/CRM/SignIn-simple.xml</suite.signin.simple>
+        <suite.signin.parallel>src/test/resources/suites/CRM/SignIn-parallel-methods.xml</suite.signin.parallel>
+        <suite.client.parallel>src/test/resources/suites/CRM/Clients-parallel.xml</suite.client.parallel>
+        <suite.client.simple>src/test/resources/suites/CRM/Clients-simple.xml</suite.client.simple>
         <!-- Suite XML path - CMS -->
         <suite.login>src/test/resources/suites/CMS/LoginTestCMS.xml</suite.login>
+        <suite.addproduct>src/test/resources/suites/CMS/AddProductCMS.xml</suite.addproduct>
         <suite.order>src/test/resources/suites/CMS/OrderProductCMS.xml</suite.order>
         <!-- Suite XML path - ALL -->
         <suite.all>src/test/resources/suites/SuiteAll.xml</suite.all>
@@ -431,7 +432,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.14.1</version>
+                    <version>3.15.0</version>
                     <configuration>
                         <source>${java-compiler.version}</source>
                         <target>${java-compiler.version}</target>
@@ -444,8 +445,9 @@
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
                         <suiteXmlFiles>
-                            <!--<suiteXmlFile>${suite.all}</suiteXmlFile>-->
-                            <suiteXmlFile>src/test/resources/suites/CMS/LoginTestCMS.xml</suiteXmlFile>
+                            <suiteXmlFile>${suite.signin.parallel}</suiteXmlFile>
+                            <suiteXmlFile>${suite.addproduct}</suiteXmlFile>
+                            <suiteXmlFile>${suite.order}</suiteXmlFile>
                         </suiteXmlFiles>
                         <argLine>
                             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"
@@ -462,9 +464,9 @@
                     <artifactId>allure-maven</artifactId>
                     <version>${allure-maven.version}</version>
                     <configuration>
-                        <reportVersion>2.35.1</reportVersion>
+                        <reportVersion>${allure-plugin-api.version}</reportVersion>
                         <allureDownloadUrl>
-                            ${allure.cmd.download.url}/2.35.1/allure-commandline-2.35.1.zip
+                            ${allure.cmd.download.url}/${allure-plugin-api.version}/allure-commandline-${allure-plugin-api.version}.zip
                         </allureDownloadUrl>
                     </configuration>
                 </plugin>
@@ -472,7 +474,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.6.3</version>
+                    <version>3.12.0</version>
                     <configuration>
                         <source>${java-compiler.version}</source>
                         <encoding>UTF-8</encoding>
