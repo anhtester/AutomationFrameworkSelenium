@@ -1,0 +1,1 @@
+Verify Equals: The email field is required when phone is not present. = The email field is required when phone is not present.
