@@ -1,1 +1,0 @@
-Set text 862015 on By.xpath: //input[@placeholder='SKU']
