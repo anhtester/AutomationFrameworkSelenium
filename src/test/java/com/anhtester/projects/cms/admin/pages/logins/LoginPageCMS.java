@@ -38,7 +38,7 @@ public class LoginPageCMS extends CommonPageCMS {
         clickElement(buttonCookies);
         clickElement(buttonLogin);
         waitForPageLoaded();
-        verifyElementVisible(titleLoginPage, "Login page is NOT displayed");
+        verifyElementVisible(titleLoginPage, "Cannot display the Login page");
     }
 
     @Step("Verify redirect to Admin page")

@@ -25,7 +25,7 @@ public interface Configuration extends Config {
     @Key("URL_CRM")
     String URL_CRM();
 
-    @Key("REMOTE_URL")
+    @Key("REMOTE_ENDPOINT")
     String REMOTE_URL();
 
     @Key("REMOTE_PORT")
