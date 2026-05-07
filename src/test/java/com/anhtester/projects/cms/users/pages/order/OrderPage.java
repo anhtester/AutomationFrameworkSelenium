@@ -59,7 +59,7 @@ public class OrderPage extends CommonPageCMS {
         WebUI.setText(DashboardPage.inputSearchProduct, PropertiesHelpers.getValue("product_P02"));
         WebUI.waitForJQueryLoad();
         WebUI.sleep(3);
-        WebUI.clickElement(By.xpath("//div[@id='search-content']//div[contains(text(),'" + PropertiesHelpers.getValue("product_P02") + "')]"));
+        WebUI.clickElement(By.xpath("//div[@id='search-content']//div[contains(text(),'" + PropertiesHelpers.getValue("product_P023") + "')]"));
         WebUI.waitForPageLoaded();
         String priceProduct02AsString = WebUI.getTextElement(ProductInfoPageCMS.productPrice).trim();
         WebUI.clickElement(buttonPlus);
