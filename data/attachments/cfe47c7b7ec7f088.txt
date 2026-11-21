@@ -1,0 +1,197 @@
+[INFO ] 21-11-2026 21:13:42.474 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [TargetFactory.createInstance:45] - Creating driver: browser=chrome, target=LOCAL, headless=true
+[INFO ] 21-11-2026 21:13:55.572 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [TargetFactory.logDriverInfo:124] - Driver created in 13047 ms: chrome 157.0.8103.79 on windows
+[DEBUG] 21-11-2026 21:13:56.881 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [BaseTest.initDriver:57] - Window size: (1920, 1080)
+[INFO ] 21-11-2026 21:13:57.215 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [TestListener.onTestStart:251] - ========== Test case: signInWithAdminRole is starting... ==========
+[INFO ] 21-11-2026 21:13:58.377 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [ExcelHelpers.setExcelFile:36] - Set Excel File: src/test/resources/testdataCRM/ClientsDataExcel.xlsx
+[INFO ] 21-11-2026 21:13:58.377 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [ExcelHelpers.setExcelFile:37] - Sheet Name: SignIn
+[DEBUG] 21-11-2026 21:13:58.550 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.beforeGet:78] - [WebDriver] Open URL: https://rise.anhtester.com/signin
+[DEBUG] 21-11-2026 21:14:01.676 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.logDone:53] - [WebDriver] Open URL https://rise.anhtester.com/signin done in 3126 ms
+[INFO ] 21-11-2026 21:14:01.712 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.openWebsite:2546] - Open website with URL: https://rise.anhtester.com/signin
+[INFO ] 21-11-2026 21:14:01.731 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.getCurrentUrl:779] - Get Current URL: https://rise.anhtester.com/signin
+[INFO ] 21-11-2026 21:14:01.768 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.verifyContains:1493] - Verify Contains: https://rise.anhtester.com/signin CONTAINS /signin
+[INFO ] 21-11-2026 21:14:01.820 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.getPageTitle:796] - Get Page Title: Sign in | RISE CRM | Anh Tester Demo
+[INFO ] 21-11-2026 21:14:01.949 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.verifyEquals:1437] - Verify Equals: Sign in | RISE CRM | Anh Tester Demo = Sign in | RISE CRM | Anh Tester Demo
+[INFO ] 21-11-2026 21:14:02.184 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (b829303e3d7310c043b48411d3a4a185)] -> xpath: //input[@id='email']]}
+[DEBUG] 21-11-2026 21:14:02.185 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.beforeClear:136] - [WebDriver] Clear: xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:02.333 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.clearText:2674] - Clear text in textbox By.xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:04.952 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (b829303e3d7310c043b48411d3a4a185)] -> xpath: //input[@id='password']]}
+[DEBUG] 21-11-2026 21:14:04.952 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.beforeClear:136] - [WebDriver] Clear: xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:14:06.520 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.clearText:2674] - Clear text in textbox By.xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:14:07.027 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (b829303e3d7310c043b48411d3a4a185)] -> xpath: //input[@id='email']]}
+[DEBUG] 21-11-2026 21:14:07.122 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'admin@example.com' into: xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:07.964 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.setText:2590] - Set text admin@example.com on By.xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:08.284 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (b829303e3d7310c043b48411d3a4a185)] -> xpath: //input[@id='password']]}
+[DEBUG] 21-11-2026 21:14:08.302 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type '******' into: xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:14:08.570 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.setText:2590] - Set text ****** on By.xpath: //input[@id='password']
+[DEBUG] 21-11-2026 21:14:08.747 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Sign in']
+[DEBUG] 21-11-2026 21:14:10.329 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.logDone:53] - [WebDriver] Click done in 1581 ms
+[INFO ] 21-11-2026 21:14:10.329 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[normalize-space()='Sign in']
+[INFO ] 21-11-2026 21:14:10.352 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.getCurrentUrl:779] - Get Current URL: https://rise.anhtester.com/dashboard/index/1
+[INFO ] 21-11-2026 21:14:10.370 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.verifyContains:1493] - Verify Contains: https://rise.anhtester.com/dashboard/index/1 CONTAINS /dashboard
+[DEBUG] 21-11-2026 21:14:10.404 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:10.679 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:10.940 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:11.252 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:11.514 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:11.794 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:12.059 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:12.786 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:13.109 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:13.370 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:13.629 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:13.887 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:14.146 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:14.405 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:14.663 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:14.923 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:15.184 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:15.443 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[ERROR] 21-11-2026 21:14:15.444 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.failStep:114] - The menu Dashboard does not exist.
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element found by By.xpath: //span[normalize-space()='Dashboard']
+(tried for 5 seconds with 250 milliseconds interval)
+Build info: version: '4.53.0', revision: '0501530 05015309ae5a7496b80e496f540d2ecf969532c7'
+System info: os.name: 'Windows Server 2025', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.21.1'
+Driver info: jdk.proxy5.$Proxy54
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 157.0.8103.79, chrome: {chromedriverVersion: 157.0.8103.78 (4b3d0dabb825..., userDataDir: C:\Windows\SystemTemp\scope...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:51180}, goog:processID: 4516, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:51180/devtoo..., se:cdpVersion: 157.0.8103.79, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10...., webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: b829303e3d7310c043b48411d3a4a185
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:85)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at com.anhtester.keywords.WebUI.verifyElementPresent(WebUI.java:1891)
+	at com.anhtester.projects.crm.testcases.SignInTest.signInWithAdminRole(SignInTest.java:42)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:697)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:1005)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at org.testng.internal.thread.graph.TestNGFutureTask.run(TestNGFutureTask.java:22)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+[WARN ] 21-11-2026 21:14:15.446 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [Retry.retry:32] - RETRY 1/1: test SignInTest.signInWithAdminRole failed because: AssertionError - The menu Dashboard does not exist. | Cause: TimeoutException: Expected condition failed: waiting for presence of element found by By.xpath: //span[normalize-space()='Dashboard']
+
+[WARN ] 21-11-2026 21:14:15.449 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [TestListener.onTestSkipped:314] - Test case: signInWithAdminRole failed and will be RETRIED.
+java.lang.AssertionError: The menu Dashboard does not exist. | Cause: TimeoutException: Expected condition failed: waiting for presence of element found by By.xpath: //span[normalize-space()='Dashboard']
+
+	at com.anhtester.keywords.WebUI.failStep(WebUI.java:118)
+	at com.anhtester.keywords.WebUI.verifyElementPresent(WebUI.java:1902)
+	at com.anhtester.projects.crm.testcases.SignInTest.signInWithAdminRole(SignInTest.java:42)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:697)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:1005)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at org.testng.internal.thread.graph.TestNGFutureTask.run(TestNGFutureTask.java:22)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element found by By.xpath: //span[normalize-space()='Dashboard']
+(tried for 5 seconds with 250 milliseconds interval)
+Build info: version: '4.53.0', revision: '0501530 05015309ae5a7496b80e496f540d2ecf969532c7'
+System info: os.name: 'Windows Server 2025', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.21.1'
+Driver info: jdk.proxy5.$Proxy54
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 157.0.8103.79, chrome: {chromedriverVersion: 157.0.8103.78 (4b3d0dabb825..., userDataDir: C:\Windows\SystemTemp\scope...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:51180}, goog:processID: 4516, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:51180/devtoo..., se:cdpVersion: 157.0.8103.79, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10...., webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: b829303e3d7310c043b48411d3a4a185
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:85)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at com.anhtester.keywords.WebUI.verifyElementPresent(WebUI.java:1891)
+	... 19 more
+[DEBUG] 21-11-2026 21:14:15.451 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.beforeQuit:158] - [WebDriver] Quit browser
+[INFO ] 21-11-2026 21:14:15.645 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverManager.quit:38] - Closed the browser.
+[INFO ] 21-11-2026 21:14:15.647 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [TargetFactory.createInstance:45] - Creating driver: browser=chrome, target=LOCAL, headless=true
+[INFO ] 21-11-2026 21:14:16.213 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [TargetFactory.logDriverInfo:124] - Driver created in 566 ms: chrome 157.0.8103.79 on windows
+[DEBUG] 21-11-2026 21:14:16.294 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [BaseTest.initDriver:57] - Window size: (1920, 1080)
+[INFO ] 21-11-2026 21:14:16.295 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [TestListener.onTestStart:251] - ========== Test case: signInWithAdminRole is starting... ==========
+[INFO ] 21-11-2026 21:14:16.297 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [ExcelHelpers.setExcelFile:36] - Set Excel File: src/test/resources/testdataCRM/ClientsDataExcel.xlsx
+[INFO ] 21-11-2026 21:14:16.297 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [ExcelHelpers.setExcelFile:37] - Sheet Name: SignIn
+[DEBUG] 21-11-2026 21:14:16.351 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.beforeGet:78] - [WebDriver] Open URL: https://rise.anhtester.com/signin
+[DEBUG] 21-11-2026 21:14:20.161 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.logDone:53] - [WebDriver] Open URL https://rise.anhtester.com/signin done in 3809 ms
+[INFO ] 21-11-2026 21:14:20.167 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.openWebsite:2546] - Open website with URL: https://rise.anhtester.com/signin
+[INFO ] 21-11-2026 21:14:20.186 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.getCurrentUrl:779] - Get Current URL: https://rise.anhtester.com/signin
+[INFO ] 21-11-2026 21:14:20.203 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.verifyContains:1493] - Verify Contains: https://rise.anhtester.com/signin CONTAINS /signin
+[INFO ] 21-11-2026 21:14:20.216 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.getPageTitle:796] - Get Page Title: Sign in | RISE CRM | Anh Tester Demo
+[INFO ] 21-11-2026 21:14:20.225 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.verifyEquals:1437] - Verify Equals: Sign in | RISE CRM | Anh Tester Demo = Sign in | RISE CRM | Anh Tester Demo
+[INFO ] 21-11-2026 21:14:20.271 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (f4339dcd2d9ef0e0ed5904909abcf99e)] -> xpath: //input[@id='email']]}
+[DEBUG] 21-11-2026 21:14:20.271 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.beforeClear:136] - [WebDriver] Clear: xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:20.300 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.clearText:2674] - Clear text in textbox By.xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:20.329 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (f4339dcd2d9ef0e0ed5904909abcf99e)] -> xpath: //input[@id='password']]}
+[DEBUG] 21-11-2026 21:14:20.330 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.beforeClear:136] - [WebDriver] Clear: xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:14:20.349 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.clearText:2674] - Clear text in textbox By.xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:14:20.383 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (f4339dcd2d9ef0e0ed5904909abcf99e)] -> xpath: //input[@id='email']]}
+[DEBUG] 21-11-2026 21:14:20.402 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'admin@example.com' into: xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:20.463 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.setText:2590] - Set text admin@example.com on By.xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:20.493 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (f4339dcd2d9ef0e0ed5904909abcf99e)] -> xpath: //input[@id='password']]}
+[DEBUG] 21-11-2026 21:14:20.499 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type '******' into: xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:14:20.549 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.setText:2590] - Set text ****** on By.xpath: //input[@id='password']
+[DEBUG] 21-11-2026 21:14:20.581 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Sign in']
+[DEBUG] 21-11-2026 21:14:21.839 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.logDone:53] - [WebDriver] Click done in 1257 ms
+[INFO ] 21-11-2026 21:14:21.839 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[normalize-space()='Sign in']
+[INFO ] 21-11-2026 21:14:21.856 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.getCurrentUrl:779] - Get Current URL: https://rise.anhtester.com/dashboard/index/1
+[INFO ] 21-11-2026 21:14:21.869 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.verifyContains:1493] - Verify Contains: https://rise.anhtester.com/dashboard/index/1 CONTAINS /dashboard
+[DEBUG] 21-11-2026 21:14:21.884 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:22.141 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:22.399 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:22.670 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:22.938 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:23.195 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:23.456 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:23.729 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:23.988 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:24.250 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:24.509 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:24.777 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:25.035 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:25.299 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:25.568 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:25.826 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:26.086 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:26.344 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:26.616 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[DEBUG] 21-11-2026 21:14:26.876 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()='Dashboard']"}
+[ERROR] 21-11-2026 21:14:26.876 [TestNG-test-SignIn Test-2] [SignInTest.signInWithAdminRole] [WebUI.failStep:114] - The menu Dashboard does not exist.
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element found by By.xpath: //span[normalize-space()='Dashboard']
+(tried for 5 seconds with 250 milliseconds interval)
+Build info: version: '4.53.0', revision: '0501530 05015309ae5a7496b80e496f540d2ecf969532c7'
+System info: os.name: 'Windows Server 2025', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.21.1'
+Driver info: jdk.proxy10.$Proxy68
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 157.0.8103.79, chrome: {chromedriverVersion: 157.0.8103.78 (4b3d0dabb825..., userDataDir: C:\Windows\SystemTemp\scope...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:50901}, goog:processID: 13464, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:50901/devtoo..., se:cdpVersion: 157.0.8103.79, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10...., webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: f4339dcd2d9ef0e0ed5904909abcf99e
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:85)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at com.anhtester.keywords.WebUI.verifyElementPresent(WebUI.java:1891)
+	at com.anhtester.projects.crm.testcases.SignInTest.signInWithAdminRole(SignInTest.java:42)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:697)
+	at org.testng.internal.invokers.TestInvoker.retryFailed(TestInvoker.java:280)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:76)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:1005)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at org.testng.internal.thread.graph.TestNGFutureTask.run(TestNGFutureTask.java:22)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)

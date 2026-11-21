@@ -1,0 +1,261 @@
+[INFO ] 21-11-2026 21:15:32.253 [main] [OrderTest.TC_OrderProduct] [TargetFactory.createInstance:45] - Creating driver: browser=chrome, target=LOCAL, headless=true
+[INFO ] 21-11-2026 21:15:32.864 [main] [OrderTest.TC_OrderProduct] [TargetFactory.logDriverInfo:124] - Driver created in 608 ms: chrome 157.0.8103.79 on windows
+[DEBUG] 21-11-2026 21:15:32.930 [main] [OrderTest.TC_OrderProduct] [BaseTest.initDriver:57] - Window size: (1920, 1080)
+[INFO ] 21-11-2026 21:15:32.932 [main] [OrderTest.TC_OrderProduct] [TestListener.onTestStart:251] - ========== Test case: TC_OrderProduct is starting... ==========
+[INFO ] 21-11-2026 21:15:32.934 [main] [OrderTest.TC_OrderProduct] [ExcelHelpers.setExcelFile:36] - Set Excel File: src/test/resources/testdataCMS/Login.xlsx
+[INFO ] 21-11-2026 21:15:32.934 [main] [OrderTest.TC_OrderProduct] [ExcelHelpers.setExcelFile:37] - Sheet Name: Login
+[DEBUG] 21-11-2026 21:15:32.971 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeGet:78] - [WebDriver] Open URL: https://cms.anhtester.com
+[DEBUG] 21-11-2026 21:15:37.774 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Open URL https://cms.anhtester.com done in 4803 ms
+[INFO ] 21-11-2026 21:15:37.781 [main] [OrderTest.TC_OrderProduct] [WebUI.openWebsite:2546] - Open website with URL: https://cms.anhtester.com
+[DEBUG] 21-11-2026 21:15:37.829 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[@data-key='website-popup']
+[DEBUG] 21-11-2026 21:15:37.876 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 47 ms
+[INFO ] 21-11-2026 21:15:37.876 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[@data-key='website-popup']
+[DEBUG] 21-11-2026 21:15:37.906 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Ok. I Understood']
+[DEBUG] 21-11-2026 21:15:37.945 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 39 ms
+[INFO ] 21-11-2026 21:15:37.945 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[normalize-space()='Ok. I Understood']
+[DEBUG] 21-11-2026 21:15:37.970 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: (//a[normalize-space()='Registration']/parent::li)/preceding-sibling::li
+[DEBUG] 21-11-2026 21:15:38.821 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 851 ms
+[INFO ] 21-11-2026 21:15:38.821 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: (//a[normalize-space()='Registration']/parent::li)/preceding-sibling::li
+[INFO ] 21-11-2026 21:15:38.834 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyElementVisible:2106] - Verify element visible By.xpath: //h1[normalize-space() = 'Login to your account.']
+[INFO ] 21-11-2026 21:15:38.877 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (626563bc05fd7da360f6c323b653b6f8)] -> xpath: //input[@id='email']]}
+[DEBUG] 21-11-2026 21:15:38.895 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'customer@example.com' into: xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:15:38.964 [main] [OrderTest.TC_OrderProduct] [WebUI.setText:2590] - Set text customer@example.com on By.xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:15:38.994 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (626563bc05fd7da360f6c323b653b6f8)] -> xpath: //input[@id='password']]}
+[DEBUG] 21-11-2026 21:15:38.994 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClear:136] - [WebDriver] Clear: xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:15:39.015 [main] [OrderTest.TC_OrderProduct] [WebUI.clearText:2674] - Clear text in textbox By.xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:15:39.044 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (626563bc05fd7da360f6c323b653b6f8)] -> xpath: //input[@id='password']]}
+[DEBUG] 21-11-2026 21:15:39.049 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type '******' into: xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:15:39.093 [main] [OrderTest.TC_OrderProduct] [WebUI.setText:2590] - Set text ****** on By.xpath: //input[@id='password']
+[DEBUG] 21-11-2026 21:15:39.120 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Login']
+[DEBUG] 21-11-2026 21:15:43.436 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 4315 ms
+[INFO ] 21-11-2026 21:15:43.436 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[normalize-space()='Login']
+[INFO ] 21-11-2026 21:15:43.469 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (626563bc05fd7da360f6c323b653b6f8)] -> xpath: //h1[normalize-space()='Dashboard']]}
+[INFO ] 21-11-2026 21:15:43.473 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyElementVisible:2106] - Verify element visible By.xpath: //h1[normalize-space()='Dashboard']
+[INFO ] 21-11-2026 21:15:43.519 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (626563bc05fd7da360f6c323b653b6f8)] -> xpath: //input[@id='search']]}
+[DEBUG] 21-11-2026 21:15:43.532 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'Giỏ quà Tết iMqku' into: xpath: //input[@id='search']
+[INFO ] 21-11-2026 21:15:43.608 [main] [OrderTest.TC_OrderProduct] [WebUI.setText:2590] - Set text Giỏ quà Tết iMqku on By.xpath: //input[@id='search']
+[DEBUG] 21-11-2026 21:15:46.285 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //div[@id='search-content']//div[contains(text(),'Giỏ quà Tết iMqku')]
+[DEBUG] 21-11-2026 21:15:48.813 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 2528 ms
+[INFO ] 21-11-2026 21:15:48.813 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //div[@id='search-content']//div[contains(text(),'Giỏ quà Tết iMqku')]
+[INFO ] 21-11-2026 21:15:48.880 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (626563bc05fd7da360f6c323b653b6f8)] -> xpath: (//div[text()='Price:']/parent::div)/following-sibling::div//strong]}
+[INFO ] 21-11-2026 21:15:48.899 [main] [OrderTest.TC_OrderProduct] [WebUI.getTextElement:2866] - Get text of element By.xpath: (//div[text()='Price:']/parent::div)/following-sibling::div//strong ==> $5,000,000.00
+[INFO ] 21-11-2026 21:15:48.929 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtBottom:2274] - Scroll to element By.xpath: //button[@class='btn btn-soft-primary mr-2 add-to-cart fw-600']
+[DEBUG] 21-11-2026 21:15:48.959 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[@class='btn btn-soft-primary mr-2 add-to-cart fw-600']
+[DEBUG] 21-11-2026 21:15:49.017 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 58 ms
+[INFO ] 21-11-2026 21:15:49.017 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[@class='btn btn-soft-primary mr-2 add-to-cart fw-600']
+[INFO ] 21-11-2026 21:15:49.043 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyElementVisible:2106] - Verify element visible By.xpath: //h3[normalize-space()='Item added to your cart!']
+[DEBUG] 21-11-2026 21:15:49.055 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//h3[normalize-space()='Item added to your cart!']"}
+[DEBUG] 21-11-2026 21:15:49.315 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//h3[normalize-space()='Item added to your cart!']"}
+[DEBUG] 21-11-2026 21:15:49.572 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//h3[normalize-space()='Item added to your cart!']"}
+[DEBUG] 21-11-2026 21:15:49.865 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Back to shopping']
+[DEBUG] 21-11-2026 21:15:49.926 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 61 ms
+[INFO ] 21-11-2026 21:15:49.927 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[normalize-space()='Back to shopping']
+[INFO ] 21-11-2026 21:15:49.964 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (626563bc05fd7da360f6c323b653b6f8)] -> xpath: //input[@id='search']]}
+[DEBUG] 21-11-2026 21:15:49.979 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'Cosy Hai Yen OXUOCYJB' into: xpath: //input[@id='search']
+[INFO ] 21-11-2026 21:15:50.077 [main] [OrderTest.TC_OrderProduct] [WebUI.setText:2590] - Set text Cosy Hai Yen OXUOCYJB on By.xpath: //input[@id='search']
+[DEBUG] 21-11-2026 21:15:55.025 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //div[@id='search-content']//div[contains(text(),'Cosy Hai Yen OXUOCYJB')]
+[DEBUG] 21-11-2026 21:15:57.565 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 2540 ms
+[INFO ] 21-11-2026 21:15:57.565 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //div[@id='search-content']//div[contains(text(),'Cosy Hai Yen OXUOCYJB')]
+[INFO ] 21-11-2026 21:15:57.625 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (626563bc05fd7da360f6c323b653b6f8)] -> xpath: (//div[text()='Price:']/parent::div)/following-sibling::div//strong]}
+[INFO ] 21-11-2026 21:15:57.640 [main] [OrderTest.TC_OrderProduct] [WebUI.getTextElement:2866] - Get text of element By.xpath: (//div[text()='Price:']/parent::div)/following-sibling::div//strong ==> $138,000.00
+[DEBUG] 21-11-2026 21:15:57.675 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[contains(@data-type,'plus')]
+[DEBUG] 21-11-2026 21:15:57.747 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 70 ms
+[INFO ] 21-11-2026 21:15:57.747 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[contains(@data-type,'plus')]
+[INFO ] 21-11-2026 21:15:58.818 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (626563bc05fd7da360f6c323b653b6f8)] -> xpath: //input[@name='quantity']]}
+[INFO ] 21-11-2026 21:15:58.834 [main] [OrderTest.TC_OrderProduct] [OrderPage.order:66] - Quantity Product 02: 2
+[INFO ] 21-11-2026 21:15:58.896 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (626563bc05fd7da360f6c323b653b6f8)] -> xpath: //input[@name='quantity']]}
+[INFO ] 21-11-2026 21:15:58.908 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyEquals:1437] - Verify Equals: 2 = 2
+[INFO ] 21-11-2026 21:15:58.932 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtBottom:2274] - Scroll to element By.xpath: //button[@class='btn btn-soft-primary mr-2 add-to-cart fw-600']
+[DEBUG] 21-11-2026 21:15:58.976 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[@class='btn btn-soft-primary mr-2 add-to-cart fw-600']
+[DEBUG] 21-11-2026 21:15:59.047 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 71 ms
+[INFO ] 21-11-2026 21:15:59.047 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[@class='btn btn-soft-primary mr-2 add-to-cart fw-600']
+[INFO ] 21-11-2026 21:15:59.071 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyElementVisible:2106] - Verify element visible By.xpath: //h3[normalize-space()='Item added to your cart!']
+[DEBUG] 21-11-2026 21:15:59.095 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//h3[normalize-space()='Item added to your cart!']"}
+[DEBUG] 21-11-2026 21:15:59.353 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//h3[normalize-space()='Item added to your cart!']"}
+[DEBUG] 21-11-2026 21:15:59.611 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//h3[normalize-space()='Item added to your cart!']"}
+[DEBUG] 21-11-2026 21:15:59.870 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//h3[normalize-space()='Item added to your cart!']"}
+[DEBUG] 21-11-2026 21:16:00.128 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//h3[normalize-space()='Item added to your cart!']"}
+[DEBUG] 21-11-2026 21:16:00.425 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //span[@class = 'la-2x']
+[DEBUG] 21-11-2026 21:16:00.476 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 51 ms
+[INFO ] 21-11-2026 21:16:00.476 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //span[@class = 'la-2x']
+[DEBUG] 21-11-2026 21:16:00.515 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //i[@class='la la-shopping-cart la-2x opacity-80']
+[DEBUG] 21-11-2026 21:16:00.569 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 54 ms
+[INFO ] 21-11-2026 21:16:00.569 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //i[@class='la la-shopping-cart la-2x opacity-80']
+[INFO ] 21-11-2026 21:16:00.579 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyElementVisible:2106] - Verify element visible By.xpath: //a[normalize-space()='Checkout']
+[DEBUG] 21-11-2026 21:16:00.621 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //a[normalize-space()='Checkout']
+[DEBUG] 21-11-2026 21:16:04.203 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 3582 ms
+[INFO ] 21-11-2026 21:16:04.203 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //a[normalize-space()='Checkout']
+[DEBUG] 21-11-2026 21:16:04.238 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //span[@class='aiz-rounded-check flex-shrink-0 mt-1']
+[DEBUG] 21-11-2026 21:16:04.292 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 54 ms
+[INFO ] 21-11-2026 21:16:04.292 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //span[@class='aiz-rounded-check flex-shrink-0 mt-1']
+[DEBUG] 21-11-2026 21:16:04.324 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Continue to Delivery Info']
+[DEBUG] 21-11-2026 21:16:04.381 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 57 ms
+[INFO ] 21-11-2026 21:16:04.381 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[normalize-space()='Continue to Delivery Info']
+[INFO ] 21-11-2026 21:16:06.390 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtBottom:2274] - Scroll to element By.xpath: //button[normalize-space()='Continue to Payment']
+[DEBUG] 21-11-2026 21:16:06.411 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Continue to Payment']
+[DEBUG] 21-11-2026 21:16:09.055 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 2644 ms
+[INFO ] 21-11-2026 21:16:09.055 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[normalize-space()='Continue to Payment']
+[INFO ] 21-11-2026 21:16:09.060 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyElementVisible:2106] - Verify element visible By.xpath: //h3[normalize-space()='Any additional info?']
+[INFO ] 21-11-2026 21:16:09.101 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (626563bc05fd7da360f6c323b653b6f8)] -> xpath: //textarea[@placeholder='Type your text']]}
+[DEBUG] 21-11-2026 21:16:09.117 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'Delivery as soon as possible' into: xpath: //textarea[@placeholder='Type your text']
+[INFO ] 21-11-2026 21:16:09.195 [main] [OrderTest.TC_OrderProduct] [WebUI.setText:2590] - Set text Delivery as soon as possible on By.xpath: //textarea[@placeholder='Type your text']
+[INFO ] 21-11-2026 21:16:09.209 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtBottom:2274] - Scroll to element By.xpath: //span[@class='aiz-square-check']
+[DEBUG] 21-11-2026 21:16:09.230 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //span[@class='aiz-square-check']
+[DEBUG] 21-11-2026 21:16:09.272 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 42 ms
+[INFO ] 21-11-2026 21:16:09.272 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //span[@class='aiz-square-check']
+[INFO ] 21-11-2026 21:16:09.304 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (626563bc05fd7da360f6c323b653b6f8)] -> xpath: //tr[@class = 'cart-subtotal']//td[@class = 'text-right']//span]}
+[INFO ] 21-11-2026 21:16:09.310 [main] [OrderTest.TC_OrderProduct] [WebUI.getTextElement:2866] - Get text of element By.xpath: //tr[@class = 'cart-subtotal']//td[@class = 'text-right']//span ==> $26,380,000.00
+[INFO ] 21-11-2026 21:16:09.312 [main] [OrderTest.TC_OrderProduct] [OrderPage.order:94] - sumPrice: 5276000
+[INFO ] 21-11-2026 21:16:09.312 [main] [OrderTest.TC_OrderProduct] [OrderPage.order:95] - subTotal: 26380000
+[ERROR] 21-11-2026 21:16:09.312 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyEquals:1443] - Verify Equals: 5276000 != 26380000
+[WARN ] 21-11-2026 21:16:09.313 [main] [OrderTest.TC_OrderProduct] [Retry.retry:32] - RETRY 1/1: test OrderTest.TC_OrderProduct failed because: AssertionError - ❌ The total price is failed expected [26380000] but found [5276000]
+[WARN ] 21-11-2026 21:16:09.315 [main] [OrderTest.TC_OrderProduct] [TestListener.onTestSkipped:314] - Test case: TC_OrderProduct failed and will be RETRIED.
+java.lang.AssertionError: ❌ The total price is failed expected [26380000] but found [5276000]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1590)
+	at org.testng.Assert.assertEqualsImpl(Assert.java:150)
+	at org.testng.Assert.assertEquals(Assert.java:132)
+	at com.anhtester.keywords.WebUI.verifyEquals(WebUI.java:1448)
+	at com.anhtester.projects.cms.users.pages.order.OrderPage.order(OrderPage.java:96)
+	at com.anhtester.projects.cms.testcases.OrderTest.TC_OrderProduct(OrderTest.java:19)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:697)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:1005)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:744)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+	at org.testng.TestNG.runSuites(TestNG.java:1112)
+	at org.testng.TestNG.run(TestNG.java:1079)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+[DEBUG] 21-11-2026 21:16:09.316 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeQuit:158] - [WebDriver] Quit browser
+[INFO ] 21-11-2026 21:16:09.524 [main] [OrderTest.TC_OrderProduct] [DriverManager.quit:38] - Closed the browser.
+[INFO ] 21-11-2026 21:16:09.527 [main] [OrderTest.TC_OrderProduct] [TargetFactory.createInstance:45] - Creating driver: browser=chrome, target=LOCAL, headless=true
+[INFO ] 21-11-2026 21:16:10.033 [main] [OrderTest.TC_OrderProduct] [TargetFactory.logDriverInfo:124] - Driver created in 506 ms: chrome 157.0.8103.79 on windows
+[DEBUG] 21-11-2026 21:16:10.129 [main] [OrderTest.TC_OrderProduct] [BaseTest.initDriver:57] - Window size: (1920, 1080)
+[INFO ] 21-11-2026 21:16:10.130 [main] [OrderTest.TC_OrderProduct] [TestListener.onTestStart:251] - ========== Test case: TC_OrderProduct is starting... ==========
+[INFO ] 21-11-2026 21:16:10.139 [main] [OrderTest.TC_OrderProduct] [ExcelHelpers.setExcelFile:36] - Set Excel File: src/test/resources/testdataCMS/Login.xlsx
+[INFO ] 21-11-2026 21:16:10.139 [main] [OrderTest.TC_OrderProduct] [ExcelHelpers.setExcelFile:37] - Sheet Name: Login
+[DEBUG] 21-11-2026 21:16:10.184 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeGet:78] - [WebDriver] Open URL: https://cms.anhtester.com
+[DEBUG] 21-11-2026 21:16:14.608 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Open URL https://cms.anhtester.com done in 4424 ms
+[INFO ] 21-11-2026 21:16:14.613 [main] [OrderTest.TC_OrderProduct] [WebUI.openWebsite:2546] - Open website with URL: https://cms.anhtester.com
+[DEBUG] 21-11-2026 21:16:14.659 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[@data-key='website-popup']
+[DEBUG] 21-11-2026 21:16:14.707 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 48 ms
+[INFO ] 21-11-2026 21:16:14.707 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[@data-key='website-popup']
+[DEBUG] 21-11-2026 21:16:14.733 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Ok. I Understood']
+[DEBUG] 21-11-2026 21:16:14.774 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 41 ms
+[INFO ] 21-11-2026 21:16:14.774 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[normalize-space()='Ok. I Understood']
+[DEBUG] 21-11-2026 21:16:14.799 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: (//a[normalize-space()='Registration']/parent::li)/preceding-sibling::li
+[DEBUG] 21-11-2026 21:16:15.608 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 809 ms
+[INFO ] 21-11-2026 21:16:15.609 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: (//a[normalize-space()='Registration']/parent::li)/preceding-sibling::li
+[INFO ] 21-11-2026 21:16:15.623 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyElementVisible:2106] - Verify element visible By.xpath: //h1[normalize-space() = 'Login to your account.']
+[INFO ] 21-11-2026 21:16:15.668 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (142f5945884d08d4b61af79b4a76686f)] -> xpath: //input[@id='email']]}
+[DEBUG] 21-11-2026 21:16:15.688 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'customer@example.com' into: xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:16:15.759 [main] [OrderTest.TC_OrderProduct] [WebUI.setText:2590] - Set text customer@example.com on By.xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:16:15.785 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (142f5945884d08d4b61af79b4a76686f)] -> xpath: //input[@id='password']]}
+[DEBUG] 21-11-2026 21:16:15.785 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClear:136] - [WebDriver] Clear: xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:16:15.809 [main] [OrderTest.TC_OrderProduct] [WebUI.clearText:2674] - Clear text in textbox By.xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:16:15.835 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (142f5945884d08d4b61af79b4a76686f)] -> xpath: //input[@id='password']]}
+[DEBUG] 21-11-2026 21:16:15.840 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type '******' into: xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:16:15.878 [main] [OrderTest.TC_OrderProduct] [WebUI.setText:2590] - Set text ****** on By.xpath: //input[@id='password']
+[DEBUG] 21-11-2026 21:16:15.901 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Login']
+[DEBUG] 21-11-2026 21:16:19.625 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 3724 ms
+[INFO ] 21-11-2026 21:16:19.625 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[normalize-space()='Login']
+[INFO ] 21-11-2026 21:16:19.657 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (142f5945884d08d4b61af79b4a76686f)] -> xpath: //h1[normalize-space()='Dashboard']]}
+[INFO ] 21-11-2026 21:16:19.661 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyElementVisible:2106] - Verify element visible By.xpath: //h1[normalize-space()='Dashboard']
+[INFO ] 21-11-2026 21:16:19.704 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (142f5945884d08d4b61af79b4a76686f)] -> xpath: //input[@id='search']]}
+[DEBUG] 21-11-2026 21:16:19.718 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'Giỏ quà Tết iMqku' into: xpath: //input[@id='search']
+[INFO ] 21-11-2026 21:16:19.796 [main] [OrderTest.TC_OrderProduct] [WebUI.setText:2590] - Set text Giỏ quà Tết iMqku on By.xpath: //input[@id='search']
+[DEBUG] 21-11-2026 21:16:22.391 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //div[@id='search-content']//div[contains(text(),'Giỏ quà Tết iMqku')]
+[DEBUG] 21-11-2026 21:16:25.246 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 2855 ms
+[INFO ] 21-11-2026 21:16:25.246 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //div[@id='search-content']//div[contains(text(),'Giỏ quà Tết iMqku')]
+[INFO ] 21-11-2026 21:16:25.292 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (142f5945884d08d4b61af79b4a76686f)] -> xpath: (//div[text()='Price:']/parent::div)/following-sibling::div//strong]}
+[INFO ] 21-11-2026 21:16:25.315 [main] [OrderTest.TC_OrderProduct] [WebUI.getTextElement:2866] - Get text of element By.xpath: (//div[text()='Price:']/parent::div)/following-sibling::div//strong ==> $5,000,000.00
+[INFO ] 21-11-2026 21:16:25.332 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtBottom:2274] - Scroll to element By.xpath: //button[@class='btn btn-soft-primary mr-2 add-to-cart fw-600']
+[DEBUG] 21-11-2026 21:16:25.356 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[@class='btn btn-soft-primary mr-2 add-to-cart fw-600']
+[DEBUG] 21-11-2026 21:16:25.411 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 55 ms
+[INFO ] 21-11-2026 21:16:25.412 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[@class='btn btn-soft-primary mr-2 add-to-cart fw-600']
+[INFO ] 21-11-2026 21:16:25.430 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyElementVisible:2106] - Verify element visible By.xpath: //h3[normalize-space()='Item added to your cart!']
+[DEBUG] 21-11-2026 21:16:25.442 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//h3[normalize-space()='Item added to your cart!']"}
+[DEBUG] 21-11-2026 21:16:25.700 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//h3[normalize-space()='Item added to your cart!']"}
+[DEBUG] 21-11-2026 21:16:25.957 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//h3[normalize-space()='Item added to your cart!']"}
+[DEBUG] 21-11-2026 21:16:26.247 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Back to shopping']
+[DEBUG] 21-11-2026 21:16:26.295 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 48 ms
+[INFO ] 21-11-2026 21:16:26.295 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[normalize-space()='Back to shopping']
+[INFO ] 21-11-2026 21:16:26.335 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (142f5945884d08d4b61af79b4a76686f)] -> xpath: //input[@id='search']]}
+[DEBUG] 21-11-2026 21:16:26.349 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'Cosy Hai Yen OXUOCYJB' into: xpath: //input[@id='search']
+[INFO ] 21-11-2026 21:16:26.433 [main] [OrderTest.TC_OrderProduct] [WebUI.setText:2590] - Set text Cosy Hai Yen OXUOCYJB on By.xpath: //input[@id='search']
+[DEBUG] 21-11-2026 21:16:29.813 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //div[@id='search-content']//div[contains(text(),'Cosy Hai Yen OXUOCYJB')]
+[DEBUG] 21-11-2026 21:16:32.362 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 2549 ms
+[INFO ] 21-11-2026 21:16:32.363 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //div[@id='search-content']//div[contains(text(),'Cosy Hai Yen OXUOCYJB')]
+[INFO ] 21-11-2026 21:16:32.404 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (142f5945884d08d4b61af79b4a76686f)] -> xpath: (//div[text()='Price:']/parent::div)/following-sibling::div//strong]}
+[INFO ] 21-11-2026 21:16:32.410 [main] [OrderTest.TC_OrderProduct] [WebUI.getTextElement:2866] - Get text of element By.xpath: (//div[text()='Price:']/parent::div)/following-sibling::div//strong ==> $138,000.00
+[DEBUG] 21-11-2026 21:16:32.437 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[contains(@data-type,'plus')]
+[DEBUG] 21-11-2026 21:16:32.488 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 51 ms
+[INFO ] 21-11-2026 21:16:32.489 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[contains(@data-type,'plus')]
+[INFO ] 21-11-2026 21:16:33.526 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (142f5945884d08d4b61af79b4a76686f)] -> xpath: //input[@name='quantity']]}
+[INFO ] 21-11-2026 21:16:33.532 [main] [OrderTest.TC_OrderProduct] [OrderPage.order:66] - Quantity Product 02: 2
+[INFO ] 21-11-2026 21:16:33.556 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (142f5945884d08d4b61af79b4a76686f)] -> xpath: //input[@name='quantity']]}
+[INFO ] 21-11-2026 21:16:33.561 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyEquals:1437] - Verify Equals: 2 = 2
+[INFO ] 21-11-2026 21:16:33.573 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtBottom:2274] - Scroll to element By.xpath: //button[@class='btn btn-soft-primary mr-2 add-to-cart fw-600']
+[DEBUG] 21-11-2026 21:16:33.594 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[@class='btn btn-soft-primary mr-2 add-to-cart fw-600']
+[DEBUG] 21-11-2026 21:16:33.639 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 45 ms
+[INFO ] 21-11-2026 21:16:33.639 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[@class='btn btn-soft-primary mr-2 add-to-cart fw-600']
+[INFO ] 21-11-2026 21:16:33.645 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyElementVisible:2106] - Verify element visible By.xpath: //h3[normalize-space()='Item added to your cart!']
+[DEBUG] 21-11-2026 21:16:33.655 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//h3[normalize-space()='Item added to your cart!']"}
+[DEBUG] 21-11-2026 21:16:33.913 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//h3[normalize-space()='Item added to your cart!']"}
+[DEBUG] 21-11-2026 21:16:34.245 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //span[@class = 'la-2x']
+[DEBUG] 21-11-2026 21:16:34.293 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 48 ms
+[INFO ] 21-11-2026 21:16:34.294 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //span[@class = 'la-2x']
+[DEBUG] 21-11-2026 21:16:34.329 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //i[@class='la la-shopping-cart la-2x opacity-80']
+[DEBUG] 21-11-2026 21:16:34.377 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 47 ms
+[INFO ] 21-11-2026 21:16:34.377 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //i[@class='la la-shopping-cart la-2x opacity-80']
+[INFO ] 21-11-2026 21:16:34.383 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyElementVisible:2106] - Verify element visible By.xpath: //a[normalize-space()='Checkout']
+[DEBUG] 21-11-2026 21:16:34.416 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //a[normalize-space()='Checkout']
+[DEBUG] 21-11-2026 21:16:37.104 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 2688 ms
+[INFO ] 21-11-2026 21:16:37.104 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //a[normalize-space()='Checkout']
+[DEBUG] 21-11-2026 21:16:37.139 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //span[@class='aiz-rounded-check flex-shrink-0 mt-1']
+[DEBUG] 21-11-2026 21:16:37.188 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 49 ms
+[INFO ] 21-11-2026 21:16:37.188 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //span[@class='aiz-rounded-check flex-shrink-0 mt-1']
+[DEBUG] 21-11-2026 21:16:37.214 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Continue to Delivery Info']
+[DEBUG] 21-11-2026 21:16:37.263 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 49 ms
+[INFO ] 21-11-2026 21:16:37.263 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[normalize-space()='Continue to Delivery Info']
+[INFO ] 21-11-2026 21:16:40.715 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtBottom:2274] - Scroll to element By.xpath: //button[normalize-space()='Continue to Payment']
+[DEBUG] 21-11-2026 21:16:40.737 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Continue to Payment']
+[DEBUG] 21-11-2026 21:16:40.779 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 42 ms
+[INFO ] 21-11-2026 21:16:40.779 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[normalize-space()='Continue to Payment']
+[INFO ] 21-11-2026 21:16:43.491 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyElementVisible:2106] - Verify element visible By.xpath: //h3[normalize-space()='Any additional info?']
+[INFO ] 21-11-2026 21:16:43.534 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (142f5945884d08d4b61af79b4a76686f)] -> xpath: //textarea[@placeholder='Type your text']]}
+[DEBUG] 21-11-2026 21:16:43.548 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'Delivery as soon as possible' into: xpath: //textarea[@placeholder='Type your text']
+[INFO ] 21-11-2026 21:16:43.628 [main] [OrderTest.TC_OrderProduct] [WebUI.setText:2590] - Set text Delivery as soon as possible on By.xpath: //textarea[@placeholder='Type your text']
+[INFO ] 21-11-2026 21:16:43.643 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtBottom:2274] - Scroll to element By.xpath: //span[@class='aiz-square-check']
+[DEBUG] 21-11-2026 21:16:43.663 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //span[@class='aiz-square-check']
+[DEBUG] 21-11-2026 21:16:43.704 [main] [OrderTest.TC_OrderProduct] [DriverEventListener.logDone:53] - [WebDriver] Click done in 41 ms
+[INFO ] 21-11-2026 21:16:43.704 [main] [OrderTest.TC_OrderProduct] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //span[@class='aiz-square-check']
+[INFO ] 21-11-2026 21:16:43.736 [main] [OrderTest.TC_OrderProduct] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (142f5945884d08d4b61af79b4a76686f)] -> xpath: //tr[@class = 'cart-subtotal']//td[@class = 'text-right']//span]}
+[INFO ] 21-11-2026 21:16:43.742 [main] [OrderTest.TC_OrderProduct] [WebUI.getTextElement:2866] - Get text of element By.xpath: //tr[@class = 'cart-subtotal']//td[@class = 'text-right']//span ==> $36,656,000.00
+[INFO ] 21-11-2026 21:16:43.742 [main] [OrderTest.TC_OrderProduct] [OrderPage.order:94] - sumPrice: 5276000
+[INFO ] 21-11-2026 21:16:43.743 [main] [OrderTest.TC_OrderProduct] [OrderPage.order:95] - subTotal: 36656000
+[ERROR] 21-11-2026 21:16:43.743 [main] [OrderTest.TC_OrderProduct] [WebUI.verifyEquals:1443] - Verify Equals: 5276000 != 36656000

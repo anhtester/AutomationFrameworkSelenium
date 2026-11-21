@@ -1,0 +1,91 @@
+[INFO ] 21-11-2026 21:13:42.474 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [TargetFactory.createInstance:45] - Creating driver: browser=chrome, target=LOCAL, headless=true
+[INFO ] 21-11-2026 21:13:58.225 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [TargetFactory.logDriverInfo:124] - Driver created in 15704 ms: chrome 157.0.8103.79 on windows
+[DEBUG] 21-11-2026 21:13:58.441 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [BaseTest.initDriver:57] - Window size: (1920, 1080)
+[INFO ] 21-11-2026 21:13:58.449 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [TestListener.onTestStart:251] - ========== Test case: signInWithClientRole is starting... ==========
+[INFO ] 21-11-2026 21:13:58.460 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [ExcelHelpers.setExcelFile:36] - Set Excel File: src/test/resources/testdataCRM/ClientsDataExcel.xlsx
+[INFO ] 21-11-2026 21:13:58.462 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [ExcelHelpers.setExcelFile:37] - Sheet Name: SignIn
+[DEBUG] 21-11-2026 21:13:58.681 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.beforeGet:78] - [WebDriver] Open URL: https://rise.anhtester.com/signin
+[DEBUG] 21-11-2026 21:14:01.945 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.logDone:53] - [WebDriver] Open URL https://rise.anhtester.com/signin done in 3263 ms
+[INFO ] 21-11-2026 21:14:01.976 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.openWebsite:2546] - Open website with URL: https://rise.anhtester.com/signin
+[INFO ] 21-11-2026 21:14:02.050 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.getCurrentUrl:779] - Get Current URL: https://rise.anhtester.com/signin
+[INFO ] 21-11-2026 21:14:02.203 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.verifyContains:1493] - Verify Contains: https://rise.anhtester.com/signin CONTAINS /signin
+[INFO ] 21-11-2026 21:14:02.353 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.getPageTitle:796] - Get Page Title: Sign in | RISE CRM | Anh Tester Demo
+[INFO ] 21-11-2026 21:14:03.607 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.verifyEquals:1437] - Verify Equals: Sign in | RISE CRM | Anh Tester Demo = Sign in | RISE CRM | Anh Tester Demo
+[INFO ] 21-11-2026 21:14:06.278 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (82ded7c9c9d4fc07859b36d72e3a9a2f)] -> xpath: //input[@id='email']]}
+[DEBUG] 21-11-2026 21:14:06.279 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.beforeClear:136] - [WebDriver] Clear: xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:06.985 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.clearText:2674] - Clear text in textbox By.xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:07.064 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (82ded7c9c9d4fc07859b36d72e3a9a2f)] -> xpath: //input[@id='password']]}
+[DEBUG] 21-11-2026 21:14:07.065 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.beforeClear:136] - [WebDriver] Clear: xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:14:07.089 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.clearText:2674] - Clear text in textbox By.xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:14:07.128 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (82ded7c9c9d4fc07859b36d72e3a9a2f)] -> xpath: //input[@id='email']]}
+[DEBUG] 21-11-2026 21:14:07.153 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'customer@example.com' into: xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:07.227 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.setText:2590] - Set text customer@example.com on By.xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:07.984 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (82ded7c9c9d4fc07859b36d72e3a9a2f)] -> xpath: //input[@id='password']]}
+[DEBUG] 21-11-2026 21:14:08.065 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type '******' into: xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:14:08.313 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.setText:2590] - Set text ****** on By.xpath: //input[@id='password']
+[DEBUG] 21-11-2026 21:14:08.359 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Sign in']
+[DEBUG] 21-11-2026 21:14:09.293 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.logDone:53] - [WebDriver] Click done in 933 ms
+[INFO ] 21-11-2026 21:14:09.293 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[normalize-space()='Sign in']
+[INFO ] 21-11-2026 21:14:09.328 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.getCurrentUrl:779] - Get Current URL: https://rise.anhtester.com/signin
+[ERROR] 21-11-2026 21:14:09.352 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.verifyContains:1499] - ❌ Verify Contains: https://rise.anhtester.com/signin NOT CONTAINS /dashboard
+[WARN ] 21-11-2026 21:14:09.394 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [Retry.retry:32] - RETRY 1/1: test SignInTest.signInWithClientRole failed because: AssertionError - Sign in failed. Can not redirect to Dashboard page. expected [/dashboard] but found [https://rise.anhtester.com/signin]
+[WARN ] 21-11-2026 21:14:09.444 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [TestListener.onTestSkipped:314] - Test case: signInWithClientRole failed and will be RETRIED.
+java.lang.AssertionError: Sign in failed. Can not redirect to Dashboard page. expected [/dashboard] but found [https://rise.anhtester.com/signin]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1590)
+	at org.testng.Assert.assertEqualsImpl(Assert.java:150)
+	at org.testng.Assert.assertEquals(Assert.java:132)
+	at org.testng.Assert.assertEquals(Assert.java:656)
+	at com.anhtester.keywords.WebUI.verifyContains(WebUI.java:1505)
+	at com.anhtester.projects.crm.pages.SignIn.SignInPageCRM.signInWithClientRole(SignInPageCRM.java:68)
+	at com.anhtester.projects.crm.testcases.SignInTest.signInWithClientRole(SignInTest.java:48)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:697)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:1005)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at org.testng.internal.thread.graph.TestNGFutureTask.run(TestNGFutureTask.java:22)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+[DEBUG] 21-11-2026 21:14:09.449 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.beforeQuit:158] - [WebDriver] Quit browser
+[INFO ] 21-11-2026 21:14:11.685 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverManager.quit:38] - Closed the browser.
+[INFO ] 21-11-2026 21:14:11.690 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [TargetFactory.createInstance:45] - Creating driver: browser=chrome, target=LOCAL, headless=true
+[INFO ] 21-11-2026 21:14:12.825 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [TargetFactory.logDriverInfo:124] - Driver created in 1133 ms: chrome 157.0.8103.79 on windows
+[DEBUG] 21-11-2026 21:14:12.982 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [BaseTest.initDriver:57] - Window size: (1920, 1080)
+[INFO ] 21-11-2026 21:14:12.988 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [TestListener.onTestStart:251] - ========== Test case: signInWithClientRole is starting... ==========
+[INFO ] 21-11-2026 21:14:13.002 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [ExcelHelpers.setExcelFile:36] - Set Excel File: src/test/resources/testdataCRM/ClientsDataExcel.xlsx
+[INFO ] 21-11-2026 21:14:13.002 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [ExcelHelpers.setExcelFile:37] - Sheet Name: SignIn
+[DEBUG] 21-11-2026 21:14:13.066 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.beforeGet:78] - [WebDriver] Open URL: https://rise.anhtester.com/signin
+[DEBUG] 21-11-2026 21:14:17.095 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.logDone:53] - [WebDriver] Open URL https://rise.anhtester.com/signin done in 4028 ms
+[INFO ] 21-11-2026 21:14:17.110 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.openWebsite:2546] - Open website with URL: https://rise.anhtester.com/signin
+[INFO ] 21-11-2026 21:14:17.124 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.getCurrentUrl:779] - Get Current URL: https://rise.anhtester.com/signin
+[INFO ] 21-11-2026 21:14:17.142 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.verifyContains:1493] - Verify Contains: https://rise.anhtester.com/signin CONTAINS /signin
+[INFO ] 21-11-2026 21:14:17.161 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.getPageTitle:796] - Get Page Title: Sign in | RISE CRM | Anh Tester Demo
+[INFO ] 21-11-2026 21:14:17.182 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.verifyEquals:1437] - Verify Equals: Sign in | RISE CRM | Anh Tester Demo = Sign in | RISE CRM | Anh Tester Demo
+[INFO ] 21-11-2026 21:14:17.258 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (19f006a2c16da6efbed89e1783d0d7a6)] -> xpath: //input[@id='email']]}
+[DEBUG] 21-11-2026 21:14:17.259 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.beforeClear:136] - [WebDriver] Clear: xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:17.299 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.clearText:2674] - Clear text in textbox By.xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:17.334 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (19f006a2c16da6efbed89e1783d0d7a6)] -> xpath: //input[@id='password']]}
+[DEBUG] 21-11-2026 21:14:17.334 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.beforeClear:136] - [WebDriver] Clear: xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:14:17.353 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.clearText:2674] - Clear text in textbox By.xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:14:17.384 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (19f006a2c16da6efbed89e1783d0d7a6)] -> xpath: //input[@id='email']]}
+[DEBUG] 21-11-2026 21:14:17.409 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'customer@example.com' into: xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:17.475 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.setText:2590] - Set text customer@example.com on By.xpath: //input[@id='email']
+[INFO ] 21-11-2026 21:14:17.538 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.scrollToElementAtCenter:2299] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (19f006a2c16da6efbed89e1783d0d7a6)] -> xpath: //input[@id='password']]}
+[DEBUG] 21-11-2026 21:14:17.546 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type '******' into: xpath: //input[@id='password']
+[INFO ] 21-11-2026 21:14:17.604 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.setText:2590] - Set text ****** on By.xpath: //input[@id='password']
+[DEBUG] 21-11-2026 21:14:17.653 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Sign in']
+[DEBUG] 21-11-2026 21:14:17.736 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [DriverEventListener.logDone:53] - [WebDriver] Click done in 83 ms
+[INFO ] 21-11-2026 21:14:17.736 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.clickElement:2774] - Clicked on the element By.xpath: //button[normalize-space()='Sign in']
+[INFO ] 21-11-2026 21:14:18.533 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.getCurrentUrl:779] - Get Current URL: https://rise.anhtester.com/signin
+[ERROR] 21-11-2026 21:14:18.551 [TestNG-test-SignIn Test-3] [SignInTest.signInWithClientRole] [WebUI.verifyContains:1499] - ❌ Verify Contains: https://rise.anhtester.com/signin NOT CONTAINS /dashboard

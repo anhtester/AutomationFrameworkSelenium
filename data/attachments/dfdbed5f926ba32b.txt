@@ -1,0 +1,1 @@
+Set text Delivery as soon as possible on By.xpath: //textarea[@placeholder='Type your text']
