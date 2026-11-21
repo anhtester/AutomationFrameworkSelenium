@@ -15,11 +15,14 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 import static java.lang.Boolean.TRUE;
 
@@ -34,6 +37,9 @@ public enum BrowserFactory {
       @Override
       public ChromeOptions getOptions() {
          ChromeOptions options = new ChromeOptions();
+
+         // Keep browser console logs so they can be attached to reports when a test fails
+         options.setCapability("goog:loggingPrefs", browserLoggingPrefs());
 
          Map<String, Object> prefs = new HashMap<String, Object>();
          prefs.put("profile.default_content_setting_values.notifications", 2);
@@ -50,7 +56,7 @@ public enum BrowserFactory {
 
          options.setAcceptInsecureCerts(true);
 
-         if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
+         if (Boolean.parseBoolean(FrameworkConstants.HEADLESS)) {
             options.addArguments("--headless=new");
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
@@ -73,6 +79,9 @@ public enum BrowserFactory {
       public EdgeOptions getOptions() {
          EdgeOptions options = new EdgeOptions();
 
+         // Keep browser console logs so they can be attached to reports when a test fails
+         options.setCapability("ms:loggingPrefs", browserLoggingPrefs());
+
          Map<String, Object> prefs = new HashMap<String, Object>();
          prefs.put("profile.default_content_setting_values.notifications", 2);
          prefs.put("profile.password_manager_leak_detection", false); // Turn off change your password
@@ -88,7 +97,7 @@ public enum BrowserFactory {
 
          options.setAcceptInsecureCerts(true);
 
-         if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
+         if (Boolean.parseBoolean(FrameworkConstants.HEADLESS)) {
             options.addArguments("--headless=new");
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
@@ -113,7 +122,7 @@ public enum BrowserFactory {
 
          options.setAcceptInsecureCerts(true);
 
-         if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
+         if (Boolean.parseBoolean(FrameworkConstants.HEADLESS)) {
             options.addArguments("-headless");
             options.addArguments("--width=1920");
             options.addArguments("--height=1080");
@@ -140,6 +149,12 @@ public enum BrowserFactory {
    };
 
    private static final String START_MAXIMIZED = "--start-maximized";
+
+   private static LoggingPreferences browserLoggingPrefs() {
+      LoggingPreferences logPrefs = new LoggingPreferences();
+      logPrefs.enable(LogType.BROWSER, Level.ALL);
+      return logPrefs;
+   }
 
    public abstract WebDriver createDriver();
 

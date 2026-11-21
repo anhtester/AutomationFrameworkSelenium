@@ -94,17 +94,17 @@ public class DataGenerateUtils {
 
     @Test
     public void testDataGeneration() {
-        System.out.println(randomProgrammingLanguage());
-        System.out.println(randomJobTitle());
-        System.out.println(randomJobSkills());
-        System.out.println(randomFullName());
-        System.out.println(randomPhoneNumber());
-        System.out.println(randomAddress());
-        System.out.println(randomCountry());
-        System.out.println(randomZipCode());
-        System.out.println(randomState());
-        System.out.println(randomCity());
-        System.out.println(randomStreetName());
+        LogUtils.info(randomProgrammingLanguage());
+        LogUtils.info(randomJobTitle());
+        LogUtils.info(randomJobSkills());
+        LogUtils.info(randomFullName());
+        LogUtils.info(randomPhoneNumber());
+        LogUtils.info(randomAddress());
+        LogUtils.info(randomCountry());
+        LogUtils.info(randomZipCode());
+        LogUtils.info(randomState());
+        LogUtils.info(randomCity());
+        LogUtils.info(randomStreetName());
     }
 
 }

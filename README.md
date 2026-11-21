@@ -53,9 +53,28 @@
 
   ![image](https://user-images.githubusercontent.com/87883620/161658761-5040e527-b410-46b3-8697-3298523e201d.png)
 
+- Run any suite without editing pom.xml: `mvn test -Dsuite=src/test/resources/suites/SuiteAll.xml`
+  (PowerShell: quote the parameter `mvn test "-Dsuite=src/test/resources/suites/SuiteAll.xml"`)
+
 **2. Read Config from Properties file**
 
 ![image](https://user-images.githubusercontent.com/87883620/194396141-eb0e2750-9b8d-42bb-803d-43b7b5199a73.png)
+
+- Every key of `config.properties` can be overridden by a JVM property or an environment variable (CI):
+  `mvn test -DBROWSER=firefox -DHEADLESS=false -DRETRY_TEST_FAIL=0`
+- Browser priority: `-DBROWSER` / env `BROWSER` > parameter `BROWSER` of the suite XML > `BROWSER` in config.properties > chrome
+- Stability options: `RETRY_TEST_FAIL`, `DRIVER_CREATE_RETRY`, `CLICK_RETRY` (stale/covered element, last attempt uses JS click)
+
+**2.1. Logs**
+
+- `exports/logs/applog.log`: whole run, `exports/logs/error.log`: only WARN/ERROR
+- `exports/logs/tests/<Class.method>.log`: one detailed (DEBUG) log file per test case, including every WebDriver action
+  with its duration (`WEBDRIVER_EVENT_LOG=yes`). Parallel tests never mix their logs.
+- Every line has the thread, the test name and the caller (`Class.method:line`); errors keep the full stack trace.
+- Passwords/tokens typed with `setText` are masked (`******`).
+- When a test fails (`FAILURE_DIAGNOSTICS=yes`), Allure and Extent get: stack trace, URL, title, page source,
+  browser console logs (Chrome/Edge) and the test log.
+- Levels: `-Dlog.level=debug` (console + applog), `-Dlog.test.level=info` (per-test files), `-Dlog.dir=...`
 
 **3. Extent Report**
 
@@ -227,6 +246,16 @@ https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers
 ![image](https://user-images.githubusercontent.com/87883620/200506279-e1496849-70ab-4602-be44-0f44926ab826.png)
 
 ![image](https://user-images.githubusercontent.com/87883620/200506218-dbe10f1c-7e65-47e4-a7ac-f29a2b2db43b.png)
+
+### Run Selenium Grid with Docker
+
+✅ Hub + Chrome/Edge/Firefox nodes (file `docker-compose.yml`, version matches `selenium.version` in pom.xml)
+
+> docker compose up -d
+
+> mvn test -DTARGET=remote -DREMOTE_URL=localhost -DREMOTE_PORT=4444 -DBROWSER=chrome
+
+Grid console: http://localhost:4444/ui. `REMOTE_URL` can also be a full URL (ex: `https://hub.example.com/wd/hub`).
 
 **15. Use DataFaker and JavaFaker to generate data**
 

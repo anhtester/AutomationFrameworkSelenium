@@ -7,7 +7,8 @@ package com.anhtester.reports;
 
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.driver.DriverManager;
-import com.anhtester.enums.Browser;
+import com.anhtester.driver.TargetFactory;
+import com.anhtester.helpers.DiagnosticHelpers;
 import com.anhtester.helpers.FileHelpers;
 import com.anhtester.utils.BrowserInfoUtils;
 import com.anhtester.utils.LogUtils;
@@ -37,12 +38,12 @@ public class AllureManager {
                         put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT)).
                         put("Page Load Timeout", String.valueOf(FrameworkConstants.WAIT_PAGE_LOADED)).
                         put("Headless Mode", FrameworkConstants.HEADLESS).
-                        put("Local Browser", String.valueOf(Browser.CHROME)).
+                        put("Local Browser", TargetFactory.resolveBrowser(null)).
                         put("Remote URL", FrameworkConstants.REMOTE_URL).
                         put("Remote Port", FrameworkConstants.REMOTE_PORT).
                         build());
 
-        System.out.println("Allure Reports is installed.");
+        LogUtils.info("Allure Reports is installed.");
 
     }
 
@@ -51,7 +52,7 @@ public class AllureManager {
         try {
             return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(BYTES);
         } catch (Exception ex) {
-            ex.getMessage();
+            LogUtils.warn("Can not take screenshot for Allure: " + ex.getMessage());
         }
         return new byte[0];
     }
@@ -61,7 +62,7 @@ public class AllureManager {
         try {
             return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(BYTES);
         } catch (Exception ex) {
-            ex.getMessage();
+            LogUtils.warn("Can not take step screenshot for Allure: " + ex.getMessage());
         }
         return new byte[0];
     }
@@ -97,8 +98,7 @@ public class AllureManager {
                 }
 
             } catch (IOException e) {
-                LogUtils.error("Can not attachment Video in Allure reports");
-                e.printStackTrace();
+                LogUtils.error("Can not attachment Video in Allure reports", e);
             }
         }
     }
@@ -116,8 +116,32 @@ public class AllureManager {
             }
 
         } catch (IOException e) {
-            LogUtils.error("Can not attachment Video in Allure reports");
-            e.printStackTrace();
+            LogUtils.error("Can not attachment Video in Allure reports", e);
+        }
+    }
+
+    /**
+     * Attach the browser state (URL, page source, console logs) and the test log to the current Allure test.
+     *
+     * @param diagnostics browser diagnostics, can be null when there is no driver
+     * @param testLog     content of the per-test log file, can be empty
+     */
+    public static void attachFailureDiagnostics(DiagnosticHelpers.Diagnostics diagnostics, String testLog) {
+        try {
+            if (diagnostics != null) {
+                Allure.addAttachment("Failure info", "text/plain", diagnostics.summary(), ".txt");
+                if (!diagnostics.pageSource.isEmpty()) {
+                    Allure.addAttachment("Page source", "text/html", diagnostics.pageSource, ".html");
+                }
+                if (!diagnostics.consoleLogs.isEmpty()) {
+                    Allure.addAttachment("Browser console logs", "text/plain", diagnostics.consoleLogs, ".txt");
+                }
+            }
+            if (testLog != null && !testLog.isEmpty()) {
+                Allure.addAttachment("Test log", "text/plain", testLog, ".log");
+            }
+        } catch (Exception e) {
+            LogUtils.warn("Can not attach failure diagnostics to Allure: " + e.getMessage(), e);
         }
     }
 

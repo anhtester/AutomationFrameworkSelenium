@@ -1,26 +1,39 @@
 package com.anhtester.listeners;
 
 import com.anhtester.constants.FrameworkConstants;
+import com.anhtester.utils.LogUtils;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
+/**
+ * Re-run a failed test up to RETRY_TEST_FAIL times (config.properties or -DRETRY_TEST_FAIL=n).
+ * TestNG creates one instance per test method, so the counter is per method.
+ */
 public class Retry implements IRetryAnalyzer {
     private int count = 0;
-    private static int maxTry = Integer.parseInt(FrameworkConstants.RETRY_TEST_FAIL);
+    private static final int maxTry = parseMaxTry();
+
+    private static int parseMaxTry() {
+        try {
+            return Math.max(0, Integer.parseInt(FrameworkConstants.RETRY_TEST_FAIL.trim()));
+        } catch (Exception e) {
+            LogUtils.warn("Invalid RETRY_TEST_FAIL='" + FrameworkConstants.RETRY_TEST_FAIL + "', retry is disabled.");
+            return 0;
+        }
+    }
 
     @Override
     public boolean retry(ITestResult iTestResult) {
-        if (!iTestResult.isSuccess()) {                      //Check if test not succeed
-            if (count < maxTry) {                            //Check if maxTry count is reached
-                count++;                                     //Increase the maxTry count by 1
-                iTestResult.setStatus(ITestResult.FAILURE);  //Mark test as failed
-                return true;                                 //Tells TestNG to re-run the test
-            } else {
-                iTestResult.setStatus(ITestResult.FAILURE);  //If maxCount reached,test marked as failed
-            }
-        } else {
-            iTestResult.setStatus(ITestResult.SUCCESS);      //If test passes, TestNG marks it as passed
+        if (iTestResult.isSuccess() || count >= maxTry) {
+            return false;
         }
-        return false;
+        count++;
+        Throwable cause = iTestResult.getThrowable();
+        LogUtils.warn(String.format("RETRY %d/%d: test %s.%s failed because: %s",
+                count, maxTry,
+                iTestResult.getTestClass().getRealClass().getSimpleName(),
+                iTestResult.getMethod().getMethodName(),
+                cause == null ? "unknown" : cause.getClass().getSimpleName() + " - " + cause.getMessage()));
+        return true; // TestNG marks this attempt as SKIPPED (wasRetried = true) and runs the test again
     }
 }

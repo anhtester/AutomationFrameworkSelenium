@@ -1,7 +1,13 @@
 package com.anhtester.driver;
 
+import com.anhtester.utils.LogUtils;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.WebDriver;
 
+/**
+ * Hold one WebDriver per thread (parallel safe).
+ */
 public class DriverManager {
 
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
@@ -18,17 +24,34 @@ public class DriverManager {
         DriverManager.driver.set(driver);
     }
 
+    /**
+     * Quit the driver of the current thread and always clear the ThreadLocal,
+     * so a pooled thread never reuses a dead session.
+     */
     public static void quit() {
-        if (DriverManager.getDriver() != null){
-            DriverManager.getDriver().quit();
+        WebDriver current = driver.get();
+        if (current == null) {
+            return;
+        }
+        try {
+            current.quit();
+            LogUtils.info("Closed the browser.");
+        } catch (Exception e) {
+            LogUtils.warn("Error while quitting the browser (session may already be closed): " + e.getMessage(), e);
+        } finally {
+            driver.remove();
         }
     }
 
-//    public static String getInfo() {
-//        Capabilities cap = ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities();
-//        String browserName = cap.getBrowserName();
-//        String platform = cap.getPlatformName().toString();
-//        String version = cap.getBrowserVersion();
-//        return String.format("browser: %s v: %s platform: %s", browserName, version, platform);
-//    }
+    /**
+     * @return "browser version on platform" of the current driver, or "unknown"
+     */
+    public static String getInfo() {
+        WebDriver current = driver.get();
+        if (current instanceof HasCapabilities) {
+            Capabilities cap = ((HasCapabilities) current).getCapabilities();
+            return String.format("%s %s on %s", cap.getBrowserName(), cap.getBrowserVersion(), cap.getPlatformName());
+        }
+        return "unknown";
+    }
 }

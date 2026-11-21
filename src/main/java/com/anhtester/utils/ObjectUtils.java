@@ -116,7 +116,7 @@ public class ObjectUtils {
             try {
                 throw new Exception("The Locator " + elementName + " does not exist !!");
             } catch (Exception e) {
-                e.printStackTrace();
+                LogUtils.error(e.getMessage(), e);
             }
         }
 
@@ -158,7 +158,7 @@ public class ObjectUtils {
                 try {
                     throw new Exception("Unknown locator type '" + locatorType + "'");
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LogUtils.error(e.getMessage(), e);
                 }
                 break;
         }
@@ -175,7 +175,7 @@ public class ObjectUtils {
                 LogUtils.info("The Locator " + elementName + " does not exist !!");
                 throw new Exception("The Locator " + elementName + " does not exist !!");
             } catch (Exception e) {
-                e.printStackTrace();
+                LogUtils.error(e.getMessage(), e);
             }
         } else {
 
@@ -192,7 +192,7 @@ public class ObjectUtils {
                     LogUtils.info("The Locator Type of " + elementName + " does not XPATH !! => " + locatorType);
                     throw new Exception("The Locator Type of " + elementName + " does not XPATH !! => " + locatorType);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LogUtils.error(e.getMessage(), e);
                 }
             } else {
                 LogUtils.info("Retrieving Xpath with value '" + locatorValue + "' from the object repository");
@@ -219,7 +219,7 @@ public class ObjectUtils {
                 LogUtils.info("Parameter passing error. The 'xpath' parameter is null.");
                 throw new Exception("Warning. The xpath is null.");
             } catch (Exception e) {
-                e.printStackTrace();
+                LogUtils.error(e.getMessage(), e);
             }
             return null;
         } else {

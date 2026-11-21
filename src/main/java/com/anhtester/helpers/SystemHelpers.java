@@ -5,6 +5,8 @@
 
 package com.anhtester.helpers;
 
+import com.anhtester.utils.LogUtils;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -50,12 +52,12 @@ public final class SystemHelpers {
         if (!folder.exists()) {
             boolean created = folder.mkdirs();
             if (created) {
-                System.out.println("Folder created: " + folder.getAbsolutePath());
+                LogUtils.info("Folder created: " + folder.getAbsolutePath());
             } else {
-                System.out.println("Failed to create folder: " + folder.getAbsolutePath());
+                LogUtils.info("Failed to create folder: " + folder.getAbsolutePath());
             }
         } else {
-            System.out.println("Folder already exists: " + folder.getAbsolutePath());
+            LogUtils.info("Folder already exists: " + folder.getAbsolutePath());
         }
     }
 

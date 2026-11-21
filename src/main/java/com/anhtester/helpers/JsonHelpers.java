@@ -1,5 +1,7 @@
 package com.anhtester.helpers;
 
+import com.anhtester.utils.LogUtils;
+
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 
@@ -25,9 +27,9 @@ public class JsonHelpers {
             }
             jsonContext = JsonPath.parse(stringBuffer.toString());
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
         } catch (IOException e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
         }
     }
 

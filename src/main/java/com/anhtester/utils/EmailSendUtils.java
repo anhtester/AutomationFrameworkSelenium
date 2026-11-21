@@ -22,15 +22,15 @@ public class EmailSendUtils {
     public static void sendEmail(int count_totalTCs, int count_passedTCs, int count_failedTCs, int count_skippedTCs) {
 
         if (FrameworkConstants.SEND_EMAIL_TO_USERS.trim().equalsIgnoreCase(FrameworkConstants.YES)) {
-            System.out.println("****************************************");
-            System.out.println("Send Email - START");
-            System.out.println("****************************************");
+            LogUtils.info("****************************************");
+            LogUtils.info("Send Email - START");
+            LogUtils.info("****************************************");
 
-            System.out.println("File name: " + FrameworkConstants.getExtentReportFilePath());
+            LogUtils.info("File name: " + FrameworkConstants.getExtentReportFilePath());
 
             String messageBody = getTestCasesCountInFormat(count_totalTCs, count_passedTCs, count_failedTCs,
                     count_skippedTCs);
-            //System.out.println(messageBody);
+            //LogUtils.info(messageBody);
 
             String attachmentFile_ExtentReport = FrameworkConstants.getExtentReportFilePath();
 
@@ -38,12 +38,12 @@ public class EmailSendUtils {
                 EmailAttachmentsSender.sendEmailWithAttachments(SERVER, PORT, FROM, PASSWORD, TO, SUBJECT, messageBody,
                         attachmentFile_ExtentReport);
 
-                System.out.println("****************************************");
-                System.out.println("Email sent successfully.");
-                System.out.println("Send Email - END");
-                System.out.println("****************************************");
+                LogUtils.info("****************************************");
+                LogUtils.info("Email sent successfully.");
+                LogUtils.info("Send Email - END");
+                LogUtils.info("****************************************");
             } catch (MessagingException e) {
-                e.printStackTrace();
+                LogUtils.error("Can not send email from " + FROM + " via " + SERVER + ":" + PORT + " (check EMAIL_FROM / EMAIL_PASSWORD)", e);
             }
 
         }
@@ -52,10 +52,10 @@ public class EmailSendUtils {
 
     private static String getTestCasesCountInFormat(int count_totalTCs, int count_passedTCs, int count_failedTCs,
                                                     int count_skippedTCs) {
-        System.out.println("count_totalTCs: " + count_totalTCs);
-        System.out.println("count_passedTCs: " + count_passedTCs);
-        System.out.println("count_failedTCs: " + count_failedTCs);
-        System.out.println("count_skippedTCs: " + count_skippedTCs);
+        LogUtils.info("count_totalTCs: " + count_totalTCs);
+        LogUtils.info("count_passedTCs: " + count_passedTCs);
+        LogUtils.info("count_failedTCs: " + count_failedTCs);
+        LogUtils.info("count_skippedTCs: " + count_skippedTCs);
 
         return "<html>\r\n" + "\r\n" + " \r\n" + "\r\n"
                 + "        <body> \r\n<table class=\"container\" align=\"center\" style=\"padding-top:20px\">\r\n<tr align=\"center\"><td colspan=\"4\"><h2>"

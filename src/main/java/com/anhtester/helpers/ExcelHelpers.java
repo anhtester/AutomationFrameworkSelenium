@@ -44,7 +44,7 @@ public class ExcelHelpers {
                     LogUtils.info("File Excel path not found.");
                     throw new InvalidPathForExcelException("File Excel path not found.");
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LogUtils.error(e.getMessage(), e);
                 }
             }
             if (sheetName.isEmpty()) {
@@ -52,7 +52,7 @@ public class ExcelHelpers {
                     LogUtils.info("The Sheet Name is empty.");
                     throw new InvalidPathForExcelException("The Sheet Name is empty.");
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LogUtils.error(e.getMessage(), e);
                 }
             }
 
@@ -66,7 +66,7 @@ public class ExcelHelpers {
                     LogUtils.info("Sheet name not found.");
                     throw new InvalidPathForExcelException("Sheet name not found.");
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LogUtils.error(e.getMessage(), e);
                 }
             }
 
@@ -106,7 +106,7 @@ public class ExcelHelpers {
                     LogUtils.info("File Excel path not found.");
                     throw new InvalidPathForExcelException("File Excel path not found.");
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LogUtils.error(e.getMessage(), e);
                 }
             }
             if (sheetName.isEmpty()) {
@@ -114,7 +114,7 @@ public class ExcelHelpers {
                     LogUtils.info("The Sheet Name is empty.");
                     throw new InvalidPathForExcelException("The Sheet Name is empty.");
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LogUtils.error(e.getMessage(), e);
                 }
             }
 
@@ -131,7 +131,7 @@ public class ExcelHelpers {
             int noOfRows = sheet.getPhysicalNumberOfRows();
             int noOfCols = row.getLastCellNum();
 
-            System.out.println(noOfRows + " - " + noOfCols);
+            LogUtils.info(noOfRows + " - " + noOfCols);
 
             Cell cell;
             data = new Object[noOfRows - 1][noOfCols];
@@ -181,7 +181,7 @@ public class ExcelHelpers {
                     LogUtils.info("File Excel path not found.");
                     throw new InvalidPathForExcelException("File Excel path not found.");
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LogUtils.error(e.getMessage(), e);
                 }
             }
 
@@ -206,7 +206,7 @@ public class ExcelHelpers {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
             LogUtils.error(e.getMessage());
         }
 
@@ -216,9 +216,9 @@ public class ExcelHelpers {
 
     // Get data from specific rows
     public Object[][] getDataFromSpecificRows(String excelPath, String sheetName, int[] rowNumbers) {
-        System.out.println("Excel File: " + excelPath);
-        System.out.println("Sheet Name: " + sheetName);
-        System.out.println("Reading data from specific rows: " + Arrays.toString(rowNumbers));
+        LogUtils.info("Excel File: " + excelPath);
+        LogUtils.info("Sheet Name: " + sheetName);
+        LogUtils.info("Reading data from specific rows: " + Arrays.toString(rowNumbers));
 
         Object[][] data = null;
 
@@ -226,7 +226,7 @@ public class ExcelHelpers {
             File f = new File(excelPath);
 
             if (!f.exists()) {
-                System.out.println("File Excel path not found.");
+                LogUtils.info("File Excel path not found.");
                 throw new FileNotFoundException("File Excel path not found.");
             }
 
@@ -235,12 +235,12 @@ public class ExcelHelpers {
             sheet = workbook.getSheet(sheetName);
 
             if (sheet == null) {
-                System.out.println("Sheet name not found.");
+                LogUtils.info("Sheet name not found.");
                 throw new RuntimeException("Sheet name not found.");
             }
 
             int columns = getColumns();
-            System.out.println("Column count: " + columns);
+            LogUtils.info("Column count: " + columns);
 
             // Khởi tạo mảng data với kích thước bằng số lượng dòng được chỉ định
             data = new Object[rowNumbers.length][columns];
@@ -250,7 +250,7 @@ public class ExcelHelpers {
                 int rowNum = rowNumbers[i];
                 // Kiểm tra xem dòng có tồn tại không
                 if (rowNum > sheet.getLastRowNum()) {
-                    System.out.println("WARNING: Row " + rowNum + " does not exist in the sheet.");
+                    LogUtils.info("WARNING: Row " + rowNum + " does not exist in the sheet.");
                     // Gán giá trị rỗng cho dòng không tồn tại
                     for (int j = 0; j < columns; j++) {
                         data[i][j] = "";
@@ -268,8 +268,8 @@ public class ExcelHelpers {
             fis.close();
 
         } catch (Exception e) {
-            System.out.println("Exception in getDataFromSpecificRows: " + e.getMessage());
-            e.printStackTrace();
+            LogUtils.info("Exception in getDataFromSpecificRows: " + e.getMessage());
+            LogUtils.error(e.getMessage(), e);
         }
 
         return data;
@@ -277,9 +277,9 @@ public class ExcelHelpers {
 
     // Get data from specific rows with Hashtable
     public Object[][] getDataHashTableFromSpecificRows(String excelPath, String sheetName, int[] rowNumbers) {
-        System.out.println("Excel File: " + excelPath);
-        System.out.println("Sheet Name: " + sheetName);
-        System.out.println("Reading data from specific rows: " + Arrays.toString(rowNumbers));
+        LogUtils.info("Excel File: " + excelPath);
+        LogUtils.info("Sheet Name: " + sheetName);
+        LogUtils.info("Reading data from specific rows: " + Arrays.toString(rowNumbers));
 
         Object[][] data = null;
 
@@ -287,7 +287,7 @@ public class ExcelHelpers {
             File f = new File(excelPath);
 
             if (!f.exists()) {
-                System.out.println("File Excel path not found.");
+                LogUtils.info("File Excel path not found.");
                 throw new FileNotFoundException("File Excel path not found.");
             }
 
@@ -296,7 +296,7 @@ public class ExcelHelpers {
             sheet = workbook.getSheet(sheetName);
 
             if (sheet == null) {
-                System.out.println("Sheet name not found.");
+                LogUtils.info("Sheet name not found.");
                 throw new RuntimeException("Sheet name not found.");
             }
 
@@ -309,7 +309,7 @@ public class ExcelHelpers {
                 int rowNum = rowNumbers[i];
                 // Kiểm tra xem dòng có tồn tại không
                 if (rowNum > sheet.getLastRowNum()) {
-                    System.out.println("WARNING: Row " + rowNum + " does not exist in the sheet.");
+                    LogUtils.info("WARNING: Row " + rowNum + " does not exist in the sheet.");
                     data[i][0] = new Hashtable<String, String>();
                     continue;
                 }
@@ -331,8 +331,8 @@ public class ExcelHelpers {
             fis.close();
 
         } catch (Exception e) {
-            System.out.println("Exception in getDataHashTableFromSpecificRows: " + e.getMessage());
-            e.printStackTrace();
+            LogUtils.info("Exception in getDataHashTableFromSpecificRows: " + e.getMessage());
+            LogUtils.error(e.getMessage(), e);
         }
 
         return data;
@@ -353,7 +353,7 @@ public class ExcelHelpers {
         try {
             return sheet.getLastRowNum();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LogUtils.info(e.getMessage());
             throw (e);
         }
     }
@@ -363,7 +363,7 @@ public class ExcelHelpers {
             row = sheet.getRow(0);
             return row.getLastCellNum();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LogUtils.info(e.getMessage());
             throw (e);
         }
     }

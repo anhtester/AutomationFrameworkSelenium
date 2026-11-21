@@ -39,7 +39,7 @@ public final class DecodeUtils {
             byte[] encVal = c.doFinal(Data.getBytes());
             encryptedValue = Base64.encodeBase64String(encVal);
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
         }
         return encryptedValue;
     }
@@ -54,7 +54,7 @@ public final class DecodeUtils {
             byte[] decValue = c.doFinal(decordedValue);
             decryptedValue = new String(decValue);
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
         }
         return decryptedValue;
     }

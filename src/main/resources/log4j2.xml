@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Log4j2 configuration of Automation Framework Selenium.
+
+  Override from the command line (mvn test -D...):
+    -Dlog.dir=exports/logs        folder for all log files
+    -Dlog.level=info              level shown on console and in applog.log
+    -Dlog.test.level=debug        level written into the per-test log files (exports/logs/tests/*.log)
+
+  Every line carries the thread and the current test name (ThreadContext key "testName",
+  set by TestListener), so logs of parallel tests can be separated.
+-->
+<Configuration status="warn" name="AutomationFrameworkSelenium" shutdownHook="disable">
+    <Properties>
+        <Property name="LOG_DIR">${sys:log.dir:-exports/logs}</Property>
+        <Property name="LOG_LEVEL">${sys:log.level:-info}</Property>
+        <Property name="TEST_LOG_LEVEL">${sys:log.test.level:-debug}</Property>
+        <Property name="CONSOLE_PATTERN">[%-5level] %d{dd-MM-yyyy HH:mm:ss.SSS} [%t]%notEmpty{ [%X{testName}]} [%C{1}.%M:%L] - %msg%n%throwable</Property>
+        <Property name="FILE_PATTERN">[%-5level] %d{dd-MM-yyyy HH:mm:ss.SSS} [%t]%notEmpty{ [%X{testName}]} [%C{1}.%M:%L] - %msg%n%throwable</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <ThresholdFilter level="${LOG_LEVEL}" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${CONSOLE_PATTERN}" charset="UTF-8"/>
+        </Console>
+
+        <!-- Whole run: rolling every day or every 10MB, keep 20 files -->
+        <RollingFile name="RollingFile"
+                     fileName="${LOG_DIR}/applog.log"
+                     filePattern="${LOG_DIR}/applog-%d{dd-MM-yyyy}-%i.log">
+            <ThresholdFilter level="${LOG_LEVEL}" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${FILE_PATTERN}" charset="UTF-8"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <!-- Only WARN/ERROR of the whole run, quick place to look for problems -->
+        <File name="ErrorFile" fileName="${LOG_DIR}/error.log" append="false">
+            <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${FILE_PATTERN}" charset="UTF-8"/>
+        </File>
+
+        <!-- One file per test case: exports/logs/tests/<Class.method>.log (detailed, DEBUG by default) -->
+        <Routing name="PerTestFile">
+            <Routes pattern="$${ctx:testName}">
+                <!-- No test running on this thread (suite setup, etc.) -> do not write a per-test file -->
+                <Route key="$${ctx:testName}" ref="NullAppender"/>
+                <Route>
+                    <File name="Test-${ctx:testName}" fileName="${LOG_DIR}/tests/${ctx:testName}.log" append="true">
+                        <ThresholdFilter level="${TEST_LOG_LEVEL}" onMatch="ACCEPT" onMismatch="DENY"/>
+                        <PatternLayout pattern="${FILE_PATTERN}" charset="UTF-8"/>
+                    </File>
+                </Route>
+            </Routes>
+        </Routing>
+
+        <Null name="NullAppender"/>
+    </Appenders>
+
+    <Loggers>
+        <!-- Framework code: DEBUG reaches the per-test file, console/applog keep their own threshold -->
+        <Logger name="com.anhtester" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="ErrorFile"/>
+            <AppenderRef ref="PerTestFile"/>
+        </Logger>
+
+        <!-- Third-party libraries: keep them quiet -->
+        <Logger name="org.openqa.selenium" level="warn"/>
+        <Logger name="io.netty" level="warn"/>
+        <Logger name="org.asynchttpclient" level="warn"/>
+        <Logger name="org.apache.poi" level="warn"/>
+        <Logger name="org.aeonbits.owner" level="warn"/>
+        <Logger name="okhttp3" level="warn"/>
+
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="ErrorFile"/>
+            <AppenderRef ref="PerTestFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

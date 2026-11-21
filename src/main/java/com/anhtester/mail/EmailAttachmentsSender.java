@@ -5,6 +5,8 @@
 
 package com.anhtester.mail;
 
+import com.anhtester.utils.LogUtils;
+
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.io.IOException;
@@ -70,7 +72,7 @@ public class EmailAttachmentsSender {
                 try {
                     attachPart.attachFile(filePath);
                 } catch (IOException ex) {
-                    ex.printStackTrace();
+                    LogUtils.error(ex.getMessage(), ex);
                 }
 
                 multipart.addBodyPart(attachPart);

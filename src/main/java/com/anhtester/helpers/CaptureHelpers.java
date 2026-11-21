@@ -66,8 +66,8 @@ public class CaptureHelpers extends ScreenRecorder {
         int width = screenSize.width;
         int height = screenSize.height;
 
-        System.out.println("width" + width);
-        System.out.println("height" + height);
+        LogUtils.info("width" + width);
+        LogUtils.info("height" + height);
 
         Rectangle captureSize = new Rectangle(0, 0, width, height);
 
@@ -77,7 +77,7 @@ public class CaptureHelpers extends ScreenRecorder {
 
             screenRecorder.start();
         } catch (IOException | AWTException e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
         }
     }
 
@@ -86,21 +86,25 @@ public class CaptureHelpers extends ScreenRecorder {
         try {
             screenRecorder.stop();
         } catch (IOException e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
         }
     }
 
     public static void captureScreenshot(WebDriver driver, String screenName) {
+        if (driver == null) {
+            LogUtils.debug("Skip screenshot '" + screenName + "': no browser on this thread.");
+            return;
+        }
         try {
             String path = SystemHelpers.getCurrentDir() + FrameworkConstants.EXPORT_CAPTURE_PATH;
             File file = new File(path);
             if (!file.exists()) {
                 LogUtils.info("No Folder: " + path);
-                file.mkdir();
+                file.mkdirs();
                 LogUtils.info("Folder created: " + file);
             }
 
-            LogUtils.info("Driver for Screenshot: " + driver);
+            LogUtils.debug("Driver for Screenshot: " + driver);
             // Create reference of TakesScreenshot
             TakesScreenshot ts = (TakesScreenshot) driver;
             // Call the capture screenshot function - getScreenshotAs
@@ -110,7 +114,7 @@ public class CaptureHelpers extends ScreenRecorder {
             LogUtils.info("Screenshot taken: " + screenName);
             LogUtils.info("Screenshot taken current URL: " + driver.getCurrentUrl());
         } catch (Exception e) {
-            System.out.println("Exception while taking screenshot: " + e.getMessage());
+            LogUtils.warn("Exception while taking screenshot: " + e.getMessage(), e);
         }
     }
 

@@ -1,5 +1,7 @@
 package com.anhtester.helpers;
 
+import com.anhtester.utils.LogUtils;
+
 import com.anhtester.constants.FrameworkConstants;
 import org.monte.media.Format;
 import org.monte.media.FormatKeys;
@@ -93,13 +95,13 @@ public class ScreenRecorderHelpers extends ScreenRecorder {
                 deleted = currentFile.delete();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
         }
 
         if (deleted)
             currentFile = null;
         else
-            System.out.println("Could not delete the screen record!");
+            LogUtils.info("Could not delete the screen record!");
     }
 
 

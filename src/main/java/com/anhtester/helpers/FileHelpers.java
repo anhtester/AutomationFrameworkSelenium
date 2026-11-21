@@ -56,7 +56,7 @@ public class FileHelpers {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
         }
     }
 
@@ -69,7 +69,7 @@ public class FileHelpers {
                 content.append(line).append(System.lineSeparator());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
         }
         return content.toString();
     }

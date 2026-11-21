@@ -1,5 +1,7 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+# Build and run the Selenium tests with Maven on GitHub Actions.
+# - Runs the suites on several browsers (matrix), each browser uploads its own reports/logs.
+# - Reports are published to GitHub Pages only from a push on main (chrome run), never from pull requests.
+# - The job is RED when a test or a configuration method (@BeforeMethod...) failed.
 
 name: Run Maven with GitHub CI
 
@@ -8,36 +10,56 @@ on:
       branches: [ "main" ]
    pull_request:
       branches: [ "main" ]
+   workflow_dispatch:
+
+permissions:
+   contents: write # needed to publish reports to the gh-pages branch
+
+concurrency:
+   group: ${{ github.workflow }}-${{ github.ref }}
+   # Cancel outdated runs of a pull request, but never cancel a run of main while it publishes reports
+   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
    build:
-
+      name: Test on ${{ matrix.browser }}
       runs-on: windows-latest
+      timeout-minutes: 60
+
+      strategy:
+         fail-fast: false
+         matrix:
+            browser: [ chrome, edge ]
+
+      env:
+         PUBLISH_REPORTS: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && matrix.browser == 'chrome' }}
 
       steps:
          -  uses: actions/checkout@v4
             with:
                submodules: recursive
                fetch-depth: 0
+
          -  name: Set up JDK 17
             uses: actions/setup-java@v4
             with:
                distribution: 'corretto'
                java-version: '17'
                cache: maven
-         -  name: Run test with Maven
-            run: mvn clean test --file pom.xml
+
+         -  name: Run test with Maven (${{ matrix.browser }})
+            run: mvn clean test --file pom.xml -DBROWSER=${{ matrix.browser }} -DHEADLESS=true
 
          -  name: Get Allure history
             uses: actions/checkout@v4
-            if: always()
+            if: always() && env.PUBLISH_REPORTS == 'true'
             continue-on-error: true
             with:
                ref: gh-pages
                path: gh-pages
 
          -  name: Copy Allure history
-            if: always()
+            if: always() && env.PUBLISH_REPORTS == 'true'
             continue-on-error: true
             shell: bash
             run: |
@@ -52,32 +74,44 @@ jobs:
             if: always()
             uses: actions/upload-artifact@v4
             with:
-               name: extent-report
+               name: extent-report-${{ matrix.browser }}
                path: exports/ExtentReports/ExtentReports.html
+               if-no-files-found: ignore
 
          -  name: Upload Allure Report
             if: always()
             uses: actions/upload-artifact@v4
             with:
-               name: allure-report
+               name: allure-report-${{ matrix.browser }}
                path: target/site/allure-maven-plugin/
+               if-no-files-found: ignore
 
          -  name: Upload videos for tests
             if: always()
             uses: actions/upload-artifact@v4
             with:
-               name: test-videos
+               name: test-videos-${{ matrix.browser }}
                path: exports/ExportData/Videos
+               if-no-files-found: ignore
 
          -  name: Upload screenshots for tests
             if: always()
             uses: actions/upload-artifact@v4
             with:
-               name: test-screenshots
+               name: test-screenshots-${{ matrix.browser }}
                path: exports/ExportData/Images
+               if-no-files-found: ignore
+
+         -  name: Upload logs (applog, error.log, one log file per test)
+            if: always()
+            uses: actions/upload-artifact@v4
+            with:
+               name: test-logs-${{ matrix.browser }}
+               path: exports/logs
+               if-no-files-found: ignore
 
          -  name: Deploy Allure Report to GitHub Pages
-            if: always()
+            if: always() && env.PUBLISH_REPORTS == 'true'
             uses: peaceiris/actions-gh-pages@v4
             with:
                github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -85,11 +119,11 @@ jobs:
                publish_dir: target/site/allure-maven-plugin
 
          -  name: Generate JavaDocs
-            if: always()
+            if: always() && env.PUBLISH_REPORTS == 'true'
             run: mvn javadoc:javadoc
 
          -  name: Deploy JavaDoc to GitHub Pages
-            if: always()
+            if: always() && env.PUBLISH_REPORTS == 'true'
             uses: peaceiris/actions-gh-pages@v4
             with:
                github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -97,3 +131,28 @@ jobs:
                publish_dir: docs
                destination_dir: docs
                keep_files: true
+
+         # maven.test.failure.ignore=true lets the reports be generated and published even when tests fail.
+         # This last step makes the job RED when at least one test failed (retried attempts are not counted).
+         -  name: Fail the job if any test failed
+            if: always()
+            shell: bash
+            run: |
+               f=target/surefire-reports/testng-results.xml
+               if [ ! -f "$f" ]; then
+                  echo "::error::TestNG results not found ($f): tests did not run"
+                  exit 1
+               fi
+               header=$(grep -o '<testng-results[^>]*>' "$f" | head -1)
+               echo "TestNG results: $header"
+               # Count failed tests AND failed configuration methods (@BeforeMethod... => tests are only "skipped")
+               failed=$(grep -c 'status="FAIL"' "$f" || true)
+               passed=$(echo "$header" | grep -o 'passed="[0-9]*"' | grep -o '[0-9]\+')
+               if [ "${failed:-0}" -gt 0 ]; then
+                  echo "::error::${failed} test/configuration method(s) failed on ${{ matrix.browser }}"
+                  exit 1
+               fi
+               if [ "${passed:-0}" -eq 0 ]; then
+                  echo "::error::No test passed on ${{ matrix.browser }}"
+                  exit 1
+               fi

@@ -45,7 +45,6 @@ public class OrderPage extends CommonPageCMS {
         WebUI.waitForPageLoaded();
         WebUI.setText(DashboardPage.inputSearchProduct, PropertiesHelpers.getValue("product_P01"));
         WebUI.waitForJQueryLoad();
-        WebUI.sleep(3);
         WebUI.clickElement(By.xpath("//div[@id='search-content']//div[contains(text(),'" + PropertiesHelpers.getValue("product_P01") + "')]"));
         WebUI.waitForPageLoaded();
         String priceProduct01AsString = WebUI.getTextElement(ProductInfoPageCMS.productPrice).trim();
@@ -55,10 +54,8 @@ public class OrderPage extends CommonPageCMS {
         WebUI.verifyElementVisible(popupAddToCartSucceeded, "Add to cart is failed. ");
         WebUI.clickElement(buttonBackToShopping);
         WebUI.waitForPageLoaded();
-        WebUI.sleep(2);
         WebUI.setText(DashboardPage.inputSearchProduct, PropertiesHelpers.getValue("product_P02"));
         WebUI.waitForJQueryLoad();
-        WebUI.sleep(3);
         WebUI.clickElement(By.xpath("//div[@id='search-content']//div[contains(text(),'" + PropertiesHelpers.getValue("product_P02") + "')]"));
         WebUI.waitForPageLoaded();
         String priceProduct02AsString = WebUI.getTextElement(ProductInfoPageCMS.productPrice).trim();
@@ -71,12 +68,10 @@ public class OrderPage extends CommonPageCMS {
         WebUI.scrollToElementAtBottom(buttonAddToCart);
         WebUI.clickElement(buttonAddToCart);
         WebUI.verifyElementVisible(popupAddToCartSucceeded, "Add to cart is failed");
-        WebUI.sleep(2);
         WebUI.waitForPageLoaded();
         WebUI.clickElement(closeSuccessAddToCartPopup);
         WebUI.waitForPageLoaded();
         WebUI.clickElement(buttonCart);
-        WebUI.sleep(2);
         WebUI.verifyElementVisible(buttonCheckout, "My product is NOT displayed");
         WebUI.clickElement(buttonCheckout);
         WebUI.clickElement(buttonSelectAddress);
@@ -96,14 +91,12 @@ public class OrderPage extends CommonPageCMS {
         System.out.println("quantityProduct02: " + quantityProduct02);
         System.out.println("priceProduct01AsInt: " + priceProduct01AsInt);
         System.out.println("priceProduct02AsInt: " + priceProduct02AsInt);
-        System.out.println("sumPrice: " + sumPrice);
-        System.out.println("subTotal: " + subTotal);
-        WebUI.sleep(2);
+        LogUtils.info("sumPrice: " + sumPrice);
+        LogUtils.info("subTotal: " + subTotal);
         WebUI.verifyEquals(sumPrice, subTotal, "The total price is failed");
         WebUI.clickElement(buttonCompleteOrder);
         WebUI.verifyElementVisible(messageOrderSuccess, "Order is failed");
         LogUtils.info(WebUI.getTextElement(labelOrderCode));
-        WebUI.sleep(2);
     }
 
 }

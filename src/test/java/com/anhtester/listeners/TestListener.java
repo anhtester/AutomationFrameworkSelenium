@@ -3,8 +3,8 @@ package com.anhtester.listeners;
 import com.anhtester.annotations.FrameworkAnnotation;
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.driver.DriverManager;
+import com.anhtester.driver.TargetFactory;
 import com.anhtester.enums.AuthorType;
-import com.anhtester.enums.Browser;
 import com.anhtester.enums.CategoryType;
 import com.anhtester.helpers.*;
 import com.anhtester.keywords.WebUI;
@@ -18,38 +18,51 @@ import com.anhtester.utils.ZipUtils;
 import com.aventstack.extentreports.Status;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
 import com.google.common.collect.ImmutableMap;
+import org.apache.commons.io.FileUtils;
 import org.testng.*;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.File;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.anhtester.constants.FrameworkConstants.*;
 
-public class TestListener implements ITestListener, ISuiteListener, IInvokedMethodListener {
+/**
+ * Main TestNG listener of the framework:
+ * - logs (with the test name on every line + one log file per test),
+ * - Extent report, screenshots, video,
+ * - soft assertions (verified right after each test method),
+ * - correct counters with retry and parallel execution,
+ * - failure diagnostics (stack trace, URL, console logs, test log).
+ */
+public class TestListener implements ITestListener, ISuiteListener, IInvokedMethodListener, IConfigurationListener {
 
-   static int count_totalTCs;
-   static int count_passedTCs;
-   static int count_skippedTCs;
-   static int count_failedTCs;
+   private static final AtomicInteger count_passedTCs = new AtomicInteger();
+   private static final AtomicInteger count_skippedTCs = new AtomicInteger();
+   private static final AtomicInteger count_failedTCs = new AtomicInteger();
+   private static final AtomicInteger count_retriedTCs = new AtomicInteger();
+   private static final AtomicBoolean TEST_LOG_FOLDER_CLEANED = new AtomicBoolean(false);
 
    private ScreenRecorderHelpers screenRecorder;
 
    public TestListener() {
       try {
-         boolean enableRecord = VIDEO_RECORD != null && VIDEO_RECORD.toLowerCase().trim().equals(YES);
+         boolean enableRecord = YES.equalsIgnoreCase(VIDEO_RECORD);
 
          if (enableRecord && !GraphicsEnvironment.isHeadless()) {
             screenRecorder = new ScreenRecorderHelpers();
             LogUtils.info("Screen recorder initialized.");
-         } else {
-            LogUtils.info("Skip screen recorder: VIDEO_RECORD=" + VIDEO_RECORD +
-                    ", Headless=" + GraphicsEnvironment.isHeadless());
+         } else if (enableRecord) {
+            LogUtils.warn("Skip screen recorder: VIDEO_RECORD=" + VIDEO_RECORD + " but the environment is headless.");
          }
       } catch (Exception e) {
-         LogUtils.error("Failed to init ScreenRecorder: " + e.getMessage());
+         LogUtils.error("Failed to init ScreenRecorder: " + e.getMessage(), e);
       }
+   }
+
+   private boolean isRecording() {
+      return screenRecorder != null;
    }
 
    public String getTestName(ITestResult result) {
@@ -60,144 +73,182 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
       return result.getMethod().getDescription() != null ? result.getMethod().getDescription() : getTestName(result);
    }
 
+   /**
+    * Name used in logs and for the per-test log file: SimpleClassName.methodName
+    */
+   private static String getLogName(ITestNGMethod method) {
+      return method.getRealClass().getSimpleName() + "." + method.getMethodName();
+   }
+
+   private static long getDuration(ITestResult result) {
+      return result.getEndMillis() - result.getStartMillis();
+   }
+
+   // ------------------------------------------------------------------------------------------
+   // Method / configuration hooks: test name in logs + soft assertions
+   // ------------------------------------------------------------------------------------------
+
    @Override
    public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
-      // Before every method in the Test Class
-      //System.out.println(method.getTestMethod().getMethodName());
+      if (method.isTestMethod()) {
+         LogUtils.setTestContext(getLogName(method.getTestMethod()));
+         // A new test must never inherit soft assert errors or diagnostics of a previous test on this thread
+         WebUI.resetSoftAssert();
+         DiagnosticHelpers.reset();
+      }
    }
 
    @Override
    public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
-      // After every method in the Test Class
-      //System.out.println(method.getTestMethod().getMethodName());
+      if (!method.isTestMethod()) {
+         return;
+      }
+      // Verify soft assertions right after the test method: a soft failure marks THIS test as FAILED
+      try {
+         WebUI.stopSoftAssertAll();
+      } catch (AssertionError softError) {
+         if (testResult.getStatus() == ITestResult.SUCCESS) {
+            testResult.setStatus(ITestResult.FAILURE);
+            testResult.setThrowable(softError);
+         } else {
+            LogUtils.error("Soft assertion errors (test already failed): " + softError.getMessage());
+         }
+      }
    }
+
+   @Override
+   public void beforeConfiguration(ITestResult tr, ITestNGMethod tm) {
+      // @BeforeMethod / @AfterMethod: write their logs into the log file of the related test
+      if (tm != null) {
+         LogUtils.setTestContext(getLogName(tm));
+      }
+   }
+
+   @Override
+   public void onConfigurationFailure(ITestResult tr) {
+      LogUtils.error("Configuration method FAILED: " + tr.getMethod().getQualifiedName(), tr.getThrowable());
+   }
+
+   @Override
+   public void onConfigurationSuccess(ITestResult tr, ITestNGMethod tm) {
+      // After @AfterMethod the test is completely finished on this thread
+      if (tm != null && tr.getMethod().isAfterMethodConfiguration()) {
+         LogUtils.clearTestContext();
+      }
+   }
+
+   // ------------------------------------------------------------------------------------------
+   // Suite
+   // ------------------------------------------------------------------------------------------
 
    @Override
    public void onStart(ISuite iSuite) {
       LogUtils.info("********** RUN STARTED **********");
       LogUtils.info("========= INSTALLING CONFIGURATION DATA =========");
-//        try {
-//            FileUtils.deleteDirectory(new File("target/allure-results"));
-//            System.out.println("Deleted Directory target/allure-results");
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
 
+      cleanTestLogFolder();
       PropertiesHelpers.loadAllFiles();
       AllureManager.setAllureEnvironmentInformation();
       ExtentReportManager.initReports();
+      logRunConfiguration();
       LogUtils.info("========= INSTALLED CONFIGURATION DATA =========");
       LogUtils.info("=====> Starting Suite: " + iSuite.getName());
    }
 
-   @Override
-   public void onFinish(ISuite iSuite) {
-      LogUtils.info("********** RUN FINISHED **********");
-      LogUtils.info("=====> End Suite: " + iSuite.getName());
-      //End Suite and execute Extents Report
-      ExtentReportManager.flushReports();
-      //Zip Folder reports
-      ZipUtils.zipReportFolder();
-      //Send notification to Telegram
-      TelegramManager.sendReportPath();
-      //Send mail
-      EmailSendUtils.sendEmail(count_totalTCs, count_passedTCs, count_failedTCs, count_skippedTCs);
-
-      //Write information in Allure Report
-      AllureEnvironmentWriter.allureEnvironmentWriter(ImmutableMap.<String, String>builder().put("Target Execution", FrameworkConstants.TARGET).put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT)).put("Page Load Timeout", String.valueOf(FrameworkConstants.WAIT_PAGE_LOADED)).put("Headless Mode", FrameworkConstants.HEADLESS).put("Local Browser", String.valueOf(Browser.CHROME)).put("Remote URL", FrameworkConstants.REMOTE_URL).put("Remote Port", FrameworkConstants.REMOTE_PORT).put("TCs Total", String.valueOf(count_totalTCs)).put("TCs Passed", String.valueOf(count_passedTCs)).put("TCs Skipped", String.valueOf(count_skippedTCs)).put("TCs Failed", String.valueOf(count_failedTCs)).build());
-
-      //FileHelpers.copyFile("src/test/resources/config/allure/environment.xml", "target/allure-results/environment.xml");
-      FileHelpers.copyFile("src/test/resources/config/allure/categories.json", "target/allure-results/categories.json");
-      FileHelpers.copyFile("src/test/resources/config/allure/executor.json", "target/allure-results/executor.json");
-
-//        try {
-//            // Generate Allure report
-//            generateAllureReport();
-//            // Expose the report using ngrok
-//            exposeReportWithNgrok();
-//        } catch (IOException | InterruptedException e) {
-//            e.printStackTrace();
-//        }
+   private static void cleanTestLogFolder() {
+      // Only once per JVM: a run with several suites must not delete the logs of the previous suites
+      if (!TEST_LOG_FOLDER_CLEANED.compareAndSet(false, true)) {
+         return;
+      }
+      try {
+         FileUtils.deleteDirectory(new File(LogUtils.TEST_LOG_DIR));
+      } catch (Exception e) {
+         // Files can be locked by Log4j when several suites run in the same JVM: old logs are kept
+         LogUtils.debug("Can not clean folder " + LogUtils.TEST_LOG_DIR + ": " + e.getMessage());
+      }
    }
 
-//    private void generateAllureReport() throws IOException, InterruptedException {
-//        // Run the allure generate command
-//        ProcessBuilder pb = new ProcessBuilder("allure.bat", "generate", "target/allure-results", "-o", "allure-report", "--clean");
-//        pb.inheritIO(); // Outputs to console
-//        Process process = pb.start();
-//        process.waitFor();
-//        System.out.println("Allure report generated successfully.");
-//    }
+   private static void logRunConfiguration() {
+      LogUtils.info("Java: " + System.getProperty("java.version") + " | OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version"));
+      LogUtils.info(String.format("Browser: %s | Target: %s | Headless: %s | Remote: %s:%s",
+              TargetFactory.resolveBrowser(null), TARGET, HEADLESS, REMOTE_URL, REMOTE_PORT));
+      LogUtils.info(String.format("Wait explicit: %ss | Page load: %ss | Retry failed tests: %s | Click retry: %s | Driver create retry: %s",
+              WAIT_EXPLICIT, WAIT_PAGE_LOADED, RETRY_TEST_FAIL, CLICK_RETRY, DRIVER_CREATE_RETRY));
+      LogUtils.info(String.format("Screenshot passed/failed/all steps: %s/%s/%s | Video: %s | WebDriver event log: %s | Failure diagnostics: %s",
+              SCREENSHOT_PASSED_TCS, SCREENSHOT_FAILED_TCS, SCREENSHOT_ALL_STEPS, VIDEO_RECORD, WEBDRIVER_EVENT_LOG, FAILURE_DIAGNOSTICS));
+      LogUtils.info("Per-test log files: " + LogUtils.TEST_LOG_DIR);
+   }
 
-//    private void exposeReportWithNgrok() throws IOException, InterruptedException {
-//        // Step 1: Serve the allure-report folder with Python HTTP server (port 8000)
-//        ProcessBuilder servePb = new ProcessBuilder("python", "-m", "http.server", "8000");
-//        servePb.directory(new java.io.File(SystemHelpers.getCurrentDir() + "allure-report")); // Set working directory to allure-report
-//        servePb.inheritIO();
-//        Process serveProcess = servePb.start();
-//
-//        // Give the server a moment to start
-//        Thread.sleep(5000);
-//
-//        // Step 2: Start ngrok to expose port 8000
-//        ProcessBuilder ngrokPb = new ProcessBuilder("C:\\ngrok\\ngrok.exe", "http", "8000");
-//        ngrokPb.inheritIO();
-//        Process ngrokProcess = ngrokPb.start();
-//
-//        Thread.sleep(5000);
-//
-//        // Đọc và hiển thị đầu ra trong thread riêng
-//        new Thread(() -> {
-//            try (BufferedReader reader = new BufferedReader(new InputStreamReader(ngrokProcess.getInputStream()))) {
-//                String line;
-//                while ((line = reader.readLine()) != null) {
-//                    System.out.println(line);
-//                    if (line.contains("https://")) {
-//                        String url = line.split("->")[0].trim().replace("Forwarding", "").trim();
-//                        System.out.println("Public URL: " + url);
-//                    }
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }).start();
-//
-//        // Đọc lỗi (nếu có)
-//        new Thread(() -> {
-//            try (BufferedReader errorReader = new BufferedReader(new InputStreamReader(ngrokProcess.getErrorStream()))) {
-//                String line;
-//                while ((line = errorReader.readLine()) != null) {
-//                    System.err.println("ngrok Error: " + line);
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }).start();
-//
-//        Thread.sleep(5000);
-//        System.out.println("ngrok is running. Check console for the public URL.");
-//    }
+   @Override
+   public void onFinish(ISuite iSuite) {
+      LogUtils.clearTestContext();
+      int passed = count_passedTCs.get();
+      int failed = count_failedTCs.get();
+      int skipped = count_skippedTCs.get();
+      int total = passed + failed + skipped;
+
+      LogUtils.info("********** RUN FINISHED **********");
+      LogUtils.info("=====> End Suite: " + iSuite.getName());
+      LogUtils.info(String.format("RESULT: Total=%d | Passed=%d | Failed=%d | Skipped=%d | Retried attempts=%d",
+              total, passed, failed, skipped, count_retriedTCs.get()));
+
+      //End Suite and execute Extents Report
+      runSafely("Flush Extent report", ExtentReportManager::flushReports);
+      //Zip Folder reports
+      runSafely("Zip report folder", ZipUtils::zipReportFolder);
+      //Send notification to Telegram
+      runSafely("Send Telegram notification", TelegramManager::sendReportPath);
+      //Send mail
+      runSafely("Send email", () -> EmailSendUtils.sendEmail(total, passed, failed, skipped));
+
+      //Write information in Allure Report
+      runSafely("Write Allure environment", () -> AllureEnvironmentWriter.allureEnvironmentWriter(ImmutableMap.<String, String>builder()
+              .put("Target Execution", FrameworkConstants.TARGET)
+              .put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT))
+              .put("Page Load Timeout", String.valueOf(FrameworkConstants.WAIT_PAGE_LOADED))
+              .put("Headless Mode", FrameworkConstants.HEADLESS)
+              .put("Local Browser", TargetFactory.resolveBrowser(null))
+              .put("Remote URL", String.valueOf(FrameworkConstants.REMOTE_URL))
+              .put("Remote Port", String.valueOf(FrameworkConstants.REMOTE_PORT))
+              .put("TCs Total", String.valueOf(total))
+              .put("TCs Passed", String.valueOf(passed))
+              .put("TCs Skipped", String.valueOf(skipped))
+              .put("TCs Failed", String.valueOf(failed))
+              .build()));
+
+      FileHelpers.copyFile("src/test/resources/config/allure/categories.json", "target/allure-results/categories.json");
+      FileHelpers.copyFile("src/test/resources/config/allure/executor.json", "target/allure-results/executor.json");
+   }
+
+   /**
+    * Reporting steps must not break each other: log the error and continue.
+    */
+   private static void runSafely(String stepName, Runnable step) {
+      try {
+         step.run();
+      } catch (Exception e) {
+         LogUtils.error("Step '" + stepName + "' failed: " + e.getMessage(), e);
+      }
+   }
+
+   // ------------------------------------------------------------------------------------------
+   // Tests
+   // ------------------------------------------------------------------------------------------
 
    public AuthorType[] getAuthorType(ITestResult iTestResult) {
-      if (iTestResult.getMethod().getConstructorOrMethod().getMethod().getAnnotation(FrameworkAnnotation.class) == null) {
-         return null;
-      }
-      AuthorType authorType[] = iTestResult.getMethod().getConstructorOrMethod().getMethod().getAnnotation(FrameworkAnnotation.class).author();
-      return authorType;
+      FrameworkAnnotation annotation = iTestResult.getMethod().getConstructorOrMethod().getMethod().getAnnotation(FrameworkAnnotation.class);
+      return annotation == null ? null : annotation.author();
    }
 
    public CategoryType[] getCategoryType(ITestResult iTestResult) {
-      if (iTestResult.getMethod().getConstructorOrMethod().getMethod().getAnnotation(FrameworkAnnotation.class) == null) {
-         return null;
-      }
-      CategoryType categoryType[] = iTestResult.getMethod().getConstructorOrMethod().getMethod().getAnnotation(FrameworkAnnotation.class).category();
-      return categoryType;
+      FrameworkAnnotation annotation = iTestResult.getMethod().getConstructorOrMethod().getMethod().getAnnotation(FrameworkAnnotation.class);
+      return annotation == null ? null : annotation.category();
    }
 
    @Override
    public void onTestStart(ITestResult iTestResult) {
-      LogUtils.info("Test case: " + getTestName(iTestResult) + " is starting...");
-      count_totalTCs = count_totalTCs + 1;
+      LogUtils.setTestContext(getLogName(iTestResult.getMethod()));
+      LogUtils.info("========== Test case: " + getTestName(iTestResult) + " is starting... ==========");
 
       ExtentReportManager.createTest(iTestResult.getName());
       ExtentReportManager.addAuthors(getAuthorType(iTestResult));
@@ -205,16 +256,15 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
       ExtentReportManager.addDevices();
       ExtentReportManager.info(BrowserInfoUtils.getOSInfo());
 
-      if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
+      if (isRecording()) {
          screenRecorder.startRecording(getTestName(iTestResult));
       }
-
    }
 
    @Override
    public void onTestSuccess(ITestResult iTestResult) {
-      LogUtils.info("Test case: " + getTestName(iTestResult) + " is passed.");
-      count_passedTCs = count_passedTCs + 1;
+      LogUtils.info("Test case: " + getTestName(iTestResult) + " is PASSED (" + getDuration(iTestResult) + " ms).");
+      count_passedTCs.incrementAndGet();
 
       if (SCREENSHOT_PASSED_TCS.equals(YES)) {
          CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
@@ -222,46 +272,74 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
       }
 
       ExtentReportManager.logMessage(Status.PASS, "Test case: " + getTestName(iTestResult) + " is passed.");
-
-      if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
-         WebUI.sleep(2);
-         screenRecorder.stopRecording(true);
-      }
+      stopRecording();
    }
 
    @Override
    public void onTestFailure(ITestResult iTestResult) {
-      LogUtils.error("FAILED !! Test case " + getTestName(iTestResult) + " is failed.");
-      LogUtils.error(iTestResult.getThrowable());
+      Throwable error = iTestResult.getThrowable();
+      LogUtils.error("FAILED !! Test case " + getTestName(iTestResult) + " is failed (" + getDuration(iTestResult) + " ms).", error);
 
-      count_failedTCs = count_failedTCs + 1;
+      count_failedTCs.incrementAndGet();
 
       if (SCREENSHOT_FAILED_TCS.equals(YES)) {
          CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
          ExtentReportManager.addScreenShot(Status.FAIL, getTestName(iTestResult));
       }
 
-      ExtentReportManager.logMessage(Status.FAIL, iTestResult.getThrowable().toString());
-
-      if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
-         WebUI.sleep(2);
-         screenRecorder.stopRecording(true);
+      if (error != null) {
+         ExtentReportManager.logThrowable(Status.FAIL, error);
+      } else {
+         ExtentReportManager.logMessage(Status.FAIL, "Test case: " + getTestName(iTestResult) + " is failed.");
       }
+
+      if (YES.equalsIgnoreCase(FAILURE_DIAGNOSTICS)) {
+         DiagnosticHelpers.Diagnostics diagnostics = DiagnosticHelpers.collectOnce();
+         if (diagnostics != null) {
+            LogUtils.error("Browser state when failed:" + System.lineSeparator() + diagnostics.summary());
+            ExtentReportManager.logCodeBlock(Status.INFO, "Failure info", diagnostics.summary());
+            ExtentReportManager.logCodeBlock(Status.INFO, "Browser console logs", diagnostics.consoleLogs);
+         }
+         ExtentReportManager.logCodeBlock(Status.INFO, "Test log (last 200 lines)", LogUtils.readTestLog(LogUtils.getTestContext(), 200));
+      }
+
+      stopRecording();
    }
 
    @Override
    public void onTestSkipped(ITestResult iTestResult) {
-      LogUtils.warn("WARNING!! Test case: " + getTestName(iTestResult) + " is skipped.");
-      count_skippedTCs = count_skippedTCs + 1;
+      if (iTestResult.wasRetried()) {
+         // This attempt failed and will be executed again: it is neither a final failure nor a real skip
+         count_retriedTCs.incrementAndGet();
+         LogUtils.warn("Test case: " + getTestName(iTestResult) + " failed and will be RETRIED.", iTestResult.getThrowable());
+         stopRecording();
+         // Keep only the last attempt in the Extent report (Allure shows the retries in its own tab)
+         ExtentReportManager.removeCurrentTest();
+         return;
+      }
 
-      if (SCREENSHOT_SKIPPED_TCS.equals(YES)) {
+      LogUtils.warn("WARNING!! Test case: " + getTestName(iTestResult) + " is skipped.", iTestResult.getThrowable());
+      count_skippedTCs.incrementAndGet();
+
+      if (SCREENSHOT_SKIPPED_TCS.equals(YES) && DriverManager.getDriver() != null) {
          CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
       }
 
       ExtentReportManager.logMessage(Status.SKIP, "Test case: " + getTestName(iTestResult) + " is skipped.");
+      if (iTestResult.getThrowable() != null) {
+         ExtentReportManager.logThrowable(Status.SKIP, iTestResult.getThrowable());
+      }
+      stopRecording();
+   }
 
-      if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
-         screenRecorder.stopRecording(true);
+   private void stopRecording() {
+      if (isRecording()) {
+         try {
+            WebUI.sleep(2); // keep the last state of the screen in the video
+            screenRecorder.stopRecording(true);
+         } catch (Exception e) {
+            LogUtils.warn("Can not stop screen recording: " + e.getMessage(), e);
+         }
       }
    }
 

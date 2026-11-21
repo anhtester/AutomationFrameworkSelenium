@@ -45,9 +45,9 @@ public class JsonUtils {
             });
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
         } catch (IOException e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
         }
     }
 
@@ -70,9 +70,9 @@ public class JsonUtils {
                 stringBuffer.append(lines);
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
         } catch (IOException e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
         }
         return stringBuffer;
     }
@@ -86,9 +86,9 @@ public class JsonUtils {
             }
             jsonContext = JsonPath.parse(stringBuffer.toString());
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
         } catch (IOException e) {
-            e.printStackTrace();
+            LogUtils.error(e.getMessage(), e);
         }
     }
 
@@ -102,9 +102,9 @@ public class JsonUtils {
                 }
                 jsonContext = JsonPath.parse(stringBuffer.toString());
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                LogUtils.error(e.getMessage(), e);
             } catch (IOException e) {
-                e.printStackTrace();
+                LogUtils.error(e.getMessage(), e);
             }
         }
         return stringBuffer.toString();

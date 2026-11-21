@@ -39,10 +39,9 @@
         <apache-poi.version>5.5.1</apache-poi.version>
         <commons-io.version>2.21.0</commons-io.version>
         <owner.version>1.0.12</owner.version>
-        <assertj.version>4.0.0-M1</assertj.version>
+        <assertj.version>3.27.7</assertj.version>
         <datafaker.version>2.5.4</datafaker.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
-        <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <lombok.version>1.18.42</lombok.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.17</zip.version>
@@ -51,6 +50,7 @@
         <mysql-connector-j.version>9.6.0</mysql-connector-j.version>
         <json-path.version>3.0.0</json-path.version>
         <jackson.version>2.21.1</jackson.version>
+        <log4j.version>2.25.2</log4j.version>
 
         <!-- Suite XML path - CRM -->
         <suite.signin.simple>src/test/resources/suites/CRM/SignIn-simple.xml</suite.signin.simple>
@@ -124,26 +124,25 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.25.2</version>
+            <version>${log4j.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.25.2</version>
+            <version>${log4j.version}</version>
+        </dependency>
+        <!-- Route SLF4J logs (zt-zip, Telegram, ...) into Log4j2 instead of slf4j-simple (stderr) -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j2-impl</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.17</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
             <version>2.0.17</version>
         </dependency>
 
@@ -201,20 +200,7 @@
         <!--            <version>1.3.2</version>-->
         <!--        </dependency>-->
 
-        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.14.1</version>
-            <type>maven-plugin</type>
-        </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>${maven-surefire-plugin.version}</version>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
         <dependency>
@@ -255,6 +241,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
@@ -264,12 +251,6 @@
             <version>${mysql-connector-j.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector-java.version}</version>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
         <dependency>
@@ -295,134 +276,35 @@
 
     </dependencies>
 
-    <!-- This profile execute the TestNG suite inside the suites folder on test/resources/suites -->
-    <!--    <profiles>-->
-    <!--        <profile>-->
-    <!--            <id>signin-parallel</id>-->
-    <!--            <build>-->
-    <!--                <plugins>-->
-    <!--                    <plugin>-->
-    <!--                        <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                        <artifactId>maven-surefire-plugin</artifactId>-->
-    <!--                        <version>${maven-surefire-plugin.version}</version>-->
-    <!--                        <configuration>-->
-    <!--                            <suiteXmlFiles>-->
-    <!--                                <suiteXmlFile>${suite.signin.parallel}</suiteXmlFile>-->
-    <!--                            </suiteXmlFiles>-->
-    <!--                            <argLine>-->
-    <!--                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"-->
-    <!--                            </argLine>-->
-    <!--                            <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>-->
-    <!--                            <systemPropertyVariables>-->
-    <!--                                <allure.results.directory>target/allure-results</allure.results.directory>-->
-    <!--                            </systemPropertyVariables>-->
-    <!--                        </configuration>-->
-    <!--                    </plugin>-->
-    <!--                </plugins>-->
-    <!--            </build>-->
-    <!--        </profile>-->
-
-    <!--        <profile>-->
-    <!--            <id>signin-simple</id>-->
-    <!--            <build>-->
-    <!--                <plugins>-->
-    <!--                    <plugin>-->
-    <!--                        <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                        <artifactId>maven-surefire-plugin</artifactId>-->
-    <!--                        <version>${maven-surefire-plugin.version}</version>-->
-    <!--                        <configuration>-->
-    <!--                            <suiteXmlFiles>-->
-    <!--                                <suiteXmlFile>${suite.signin.simple}</suiteXmlFile>-->
-    <!--                            </suiteXmlFiles>-->
-    <!--                            <argLine>-->
-    <!--                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"-->
-    <!--                            </argLine>-->
-    <!--                            <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>-->
-    <!--                            <systemPropertyVariables>-->
-    <!--                                <allure.results.directory>target/allure-results</allure.results.directory>-->
-    <!--                            </systemPropertyVariables>-->
-    <!--                        </configuration>-->
-    <!--                    </plugin>-->
-    <!--                </plugins>-->
-    <!--            </build>-->
-    <!--        </profile>-->
-
-    <!--        <profile>-->
-    <!--            <id>clients-parallel</id>-->
-    <!--            <build>-->
-    <!--                <plugins>-->
-    <!--                    <plugin>-->
-    <!--                        <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                        <artifactId>maven-surefire-plugin</artifactId>-->
-    <!--                        <version>${maven-surefire-plugin.version}</version>-->
-    <!--                        <configuration>-->
-    <!--                            <suiteXmlFiles>-->
-    <!--                                <suiteXmlFile>${suite.client.parallel}</suiteXmlFile>-->
-    <!--                            </suiteXmlFiles>-->
-    <!--                            <argLine>-->
-    <!--                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"-->
-    <!--                            </argLine>-->
-    <!--                            <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>-->
-    <!--                            <systemPropertyVariables>-->
-    <!--                                <allure.results.directory>target/allure-results</allure.results.directory>-->
-    <!--                            </systemPropertyVariables>-->
-    <!--                        </configuration>-->
-    <!--                    </plugin>-->
-    <!--                </plugins>-->
-    <!--            </build>-->
-    <!--        </profile>-->
-
-    <!--        <profile>-->
-    <!--            <id>clients-simple</id>-->
-    <!--            <build>-->
-    <!--                <plugins>-->
-    <!--                    <plugin>-->
-    <!--                        <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                        <artifactId>maven-surefire-plugin</artifactId>-->
-    <!--                        <version>${maven-surefire-plugin.version}</version>-->
-    <!--                        <configuration>-->
-    <!--                            <suiteXmlFiles>-->
-    <!--                                <suiteXmlFile>${suite.client.simple}</suiteXmlFile>-->
-    <!--                            </suiteXmlFiles>-->
-    <!--                            <argLine>-->
-    <!--                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"-->
-    <!--                            </argLine>-->
-    <!--                            <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>-->
-    <!--                            <systemPropertyVariables>-->
-    <!--                                <allure.results.directory>target/allure-results</allure.results.directory>-->
-    <!--                            </systemPropertyVariables>-->
-    <!--                        </configuration>-->
-    <!--                    </plugin>-->
-    <!--                </plugins>-->
-    <!--            </build>-->
-    <!--        </profile>-->
-
-    <!--        <profile>-->
-    <!--            <id>suite-all</id>-->
-    <!--            <build>-->
-    <!--                <plugins>-->
-    <!--                    <plugin>-->
-    <!--                        <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                        <artifactId>maven-surefire-plugin</artifactId>-->
-    <!--                        <version>${maven-surefire-plugin.version}</version>-->
-    <!--                        <configuration>-->
-    <!--                            <suiteXmlFiles>-->
-    <!--                                <suiteXmlFile>${suite.all}</suiteXmlFile>-->
-    <!--                            </suiteXmlFiles>-->
-    <!--                            <argLine>-->
-    <!--                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"-->
-    <!--                            </argLine>-->
-    <!--                            <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>-->
-    <!--                            <systemPropertyVariables>-->
-    <!--                                <allure.results.directory>target/allure-results</allure.results.directory>-->
-    <!--                            </systemPropertyVariables>-->
-    <!--                        </configuration>-->
-    <!--                    </plugin>-->
-    <!--                </plugins>-->
-    <!--            </build>-->
-    <!--        </profile>-->
-
-    <!--    </profiles>-->
+    <profiles>
+        <!--
+          Run any suite without editing the pom:
+            mvn test -Dsuite=src/test/resources/suites/SuiteAll.xml
+            mvn test -Dsuite=src/test/resources/suites/CRM/SignIn-parallel-methods.xml -DBROWSER=firefox
+          Without -Dsuite, the default suites configured in maven-surefire-plugin below are executed.
+        -->
+        <profile>
+            <id>custom-suite</id>
+            <activation>
+                <property>
+                    <name>suite</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <suiteXmlFiles combine.self="override">
+                                <suiteXmlFile>${suite}</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 
     <build>
@@ -451,6 +333,7 @@
                         </suiteXmlFiles>
                         <argLine>
                             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"
+                            -Dfile.encoding=UTF-8
                         </argLine>
                         <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>
                         <systemPropertyVariables>
