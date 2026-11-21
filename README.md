@@ -1,191 +1,143 @@
 ![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Java CI with Maven on Windows](https://github.com/anhtester/AutomationFrameworkSelenium/actions/workflows/maven.yml/badge.svg)](https://github.com/anhtester/AutomationFrameworkSelenium/actions/workflows/maven.yml)
+[![Run Maven with GitHub CI](https://github.com/anhtester/AutomationFrameworkSelenium/actions/workflows/maven.yml/badge.svg)](https://github.com/anhtester/AutomationFrameworkSelenium/actions/workflows/maven.yml)
 
 ## Test Automation Framework using Selenium Java and TestNG building by Anh Tester
 
+Version **3.0.0** - see [CHANGELOG.txt](CHANGELOG.txt) · Allure Report: https://anhtester.github.io/AutomationFrameworkSelenium/
+
 ### **💥Important**: when clone this repo, you should select '**Recursive**' to get all submodules
+
+```
+git clone --recursive https://github.com/anhtester/AutomationFrameworkSelenium.git
+```
+
+The keyword library **WebUI** is the submodule https://github.com/anhtester/keywords
 
 🔆 **SOME FEATURES IN FRAMEWORK**
 
-1. Run the parallel test case
-2. Read Config from Properties file
-3. Extent Report
-4. Allure Report
-5. Send Mail after the run test (Report information and HTML file attachment)
-6. Write Log to file
-7. Record video and Screenshot test case
-8. Read data test from Excel file (xlsx, csv, json,...)
-9. Base function in the package: utils, helpers
-10. Read data test from Json file
-11. Main Keyword: WebUI (call common function)
-12. Sample test all function in WebUI keyword
-13. Send message/report to Telegram Bot
-14. Run Selenium Grid (remote)
-15. Use DataFaker and JavaFaker to generate data
-16. Retry Failed Test in TestNG with IRetryAnalyzer and IAnnotationTransformer
-17. Javadoc for this source
+1. Run test cases in parallel (TestNG), on Chrome, Edge, Firefox, Safari, local or Selenium Grid
+2. Config in properties files, every key can be overridden with `-Dkey=value` or an environment variable
+3. Main keyword **WebUI**: waits, retry on stale/covered elements, soft assert, logs and reports in one call
+4. Detailed logs: one log file per test case, every WebDriver action with its duration
+5. Allure Report 2 and Extent Report, with stack trace, page source, browser console logs and test log on failure
+6. Screenshot and video record of test cases
+7. Read test data from Excel, CSV, JSON and properties files
+8. Retry failed tests (IRetryAnalyzer + IAnnotationTransformer)
+9. Send report by email and Telegram Bot
+10. Generate test data with DataFaker
+11. Selenium Grid with Docker (`docker-compose.yml`)
+12. CI with GitHub Actions: Chrome + Edge, reports published to GitHub Pages
 
 ### ✳️ **SYSTEM REQUIREMENTS**
 
-- Install Java JDK (recommend JDK >= 17)
-- Install Chrome Browser, Edge Browser, Firefox Browser
-- Run well on the **Windows** platform
-- Setup **Allure ENV**:
-  https://mvnrepository.com/artifact/io.qameta.allure/allure-java-commons
-  or
-  https://anhtester.com/blog/selenium-java/selenium-java-tai-nguyen-cai-dat-moi-truong)
-  Download jar and setting Variable Environment as Java JDK
-
-  ![image](https://user-images.githubusercontent.com/87883620/161661705-b8706957-5a26-4faf-8ddf-2f9aef78418e.png)
-
-- Use **IntelliJ IDEA** is the best choice (easy change the JDK version)
+- Java JDK 17 or newer
+- Maven 3.9+ (or the Maven bundled with IntelliJ IDEA)
+- Chrome, Edge or Firefox. Browser drivers are downloaded automatically by Selenium Manager (no PATH setting)
+- Allure: nothing to install, Maven downloads Allure Report 2.46.2 (`mvn allure:serve`)
+- Docker (optional): only to run Selenium Grid locally
+- **IntelliJ IDEA** is the best choice (easy change the JDK version)
 
 ![image](https://user-images.githubusercontent.com/87883620/161707184-7ad558f2-0d7d-4851-bfd6-2796d4e46593.png)
 
 ### ✳️ **HOW TO USE**
 
-**1. Run parallel the test case**
-
-- Run test cases in suite XML (**src/test/resources/suites/**)
-- Run test cases from Maven with setup in the pom.xml file 
-  (**mvn clean test**)
-
-  ![image](https://user-images.githubusercontent.com/87883620/161658761-5040e527-b410-46b3-8697-3298523e201d.png)
+**1. Run the test cases**
 
 - Default suite of `mvn test` and CI: `src/test/resources/suites/CMS/RegressionCMS.xml` (all CMS tests grouped in one suite)
-- Run any suite without editing pom.xml: `mvn test -Dsuite=src/test/resources/suites/SuiteAll.xml`
-  (PowerShell: quote the parameter `mvn test "-Dsuite=src/test/resources/suites/SuiteAll.xml"`)
 
-**2. Read Config from Properties file**
+```
+mvn clean test
+```
 
-![image](https://user-images.githubusercontent.com/87883620/194396141-eb0e2750-9b8d-42bb-803d-43b7b5199a73.png)
+- Run any suite without editing pom.xml (PowerShell: put the parameter in quotes):
 
-- Every key of `config.properties` can be overridden by a JVM property or an environment variable (CI):
+```
+mvn test "-Dsuite=src/test/resources/suites/SuiteAll.xml"
+```
+
+- Run a suite XML directly from IntelliJ IDEA: `src/test/resources/suites/`
+
+**2. Config**
+
+- `src/test/resources/config/config.properties` (browser, headless, timeouts, reports...) and `data.properties` (test data)
+- Every key can be overridden by a JVM property or an environment variable (CI):
   `mvn test -DBROWSER=firefox -DHEADLESS=false -DRETRY_TEST_FAIL=0`
 - Browser priority: `-DBROWSER` / env `BROWSER` > parameter `BROWSER` of the suite XML > `BROWSER` in config.properties > chrome
-- Stability options: `RETRY_TEST_FAIL`, `DRIVER_CREATE_RETRY`, `CLICK_RETRY` (stale/covered element, last attempt uses JS click)
+- Stability options: `RETRY_TEST_FAIL`, `DRIVER_CREATE_RETRY`, `CLICK_RETRY` (stale/covered element, last attempt uses a JS click)
+- Object repository (locators): `src/test/resources/objects/locators.properties`, read with `ObjectUtils.getByLocatorFromConfig("name")`
 
-**2.1. Logs**
+**3. Logs**
 
 - `exports/logs/applog.log`: whole run, `exports/logs/error.log`: only WARN/ERROR
 - `exports/logs/tests/<Class.method>.log`: one detailed (DEBUG) log file per test case, including every WebDriver action
   with its duration (`WEBDRIVER_EVENT_LOG=yes`). Parallel tests never mix their logs.
-- Every line has the thread, the test name and the caller (`Class.method:line`); errors keep the full stack trace.
-- Passwords/tokens typed with `setText` are masked (`******`).
-- When a test fails (`FAILURE_DIAGNOSTICS=yes`), Allure and Extent get: stack trace, URL, title, page source,
-  browser console logs (Chrome/Edge) and the test log.
+- Every line has the thread, the test name and the caller (`Class.method:line`); errors keep the full stack trace
+- Passwords/tokens typed with `setText` are masked (`******`)
 - Levels: `-Dlog.level=debug` (console + applog), `-Dlog.test.level=info` (per-test files), `-Dlog.dir=...`
-
-**3. Extent Report**
-
-- Insert "FrameworkAnnotation" as sample or None:
-
-![image](https://user-images.githubusercontent.com/87883620/161657646-3dd652c6-a310-4006-a0cb-de63e2e87e36.png)
-
-- The base value read from Enums (src/main/java/anhtester/com/enums)
-- Setup on TestListener and BaseTest
-
-![image](https://user-images.githubusercontent.com/87883620/161657754-c29b1ee9-f2fb-44b3-bee0-9f425a7cab6f.png)
-
-- **Pdf Report**
-
-![image](https://user-images.githubusercontent.com/87883620/194396654-5b01cb68-161a-4caf-824d-b57cd6091586.png)
-![image](https://user-images.githubusercontent.com/87883620/194396689-ac5381cc-8689-4ce0-8c7f-d2487047faec.png)
-![image](https://user-images.githubusercontent.com/87883620/194396707-ed1308a0-e4bf-4cac-b5b6-0fde44c81091.png)
+- In your code: `LogUtils.info()`, `LogUtils.warn()`, `LogUtils.error()`, `LogUtils.debug()` (`com.anhtester.utils.LogUtils`)
 
 **4. Allure Report**
 
-- Without installing Allure (Allure Report 2.46.2 is downloaded by Maven): `mvn allure:serve` or `mvn allure:report` (target/site/allure-maven-plugin)
+- Without installing Allure: `mvn allure:serve` (open in the browser) or `mvn allure:report` (`target/site/allure-maven-plugin`)
 - With Allure CLI 2.x: `allure serve target/allure-results`
-- or command: `allure generate --single-file target/allure-results --clean`
+- When a test fails (`FAILURE_DIAGNOSTICS=yes`): screenshot, stack trace, URL, page source, browser console logs (Chrome/Edge) and the test log
+- Insert **@Step("title/message")** above **_@Test_** or any **_Method_** in the project
 
 ![image](https://user-images.githubusercontent.com/87883620/161662507-9e4dc698-e452-4b43-a4f5-9808c81419a2.png)
 
-- Insert **@Step("title/message")** above **_@Test_** or any **_Method_** in the project
-- (As sample picture above step 3)
-
 ![image](https://user-images.githubusercontent.com/87883620/161657680-af29973d-4e52-451f-b1d6-40b12d182845.png)
 
-![image](https://user-images.githubusercontent.com/87883620/161657689-10365747-ed8f-4ca8-9d84-8060514f216b.png)
+**5. Extent Report**
 
-**5. Send Mail after the run test**
+- File: `exports/ExtentReports/ExtentReports.html`
+- Insert **FrameworkAnnotation** (author, category) above the test method, values from enums `src/main/java/com/anhtester/enums`
+- Setup in `TestListener`
 
-- Config **true/false** in config.properties
-  (**_src/test/resources/config/config.properties_**)
-- send_email_to_users=**true** is enable send mail
-- Config mail with email and password in **_src/main/java/anhtester/com/mail/EmailConfig.java_**
-- Note: if Gmail, you use App Password
+![image](https://user-images.githubusercontent.com/87883620/161657646-3dd652c6-a310-4006-a0cb-de63e2e87e36.png)
 
-![image](https://user-images.githubusercontent.com/87883620/161658851-2aa41091-ac99-45d9-a79f-aaa828052efb.png)
+**6. Screenshot and video record**
+
+- `config.properties`: `SCREENSHOT_PASSED_TCS`, `SCREENSHOT_FAILED_TCS`, `SCREENSHOT_SKIPPED_TCS`, `SCREENSHOT_ALL_STEPS` = yes/no
+- Screenshots: `exports/ExportData/Images`, downloads of the browser: `exports/Downloads`
+- `VIDEO_RECORD=yes`: video of each test in `exports/ExportData/Videos` (needs a visible screen: `-DHEADLESS=false`)
+
+**7. Read test data**
+
+- Excel with DataProvider, example: `src/test/java/com/anhtester/dataprovider/DataProviderAddProduct.java` (`ExcelHelpers`, Map and Hashtable)
+- JSON: `JsonUtils.get("key")` or JsonPath `JsonUtils.getData("$.store.book[0]")`
+- Properties: `PropertiesHelpers.getValue("key")`
+
+**8. Main Keyword: WebUI**
+
+- WebUI (`src/main/java/com/anhtester/keywords`, submodule https://github.com/anhtester/keywords) contains the common functions
+- How to use: `WebUI.function_name`, example: `WebUI.clickElement(By by)`, `WebUI.setText(By by, String value)`, `WebUI.verifyElementVisible(By by)`
+- Base functions: `src/main/java/com/anhtester/utils`, `src/main/java/com/anhtester/helpers`
+- Samples:
+  - CMS test cases: `src/test/java/com/anhtester/projects/cms/testcases` (extend `BaseTestCMS`)
+  - Keyword and utility demos: `src/test/java/com/anhtester/projects/demo` (`TestHandle`, `TestSimpleCode`)
+- Keywords with `java.awt.Robot` (upload with local form, drag and drop by mouse) need a visible local browser:
+  they are skipped in headless mode and on Selenium Grid
+
+**9. Retry failed tests**
+
+- `RETRY_TEST_FAIL = 1` in config.properties (or `-DRETRY_TEST_FAIL=0` to disable)
+- Listener `com.anhtester.listeners.AnnotationTransformer` in the suite XML
+
+**10. Send report by email**
+
+- `SEND_EMAIL_TO_USERS = yes` in config.properties
+- Mail account with JVM properties or environment variables (never commit a password):
+  `EMAIL_FROM`, `EMAIL_PASSWORD`, `EMAIL_TO` (comma separated), `EMAIL_SERVER` (default smtp.gmail.com), `EMAIL_PORT` (default 587)
+- Gmail: use an App Password
 
 ![image](https://user-images.githubusercontent.com/87883620/161659238-88337f69-b742-4cd7-87f2-76670519c8dd.png)
 
-**6. Write Logs to file**
+**11. Send report to Telegram Bot**
 
-- Call class: LogUtils.info(), LogUtils.pass(), LogUtils.error(),... (**LogUtils** is a custom global class from Log4j2)
-  (**_import utils.com.anhtester.LogUtils.java_**)
-
-![image](https://user-images.githubusercontent.com/87883620/161657858-d333ac1d-9e7b-4c1b-baac-151a237a1fa0.png)
-
-**7. Record video and Screenshot**
-
-- Setup in **_config.properties_** file
-  (**_src/test/resources/config/config.properties_**)
-- screenshot_passed_steps=yes or no
-- screenshot_failed_steps=yes or no
-- screenshot_skipped_steps=yes or no
-- screenshot_all_steps=yes or no
-
-  ![image](https://user-images.githubusercontent.com/87883620/161657881-5235139a-9982-43c0-ac37-09f22fff1206.png)
-
-**8. Read data test from Excel file**
-
-- Create function with annotation **DataProvider**, example: **src/test/java/com/anhtester/dataprovider/DataProviderAddProduct.java**
-- Read Excel file with Map and Hashtable
-
-**9. Base function in the package**
-
-- **_src/main/java/anhtester/com/utils_**
-- **_src/main/java/anhtester/com/helpers_**
-
-**10. Read data test from JSON file**
-
-- **JsonUtils** class selects the JSON file path and calls **"get"** method with **key**
-
-**11. Main Keyword: WebUI**
-
-- WebUI class is the main keyword in Framework. It contains common functions
-- How to use: WebUI.function_name
-- Example: WebUI.setWindowSize(1024, 768), WebUI.screenshotElement(By by, String elementName),...
-
-**12. Call function to using sample**
-
-- CMS test cases: src/test/java/com/anhtester/projects/cms/testcases
-- Keyword and utility demos: src/test/java/com/anhtester/projects/demo
-
-```
-+ TestHandle
-+ TestSimpleCode
-```
-
-**13. Send message/report to Telegram Bot**
-
-- Setup in src/main/java/anhtester/com/report/TelegramManager.java
-- Example: src/test/java/com/anhtester/projects/demo/TestSimpleCode.java
-- Call in TestListener at onFinish TelegramManager.sendReportPath()
-
-===How to get Token and start Bot===
-
-- Read blog: https://blog.devgenius.io/automation-of-reporting-2abe7f101801
-- Copy Token of your Bot ⇒ Paste to TelegramManager class
-- Click your Bot ⇒ input **/start** to start your Bot
-
-===How to get ChatID===
-
-- After starting your Bot, you use Postman tools and using your Token:
-  Get: https://api.telegram.org/bot{token}/getUpdates ⇒ chat.id
-- Example: https://api.telegram.org/bot19468772:AAHtlc_BH8zlJAGDHuTJy3J72XumY5LxWcE/getUpdates
+- `SEND_REPORT_TO_TELEGRAM = yes`, `TELEGRAM_TOKEN`, `TELEGRAM_CHATID` (config.properties, `-D` or environment variables)
+- Create a bot and get its token with **@BotFather**: https://core.telegram.org/bots/tutorial
+- Open your bot and send **/start**, then get the Chat ID: `https://api.telegram.org/bot<YOUR_TOKEN>/getUpdates` ⇒ `chat.id`
 
 ```
 "chat": {
@@ -196,72 +148,30 @@
 }
 ```
 
-**14. Use Selenium Grid**
+**12. Use Selenium Grid**
 
-### Download and Install
+- Run Selenium Grid with Docker: Hub + Chrome/Edge/Firefox nodes (`docker-compose.yml`, version matches `selenium.version` in pom.xml)
 
-1. Download Selenium Grid 4: https://www.selenium.dev/downloads/
+```
+docker compose up -d
+mvn test -DTARGET=remote -DREMOTE_URL=localhost -DREMOTE_PORT=4444 -DBROWSER=chrome
+```
 
-(tải bản Latest stable version)
+- Grid console: http://localhost:4444/ui
+- Without Docker: download [selenium-server-4.53.0.jar](https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.53.0/selenium-server-4.53.0.jar) and run `java -jar selenium-server-4.53.0.jar standalone`
+- `REMOTE_URL` can also be a full URL (ex: `https://hub.example.com/wd/hub`)
 
-**selenium-server-4.22.0.jar** (updated 24/06/2024)
+**13. Generate test data with DataFaker**
 
-2. Set PATH for driver in Environment variables:
+- `DataFakerUtils`, `DataGenerateUtils` (`LOCATE = vi` in config.properties)
+- Document DataFaker: https://www.datafaker.net/documentation/getting-started/
+- Anh Tester blog: https://anhtester.com/blog/tao-du-lieu-gia-voi-datafaker
 
-Follow with link:
-https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/#2-the-path-environment-variable
+**14. CI with GitHub Actions**
 
-🔆 Đặt file **selenium-server-4.22.0.jar** vào thư mục nào đó và mở CMD tại thư mục đó lên
-
-### Run default 1 node
-
-✅ Mở 1 Hub với 1 Node mặc định (port 4444)
-
-> java -jar selenium-server-4.22.0.jar standalone
-
-### Run multi Node
-
-✅ Mở 1 Hub với 3 Node: (chạy 4 lệnh mở 4 CMD nhé)
-
-> java -jar selenium-server-4.22.0.jar hub
-
-> java -jar selenium-server-4.22.0.jar node --port 5556
-
-> java -jar selenium-server-4.22.0.jar node --port 6667
-
-> java -jar selenium-server-4.22.0.jar node --port 7778
-
-
-**📝 NOTE: Thực thi nhiều lệnh thì mở nhiều CMD**
-
-### Edit Grid in Config.properties
-
-> TARGET=remote
-
-> REMOTE_URL=192.168.1.13 (url Grid của bạn)
-
-> REMOTE_PORT=4444 (port của Grid)
-
-![image](https://user-images.githubusercontent.com/87883620/200506141-b738104c-b012-4ced-8335-4dadfecd6f66.png)
-
-![image](https://user-images.githubusercontent.com/87883620/200506279-e1496849-70ab-4602-be44-0f44926ab826.png)
-
-![image](https://user-images.githubusercontent.com/87883620/200506218-dbe10f1c-7e65-47e4-a7ac-f29a2b2db43b.png)
-
-### Run Selenium Grid with Docker
-
-✅ Hub + Chrome/Edge/Firefox nodes (file `docker-compose.yml`, version matches `selenium.version` in pom.xml)
-
-> docker compose up -d
-
-> mvn test -DTARGET=remote -DREMOTE_URL=localhost -DREMOTE_PORT=4444 -DBROWSER=chrome
-
-Grid console: http://localhost:4444/ui. `REMOTE_URL` can also be a full URL (ex: `https://hub.example.com/wd/hub`).
-
-**15. Use DataFaker and JavaFaker to generate data**
-
-Document DataFaker: https://www.datafaker.net/documentation/getting-started/
-or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-voi-datafaker
+- `.github/workflows/maven.yml`: run the tests on Chrome then Edge, the job is red when a test fails
+- Artifacts of each run: Allure Report, Extent Report, logs, screenshots, videos
+- Allure Report and Javadoc are published to GitHub Pages from the `main` branch: https://anhtester.github.io/AutomationFrameworkSelenium/
 
 ### 🔆 Project structure
 
@@ -437,10 +347,8 @@ or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-
 
 ## ⭐️ I will support your company if needed
 
-### 📗 Documents: https://deepwiki.com/anhtester/AutomationFrameworkSelenium
-
-## Copyright 2022-2025 Anh Tester
+## Copyright 2022-2026 Anh Tester
 
 > Anh Tester Blog: https://anhtester.com/
 
-![Alt text](https://anhtester.com/uploads/logo/anhtester_logo_512.png?raw=true "Anh Tester Automation Testing")
+[![Anh Tester](https://anhtester.com/storage/photos/shares/Configs/anhtester_logo_512.png "Anh Tester Automation Testing")](https://anhtester.com/)

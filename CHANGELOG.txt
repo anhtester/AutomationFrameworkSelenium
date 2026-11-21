@@ -1,3 +1,70 @@
+v3.0.0
+======
+Nov 22, 2026
+
+BREAKING CHANGES
+* Remove the RISE CRM project (site is down): package projects/crm, suites/CRM, crm_locators.properties,
+  testdataCRM/ClientsDataExcel.xlsx, DataProviderManager, URL_CRM and EXCEL_DATA_FILE_PATH
+* BaseTest is generic (no longer extends CommonPageCMS): CMS test classes extend BaseTestCMS
+* Remove the unused Owner config package (Configuration, ConfigFactory) and enums Platform, Project
+* Mail uses Jakarta Mail (Eclipse Angus 2.0.5) instead of javax.mail 1.6.2: imports jakarta.mail.*
+* Email settings are read from EMAIL_SERVER, EMAIL_PORT, EMAIL_FROM, EMAIL_PASSWORD, EMAIL_TO (-D or environment variable)
+* log4j2.properties is replaced by log4j2.xml
+* Default suite of mvn test and CI: suites/CMS/RegressionCMS.xml (one suite "Regression Tests CMS")
+* Browser downloads go to exports/Downloads (EXPORT_DOWNLOAD_PATH), WebUI.getPathDownloadDirectory() returns it
+* Keywords using java.awt.Robot (uploadFileWithLocalForm, dragAndDropHTML5, dragAndDropToOffset) SKIP the test
+  in headless mode, on Selenium Grid or without a display
+* Generic test data moved from testdataCRM to src/test/resources/testdata, demos moved to projects/demo
+* Remove App.java and suites/BuildApp.xml
+
+Upgrade
+* Upgrade Selenium 4.53.0 support CDP v155, v156, v157 (tested with Chrome 158)
+* Upgrade Allure Report 2.46.2, allure-testng 2.35.6, allure-maven 2.18.0 (Allure 2 interface)
+* Remove unused libraries: lombok, assertj, owner, allure-environment-writer, mysql-connector-java (legacy),
+  maven-compiler-plugin and maven-surefire-plugin declared as dependencies
+* Route SLF4J logs to Log4j2 (log4j-slf4j2-impl instead of slf4j-simple)
+
+Stability
+* DriverManager.quit() always clears the ThreadLocal driver (no dead session reused by the next test)
+* TargetFactory retries the driver creation (DRIVER_CREATE_RETRY), never returns null, supports a full Grid URL (http/https)
+* Browser priority: -DBROWSER / env BROWSER > suite parameter BROWSER > config.properties > chrome
+* Every key of config.properties can be overridden by -Dkey=value or an environment variable (CI)
+* Soft assertions are per thread and verified right after each test: a soft failure marks only that test FAILED
+* @AfterMethod always closes the browser, even when the test fails
+* WebUI explicit waits ignore StaleElementReferenceException, failures keep the original Selenium exception as cause
+* WebUI.clickElement retries on stale / covered element (CLICK_RETRY), last attempt uses a Javascript click
+* Retry counts are correct with parallel runs, retried attempts are removed from the Extent report
+* Thread-safe screenshot file names (DateTimeFormatter instead of a shared SimpleDateFormat)
+* Tests no longer change tracked test data files (results are written into exports/ or target/)
+* OrderTest empties the cart of the shared demo account before ordering
+* ProfileTest verifies the successful profile update, CategoryTest uses a unique category name
+
+Logs and reports
+* LogUtils keeps the full stack trace and the real caller (Class.method:line)
+* One detailed log file per test case: exports/logs/tests/<Class.method>.log, plus applog.log and error.log
+* Thread and test name on every log line: logs of parallel tests are never mixed
+* DriverEventListener logs every WebDriver action with its duration (WEBDRIVER_EVENT_LOG)
+* On failure: stack trace, URL, title, page source, browser console logs and the test log are attached
+  to Allure and Extent (FAILURE_DIAGNOSTICS)
+* Passwords and tokens are masked (******) in logs and reports
+* WebUI.StepReporter: one call reports a step to log, Extent, Allure (detailed text) and screenshot
+* Allure environment.properties written by the framework (Browser, Java, OS, results...)
+* CMS tests are grouped in ONE suite in Allure and Extent (no more "Regression Tests CMS (0)", "(1)")
+
+CI (GitHub Actions)
+* Run on Chrome and Edge one after the other (shared demo accounts), timeout and concurrency
+* The job is red when a test or a configuration method fails
+* Upload logs, screenshots, videos and reports for each browser
+* Publish Allure Report and Javadoc to GitHub Pages only from a push on main
+* Generated Javadoc folder docs/ is no longer committed
+
+New
+* docker-compose.yml: Selenium Grid 4.53.0 (Hub + Chrome, Edge, Firefox nodes)
+* mvn test -Dsuite=<path of suite XML> to run any suite without editing pom.xml
+* src/test/resources/objects/locators.properties: object repository for ObjectUtils
+* WebUI keywords: getLastDownloadedFilePathWithJS (Chrome 120+), requireVisibleDesktop, getWait, getSoftAssert, resetSoftAssert
+* Demo tests updated for the current websites (DataTables 2, anhtester.com, demoqa)
+
 v2.9.0
 ======
 Feb 25, 2026
