@@ -24,7 +24,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java-compiler.version>17</java-compiler.version>
         <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
-        <selenium.version>4.41.0</selenium.version>
+        <selenium.version>4.53.0</selenium.version>
         <testng.version>7.12.0</testng.version>
         <aspectjweaver.version>1.9.25.1</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
