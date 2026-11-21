@@ -132,6 +132,17 @@ public final class LogUtils {
         LOGGER.logIfEnabled(FQCN, level, null, message, throwable);
     }
 
+    /**
+     * Log at INFO level on behalf of a reporting helper class: the caller location (%C.%M:%L)
+     * shown in the log is the method that called the helper, not the helper itself.
+     *
+     * @param helperClass the helper class that wraps this call (ex: WebUI.StepReporter)
+     * @param message     the message
+     */
+    public static void infoFrom(Class<?> helperClass, String message) {
+        LOGGER.logIfEnabled(helperClass.getName(), Level.INFO, null, message, (Throwable) null);
+    }
+
     //Info Level Logs
     public static void info(String message) {
         log(Level.INFO, message, null);

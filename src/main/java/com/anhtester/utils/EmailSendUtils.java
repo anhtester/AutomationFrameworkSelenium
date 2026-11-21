@@ -8,7 +8,7 @@ package com.anhtester.utils;
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.mail.EmailAttachmentsSender;
 
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 
 import static com.anhtester.constants.FrameworkConstants.REPORT_TITLE;
 import static com.anhtester.mail.EmailConfig.*;

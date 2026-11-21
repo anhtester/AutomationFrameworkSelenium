@@ -7,8 +7,8 @@ package com.anhtester.mail;
 
 import com.anhtester.utils.LogUtils;
 
-import javax.mail.*;
-import javax.mail.internet.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;

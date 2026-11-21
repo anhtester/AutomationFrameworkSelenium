@@ -277,9 +277,6 @@ or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-
  ┃ ┃ ┃ ┃ ┗ 📂anhtester
  ┃ ┃ ┃ ┃ ┃ ┣ 📂annotations
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkAnnotation.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂config
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ConfigFactory.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Configuration.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂constants
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkConstants.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂driver
@@ -292,8 +289,6 @@ or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Browser.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CategoryType.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FailureHandling.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Platform.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Project.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Target.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂exceptions
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FrameworkException.java
@@ -387,11 +382,11 @@ or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProductInfoPageCMS.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂profiles
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfilePage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BaseTestCMS.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommonPageCMS.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂demo
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂demo
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TestHandle.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestSimpleCode.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜App.java
  ┃ ┃ ┗ 📂resources
  ┃ ┃ ┃ ┣ 📂config
  ┃ ┃ ┃ ┃ ┣ 📂allure
@@ -417,7 +412,6 @@ or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ProductInfoCMS.xml
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ProfileCMS.xml
  ┃ ┃ ┃ ┃ ┃ ┗ 📜RegressionCMS.xml
- ┃ ┃ ┃ ┃ ┣ 📜BuildApp.xml
  ┃ ┃ ┃ ┃ ┗ 📜SuiteAll.xml
  ┃ ┃ ┃ ┣ 📂testdata
  ┃ ┃ ┃ ┃ ┣ 📜DOCX_File_01.docx

@@ -12,8 +12,6 @@ import com.anhtester.helpers.DiagnosticHelpers;
 import com.anhtester.helpers.FileHelpers;
 import com.anhtester.utils.BrowserInfoUtils;
 import com.anhtester.utils.LogUtils;
-import com.github.automatedowl.tools.AllureEnvironmentWriter;
-import com.google.common.collect.ImmutableMap;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.TakesScreenshot;
@@ -21,6 +19,19 @@ import org.openqa.selenium.TakesScreenshot;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.io.Writer;
+import java.util.AbstractMap;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.LinkedHashSet;
+import java.util.Properties;
+import java.util.Set;
 
 import static com.anhtester.constants.FrameworkConstants.EXPORT_VIDEO_PATH;
 import static org.openqa.selenium.OutputType.BYTES;
@@ -30,21 +41,75 @@ public class AllureManager {
     private AllureManager() {
     }
 
+    /**
+     * Folder of the Allure results (surefire sets allure.results.directory=target/allure-results)
+     */
+    public static Path getResultsDirectory() {
+        return Paths.get(System.getProperty("allure.results.directory", "target/allure-results"));
+    }
+
+    /**
+     * Base environment information shown in the "Environment" widget of the Allure report.
+     */
+    public static Map<String, String> getEnvironmentInformation() {
+        Map<String, String> environment = new LinkedHashMap<>();
+        environment.put("Test URL", FrameworkConstants.URL_CMS_USER);
+        environment.put("Target Execution", FrameworkConstants.TARGET);
+        environment.put("Browser", TargetFactory.resolveBrowser(null));
+        environment.put("Headless Mode", FrameworkConstants.HEADLESS);
+        environment.put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT));
+        environment.put("Page Load Timeout", String.valueOf(FrameworkConstants.WAIT_PAGE_LOADED));
+        environment.put("Remote URL", String.valueOf(FrameworkConstants.REMOTE_URL));
+        environment.put("Remote Port", String.valueOf(FrameworkConstants.REMOTE_PORT));
+        environment.put("Java", System.getProperty("java.version"));
+        environment.put("OS", System.getProperty("os.name") + " " + System.getProperty("os.version"));
+        return environment;
+    }
+
+    /**
+     * Write environment.properties into the Allure results folder (replaces the old allure-environment-writer library).
+     *
+     * @param environment key/value pairs, kept in insertion order
+     */
+    public static void writeEnvironment(Map<String, String> environment) {
+        Path file = getResultsDirectory().resolve("environment.properties");
+        // java.util.Properties escapes keys/values correctly (spaces in keys, backslashes, line breaks)
+        Properties properties = new Properties() {
+            // keep the insertion order of the map in the file
+            private final Set<Object> orderedKeys = new LinkedHashSet<>();
+
+            @Override
+            public synchronized Object put(Object key, Object value) {
+                orderedKeys.add(key);
+                return super.put(key, value);
+            }
+
+            @Override
+            public synchronized Enumeration<Object> keys() {
+                return Collections.enumeration(orderedKeys);
+            }
+
+            @Override
+            public Set<Map.Entry<Object, Object>> entrySet() {
+                Set<Map.Entry<Object, Object>> entries = new LinkedHashSet<>();
+                orderedKeys.forEach(key -> entries.add(new AbstractMap.SimpleEntry<>(key, get(key))));
+                return entries;
+            }
+        };
+        environment.forEach((key, value) -> properties.put(key, value == null ? "" : value));
+        try {
+            Files.createDirectories(file.getParent());
+            try (Writer writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8)) {
+                properties.store(writer, "Allure environment");
+            }
+        } catch (IOException e) {
+            LogUtils.warn("Can not write Allure environment file " + file + ": " + e.getMessage(), e);
+        }
+    }
+
     public static void setAllureEnvironmentInformation() {
-        AllureEnvironmentWriter.allureEnvironmentWriter(
-                ImmutableMap.<String, String>builder().
-                        put("Test URL", FrameworkConstants.URL_CMS_USER).
-                        put("Target Execution", FrameworkConstants.TARGET).
-                        put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT)).
-                        put("Page Load Timeout", String.valueOf(FrameworkConstants.WAIT_PAGE_LOADED)).
-                        put("Headless Mode", FrameworkConstants.HEADLESS).
-                        put("Local Browser", TargetFactory.resolveBrowser(null)).
-                        put("Remote URL", FrameworkConstants.REMOTE_URL).
-                        put("Remote Port", FrameworkConstants.REMOTE_PORT).
-                        build());
-
+        writeEnvironment(getEnvironmentInformation());
         LogUtils.info("Allure Reports is installed.");
-
     }
 
     @Attachment(value = "Failed test Screenshot", type = "image/png")

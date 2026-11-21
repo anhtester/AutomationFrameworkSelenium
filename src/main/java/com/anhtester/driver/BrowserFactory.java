@@ -20,6 +20,7 @@ import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -47,6 +48,9 @@ public enum BrowserFactory {
          prefs.put("credentials_enable_service", false);
          prefs.put("profile.password_manager_enabled", false);
          prefs.put("autofill.profile_enabled", false); //Turn off Save Address popup
+         // Downloads go into the project (exports/Downloads), without the "Save as" dialog
+         prefs.put("download.default_directory", downloadDirectory());
+         prefs.put("download.prompt_for_download", false);
          options.setExperimentalOption("prefs", prefs);
 
          options.addArguments("--disable-extensions");
@@ -88,6 +92,9 @@ public enum BrowserFactory {
          prefs.put("credentials_enable_service", false);
          prefs.put("profile.password_manager_enabled", false);
          prefs.put("autofill.profile_enabled", false);
+         // Downloads go into the project (exports/Downloads), without the "Save as" dialog
+         prefs.put("download.default_directory", downloadDirectory());
+         prefs.put("download.prompt_for_download", false);
          options.setExperimentalOption("prefs", prefs);
 
          options.addArguments("--disable-extensions");
@@ -119,6 +126,10 @@ public enum BrowserFactory {
       @Override
       public FirefoxOptions getOptions() {
          FirefoxOptions options = new FirefoxOptions();
+         // Downloads go into the project (exports/Downloads)
+         options.addPreference("browser.download.folderList", 2);
+         options.addPreference("browser.download.dir", downloadDirectory());
+         options.addPreference("browser.download.useDownloadDir", true);
 
          options.setAcceptInsecureCerts(true);
 
@@ -149,6 +160,15 @@ public enum BrowserFactory {
    };
 
    private static final String START_MAXIMIZED = "--start-maximized";
+
+   /**
+    * @return absolute path of the download folder (created if it does not exist)
+    */
+   public static String downloadDirectory() {
+      File folder = new File(FrameworkConstants.EXPORT_DOWNLOAD_PATH).getAbsoluteFile();
+      folder.mkdirs();
+      return folder.getPath();
+   }
 
    private static LoggingPreferences browserLoggingPrefs() {
       LoggingPreferences logPrefs = new LoggingPreferences();

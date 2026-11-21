@@ -32,19 +32,15 @@
         <!-- Allure Report 2 (commandline) used by mvn allure:report / allure:serve: keep the 2.x line -->
         <allure-plugin-api.version>2.46.2</allure-plugin-api.version>
         <allure-maven.version>2.18.0</allure-maven.version>
-        <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
             https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
         </allure.cmd.download.url>
         <extentreports.version>5.1.2</extentreports.version>
         <apache-poi.version>5.5.1</apache-poi.version>
         <commons-io.version>2.21.0</commons-io.version>
-        <owner.version>1.0.12</owner.version>
-        <assertj.version>3.27.7</assertj.version>
         <datafaker.version>2.5.4</datafaker.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
-        <lombok.version>1.18.42</lombok.version>
-        <javax.mail.version>1.6.2</javax.mail.version>
+        <angus-mail.version>2.0.5</angus-mail.version>
         <zip.version>1.17</zip.version>
         <java-telegram-bot-api.version>9.4.1</java-telegram-bot-api.version>
         <commons-lang3.version>3.20.0</commons-lang3.version>
@@ -104,11 +100,12 @@
             <version>${jackson.version}</version>
         </dependency>
 
-        <!--https://mvnrepository.com/artifact/com.sun.mail/javax.mail/		 -->
+        <!-- Jakarta Mail (Eclipse Angus): replaces the discontinued javax.mail 1.6.2 -->
+        <!-- https://mvnrepository.com/artifact/org.eclipse.angus/angus-mail -->
         <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>${javax.mail.version}</version>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-mail</artifactId>
+            <version>${angus-mail.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.zeroturnaround/zt-zip -->
@@ -144,13 +141,6 @@
             <version>2.0.17</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>${assertj.version}</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/net.datafaker/datafaker -->
         <dependency>
             <groupId>net.datafaker</groupId>
@@ -175,13 +165,6 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-attachments</artifactId>
             <version>${allure-testng.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.github.automatedowl/allure-environment-writer -->
-        <dependency>
-            <groupId>com.github.automatedowl</groupId>
-            <artifactId>allure-environment-writer</artifactId>
-            <version>${allure-environment-writer.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
@@ -225,21 +208,6 @@
             <groupId>com.github.stephenc.monte</groupId>
             <artifactId>monte-screen-recorder</artifactId>
             <version>${monte-screen-recorder.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.aeonbits.owner/owner -->
-        <dependency>
-            <groupId>org.aeonbits.owner</groupId>
-            <artifactId>owner</artifactId>
-            <version>${owner.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->

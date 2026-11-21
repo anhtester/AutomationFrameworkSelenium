@@ -1,6 +1,6 @@
 package com.anhtester.projects.cms.testcases;
 
-import com.anhtester.common.BaseTest;
+import com.anhtester.projects.cms.BaseTestCMS;
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.dataprovider.DataProviderAddProduct;
 import com.anhtester.helpers.ExcelHelpers;
@@ -12,7 +12,7 @@ import java.util.Hashtable;
 
 @Epic("Regression Test CMS")
 @Feature("Add Product Test")
-public class AddProductTest extends BaseTest {
+public class AddProductTest extends BaseTestCMS {
 
     @Test(dataProvider = "data_provider_add_product", dataProviderClass = DataProviderAddProduct.class)
     public void TC_AddNewProductAdmin(Hashtable<String, String> data) {

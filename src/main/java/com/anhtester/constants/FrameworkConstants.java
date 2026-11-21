@@ -44,6 +44,10 @@ public final class FrameworkConstants {
     public static final String EXTENT_REPORT_FOLDER = PropertiesHelpers.getValue("EXTENT_REPORT_FOLDER");
     public static final String EXPORT_VIDEO_PATH = PropertiesHelpers.getValue("EXPORT_VIDEO_PATH");
     public static final String EXPORT_CAPTURE_PATH = PropertiesHelpers.getValue("EXPORT_CAPTURE_PATH");
+    /**
+     * Folder where the browser saves downloaded files (inside the project, never the user's Downloads folder)
+     */
+    public static final String EXPORT_DOWNLOAD_PATH = PropertiesHelpers.getValue("EXPORT_DOWNLOAD_PATH", "exports/Downloads");
     public static final String SEND_REPORT_TO_TELEGRAM = PropertiesHelpers.getValue("SEND_REPORT_TO_TELEGRAM");
     public static final String TELEGRAM_TOKEN = PropertiesHelpers.getValue("TELEGRAM_TOKEN");
     public static final String TELEGRAM_CHATID = PropertiesHelpers.getValue("TELEGRAM_CHATID");

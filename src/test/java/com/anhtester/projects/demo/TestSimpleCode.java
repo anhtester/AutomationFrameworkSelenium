@@ -187,8 +187,11 @@ public class TestSimpleCode {
         //Read data by line number
         WebUI.logConsole(FileHelpers.readLineTxtFile(PropertiesHelpers.getValue("TXT_FILE_PATH"), 0));
         WebUI.logConsole("-----------------------------");
-        FileHelpers.writeTxtFile(PropertiesHelpers.getValue("TXT_FILE_PATH"), "\nTest123");
-        WebUI.logConsole(FileHelpers.readTxtFile(PropertiesHelpers.getValue("TXT_FILE_PATH")));
+        // Write into a copy in target/: the test data file in src/test/resources stays unchanged
+        String copy = "target/TxtFileData.txt";
+        FileHelpers.copyFile(PropertiesHelpers.getValue("TXT_FILE_PATH"), copy);
+        FileHelpers.writeTxtFile(copy, "\nTest123");
+        WebUI.logConsole(FileHelpers.readTxtFile(copy));
 
     }
 

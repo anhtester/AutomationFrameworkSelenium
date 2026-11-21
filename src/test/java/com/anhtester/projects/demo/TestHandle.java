@@ -48,6 +48,8 @@ public class TestHandle {
 
     @Test
     public void testDownloadFileWithJS() {
+        // Start from an empty download folder (exports/Downloads) so the file name is not "ExportCSV (1).csv"
+        WebUI.deleteAllFileInDownloadDirectory();
         WebUI.openWebsite("https://www.onlinedatagenerator.com/home/demo");
         WebUI.waitForPageLoaded();
         WebUI.clickElementWithJs(By.xpath("//button[normalize-space()='Export']"));
@@ -59,6 +61,8 @@ public class TestHandle {
 
     @Test
     public void testDownloadFileWithJava() {
+        // Start from an empty download folder (exports/Downloads) so the file name is not "ExportCSV (1).csv"
+        WebUI.deleteAllFileInDownloadDirectory();
         LogUtils.info(WebUI.countFilesInDownloadDirectory());
         WebUI.openWebsite("https://www.onlinedatagenerator.com/home/demo");
         WebUI.waitForPageLoaded();

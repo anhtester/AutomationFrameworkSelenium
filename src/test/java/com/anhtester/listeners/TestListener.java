@@ -16,13 +16,12 @@ import com.anhtester.utils.EmailSendUtils;
 import com.anhtester.utils.LogUtils;
 import com.anhtester.utils.ZipUtils;
 import com.aventstack.extentreports.Status;
-import com.github.automatedowl.tools.AllureEnvironmentWriter;
-import com.google.common.collect.ImmutableMap;
 import org.apache.commons.io.FileUtils;
 import org.testng.*;
 
 import java.awt.*;
 import java.io.File;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -202,19 +201,14 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
       runSafely("Send email", () -> EmailSendUtils.sendEmail(total, passed, failed, skipped));
 
       //Write information in Allure Report
-      runSafely("Write Allure environment", () -> AllureEnvironmentWriter.allureEnvironmentWriter(ImmutableMap.<String, String>builder()
-              .put("Target Execution", FrameworkConstants.TARGET)
-              .put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT))
-              .put("Page Load Timeout", String.valueOf(FrameworkConstants.WAIT_PAGE_LOADED))
-              .put("Headless Mode", FrameworkConstants.HEADLESS)
-              .put("Local Browser", TargetFactory.resolveBrowser(null))
-              .put("Remote URL", String.valueOf(FrameworkConstants.REMOTE_URL))
-              .put("Remote Port", String.valueOf(FrameworkConstants.REMOTE_PORT))
-              .put("TCs Total", String.valueOf(total))
-              .put("TCs Passed", String.valueOf(passed))
-              .put("TCs Skipped", String.valueOf(skipped))
-              .put("TCs Failed", String.valueOf(failed))
-              .build()));
+      runSafely("Write Allure environment", () -> {
+         Map<String, String> environment = AllureManager.getEnvironmentInformation();
+         environment.put("TCs Total", String.valueOf(total));
+         environment.put("TCs Passed", String.valueOf(passed));
+         environment.put("TCs Skipped", String.valueOf(skipped));
+         environment.put("TCs Failed", String.valueOf(failed));
+         AllureManager.writeEnvironment(environment);
+      });
 
       FileHelpers.copyFile("src/test/resources/config/allure/categories.json", "target/allure-results/categories.json");
       FileHelpers.copyFile("src/test/resources/config/allure/executor.json", "target/allure-results/executor.json");

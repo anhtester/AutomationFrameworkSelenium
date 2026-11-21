@@ -17,3 +17,4 @@ allure-report/
 docs/
 # Generated logs and exports
 exports/logs/
+exports/Downloads/

@@ -1,11 +1,11 @@
 package com.anhtester.projects.cms.testcases;
 
-import com.anhtester.common.BaseTest;
+import com.anhtester.projects.cms.BaseTestCMS;
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.helpers.ExcelHelpers;
 import org.testng.annotations.Test;
 
-public class ProfileTest extends BaseTest {
+public class ProfileTest extends BaseTestCMS {
 
     @Test(priority = 1)
     public void TC_UpdateProfile() {

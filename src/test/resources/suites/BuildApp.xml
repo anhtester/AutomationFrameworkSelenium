@@ -1,8 +1,0 @@
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-<suite name="Build App">
-    <test name="Build App">
-        <classes>
-            <class name="com.anhtester.projects.App"/>
-        </classes>
-    </test>
-</suite>

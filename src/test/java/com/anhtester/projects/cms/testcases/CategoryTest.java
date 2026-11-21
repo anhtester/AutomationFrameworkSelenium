@@ -1,6 +1,6 @@
 package com.anhtester.projects.cms.testcases;
 
-import com.anhtester.common.BaseTest;
+import com.anhtester.projects.cms.BaseTestCMS;
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.helpers.ExcelHelpers;
 import com.anhtester.projects.cms.CommonPageCMS;
@@ -9,7 +9,7 @@ import com.anhtester.projects.cms.admin.pages.logins.LoginPageCMS;
 import com.anhtester.utils.DataGenerateUtils;
 import org.testng.annotations.Test;
 
-public class CategoryTest extends BaseTest {
+public class CategoryTest extends BaseTestCMS {
 
     LoginPageCMS loginPageCMS;
     CategoryPage categoryPage;
