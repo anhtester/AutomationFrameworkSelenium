@@ -1,1 +1,0 @@
-Set text 123456 on By.xpath: //input[@id='password']

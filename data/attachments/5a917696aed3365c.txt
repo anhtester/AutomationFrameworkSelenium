@@ -1,0 +1,2 @@
+[2026-11-21T20:50:34.498Z] FINE https://rise.anhtester.com/signin - [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o
+[2026-11-21T20:50:36.367Z] FINE https://rise.anhtester.com/signin - [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o
