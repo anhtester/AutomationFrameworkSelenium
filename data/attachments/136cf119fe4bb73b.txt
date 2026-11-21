@@ -1,1 +1,0 @@
-Clear and Fill ****** on By.xpath: //input[@id='password']

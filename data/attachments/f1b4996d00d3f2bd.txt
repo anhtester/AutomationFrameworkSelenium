@@ -1,4 +1,0 @@
-[2026-11-21T21:14:19.919Z] INFO https://rise.anhtester.com/signin 215 Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: https://rise.anhtester.com/assets/css/fonts/opensans/opensans.woff
-[2026-11-21T21:14:19.925Z] INFO https://rise.anhtester.com/signin 215 Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: https://rise.anhtester.com/assets/css/fonts/opensans/opensans-bold.woff
-[2026-11-21T21:14:19.945Z] FINE https://rise.anhtester.com/signin - [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o
-[2026-11-21T21:14:22.137Z] SEVERE https://rise.anhtester.com/favicon.ico - Failed to load resource: the server responded with a status of 404 ()

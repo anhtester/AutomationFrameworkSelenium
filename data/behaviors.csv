@@ -1,4 +1,4 @@
 "BROKEN","EPIC","FAILED","FEATURE","PASSED","SKIPPED","STORY","UNKNOWN"
-"0","Regression Test CRM","3","Sign In Test","2","0","","0"
-"0","Regression Test CMS","0","Add Product Test","1","0","","0"
+"0","Regression Test CMS","0","Login Test","5","0","","0"
 "0","Regression Test CMS","1","Order Product Test","0","0","","0"
+"0","Regression Test CMS","0","Add Product Test","1","0","","0"
