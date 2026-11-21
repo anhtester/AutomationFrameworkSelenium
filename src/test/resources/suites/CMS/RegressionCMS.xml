@@ -1,0 +1,35 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<!--
+  One suite for the CMS regression (default suite of mvn test and CI).
+  All tests are grouped under "Regression Tests CMS" in Allure/Extent.
+  The <test> blocks run one after the other: the demo accounts (cart, orders) are shared.
+-->
+<suite name="Regression Tests CMS">
+
+    <listeners>
+        <listener class-name="com.anhtester.listeners.AnnotationTransformer"/>
+    </listeners>
+
+    <test name="Login Test CMS" parallel="methods">
+        <parameter name="BROWSER" value="chrome"/>
+        <classes>
+            <class name="com.anhtester.projects.cms.testcases.LoginTest"/>
+        </classes>
+    </test>
+
+    <test name="Tests Add Product CMS">
+        <parameter name="BROWSER" value="chrome"/>
+        <classes>
+            <class name="com.anhtester.projects.cms.testcases.AddProductTest"/>
+        </classes>
+    </test>
+
+    <test name="Tests Order Product CMS">
+        <parameter name="BROWSER" value="chrome"/>
+        <classes>
+            <class name="com.anhtester.projects.cms.testcases.OrderTest"/>
+        </classes>
+    </test>
+
+</suite>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Regression Test CMS">
+<suite name="All CMS Suites">
     <suite-files>
-        <suite-file path="CMS/LoginTestCMS.xml"/>
-        <suite-file path="CMS/AddProductCMS.xml"/>
-        <suite-file path="CMS/OrderProductCMS.xml"/>
+        <suite-file path="CMS/RegressionCMS.xml"/>
+        <suite-file path="CMS/ProductInfoCMS.xml"/>
+        <suite-file path="CMS/ProfileCMS.xml"/>
     </suite-files>
 </suite>

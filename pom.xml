@@ -28,9 +28,10 @@
         <testng.version>7.12.0</testng.version>
         <aspectjweaver.version>1.9.25.1</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
-        <allure-testng.version>2.33.0</allure-testng.version>
-        <allure-plugin-api.version>2.37.0</allure-plugin-api.version>
-        <allure-maven.version>2.17.0</allure-maven.version>
+        <allure-testng.version>2.35.6</allure-testng.version>
+        <!-- Allure Report 2 (commandline) used by mvn allure:report / allure:serve: keep the 2.x line -->
+        <allure-plugin-api.version>2.46.2</allure-plugin-api.version>
+        <allure-maven.version>2.18.0</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
             https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
@@ -53,6 +54,8 @@
         <log4j.version>2.25.2</log4j.version>
 
         <!-- Suite XML path - CMS -->
+        <!-- Default suite: all CMS regression tests grouped in ONE suite (one block in Allure/Extent) -->
+        <suite.regression.cms>src/test/resources/suites/CMS/RegressionCMS.xml</suite.regression.cms>
         <suite.login>src/test/resources/suites/CMS/LoginTestCMS.xml</suite.login>
         <suite.addproduct>src/test/resources/suites/CMS/AddProductCMS.xml</suite.addproduct>
         <suite.order>src/test/resources/suites/CMS/OrderProductCMS.xml</suite.order>
@@ -322,9 +325,7 @@
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
                         <suiteXmlFiles>
-                            <suiteXmlFile>${suite.login}</suiteXmlFile>
-                            <suiteXmlFile>${suite.addproduct}</suiteXmlFile>
-                            <suiteXmlFile>${suite.order}</suiteXmlFile>
+                            <suiteXmlFile>${suite.regression.cms}</suiteXmlFile>
                         </suiteXmlFiles>
                         <argLine>
                             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"

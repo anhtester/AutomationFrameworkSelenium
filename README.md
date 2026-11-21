@@ -53,6 +53,7 @@
 
   ![image](https://user-images.githubusercontent.com/87883620/161658761-5040e527-b410-46b3-8697-3298523e201d.png)
 
+- Default suite of `mvn test` and CI: `src/test/resources/suites/CMS/RegressionCMS.xml` (all CMS tests grouped in one suite)
 - Run any suite without editing pom.xml: `mvn test -Dsuite=src/test/resources/suites/SuiteAll.xml`
   (PowerShell: quote the parameter `mvn test "-Dsuite=src/test/resources/suites/SuiteAll.xml"`)
 
@@ -95,7 +96,8 @@
 
 **4. Allure Report**
 
-- Open Terminal: `allure serve target/allure-results`
+- Without installing Allure (Allure Report 2.46.2 is downloaded by Maven): `mvn allure:serve` or `mvn allure:report` (target/site/allure-maven-plugin)
+- With Allure CLI 2.x: `allure serve target/allure-results`
 - or command: `allure generate --single-file target/allure-results --clean`
 
 ![image](https://user-images.githubusercontent.com/87883620/161662507-9e4dc698-e452-4b43-a4f5-9808c81419a2.png)
@@ -405,13 +407,16 @@ or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-
  ┃ ┃ ┃ ┃ ┣ 📜book.json
  ┃ ┃ ┃ ┃ ┣ 📜store.json
  ┃ ┃ ┃ ┃ ┗ 📜tools.json
+ ┃ ┃ ┃ ┣ 📂objects
+ ┃ ┃ ┃ ┃ ┗ 📜locators.properties
  ┃ ┃ ┃ ┣ 📂suites
  ┃ ┃ ┃ ┃ ┣ 📂CMS
  ┃ ┃ ┃ ┃ ┃ ┣ 📜AddProductCMS.xml
  ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginTestCMS.xml
  ┃ ┃ ┃ ┃ ┃ ┣ 📜OrderProductCMS.xml
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ProductInfoCMS.xml
- ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileCMS.xml
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProfileCMS.xml
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜RegressionCMS.xml
  ┃ ┃ ┃ ┃ ┣ 📜BuildApp.xml
  ┃ ┃ ┃ ┃ ┗ 📜SuiteAll.xml
  ┃ ┃ ┃ ┣ 📂testdata
