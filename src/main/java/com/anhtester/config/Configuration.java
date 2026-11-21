@@ -22,16 +22,10 @@ public interface Configuration extends Config {
     @Key("HEADLESS")
     Boolean HEADLESS();
 
-    @Key("URL_CRM")
-    String URL_CRM();
-
     @Key("REMOTE_URL")
     String REMOTE_URL();
 
     @Key("REMOTE_PORT")
     String REMOTE_PORT();
-
-    @Key("EXCEL_DATA_FILE_PATH")
-    String EXCEL_DATA_FILE_PATH();
 
 }

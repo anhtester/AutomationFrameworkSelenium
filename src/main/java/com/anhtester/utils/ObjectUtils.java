@@ -9,6 +9,7 @@ import com.anhtester.helpers.PropertiesHelpers;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WrapsElement;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocator;
 
 import java.lang.reflect.Proxy;
@@ -23,6 +24,7 @@ public class ObjectUtils {
     private static final String FOUND_BY = "foundBy";
 
     public static By getByFromWebElement(WebElement element) {
+        element = unwrapDecoratedElement(element);
         if (element instanceof DefaultElementLocator) {
             return getByLocator(element);
         } else if (element instanceof Proxy) {
@@ -49,6 +51,30 @@ public class ObjectUtils {
             }
 
         }
+    }
+
+    /**
+     * Remove the wrappers added by EventFiringDecorator (WebDriver event log) so the original
+     * RemoteWebElement or PageFactory proxy can be read. A PageFactory proxy is returned as it is.
+     */
+    private static WebElement unwrapDecoratedElement(WebElement element) {
+        WebElement current = element;
+        for (int i = 0; i < 5 && current instanceof WrapsElement && !isPageFactoryProxy(current); i++) {
+            WebElement wrapped = ((WrapsElement) current).getWrappedElement();
+            if (wrapped == null || wrapped == current) {
+                break;
+            }
+            current = wrapped;
+        }
+        return current;
+    }
+
+    private static boolean isPageFactoryProxy(WebElement element) {
+        if (!Proxy.isProxyClass(element.getClass())) {
+            return false;
+        }
+        Object handler = Proxy.getInvocationHandler(element);
+        return FieldUtils.getField(handler.getClass(), LOCATOR, true) != null;
     }
 
     private static Object getField(Object element, String fieldName) {

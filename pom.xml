@@ -52,11 +52,6 @@
         <jackson.version>2.21.1</jackson.version>
         <log4j.version>2.25.2</log4j.version>
 
-        <!-- Suite XML path - CRM -->
-        <suite.signin.simple>src/test/resources/suites/CRM/SignIn-simple.xml</suite.signin.simple>
-        <suite.signin.parallel>src/test/resources/suites/CRM/SignIn-parallel-methods.xml</suite.signin.parallel>
-        <suite.client.parallel>src/test/resources/suites/CRM/Clients-parallel.xml</suite.client.parallel>
-        <suite.client.simple>src/test/resources/suites/CRM/Clients-simple.xml</suite.client.simple>
         <!-- Suite XML path - CMS -->
         <suite.login>src/test/resources/suites/CMS/LoginTestCMS.xml</suite.login>
         <suite.addproduct>src/test/resources/suites/CMS/AddProductCMS.xml</suite.addproduct>
@@ -280,7 +275,7 @@
         <!--
           Run any suite without editing the pom:
             mvn test -Dsuite=src/test/resources/suites/SuiteAll.xml
-            mvn test -Dsuite=src/test/resources/suites/CRM/SignIn-parallel-methods.xml -DBROWSER=firefox
+            mvn test -Dsuite=src/test/resources/suites/CMS/LoginTestCMS.xml -DBROWSER=firefox
           Without -Dsuite, the default suites configured in maven-surefire-plugin below are executed.
         -->
         <profile>
@@ -327,7 +322,7 @@
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
                         <suiteXmlFiles>
-                            <suiteXmlFile>${suite.signin.parallel}</suiteXmlFile>
+                            <suiteXmlFile>${suite.login}</suiteXmlFile>
                             <suiteXmlFile>${suite.addproduct}</suiteXmlFile>
                             <suiteXmlFile>${suite.order}</suiteXmlFile>
                         </suiteXmlFiles>

@@ -3,16 +3,13 @@
  * Automation Framework Selenium
  */
 
-package com.anhtester.projects.crm.testcases;
+package com.anhtester.projects.demo;
 
 import com.anhtester.common.BaseTest;
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.driver.DriverManager;
 import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.keywords.WebUI;
-import com.anhtester.projects.crm.pages.Dashboard.DashboardPageCRM;
-import com.anhtester.projects.crm.pages.Projects.ProjectPageCRM;
-import com.anhtester.projects.crm.pages.SignIn.SignInPageCRM;
 import com.anhtester.utils.LocalStorageUtils;
 import com.anhtester.utils.LogUtils;
 import com.anhtester.utils.ObjectUtils;
@@ -34,9 +31,6 @@ import java.util.Set;
 public class TestHandle {
 
     private WebDriver driver;
-    private SignInPageCRM signInPage;
-    private DashboardPageCRM dashboardPage;
-    private ProjectPageCRM projectPage;
 
     @BeforeMethod
     public void setupDriver() {
@@ -80,55 +74,39 @@ public class TestHandle {
 
     @Test
     public void testConvertWebElementToBy() {
-        WebUI.openWebsite(FrameworkConstants.URL_CRM);
+        WebUI.openWebsite(FrameworkConstants.URL_CMS_USER + "/users/login");
         WebUI.waitForPageLoaded();
-        SignInPageCRM signInPage = new SignInPageCRM();
 
         //WebElement
-        WebElement emailElement = WebUI.getWebElement(signInPage.inputEmail);
+        WebElement emailElement = WebUI.getWebElement(By.xpath("//input[@id='email']"));
 
         //Convert WebElement to By
         By emailBy = ObjectUtils.getByFromWebElement(emailElement);
+        LogUtils.info("Converted WebElement to By: " + emailBy);
 
-        WebUI.clearAndFillText(emailBy, "admin@demo.com");
-        WebUI.clearAndFillText(signInPage.inputPassword, "riseDemo");
-        WebUI.clickElement(signInPage.buttonSignIn);
-
-        WebUI.waitForElementVisible(new DashboardPageCRM().menuDashboard);
+        WebUI.clearAndFillText(emailBy, "customer@example.com");
+        Assert.assertEquals(WebUI.getAttributeElement(emailBy, "value"), "customer@example.com");
     }
 
     @Test
     public void testLocalStorage() {
-        WebUI.openWebsite(FrameworkConstants.URL_CRM);
-        WebUI.sleep(1);
+        WebUI.openWebsite(FrameworkConstants.URL_CMS_USER + "/users/login");
+        WebUI.waitForPageLoaded();
 
-        //Set key=value in Sign in page
-        LocalStorageUtils.setItem("email", "admin@demo.com");
-        LocalStorageUtils.setItem("PASSWORD", "riseDemo");
-
-        By inputEmail = By.xpath("//input[@id='email']");
-        By inputPassword = By.xpath("//input[@id='password']");
-        By buttonSignIn = By.xpath("//button[normalize-space()='Sign in']");
-        By menuClients = By.xpath("//span[normalize-space()='Clients']");
-        By menuProjects = By.xpath("//span[normalize-space()='Projects']");
+        //Set key=value in Login page
+        LocalStorageUtils.setItem("email", "customer@example.com");
+        LocalStorageUtils.setItem("note", "Saved in Local Storage");
 
         //Get data from Local Storage was set above
+        By inputEmail = By.xpath("//input[@id='email']");
         WebUI.clearAndFillText(inputEmail, LocalStorageUtils.getItem("email"));
-        WebUI.clearAndFillText(inputPassword, LocalStorageUtils.getItem("PASSWORD"));
-        WebUI.clickElement(buttonSignIn);
-        WebUI.waitForPageLoaded();
+        Assert.assertEquals(WebUI.getAttributeElement(inputEmail, "value"), "customer@example.com");
 
-        //Get value from Local Storage in Clients page
-        WebUI.clickElement(menuClients);
-        WebUI.waitForPageLoaded();
-        WebUI.logConsole(LocalStorageUtils.getItem("PASSWORD"));
+        //Local Storage is kept when the page is reloaded (same domain)
+        WebUI.reloadPage();
+        Assert.assertEquals(LocalStorageUtils.getItem("note"), "Saved in Local Storage");
 
-        //Get value from Local Storage in Projects page
-        WebUI.clickElement(menuProjects);
-        WebUI.logConsole(LocalStorageUtils.getItem("email"));
-        WebUI.waitForPageLoaded();
-
-        //=> You can get value by key everywhere before closing the browser
+        //=> You can get value by key everywhere on the same domain before closing the browser
     }
 
     @Test
@@ -182,7 +160,7 @@ public class TestHandle {
         By divFileUpload = By.xpath("//div[@id='uploadifive-file_upload']");
         By inputFileUpload = By.xpath("//div[@id='file_select_button']//input[@id='file_upload']");
 
-        String filePath = SystemHelpers.getCurrentDir() + "src\\test\\resources\\testdata\\TxtFileData.txt";
+        String filePath = SystemHelpers.getCurrentDir() + "src/test/resources/testdata/TxtFileData.txt";
 
         WebUI.uploadFileWithLocalForm(divFileUpload, filePath);
 
@@ -316,8 +294,8 @@ public class TestHandle {
         WebUI.waitForPageLoaded();
         WebUI.sleep(1);
 
-        final String path1 = SystemHelpers.getCurrentDir() + "src\\test\\resources\\testdata\\DOCX_File_01.docx";
-        final String path2 = SystemHelpers.getCurrentDir() + "src\\test\\resources\\testdata\\LoginCSV.csv";
+        final String path1 = SystemHelpers.getCurrentDir() + "src/test/resources/testdata/DOCX_File_01.docx";
+        final String path2 = SystemHelpers.getCurrentDir() + "src/test/resources/testdata/LoginCSV.csv";
 
         //Cách 1 sendKeys link từ source
         WebUI.uploadFileWithSendKeys(By.xpath("//input[@id='uploadFile']"), path1);

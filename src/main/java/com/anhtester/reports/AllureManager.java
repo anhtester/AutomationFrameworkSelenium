@@ -33,7 +33,7 @@ public class AllureManager {
     public static void setAllureEnvironmentInformation() {
         AllureEnvironmentWriter.allureEnvironmentWriter(
                 ImmutableMap.<String, String>builder().
-                        put("Test URL", FrameworkConstants.URL_CRM).
+                        put("Test URL", FrameworkConstants.URL_CMS_USER).
                         put("Target Execution", FrameworkConstants.TARGET).
                         put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT)).
                         put("Page Load Timeout", String.valueOf(FrameworkConstants.WAIT_PAGE_LOADED)).

@@ -1,5 +1,5 @@
 {
-  "url": "https://crm.anhtester.com/signin",
+  "url": "https://cms.anhtester.com",
   "browser": "chrome",
   "button": "//a[contains(text(),'Đăng Nhập')]"
 }

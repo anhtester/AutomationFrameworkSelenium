@@ -139,7 +139,7 @@
 
 **8. Read data test from Excel file**
 
-- Create function with annotation **DataProvider** on **src/test/java/anhtester/com/projects/website/crm/dataprovider/DataProviderManager.java**
+- Create function with annotation **DataProvider**, example: **src/test/java/com/anhtester/dataprovider/DataProviderAddProduct.java**
 - Read Excel file with Map and Hashtable
 
 **9. Base function in the package**
@@ -159,11 +159,10 @@
 
 **12. Call function to using sample**
 
-- All in one package: src/test/java/anhtester/com/projects/website/crm/testcases
+- CMS test cases: src/test/java/com/anhtester/projects/cms/testcases
+- Keyword and utility demos: src/test/java/com/anhtester/projects/demo
 
 ```
-+ ClientTest
-+ SignInTest
 + TestHandle
 + TestSimpleCode
 ```
@@ -171,7 +170,7 @@
 **13. Send message/report to Telegram Bot**
 
 - Setup in src/main/java/anhtester/com/report/TelegramManager.java
-- Example: src/test/java/anhtester/com/projects/website/crm/testcases/TestSimpleCode.java
+- Example: src/test/java/com/anhtester/projects/demo/TestSimpleCode.java
 - Call in TestListener at onFinish TelegramManager.sendReportPath()
 
 ===How to get Token and start Bot===
@@ -272,8 +271,8 @@ or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-
  ┣ 📂src
  ┃ ┣ 📂main
  ┃ ┃ ┣ 📂java
- ┃ ┃ ┃ ┗ 📂anhtester
- ┃ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┗ 📂anhtester
  ┃ ┃ ┃ ┃ ┃ ┣ 📂annotations
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkAnnotation.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂config
@@ -283,6 +282,7 @@ or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkConstants.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂driver
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DriverEventListener.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DriverManager.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TargetFactory.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂enums
@@ -304,17 +304,20 @@ or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-
  ┃ ┃ ┃ ┃ ┃ ┣ 📂helpers
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CaptureHelpers.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DatabaseHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DiagnosticHelpers.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExcelHelpers.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FileHelpers.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Helpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JsonHelpers.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PropertiesHelpers.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ScreenRecoderHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ScreenRecorderHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SystemHelpers.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂keywords
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜README.md
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WebUI.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂mail
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailAttachmentsSender.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜EmailConfig.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂report
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂reports
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureManager.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtentReportManager.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtentTestManager.java
@@ -331,6 +334,7 @@ or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LanguageUtils.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LocalStorageUtils.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LogUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MaskUtils.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ObjectUtils.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportUtils.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ZipUtils.java
@@ -338,23 +342,23 @@ or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-
  ┃ ┃ ┃ ┣ 📂META-INF
  ┃ ┃ ┃ ┃ ┗ 📂services
  ┃ ┃ ┃ ┃ ┃ ┗ 📜io.qameta.allure.listener.TestLifecycleListener
- ┃ ┃ ┃ ┗ 📜log4j2.properties
+ ┃ ┃ ┃ ┗ 📜log4j2.xml
  ┃ ┗ 📂test
  ┃ ┃ ┣ 📂java
- ┃ ┃ ┃ ┗ 📂anhtester
- ┃ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┗ 📂anhtester
  ┃ ┃ ┃ ┃ ┃ ┣ 📂common
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BaseTest.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂dataprovider
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DataProviderAddProduct.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DataProviderManager.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DataProviderAddProduct.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂listeners
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureListener.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AnnotationTransformer.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Retry.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestListener.java
  ┃ ┃ ┃ ┃ ┃ ┗ 📂projects
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂cms
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂admin
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂model
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂pages
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂brands
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BrandPage.java
@@ -372,11 +376,9 @@ or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProductInfoTest.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileTest.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂users
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂model
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂pages
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dashboard
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DashboardPage.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂logins
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂order
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜OrderPage.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂products
@@ -384,234 +386,52 @@ or of Anh Tester blog: https://anhtester.com/blog/selenium-java/tao-du-lieu-gia-
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂profiles
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfilePage.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommonPageCMS.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂crm
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂models
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientModel.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInModel.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂pages
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Clients
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ClientPageCRM.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Dashboard
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DashboardPageCRM.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Projects
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProjectPageCRM.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂SignIn
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInPageCRM.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Tasks
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TaskPage.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommonPageCRM.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂testcases
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientTest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SignInTest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TestHandle.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestSimpleCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂demo
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TestHandle.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestSimpleCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜App.java
  ┃ ┃ ┗ 📂resources
  ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┣ 📂allure
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜categories.json
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜environment.xml
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜executor.json
  ┃ ┃ ┃ ┃ ┣ 📜allure.properties
  ┃ ┃ ┃ ┃ ┣ 📜config.json
  ┃ ┃ ┃ ┃ ┣ 📜config.properties
  ┃ ┃ ┃ ┃ ┗ 📜data.properties
- ┃ ┃ ┃ ┣ 📂objects
- ┃ ┃ ┃ ┃ ┗ 📜crm_locators.properties
+ ┃ ┃ ┃ ┣ 📂datajson
+ ┃ ┃ ┃ ┃ ┣ 📜arraysample.json
+ ┃ ┃ ┃ ┃ ┣ 📜book.json
+ ┃ ┃ ┃ ┃ ┣ 📜store.json
+ ┃ ┃ ┃ ┃ ┗ 📜tools.json
  ┃ ┃ ┃ ┣ 📂suites
- ┃ ┃ ┃ ┃ ┣ 📜Clients-parallel.xml
- ┃ ┃ ┃ ┃ ┣ 📜Clients-simple.xml
- ┃ ┃ ┃ ┃ ┣ 📜Clients-testAddClient.xml
- ┃ ┃ ┃ ┃ ┣ 📜Clients-testSearch.xml
- ┃ ┃ ┃ ┃ ┣ 📜SignIn-parallel-methods.xml
- ┃ ┃ ┃ ┃ ┣ 📜SignIn-simple.xml
+ ┃ ┃ ┃ ┃ ┣ 📂CMS
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜AddProductCMS.xml
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginTestCMS.xml
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜OrderProductCMS.xml
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProductInfoCMS.xml
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileCMS.xml
+ ┃ ┃ ┃ ┃ ┣ 📜BuildApp.xml
  ┃ ┃ ┃ ┃ ┗ 📜SuiteAll.xml
- ┃ ┃ ┃ ┣ 📂testdataCMS
- ┃ ┃ ┃ ┃ ┣ 📜Book1.xlsx
- ┃ ┃ ┃ ┃ ┣ 📜ChocoPie.jpg
- ┃ ┃ ┃ ┃ ┣ 📜CMS_DATA.xlsx
- ┃ ┃ ┃ ┃ ┣ 📜CocaCola.png
- ┃ ┃ ┃ ┃ ┣ 📜Cosy.png
- ┃ ┃ ┃ ┃ ┣ 📜GetProductInfo.xlsx
- ┃ ┃ ┃ ┃ ┣ 📜Login.xlsx
- ┃ ┃ ┃ ┃ ┣ 📜Nabati.jpg
- ┃ ┃ ┃ ┃ ┗ 📜quatet.jpg
- ┃ ┃ ┃ ┣ 📂testdataCRM
- ┃ ┃ ┃ ┃ ┣ 📜ClientsDataExcel.xlsx
+ ┃ ┃ ┃ ┣ 📂testdata
  ┃ ┃ ┃ ┃ ┣ 📜DOCX_File_01.docx
  ┃ ┃ ┃ ┃ ┣ 📜LoginCSV.csv
  ┃ ┃ ┃ ┃ ┗ 📜TxtFileData.txt
+ ┃ ┃ ┃ ┣ 📂testdataCMS
+ ┃ ┃ ┃ ┃ ┣ 📜Book1.xlsx
+ ┃ ┃ ┃ ┃ ┣ 📜CMS_DATA.xlsx
+ ┃ ┃ ┃ ┃ ┣ 📜Cosy.png
+ ┃ ┃ ┃ ┃ ┣ 📜GetProductInfo.xlsx
+ ┃ ┃ ┃ ┃ ┣ 📜gio-qua-1.jpg
+ ┃ ┃ ┃ ┃ ┣ 📜gio-qua-2.jpg
+ ┃ ┃ ┃ ┃ ┣ 📜gio-qua-3.jpg
+ ┃ ┃ ┃ ┃ ┣ 📜gio-qua-4.jpg
+ ┃ ┃ ┃ ┃ ┗ 📜Login.xlsx
  ┃ ┃ ┃ ┗ 📜pdf-config.json
- ┣ 📂target
- ┃ ┣ 📂classes
- ┃ ┃ ┣ 📂anhtester
- ┃ ┃ ┃ ┗ 📂com
- ┃ ┃ ┃ ┃ ┣ 📂annotations
- ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkAnnotation.class
- ┃ ┃ ┃ ┃ ┣ 📂config
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ConfigFactory.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜Configuration.class
- ┃ ┃ ┃ ┃ ┣ 📂constants
- ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkConstants.class
- ┃ ┃ ┃ ┃ ┣ 📂driver
- ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory$1.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory$2.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory$3.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory$4.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜DriverManager.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜TargetFactory.class
- ┃ ┃ ┃ ┃ ┣ 📂enums
- ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthorType.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜Browser.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜CategoryType.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜FailureHandling.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜Platform.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜Project.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜Target.class
- ┃ ┃ ┃ ┃ ┣ 📂exceptions
- ┃ ┃ ┃ ┃ ┃ ┣ 📜FrameworkException.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜HeadlessNotSupportedException.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForExcelException.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForExtentReportFileException.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForFilesException.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidRemoteWebDriverURLException.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜TargetNotValidException.class
- ┃ ┃ ┃ ┃ ┣ 📂helpers
- ┃ ┃ ┃ ┃ ┃ ┣ 📜CaptureHelpers.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜DatabaseHelpers.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ExcelHelpers.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜FileHelpers.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜Helpers.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜PropertiesHelpers.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜ScreenRecoderHelpers.class
- ┃ ┃ ┃ ┃ ┣ 📂keywords
- ┃ ┃ ┃ ┃ ┃ ┗ 📜WebUI.class
- ┃ ┃ ┃ ┃ ┣ 📂mail
- ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailAttachmentsSender$1.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailAttachmentsSender.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜EmailConfig.class
- ┃ ┃ ┃ ┃ ┣ 📂report
- ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureManager.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtentReportManager.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtentTestManager.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜TelegramManager.class
- ┃ ┃ ┃ ┃ ┗ 📂utils
- ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserInfoUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜DataFakerUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜DataGenerateUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜DateUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜DecodeUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailSendUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜IconUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜JsonUtils$1.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜JsonUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜LanguageUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜LocalStorageUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜LogUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ObjectUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportUtils.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜ZipUtils.class
- ┃ ┃ ┣ 📂META-INF
- ┃ ┃ ┃ ┗ 📂services
- ┃ ┃ ┃ ┃ ┗ 📜io.qameta.allure.listener.TestLifecycleListener
- ┃ ┃ ┗ 📜log4j2.properties
- ┃ ┣ 📂generated-sources
- ┃ ┃ ┗ 📂annotations
- ┃ ┣ 📂generated-test-sources
- ┃ ┃ ┗ 📂test-annotations
- ┃ ┗ 📂test-classes
- ┃ ┃ ┣ 📂anhtester
- ┃ ┃ ┃ ┗ 📂com
- ┃ ┃ ┃ ┃ ┣ 📂common
- ┃ ┃ ┃ ┃ ┃ ┗ 📜BaseTest.class
- ┃ ┃ ┃ ┃ ┣ 📂dataprovider
- ┃ ┃ ┃ ┃ ┃ ┣ 📜DataProviderAddProduct.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜DataProviderManager.class
- ┃ ┃ ┃ ┃ ┣ 📂listeners
- ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureListener.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜TestListener.class
- ┃ ┃ ┃ ┃ ┗ 📂projects
- ┃ ┃ ┃ ┃ ┃ ┣ 📂cms
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂admin
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂model
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂pages
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂brands
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BrandPage.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂category
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CategoryPage.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂logins
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜LoginPageCMS.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂products
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜AddProductPage.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂testcases
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AddProductTest.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CategoryTest.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginTest.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜OrderTest.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProductInfoTest.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileTest.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂users
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂model
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂pages
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dashboard
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DashboardPage.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂logins
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂order
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜OrderPage.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂products
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProductInfoPageCMS.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂profiles
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfilePage.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommonPageCMS.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📂crm
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂models
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientModel.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInModel.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂pages
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Clients
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ClientPageCRM.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Dashboard
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DashboardPageCRM.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Projects
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProjectPageCRM.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂SignIn
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInPageCRM.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Tasks
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TaskPage.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommonPageCRM.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂testcases
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientTest.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SignInTest.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TestHandle.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestSimpleCode.class
- ┃ ┃ ┣ 📂config
- ┃ ┃ ┃ ┣ 📜allure.properties
- ┃ ┃ ┃ ┣ 📜config.json
- ┃ ┃ ┃ ┣ 📜config.properties
- ┃ ┃ ┃ ┗ 📜data.properties
- ┃ ┃ ┣ 📂objects
- ┃ ┃ ┃ ┗ 📜crm_locators.properties
- ┃ ┃ ┣ 📂suites
- ┃ ┃ ┃ ┣ 📜Clients-parallel.xml
- ┃ ┃ ┃ ┣ 📜Clients-simple.xml
- ┃ ┃ ┃ ┣ 📜Clients-testAddClient.xml
- ┃ ┃ ┃ ┣ 📜Clients-testSearch.xml
- ┃ ┃ ┃ ┣ 📜SignIn-parallel-methods.xml
- ┃ ┃ ┃ ┣ 📜SignIn-simple.xml
- ┃ ┃ ┃ ┗ 📜SuiteAll.xml
- ┃ ┃ ┣ 📂testdataCMS
- ┃ ┃ ┃ ┣ 📜Book1.xlsx
- ┃ ┃ ┃ ┣ 📜ChocoPie.jpg
- ┃ ┃ ┃ ┣ 📜CMS_DATA.xlsx
- ┃ ┃ ┃ ┣ 📜CocaCola.png
- ┃ ┃ ┃ ┣ 📜Cosy.png
- ┃ ┃ ┃ ┣ 📜GetProductInfo.xlsx
- ┃ ┃ ┃ ┣ 📜Login.xlsx
- ┃ ┃ ┃ ┣ 📜Nabati.jpg
- ┃ ┃ ┃ ┗ 📜quatet.jpg
- ┃ ┃ ┣ 📂testdataCRM
- ┃ ┃ ┃ ┣ 📜ClientsDataExcel.xlsx
- ┃ ┃ ┃ ┣ 📜DOCX_File_01.docx
- ┃ ┃ ┃ ┣ 📜LoginCSV.csv
- ┃ ┃ ┃ ┗ 📜TxtFileData.txt
- ┃ ┃ ┗ 📜pdf-config.json
  ┣ 📜.gitignore
+ ┣ 📜CHANGELOG.txt
+ ┣ 📜docker-compose.yml
  ┣ 📜pom.xml
  ┗ 📜README.md
 ```

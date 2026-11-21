@@ -21,7 +21,6 @@ public final class FrameworkConstants {
     }
 
     public static final String PROJECT_PATH = SystemHelpers.getCurrentDir();
-    public static final String EXCEL_DATA_FILE_PATH = PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH");
     public static final String JSON_DATA_FILE_PATH = PropertiesHelpers.getValue("JSON_DATA_FILE_PATH");
     public static final String EXCEL_CMS_LOGIN = PropertiesHelpers.getValue("EXCEL_CMS_LOGIN");
     public static final String EXCEL_CMS_DATA = PropertiesHelpers.getValue("EXCEL_CMS_DATA");
@@ -35,7 +34,6 @@ public final class FrameworkConstants {
      * Browser only from config.properties (used to let the suite parameter win over the file)
      */
     public static final String BROWSER_FROM_FILE = PropertiesHelpers.getFileValue("BROWSER");
-    public static final String URL_CRM = PropertiesHelpers.getValue("URL_CRM");
     public static final String URL_CMS_ADMIN = PropertiesHelpers.getValue("URL_CMS_ADMIN");
     public static final String URL_CMS_USER = PropertiesHelpers.getValue("URL_CMS_USER");
     public static final String REMOTE_URL = PropertiesHelpers.getValue("REMOTE_URL");

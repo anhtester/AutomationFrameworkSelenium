@@ -3,7 +3,7 @@
  * Automation Framework Selenium
  */
 
-package com.anhtester.projects.crm.testcases;
+package com.anhtester.projects.demo;
 
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.helpers.*;
@@ -158,10 +158,10 @@ public class TestSimpleCode {
         PropertiesHelpers.loadAllFiles();
         //  Handle Properties file
         WebUI.logConsole(PropertiesHelpers.getValue("BROWSER"));
-        WebUI.logConsole(PropertiesHelpers.getValue("URL_CRM"));
+        WebUI.logConsole(PropertiesHelpers.getValue("URL_CMS_USER"));
         WebUI.logConsole(PropertiesHelpers.getValue("AUTHOR"));
-        WebUI.logConsole(FrameworkConstants.EXCEL_DATA_FILE_PATH);
-        WebUI.logConsole(SystemHelpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH"));
+        WebUI.logConsole(FrameworkConstants.EXCEL_CMS_LOGIN);
+        WebUI.logConsole(SystemHelpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_CMS_LOGIN"));
 //        PropertiesHelpers.setFile("src/test/resources/config/data.properties");
 //        PropertiesHelpers.setValue("base_url", "https://anhtetser.com");
     }
@@ -187,20 +187,19 @@ public class TestSimpleCode {
     @Test
     public void testExcelFile1() {
         PropertiesHelpers.loadAllFiles();
-        WebUI.logConsole(SystemHelpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH"));
-        //  Handle Excel file
+        WebUI.logConsole(SystemHelpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_CMS_LOGIN"));
+        //  Handle Excel file (read only: do not change the test data file)
         ExcelHelpers excelHelpers = new ExcelHelpers();
-        excelHelpers.setExcelFile(SystemHelpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH"), "SignIn");
-        WebUI.logConsole(excelHelpers.getCellData(1, "EMAIL"));
-        WebUI.logConsole(excelHelpers.getCellData(1, "PASSWORD"));
-        excelHelpers.setCellData("pass", 1, "EXPECTED_TITLE");
+        excelHelpers.setExcelFile(SystemHelpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_CMS_LOGIN"), "Login");
+        WebUI.logConsole(excelHelpers.getCellData(1, "email"));
+        WebUI.logConsole(excelHelpers.getCellData(1, "function"));
     }
 
     @Test()
     public void testExcelFile2() throws Exception {
         PropertiesHelpers.loadAllFiles();
         ExcelHelpers excelHelpers = new ExcelHelpers();
-        WebUI.logConsole(excelHelpers.getDataHashTable(SystemHelpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn", 1, 2));
+        WebUI.logConsole(excelHelpers.getDataHashTable(SystemHelpers.getCurrentDir() + FrameworkConstants.EXCEL_CMS_LOGIN, "Login", 1, 2));
     }
 
 //    @Test
