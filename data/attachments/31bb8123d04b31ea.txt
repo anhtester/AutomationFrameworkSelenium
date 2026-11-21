@@ -1,1 +1,0 @@
-Set text Giỏ quà Tết CHDes on By.xpath: //input[@id='search'] and press key ENTER
