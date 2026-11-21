@@ -11,6 +11,9 @@ import com.anhtester.keywords.WebUI;
 import com.anhtester.reports.TelegramManager;
 import com.anhtester.utils.*;
 import org.testng.annotations.Test;
+import org.testng.Assert;
+
+import java.io.File;
 
 public class TestSimpleCode {
 
@@ -68,18 +71,23 @@ public class TestSimpleCode {
 
     @Test
     public void testZipFolder() {
-        ZipUtils.zipFolder("reports/ExtentReports", "ExtentReports");
+        // Zip the Extent report folder into target/ (never into the project root)
+        new File(FrameworkConstants.EXTENT_REPORT_FOLDER).mkdirs();
+        ZipUtils.zipFolder(FrameworkConstants.EXTENT_REPORT_FOLDER, "target/ExtentReports");
+        Assert.assertTrue(new File("target/ExtentReports.zip").exists(), "Zip file is NOT created");
     }
 
     @Test
     public void testZipFile() {
-        ZipUtils.zipFile("src/test/resources/pdf-config.json", "pdf-config");
+        new File("target").mkdirs();
+        ZipUtils.zipFile("src/test/resources/pdf-config.json", "target/pdf-config");
+        Assert.assertTrue(new File("target/pdf-config.zip").exists(), "Zip file is NOT created");
     }
 
-    @Test
+    @Test(dependsOnMethods = "testZipFile")
     public void testUnZipFile() {
-        //ZipUtils.unZip("pdf-config.zip", "target/pdf-config");
-        ZipUtils.unZipFile("pdf-config.zip", "target/abc/pdf-config");
+        ZipUtils.unZipFile("target/pdf-config.zip", "target/unzip/pdf-config");
+        Assert.assertTrue(new File("target/unzip/pdf-config/pdf-config.json").exists(), "File is NOT unzipped");
     }
 
     @Test

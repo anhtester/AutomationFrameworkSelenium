@@ -18,6 +18,7 @@ public class ProfilePage extends CommonPageCMS {
     private By buttonUpdateProfile = By.xpath("//button[normalize-space()='Update Profile']");
 
     private By messageNotPermitted = By.xpath("//span[@data-notify='message' and normalize-space() = 'Sorry! the action is not permitted in demo']");
+    private By messageUpdateProfileSuccess = By.xpath("//span[@data-notify='message' and normalize-space() = 'Your Profile has been updated successfully!']");
     private By titleChangeEmail = By.xpath("//h5[normalize-space()='Change your email']");
     private By inputEmail = By.xpath("//input[@placeholder='Your Email']");
     private By buttonVerifyEmail = By.xpath("//button[@class='btn btn-outline-secondary new-email-verification']");
@@ -43,12 +44,23 @@ public class ProfilePage extends CommonPageCMS {
         WebUI.clickElement(menuManageProfile);
         WebUI.waitForPageLoaded();
         WebUI.verifyElementVisible(titleManageProfile, "Manage Profile page is NOT displayed");
-        WebUI.setText(inputName, DataGenerateUtils.randomFullName());
-        WebUI.setText(inputPhone, DataGenerateUtils.randomPhoneNumber());
+        String newName = DataGenerateUtils.randomFullName();
+        // Digits only: a formatted phone ("0123 456 789") could be normalized by the site
+        String newPhone = "09" + DataGenerateUtils.randomNumberIntFromTo(10000000, 99999999);
+        WebUI.clearAndFillText(inputName, newName);
+        WebUI.clearAndFillText(inputPhone, newPhone);
+        // Keep the same password as the test data (Login.xlsx), the demo account is shared
         WebUI.setText(inputPassword, "123456");
         WebUI.setText(inputConfirmPassword, "123456");
         WebUI.clickElement(buttonUpdateProfile);
-        WebUI.verifyElementVisible(messageNotPermitted, "The message not allowed in the demo is not displayed");
+        // The demo site now allows updating the profile (it used to show "Sorry! the action is not permitted in demo")
+        WebUI.verifyElementVisible(messageUpdateProfileSuccess, "The message 'Your Profile has been updated successfully!' is NOT displayed");
+
+        // The new values are saved
+        WebUI.reloadPage();
+        WebUI.waitForPageLoaded();
+        WebUI.verifyEquals(WebUI.getAttributeElement(inputName, "value"), newName, "The name is NOT updated");
+        WebUI.verifyEquals(WebUI.getAttributeElement(inputPhone, "value"), newPhone, "The phone is NOT updated");
     }
 
     public void updateEmail() {

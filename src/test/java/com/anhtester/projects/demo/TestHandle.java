@@ -26,7 +26,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class TestHandle {
 
@@ -114,8 +113,8 @@ public class TestHandle {
         WebUI.openWebsite("https://anhtester.com/login");
         WebUI.waitForPageLoaded();
 
-        By button_Login = By.id("login");
-        By input_Email = By.xpath("//input[@placeholder='Email']");
+        By button_Login = By.xpath("//button[@data-testid='login-submit']");
+        By input_Email = By.xpath("//input[@data-testid='login-email-input']");
         WebUI.clickElement(button_Login);
         WebUI.sleep(2);
 
@@ -146,9 +145,9 @@ public class TestHandle {
 
     @Test
     public void handleScreenshotElement() {
-        WebUI.openWebsite("https://anhtester.com");
+        WebUI.openWebsite("https://anhtester.com/login");
         WebUI.waitForPageLoaded();
-        WebUI.screenshotElement(By.xpath("//div[@class='col-lg-5']//div[@class='row']//div[1]//div[1]"), "Website_Testing_Module");
+        WebUI.screenshotElement(By.xpath("//form[.//button[@data-testid='login-submit']]"), "Login_Form");
     }
 
     @Test
@@ -173,14 +172,14 @@ public class TestHandle {
         WebUI.openWebsite("https://datatables.net/");
         WebUI.waitForPageLoaded();
 
-        By title_H1 = By.xpath("//div[@class='fw-hero']//h1");
+        By title_H1 = By.xpath("//h1[@class='page_title']");
 
         WebUI.scrollToElementAtTop(title_H1);
 
-        By button_Next = By.xpath("//a[@id='example_next']");
-        By label_Info_PageTotal = By.xpath("//div[@id='example_info']");
-        String info = driver.findElement(label_Info_PageTotal).getText(); //Showing 1 to 10 of 57 entries
-        System.out.println("Chuỗi chứa số item: " + info);
+        By button_Next = By.xpath("//div[@id='myTable_wrapper']//button[contains(@class,'dt-paging-button') and contains(@class,'next')]");
+        By label_Info_PageTotal = By.xpath("//div[@id='myTable_info']");
+        String info = driver.findElement(label_Info_PageTotal).getText(); //Showing 1 to 10 of 57 staff members
+        LogUtils.info("Chuỗi chứa số item: " + info);
 
         //I separate the above string with a space character and then get the 5th element starting from 0
         //To get the total number of Items
@@ -189,27 +188,27 @@ public class TestHandle {
             arrayListString.add(s);
         }
 
-        //Showing 1 to 10 of 57 entries => Get 57 number
+        //Showing 1 to 10 of 57 staff members => Get 57 number
         int itemTotal = Integer.parseInt(arrayListString.get(5));
-        System.out.println("Tổng số item: " + itemTotal);
+        LogUtils.info("Tổng số item: " + itemTotal);
 
         int itemTotalOnePage = 10; //default as sample. Use your system to change accordingly
         //Or you can also get the default automatic number. There are many additional variations.
-        System.out.println("Số item trên 1 trang: " + itemTotalOnePage);
+        LogUtils.info("Số item trên 1 trang: " + itemTotalOnePage);
 
         double pageTotal = (double) itemTotal / (double) itemTotalOnePage;
 
         DecimalFormat df = new DecimalFormat("#"); //Round the number to the decimal point
         //For example, 5.7 is rounded to 6 like that
         int pageTotalInt = Integer.parseInt(df.format(pageTotal));
-        System.out.println("Tổng số trang: " + pageTotalInt);
+        LogUtils.info("Tổng số trang: " + pageTotalInt);
 
         //This FOR runs to < pageTotalInt so it doesn't click the last time
         //For example, for 6 pages, it only clicks 5 times, right =))
         for (int i = 1; i <= pageTotalInt; i++) {
             WebUI.scrollToElementAtTop(title_H1);
             //Call the function Check data in table by column from keywords WebUI
-            WebUI.checkContainsValueOnTableByColumn(1, "", "//div[@id='example_wrapper']//tbody/tr");
+            WebUI.checkContainsValueOnTableByColumn(1, "", "//div[@id='myTable_wrapper']//tbody/tr");
             WebUI.sleep(1);
             //Click Next
             if (i != pageTotalInt) {
@@ -280,8 +279,9 @@ public class TestHandle {
 
     @Test
     public void handleHighLightElement() {
-        WebUI.openWebsite("https://app.hrsale.com/");
-        By button = By.xpath("//button[@type='submit']");
+        // app.hrsale.com is down: use the login page of anhtester.com
+        WebUI.openWebsite("https://anhtester.com/login");
+        By button = By.xpath("//button[@data-testid='login-submit']");
         WebUI.highLightElement(button); //Color the border red for Elements on the website
         WebUI.verifyElementAttributeValue(button, "type", "submit");
         WebUI.waitForElementClickable(button, 5);
@@ -292,23 +292,24 @@ public class TestHandle {
     public void handleUploadFile() {
         WebUI.openWebsite("https://demoqa.com/upload-download");
         WebUI.waitForPageLoaded();
-        WebUI.sleep(1);
 
         final String path1 = SystemHelpers.getCurrentDir() + "src/test/resources/testdata/DOCX_File_01.docx";
-        final String path2 = SystemHelpers.getCurrentDir() + "src/test/resources/testdata/LoginCSV.csv";
 
-        //Cách 1 sendKeys link từ source
+        //Cách 1 sendKeys link từ source (works in headless and on Selenium Grid)
         WebUI.uploadFileWithSendKeys(By.xpath("//input[@id='uploadFile']"), path1);
         WebUI.verifyElementTextContains(By.xpath("//p[@id='uploadedFilePath']"), "DOCX_File_01.docx");
-        WebUI.sleep(1);
-        WebUI.reloadPage();
-        WebUI.waitForPageLoaded();
-        WebUI.sleep(1);
+    }
 
-        //Cách 2 mở form local máy nên file là trong ổ đĩa máy tính
+    @Test
+    public void handleUploadFileWithLocalForm() {
+        // Cách 2 mở form local máy (AWT Robot): needs a visible browser, skipped in headless mode
+        WebUI.requireVisibleDesktop("handleUploadFileWithLocalForm");
+        WebUI.openWebsite("https://demoqa.com/upload-download");
+        WebUI.waitForPageLoaded();
+
+        final String path2 = SystemHelpers.getCurrentDir() + "src/test/resources/testdata/LoginCSV.csv";
         WebUI.uploadFileWithLocalForm(By.xpath("//input[@id='uploadFile']"), path2);
         WebUI.verifyElementTextContains(By.xpath("//p[@id='uploadedFilePath']"), "LoginCSV.csv");
-        WebUI.sleep(3);
     }
 
     @Test
@@ -319,45 +320,24 @@ public class TestHandle {
 
     @Test
     public void handlePrintPopup() throws AWTException {
-        WebUI.openWebsite("https://saleserpdemo.bdtask-demo.com/v10_demo/login");
+        // AWT Robot presses real keys: needs a visible browser, skipped in headless mode
+        WebUI.requireVisibleDesktop("handlePrintPopup");
+        // saleserpdemo.bdtask-demo.com is down: open the print dialog of any page with window.print()
+        WebUI.openWebsite("https://anhtester.com");
         WebUI.waitForPageLoaded();
-        String originalWindow = driver.getWindowHandle();
+        String originalUrl = WebUI.getCurrentUrl();
 
-        WebUI.setText(By.id("email"), "admin@gmail.com");
-        WebUI.setText(By.id("password"), "123456");
-        WebUI.clickElement(By.xpath("//button[normalize-space()='Login']"));
-        WebUI.waitForPageLoaded();
-        WebUI.clickElement(By.xpath("//span[normalize-space()='Sale']"));
-        WebUI.clickElement(By.xpath("//a[normalize-space()='Manage Sale']"));
-        WebUI.clickElement(By.xpath("//span[normalize-space()='Print']"));
-
-        WebUI.sleep(1);
-
-        Set<String> windowHandles = driver.getWindowHandles();
-        WebUI.logConsole("Số cửa sổ hoặc tab: " + windowHandles.size());
-
-        //Or using for
-        for (String windowHandle : driver.getWindowHandles()) {
-            if (!originalWindow.contentEquals(windowHandle)) {
-                WebUI.switchToWindowOrTabByPosition(1);
-                break;
-            }
-        }
-
-        WebUI.sleep(1);
-        Robot robotClass = new Robot();
-        //Press Tab to switch to the Cancel button
-        robotClass.keyPress(KeyEvent.VK_TAB);
-        robotClass.keyRelease(KeyEvent.VK_TAB);
+        // window.print() blocks the page: call it asynchronously so WebDriver is not blocked
+        WebUI.getJsExecutor().executeScript("setTimeout(function () { window.print(); }, 500);");
         WebUI.sleep(2);
-        //Press ENTER to confirm Cancel
-        robotClass.keyPress(KeyEvent.VK_ENTER);
-        robotClass.keyRelease(KeyEvent.VK_ENTER);
+
+        Robot robotClass = new Robot();
+        //Press ESC to cancel the print dialog
+        robotClass.keyPress(KeyEvent.VK_ESCAPE);
+        robotClass.keyRelease(KeyEvent.VK_ESCAPE);
         WebUI.sleep(1);
-        //Switch back to the first tab (position 0)
-        WebUI.switchToMainWindow();
-        //WebUI.switchToMainWindow(originalWindow);
-        WebUI.sleep(1);
+
+        Assert.assertEquals(WebUI.getCurrentUrl(), originalUrl, "The page changed after closing the print dialog");
     }
 
     @Test

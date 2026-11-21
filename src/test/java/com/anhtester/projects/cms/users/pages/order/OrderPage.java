@@ -1,6 +1,8 @@
 package com.anhtester.projects.cms.users.pages.order;
 
 import com.anhtester.helpers.PropertiesHelpers;
+import com.anhtester.constants.FrameworkConstants;
+import com.anhtester.driver.DriverManager;
 import com.anhtester.keywords.WebUI;
 import com.anhtester.projects.cms.CommonPageCMS;
 import com.anhtester.projects.cms.users.pages.dashboard.DashboardPage;
@@ -39,6 +41,29 @@ public class OrderPage extends CommonPageCMS {
     private By totalPrice = By.xpath("//tr[@class = 'cart-subtotal']//td[@class = 'text-right']//span");
     private By subTotal = By.xpath("//div[@id='cart_items']//span[normalize-space()='Subtotal']/following-sibling::span");
     private By labelOrderCode = By.xpath("//*[contains(text(), 'Order Code:')]/span");
+    private By buttonRemoveCartItem = By.xpath("//a[contains(@onclick,'removeFromCartView')]");
+
+    /**
+     * Remove every product from the cart of the logged-in customer.
+     * The demo account is shared (CI, other runs): an order must start from an empty cart,
+     * otherwise the subtotal contains products of previous runs.
+     */
+    public void emptyCart() {
+        WebUI.openWebsite(FrameworkConstants.URL_CMS_USER + "/cart");
+        WebUI.waitForPageLoaded();
+        int removed = 0;
+        for (int i = 0; i < 50; i++) {
+            int before = DriverManager.getDriver().findElements(buttonRemoveCartItem).size();
+            if (before == 0) {
+                break;
+            }
+            WebUI.clickElement(buttonRemoveCartItem);
+            // The cart summary is re-rendered by AJAX after each removal
+            WebUI.getWait(FrameworkConstants.WAIT_EXPLICIT).until(driver -> driver.findElements(buttonRemoveCartItem).size() < before);
+            removed++;
+        }
+        LogUtils.info("Cart is empty (" + removed + " product(s) removed).");
+    }
 
 
     public void order(String noteForOrder) {
@@ -88,9 +113,9 @@ public class OrderPage extends CommonPageCMS {
         int priceProduct02AsInt = (Integer.parseInt(priceProduct02AsString.replace("$", "").replace(",", "").split("\\.")[0])) * quantityProduct02;
         int sumPrice = priceProduct01AsInt + priceProduct02AsInt;
         int subTotal = Integer.parseInt(WebUI.getTextElement(totalPrice).replace("$", "").replace(",", "").split("\\.")[0]);
-        System.out.println("quantityProduct02: " + quantityProduct02);
-        System.out.println("priceProduct01AsInt: " + priceProduct01AsInt);
-        System.out.println("priceProduct02AsInt: " + priceProduct02AsInt);
+        LogUtils.info("quantityProduct02: " + quantityProduct02);
+        LogUtils.info("priceProduct01AsInt: " + priceProduct01AsInt);
+        LogUtils.info("priceProduct02AsInt: " + priceProduct02AsInt);
         LogUtils.info("sumPrice: " + sumPrice);
         LogUtils.info("subTotal: " + subTotal);
         WebUI.verifyEquals(sumPrice, subTotal, "The total price is failed");

@@ -16,6 +16,7 @@ public class OrderTest extends BaseTest {
         ExcelHelpers excel = new ExcelHelpers();
         excel.setExcelFile(FrameworkConstants.EXCEL_CMS_LOGIN, "Login");
         getLoginPageCMS().loginSuccessWithCustomerAccount(excel.getCellData(4, "email"), excel.getCellData(4, "password"));
+        getOrderPage().emptyCart();
         getOrderPage().order("Delivery as soon as possible");
     }
 

@@ -137,13 +137,14 @@ public class ObjectUtils {
         // retrieve the specified object from the object list in properties file
         String locator = PropertiesHelpers.getValue(elementName);
 
-        if (locator.isEmpty()) {
+        if (locator == null || locator.isEmpty()) {
             LogUtils.info("The Locator string " + elementName + " does not exist !!");
             try {
                 throw new Exception("The Locator " + elementName + " does not exist !!");
             } catch (Exception e) {
                 LogUtils.error(e.getMessage(), e);
             }
+            return null;
         }
 
         if (locator.split("&&").length != 2) {
@@ -196,7 +197,7 @@ public class ObjectUtils {
         // retrieve the specified object from the object list in properties file
         String locator = PropertiesHelpers.getValue(elementName);
 
-        if (locator.isEmpty()) {
+        if (locator == null || locator.isEmpty()) {
             try {
                 LogUtils.info("The Locator " + elementName + " does not exist !!");
                 throw new Exception("The Locator " + elementName + " does not exist !!");
