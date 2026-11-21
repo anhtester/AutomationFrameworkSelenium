@@ -2,10 +2,7 @@
 
 <suite name="CMS - Profile">
 
-    <listeners>
-        <listener class-name="com.anhtester.listeners.AnnotationTransformer"/>
-    </listeners>
-    
+
     <test name="Test Profile CMS">
         <parameter name="BROWSER" value="chrome"/>
         <classes>

@@ -2,9 +2,6 @@
 
 <suite name="CMS - Login">
 
-    <listeners>
-        <listener class-name="com.anhtester.listeners.AnnotationTransformer"/>
-    </listeners>
 
     <test name="Login Test CMS" parallel="methods">
         <parameter name="BROWSER" value="chrome"/>

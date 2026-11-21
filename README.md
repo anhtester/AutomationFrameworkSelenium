@@ -122,7 +122,9 @@ mvn test "-Dsuite=src/test/resources/suites/SuiteAll.xml"
 **9. Retry failed tests**
 
 - `RETRY_TEST_FAIL = 1` in config.properties (or `-DRETRY_TEST_FAIL=0` to disable)
-- Listener `com.anhtester.listeners.AnnotationTransformer` in the suite XML
+- Enabled for every run (suite XML, IDE, Maven): `AnnotationTransformer` is registered in
+  `src/test/resources/META-INF/services/org.testng.ITestNGListener`. A test with its own
+  `@Test(retryAnalyzer = ...)` keeps it
 
 **10. Send report by email**
 
@@ -312,6 +314,9 @@ mvn test -DTARGET=remote -DREMOTE_URL=localhost -DREMOTE_PORT=4444 -DBROWSER=chr
  ┃ ┃ ┃ ┃ ┣ 📜book.json
  ┃ ┃ ┃ ┃ ┣ 📜store.json
  ┃ ┃ ┃ ┃ ┗ 📜tools.json
+ ┃ ┃ ┃ ┣ 📂META-INF
+ ┃ ┃ ┃ ┃ ┗ 📂services
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜org.testng.ITestNGListener
  ┃ ┃ ┃ ┣ 📂objects
  ┃ ┃ ┃ ┃ ┗ 📜locators.properties
  ┃ ┃ ┃ ┣ 📂suites

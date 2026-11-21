@@ -2,10 +2,7 @@
 
 <suite name="CMS - Order Product">
 
-    <listeners>
-        <listener class-name="com.anhtester.listeners.AnnotationTransformer"/>
-    </listeners>
-    
+
     <test name="Tests Order Product CMS">
         <parameter name="BROWSER" value="chrome"/>
         <classes>
