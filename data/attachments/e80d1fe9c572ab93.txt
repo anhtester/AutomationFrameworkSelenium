@@ -1,1 +1,0 @@
-Set text Cosy Hai Yen OXUOCYJB on By.xpath: //input[@id='search']

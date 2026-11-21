@@ -1,1 +1,0 @@
-Clicked on the element By.xpath: //div[@id='search-content']//div[contains(text(),'Cosy Hai Yen OXUOCYJB')]
