@@ -1,6 +1,6 @@
 # Selenium Grid for remote execution (TARGET=remote).
 #
-# Start:   docker compose up -d
+# Start:   docker compose up -d   (Grid ready when http://localhost:4444/status shows "ready": true)
 # Run:     mvn test -DTARGET=remote -DREMOTE_URL=localhost -DREMOTE_PORT=4444 -DBROWSER=chrome
 # Console: http://localhost:4444/ui
 # Stop:    docker compose down
@@ -15,18 +15,14 @@ services:
       - "4442:4442"
       - "4443:4443"
       - "4444:4444"
-    healthcheck:
-      test: [ "CMD", "/opt/bin/check-grid.sh", "--host", "0.0.0.0", "--port", "4444" ]
-      interval: 10s
-      timeout: 5s
-      retries: 10
 
   chrome:
     image: selenium/node-chrome:4.53.0
     shm_size: 2gb
+    # Only wait for the hub container to start: the hub is "ready" only after a node registers,
+    # a health check on the hub would block the nodes forever
     depends_on:
-      selenium-hub:
-        condition: service_healthy
+      - selenium-hub
     environment:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
@@ -40,9 +36,10 @@ services:
   edge:
     image: selenium/node-edge:4.53.0
     shm_size: 2gb
+    # Only wait for the hub container to start: the hub is "ready" only after a node registers,
+    # a health check on the hub would block the nodes forever
     depends_on:
-      selenium-hub:
-        condition: service_healthy
+      - selenium-hub
     environment:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
@@ -56,9 +53,10 @@ services:
   firefox:
     image: selenium/node-firefox:4.53.0
     shm_size: 2gb
+    # Only wait for the hub container to start: the hub is "ready" only after a node registers,
+    # a health check on the hub would block the nodes forever
     depends_on:
-      selenium-hub:
-        condition: service_healthy
+      - selenium-hub
     environment:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
