@@ -1,1 +1,0 @@
-Set text quatet on By.xpath: //span[@aria-placeholder='Type and hit enter to add a tag']

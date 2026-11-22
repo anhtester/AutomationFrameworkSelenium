@@ -1,0 +1,421 @@
+[INFO ] 22-11-2026 00:47:24.122 [main] [AddProductTest.TC_AddNewProductAdmin] [TargetFactory.createInstance:47] - Creating driver: browser=chrome, target=LOCAL, headless=true
+[INFO ] 22-11-2026 00:47:24.743 [main] [AddProductTest.TC_AddNewProductAdmin] [TargetFactory.logDriverInfo:126] - Driver created in 617 ms: chrome 157.0.8103.79 on windows
+[DEBUG] 22-11-2026 00:47:24.787 [main] [AddProductTest.TC_AddNewProductAdmin] [BaseTest.initDriver:62] - Window size: (1920, 1080)
+[INFO ] 22-11-2026 00:47:24.788 [main] [AddProductTest.TC_AddNewProductAdmin] [TestListener.onTestStart:244] - ========== Test case: TC_AddNewProductAdmin is starting... ==========
+[INFO ] 22-11-2026 00:47:24.792 [main] [AddProductTest.TC_AddNewProductAdmin] [ScreencastRecorder.start:118] - Video recording started (screencast): TC_AddNewProductAdmin
+[INFO ] 22-11-2026 00:47:24.798 [main] [AddProductTest.TC_AddNewProductAdmin] [ExcelHelpers.setExcelFile:36] - Set Excel File: src/test/resources/testdataCMS/Login.xlsx
+[INFO ] 22-11-2026 00:47:24.798 [main] [AddProductTest.TC_AddNewProductAdmin] [ExcelHelpers.setExcelFile:37] - Sheet Name: Login
+[INFO ] 22-11-2026 00:47:24.824 [main] [AddProductTest.TC_AddNewProductAdmin] [ExcelHelpers.setExcelFile:36] - Set Excel File: src/test/resources/testdataCMS/CMS_DATA.xlsx
+[INFO ] 22-11-2026 00:47:24.825 [main] [AddProductTest.TC_AddNewProductAdmin] [ExcelHelpers.setExcelFile:37] - Sheet Name: AddProduct
+[DEBUG] 22-11-2026 00:47:24.848 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeGet:78] - [WebDriver] Open URL: https://cms.anhtester.com/login
+[WARN ] 22-11-2026 00:47:50.649 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:51] - [WebDriver] SLOW Open URL https://cms.anhtester.com/login took 25800 ms
+[INFO ] 22-11-2026 00:47:50.655 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.openWebsite:2560] - Open website with URL: https://cms.anhtester.com/login
+[INFO ] 22-11-2026 00:47:50.699 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (00ce3f16786f82464a075a84e3683e14)] -> xpath: //input[@id='email']]}
+[DEBUG] 22-11-2026 00:47:50.716 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'admin@example.com' into: xpath: //input[@id='email']
+[INFO ] 22-11-2026 00:47:50.771 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2591] - Set text admin@example.com on By.xpath: //input[@id='email']
+[INFO ] 22-11-2026 00:47:50.802 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (00ce3f16786f82464a075a84e3683e14)] -> xpath: //input[@id='password']]}
+[DEBUG] 22-11-2026 00:47:50.806 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type '******' into: xpath: //input[@id='password']
+[INFO ] 22-11-2026 00:47:50.837 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2591] - Set text ****** on By.xpath: //input[@id='password']
+[DEBUG] 22-11-2026 00:47:50.865 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Login']
+[WARN ] 22-11-2026 00:48:43.307 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:51] - [WebDriver] SLOW Click took 52442 ms
+[INFO ] 22-11-2026 00:48:43.310 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //button[normalize-space()='Login']
+[INFO ] 22-11-2026 00:48:43.319 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.verifyElementVisible:2118] - Verify element visible By.xpath: //img[@alt='Active eCommerce CMS']
+[DEBUG] 22-11-2026 00:48:43.366 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //span[normalize-space()='Products']
+[DEBUG] 22-11-2026 00:48:43.402 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 35 ms
+[INFO ] 22-11-2026 00:48:43.402 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //span[normalize-space()='Products']
+[DEBUG] 22-11-2026 00:48:43.440 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: (//span[normalize-space()='Add New Product'])[1]
+[WARN ] 22-11-2026 00:48:48.554 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:51] - [WebDriver] SLOW Click took 5113 ms
+[INFO ] 22-11-2026 00:48:48.554 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: (//span[normalize-space()='Add New Product'])[1]
+[INFO ] 22-11-2026 00:48:48.575 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.verifyElementVisible:2118] - Verify element visible By.xpath: //h5[normalize-space()='Add New Product']
+[INFO ] 22-11-2026 00:48:48.596 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.verifyElementVisible:2118] - Verify element visible By.xpath: //h5[normalize-space()='Product Information']
+[INFO ] 22-11-2026 00:48:48.635 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (00ce3f16786f82464a075a84e3683e14)] -> xpath: //input[@placeholder='Product Name']]}
+[DEBUG] 22-11-2026 00:48:48.645 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'Giỏ quà Tết CyrZd' into: xpath: //input[@placeholder='Product Name']
+[INFO ] 22-11-2026 00:48:48.730 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2591] - Set text Giỏ quà Tết CyrZd on By.xpath: //input[@placeholder='Product Name']
+[DEBUG] 22-11-2026 00:48:48.754 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[@data-id= 'category_id']
+[DEBUG] 22-11-2026 00:48:48.914 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 160 ms
+[INFO ] 22-11-2026 00:48:48.916 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //button[@data-id= 'category_id']
+[INFO ] 22-11-2026 00:48:48.963 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (00ce3f16786f82464a075a84e3683e14)] -> xpath: //div[@class='dropdown-menu show']//input[@aria-label='Search']]}
+[DEBUG] 22-11-2026 00:48:48.979 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'Pie' into: xpath: //div[@class='dropdown-menu show']//input[@aria-label='Search']
+[INFO ] 22-11-2026 00:48:49.074 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2608] - Set text Pie on By.xpath: //div[@class='dropdown-menu show']//input[@aria-label='Search'] and press key ENTER
+[INFO ] 22-11-2026 00:48:49.111 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (00ce3f16786f82464a075a84e3683e14)] -> xpath: //input[@placeholder='Unit (e.g. KG, Pc etc)']]}
+[DEBUG] 22-11-2026 00:48:49.125 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'g' into: xpath: //input[@placeholder='Unit (e.g. KG, Pc etc)']
+[INFO ] 22-11-2026 00:48:49.184 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2591] - Set text g on By.xpath: //input[@placeholder='Unit (e.g. KG, Pc etc)']
+[INFO ] 22-11-2026 00:48:49.220 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (00ce3f16786f82464a075a84e3683e14)] -> xpath: //input[@name='weight']]}
+[DEBUG] 22-11-2026 00:48:49.234 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type '1500' into: xpath: //input[@name='weight']
+[INFO ] 22-11-2026 00:48:49.286 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2591] - Set text 1500 on By.xpath: //input[@name='weight']
+[INFO ] 22-11-2026 00:48:49.294 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.verifyElementVisible:2118] - Verify element visible By.xpath: //h5[normalize-space()='Product Images']
+[DEBUG] 22-11-2026 00:48:49.338 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //label[contains(text(),'Gallery Images')]/following-sibling::div//div[contains(text(),'Choose File')]
+[DEBUG] 22-11-2026 00:48:49.387 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 49 ms
+[INFO ] 22-11-2026 00:48:49.387 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //label[contains(text(),'Gallery Images')]/following-sibling::div//div[contains(text(),'Choose File')]
+[DEBUG] 22-11-2026 00:48:49.409 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//a[normalize-space()='Upload New']"}
+[DEBUG] 22-11-2026 00:48:49.670 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//a[normalize-space()='Upload New']"}
+[DEBUG] 22-11-2026 00:48:49.938 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//a[normalize-space()='Upload New']"}
+[DEBUG] 22-11-2026 00:48:50.207 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//a[normalize-space()='Upload New']"}
+[DEBUG] 22-11-2026 00:48:50.489 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //a[normalize-space()='Upload New']
+[DEBUG] 22-11-2026 00:48:50.549 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 60 ms
+[INFO ] 22-11-2026 00:48:50.549 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //a[normalize-space()='Upload New']
+[DEBUG] 22-11-2026 00:48:50.589 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'D:\a\AutomationFrameworkSelenium\AutomationFrameworkSelenium\src\test\resources\testdataCMS\gio-qua-2.jpg' into: xpath: //input[@class = 'uppy-Dashboard-input']
+[DEBUG] 22-11-2026 00:48:50.673 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //a[normalize-space()='Select File']
+[DEBUG] 22-11-2026 00:48:50.727 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 54 ms
+[INFO ] 22-11-2026 00:48:50.728 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //a[normalize-space()='Select File']
+[INFO ] 22-11-2026 00:48:50.729 [main] [AddProductTest.TC_AddNewProductAdmin] [AddProductPage.addProduct:90] - gio-qua-2.jpg
+[INFO ] 22-11-2026 00:48:50.729 [main] [AddProductTest.TC_AddNewProductAdmin] [AddProductPage.addProduct:91] - [gio-qua-2, jpg]
+[INFO ] 22-11-2026 00:48:50.763 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (00ce3f16786f82464a075a84e3683e14)] -> xpath: //input[@placeholder='Search your files']]}
+[DEBUG] 22-11-2026 00:48:50.781 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'gio-qua-2' into: xpath: //input[@placeholder='Search your files']
+[INFO ] 22-11-2026 00:48:50.879 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2608] - Set text gio-qua-2 on By.xpath: //input[@placeholder='Search your files'] and press key ENTER
+[ERROR] 22-11-2026 00:49:31.072 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.failStep:182] - Timeout waiting for JQuery load. (40s)
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for com.anhtester.keywords.WebUI$$Lambda/0x000001e1295a3ad0@4aac81ca
+(tried for 40 seconds with 250 milliseconds interval)
+Build info: version: '4.53.0', revision: '0501530 05015309ae5a7496b80e496f540d2ecf969532c7'
+System info: os.name: 'Windows Server 2025', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.13.1'
+Driver info: jdk.proxy9.$Proxy67
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 157.0.8103.79, chrome: {chromedriverVersion: 157.0.8103.78 (4b3d0dabb825..., userDataDir: C:\Windows\SystemTemp\scope...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:58567}, goog:processID: 9340, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:58567/devtoo..., se:cdpVersion: 157.0.8103.79, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10...., webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 00ce3f16786f82464a075a84e3683e14
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:85)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at com.anhtester.keywords.WebUI.waitForJQueryLoad(WebUI.java:3279)
+	at com.anhtester.projects.cms.admin.pages.products.AddProductPage.addProduct(AddProductPage.java:95)
+	at com.anhtester.projects.cms.testcases.AddProductTest.TC_AddNewProductAdmin(AddProductTest.java:25)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:697)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:1005)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:744)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+	at org.testng.TestNG.runSuites(TestNG.java:1112)
+	at org.testng.TestNG.run(TestNG.java:1079)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+[WARN ] 22-11-2026 00:49:31.076 [main] [AddProductTest.TC_AddNewProductAdmin] [Retry.retry:32] - RETRY 1/1: test AddProductTest.TC_AddNewProductAdmin failed because: AssertionError - Timeout waiting for JQuery load. (40s) | Cause: TimeoutException: Expected condition failed: waiting for com.anhtester.keywords.WebUI$$Lambda/0x000001e1295a3ad0@4aac81ca
+
+[INFO ] 22-11-2026 00:50:31.319 [main] [AddProductTest.TC_AddNewProductAdmin] [ScreencastRecorder.end:236] - Video saved: D:\a\AutomationFrameworkSelenium\AutomationFrameworkSelenium\exports\ExportData\Videos\tc_addnewproductadmin_22-11-2026_00-49-31.mp4 (463 frames, encoded in 60237 ms)
+[WARN ] 22-11-2026 00:50:31.338 [main] [AddProductTest.TC_AddNewProductAdmin] [TestListener.onTestSkipped:305] - Test case: TC_AddNewProductAdmin failed and will be RETRIED.
+java.lang.AssertionError: Timeout waiting for JQuery load. (40s) | Cause: TimeoutException: Expected condition failed: waiting for com.anhtester.keywords.WebUI$$Lambda/0x000001e1295a3ad0@4aac81ca
+
+	at com.anhtester.keywords.WebUI.failStep(WebUI.java:186)
+	at com.anhtester.keywords.WebUI.waitForJQueryLoad(WebUI.java:3281)
+	at com.anhtester.projects.cms.admin.pages.products.AddProductPage.addProduct(AddProductPage.java:95)
+	at com.anhtester.projects.cms.testcases.AddProductTest.TC_AddNewProductAdmin(AddProductTest.java:25)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:697)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:1005)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:744)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+	at org.testng.TestNG.runSuites(TestNG.java:1112)
+	at org.testng.TestNG.run(TestNG.java:1079)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for com.anhtester.keywords.WebUI$$Lambda/0x000001e1295a3ad0@4aac81ca
+(tried for 40 seconds with 250 milliseconds interval)
+Build info: version: '4.53.0', revision: '0501530 05015309ae5a7496b80e496f540d2ecf969532c7'
+System info: os.name: 'Windows Server 2025', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.13.1'
+Driver info: jdk.proxy9.$Proxy67
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 157.0.8103.79, chrome: {chromedriverVersion: 157.0.8103.78 (4b3d0dabb825..., userDataDir: C:\Windows\SystemTemp\scope...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:58567}, goog:processID: 9340, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:58567/devtoo..., se:cdpVersion: 157.0.8103.79, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10...., webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 00ce3f16786f82464a075a84e3683e14
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:85)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at com.anhtester.keywords.WebUI.waitForJQueryLoad(WebUI.java:3279)
+	... 32 more
+[DEBUG] 22-11-2026 00:50:31.344 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeQuit:158] - [WebDriver] Quit browser
+[INFO ] 22-11-2026 00:50:31.556 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverManager.quit:38] - Closed the browser.
+[INFO ] 22-11-2026 00:50:31.558 [main] [AddProductTest.TC_AddNewProductAdmin] [TargetFactory.createInstance:47] - Creating driver: browser=chrome, target=LOCAL, headless=true
+[INFO ] 22-11-2026 00:50:32.047 [main] [AddProductTest.TC_AddNewProductAdmin] [TargetFactory.logDriverInfo:126] - Driver created in 486 ms: chrome 157.0.8103.79 on windows
+[DEBUG] 22-11-2026 00:50:32.147 [main] [AddProductTest.TC_AddNewProductAdmin] [BaseTest.initDriver:62] - Window size: (1920, 1080)
+[INFO ] 22-11-2026 00:50:32.148 [main] [AddProductTest.TC_AddNewProductAdmin] [TestListener.onTestStart:244] - ========== Test case: TC_AddNewProductAdmin is starting... ==========
+[INFO ] 22-11-2026 00:50:32.152 [main] [AddProductTest.TC_AddNewProductAdmin] [ScreencastRecorder.start:118] - Video recording started (screencast): TC_AddNewProductAdmin
+[INFO ] 22-11-2026 00:50:32.157 [main] [AddProductTest.TC_AddNewProductAdmin] [ExcelHelpers.setExcelFile:36] - Set Excel File: src/test/resources/testdataCMS/Login.xlsx
+[INFO ] 22-11-2026 00:50:32.158 [main] [AddProductTest.TC_AddNewProductAdmin] [ExcelHelpers.setExcelFile:37] - Sheet Name: Login
+[INFO ] 22-11-2026 00:50:32.202 [main] [AddProductTest.TC_AddNewProductAdmin] [ExcelHelpers.setExcelFile:36] - Set Excel File: src/test/resources/testdataCMS/CMS_DATA.xlsx
+[INFO ] 22-11-2026 00:50:32.203 [main] [AddProductTest.TC_AddNewProductAdmin] [ExcelHelpers.setExcelFile:37] - Sheet Name: AddProduct
+[DEBUG] 22-11-2026 00:50:32.231 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeGet:78] - [WebDriver] Open URL: https://cms.anhtester.com/login
+[WARN ] 22-11-2026 00:50:57.673 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:51] - [WebDriver] SLOW Open URL https://cms.anhtester.com/login took 25442 ms
+[INFO ] 22-11-2026 00:50:57.678 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.openWebsite:2560] - Open website with URL: https://cms.anhtester.com/login
+[INFO ] 22-11-2026 00:50:57.719 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //input[@id='email']]}
+[DEBUG] 22-11-2026 00:50:57.731 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'admin@example.com' into: xpath: //input[@id='email']
+[INFO ] 22-11-2026 00:50:57.784 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2591] - Set text admin@example.com on By.xpath: //input[@id='email']
+[INFO ] 22-11-2026 00:50:57.812 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //input[@id='password']]}
+[DEBUG] 22-11-2026 00:50:57.816 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type '******' into: xpath: //input[@id='password']
+[INFO ] 22-11-2026 00:50:57.846 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2591] - Set text ****** on By.xpath: //input[@id='password']
+[DEBUG] 22-11-2026 00:50:57.874 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Login']
+[WARN ] 22-11-2026 00:51:46.956 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:51] - [WebDriver] SLOW Click took 49081 ms
+[INFO ] 22-11-2026 00:51:46.957 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //button[normalize-space()='Login']
+[INFO ] 22-11-2026 00:51:46.962 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.verifyElementVisible:2118] - Verify element visible By.xpath: //img[@alt='Active eCommerce CMS']
+[DEBUG] 22-11-2026 00:51:47.002 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //span[normalize-space()='Products']
+[DEBUG] 22-11-2026 00:51:47.039 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 36 ms
+[INFO ] 22-11-2026 00:51:47.039 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //span[normalize-space()='Products']
+[DEBUG] 22-11-2026 00:51:47.069 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: (//span[normalize-space()='Add New Product'])[1]
+[DEBUG] 22-11-2026 00:51:51.337 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 4267 ms
+[INFO ] 22-11-2026 00:51:51.337 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: (//span[normalize-space()='Add New Product'])[1]
+[INFO ] 22-11-2026 00:51:51.354 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.verifyElementVisible:2118] - Verify element visible By.xpath: //h5[normalize-space()='Add New Product']
+[INFO ] 22-11-2026 00:51:51.373 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.verifyElementVisible:2118] - Verify element visible By.xpath: //h5[normalize-space()='Product Information']
+[INFO ] 22-11-2026 00:51:51.408 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //input[@placeholder='Product Name']]}
+[DEBUG] 22-11-2026 00:51:51.419 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'Giỏ quà Tết LuzVJ' into: xpath: //input[@placeholder='Product Name']
+[INFO ] 22-11-2026 00:51:51.507 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2591] - Set text Giỏ quà Tết LuzVJ on By.xpath: //input[@placeholder='Product Name']
+[DEBUG] 22-11-2026 00:51:51.529 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[@data-id= 'category_id']
+[DEBUG] 22-11-2026 00:51:51.697 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 168 ms
+[INFO ] 22-11-2026 00:51:51.697 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //button[@data-id= 'category_id']
+[INFO ] 22-11-2026 00:51:51.742 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //div[@class='dropdown-menu show']//input[@aria-label='Search']]}
+[DEBUG] 22-11-2026 00:51:51.758 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'Pie' into: xpath: //div[@class='dropdown-menu show']//input[@aria-label='Search']
+[INFO ] 22-11-2026 00:51:51.859 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2608] - Set text Pie on By.xpath: //div[@class='dropdown-menu show']//input[@aria-label='Search'] and press key ENTER
+[INFO ] 22-11-2026 00:51:51.895 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //input[@placeholder='Unit (e.g. KG, Pc etc)']]}
+[DEBUG] 22-11-2026 00:51:51.910 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'g' into: xpath: //input[@placeholder='Unit (e.g. KG, Pc etc)']
+[INFO ] 22-11-2026 00:51:51.963 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2591] - Set text g on By.xpath: //input[@placeholder='Unit (e.g. KG, Pc etc)']
+[INFO ] 22-11-2026 00:51:52.003 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //input[@name='weight']]}
+[DEBUG] 22-11-2026 00:51:52.018 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type '1500' into: xpath: //input[@name='weight']
+[INFO ] 22-11-2026 00:51:52.071 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2591] - Set text 1500 on By.xpath: //input[@name='weight']
+[INFO ] 22-11-2026 00:51:52.078 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.verifyElementVisible:2118] - Verify element visible By.xpath: //h5[normalize-space()='Product Images']
+[DEBUG] 22-11-2026 00:51:52.137 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //label[contains(text(),'Gallery Images')]/following-sibling::div//div[contains(text(),'Choose File')]
+[DEBUG] 22-11-2026 00:51:52.184 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 47 ms
+[INFO ] 22-11-2026 00:51:52.184 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //label[contains(text(),'Gallery Images')]/following-sibling::div//div[contains(text(),'Choose File')]
+[DEBUG] 22-11-2026 00:51:52.203 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//a[normalize-space()='Upload New']"}
+[DEBUG] 22-11-2026 00:51:52.461 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//a[normalize-space()='Upload New']"}
+[DEBUG] 22-11-2026 00:51:52.721 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//a[normalize-space()='Upload New']"}
+[DEBUG] 22-11-2026 00:51:52.997 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //a[normalize-space()='Upload New']
+[DEBUG] 22-11-2026 00:51:53.055 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 58 ms
+[INFO ] 22-11-2026 00:51:53.055 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //a[normalize-space()='Upload New']
+[DEBUG] 22-11-2026 00:51:53.107 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'D:\a\AutomationFrameworkSelenium\AutomationFrameworkSelenium\src\test\resources\testdataCMS\gio-qua-2.jpg' into: xpath: //input[@class = 'uppy-Dashboard-input']
+[DEBUG] 22-11-2026 00:51:53.185 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //a[normalize-space()='Select File']
+[DEBUG] 22-11-2026 00:51:53.232 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 47 ms
+[INFO ] 22-11-2026 00:51:53.232 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //a[normalize-space()='Select File']
+[INFO ] 22-11-2026 00:51:53.234 [main] [AddProductTest.TC_AddNewProductAdmin] [AddProductPage.addProduct:90] - gio-qua-2.jpg
+[INFO ] 22-11-2026 00:51:53.235 [main] [AddProductTest.TC_AddNewProductAdmin] [AddProductPage.addProduct:91] - [gio-qua-2, jpg]
+[INFO ] 22-11-2026 00:51:53.267 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //input[@placeholder='Search your files']]}
+[DEBUG] 22-11-2026 00:51:53.284 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'gio-qua-2' into: xpath: //input[@placeholder='Search your files']
+[INFO ] 22-11-2026 00:51:53.357 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2608] - Set text gio-qua-2 on By.xpath: //input[@placeholder='Search your files'] and press key ENTER
+[INFO ] 22-11-2026 00:52:27.597 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElementWithJs:2756] - Click on element with JS: By.xpath: (//img[@class='img-fit'])[1]
+[DEBUG] 22-11-2026 00:52:27.646 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Add Files']
+[DEBUG] 22-11-2026 00:52:27.750 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 104 ms
+[INFO ] 22-11-2026 00:52:27.750 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //button[normalize-space()='Add Files']
+[DEBUG] 22-11-2026 00:52:27.801 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"css selector","selector":"#aizUploaderModal"}
+[DEBUG] 22-11-2026 00:52:29.852 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //label[contains(text(),'Thumbnail Image')]/following-sibling::div//div[contains(text(),'Choose File')]
+[DEBUG] 22-11-2026 00:52:29.892 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 40 ms
+[INFO ] 22-11-2026 00:52:29.893 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //label[contains(text(),'Thumbnail Image')]/following-sibling::div//div[contains(text(),'Choose File')]
+[DEBUG] 22-11-2026 00:52:29.908 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:30.174 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:30.443 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:30.702 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:30.967 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:31.226 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:31.490 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:31.750 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:32.020 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:32.303 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:32.565 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:32.833 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:33.091 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[INFO ] 22-11-2026 00:52:33.382 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //input[@placeholder='Search your files']]}
+[DEBUG] 22-11-2026 00:52:33.407 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'gio-qua-2' into: xpath: //input[@placeholder='Search your files']
+[INFO ] 22-11-2026 00:52:33.513 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2608] - Set text gio-qua-2 on By.xpath: //input[@placeholder='Search your files'] and press key ENTER
+[INFO ] 22-11-2026 00:52:55.068 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElementWithJs:2756] - Click on element with JS: By.xpath: (//img[@class='img-fit'])[2]
+[DEBUG] 22-11-2026 00:52:55.099 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Add Files']
+[DEBUG] 22-11-2026 00:52:55.147 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 48 ms
+[INFO ] 22-11-2026 00:52:55.147 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //button[normalize-space()='Add Files']
+[DEBUG] 22-11-2026 00:52:55.170 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"css selector","selector":"#aizUploaderModal"}
+[INFO ] 22-11-2026 00:52:55.178 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.verifyElementVisible:2118] - Verify element visible By.xpath: //h5[normalize-space()='Product price + stock']
+[INFO ] 22-11-2026 00:52:55.222 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //input[@placeholder='Unit price']]}
+[DEBUG] 22-11-2026 00:52:55.222 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClear:136] - [WebDriver] Clear: xpath: //input[@placeholder='Unit price']
+[DEBUG] 22-11-2026 00:52:55.279 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type '500000' into: xpath: //input[@placeholder='Unit price']
+[INFO ] 22-11-2026 00:52:55.337 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clearAndFillText:2685] - Clear and Fill 500000 on By.xpath: //input[@placeholder='Unit price']
+[DEBUG] 22-11-2026 00:52:55.361 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //input[@placeholder='Select Date']
+[DEBUG] 22-11-2026 00:52:55.416 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 55 ms
+[INFO ] 22-11-2026 00:52:55.416 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //input[@placeholder='Select Date']
+[INFO ] 22-11-2026 00:52:55.444 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //input[@placeholder='Select Date']]}
+[DEBUG] 22-11-2026 00:52:55.456 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type '01-01-2023 00:00:00 to 31-01-2024 00:00:00' into: xpath: //input[@placeholder='Select Date']
+[INFO ] 22-11-2026 00:52:55.801 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2591] - Set text 01-01-2023 00:00:00 to 31-01-2024 00:00:00 on By.xpath: //input[@placeholder='Select Date']
+[DEBUG] 22-11-2026 00:52:55.830 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[@class='applyBtn btn btn-sm btn-primary']
+[DEBUG] 22-11-2026 00:52:55.865 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 35 ms
+[INFO ] 22-11-2026 00:52:55.865 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //button[@class='applyBtn btn btn-sm btn-primary']
+[INFO ] 22-11-2026 00:52:55.897 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //input[@placeholder='Discount']]}
+[DEBUG] 22-11-2026 00:52:55.897 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClear:136] - [WebDriver] Clear: xpath: //input[@placeholder='Discount']
+[DEBUG] 22-11-2026 00:52:55.931 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type '2' into: xpath: //input[@placeholder='Discount']
+[INFO ] 22-11-2026 00:52:55.973 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clearAndFillText:2685] - Clear and Fill 2 on By.xpath: //input[@placeholder='Discount']
+[DEBUG] 22-11-2026 00:52:55.996 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: (//div[@class='filter-option-inner-inner'][normalize-space()='Flat'])[1]
+[DEBUG] 22-11-2026 00:52:56.034 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 38 ms
+[INFO ] 22-11-2026 00:52:56.034 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: (//div[@class='filter-option-inner-inner'][normalize-space()='Flat'])[1]
+[DEBUG] 22-11-2026 00:52:56.060 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //span[normalize-space()='Percent']
+[DEBUG] 22-11-2026 00:52:56.106 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 46 ms
+[INFO ] 22-11-2026 00:52:56.108 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //span[normalize-space()='Percent']
+[INFO ] 22-11-2026 00:52:56.139 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //input[@placeholder='Quantity']]}
+[DEBUG] 22-11-2026 00:52:56.139 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClear:136] - [WebDriver] Clear: xpath: //input[@placeholder='Quantity']
+[DEBUG] 22-11-2026 00:52:56.181 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type '300' into: xpath: //input[@placeholder='Quantity']
+[INFO ] 22-11-2026 00:52:56.239 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clearAndFillText:2685] - Clear and Fill 300 on By.xpath: //input[@placeholder='Quantity']
+[INFO ] 22-11-2026 00:52:56.277 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //input[@placeholder='SKU']]}
+[DEBUG] 22-11-2026 00:52:56.292 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type '73068' into: xpath: //input[@placeholder='SKU']
+[INFO ] 22-11-2026 00:52:56.343 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2591] - Set text 73068 on By.xpath: //input[@placeholder='SKU']
+[INFO ] 22-11-2026 00:52:56.349 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.verifyElementVisible:2118] - Verify element visible By.xpath: //h5[normalize-space()='Product Description']
+[INFO ] 22-11-2026 00:52:56.399 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //input[@name='meta_title']]}
+[DEBUG] 22-11-2026 00:52:56.409 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'Giỏ quà Tết LuzVJ' into: xpath: //input[@name='meta_title']
+[INFO ] 22-11-2026 00:52:56.473 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2591] - Set text Giỏ quà Tết LuzVJ on By.xpath: //input[@name='meta_title']
+[INFO ] 22-11-2026 00:52:56.501 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //div[@role='textbox']]}
+[DEBUG] 22-11-2026 00:52:56.513 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'Giỏ Quà Tết cao cấp, sang trọng dành cho mùa Tết 2024, hứa hẹn sẽ là món quà tinh thần ý nghĩa nhất cho người thân' into: xpath: //div[@role='textbox']
+[INFO ] 22-11-2026 00:52:56.809 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2591] - Set text Giỏ Quà Tết cao cấp, sang trọng dành cho mùa Tết 2024, hứa hẹn sẽ là món quà tinh thần ý nghĩa nhất cho người thân on By.xpath: //div[@role='textbox']
+[DEBUG] 22-11-2026 00:52:56.834 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //label[normalize-space()='Meta Image']/following-sibling::div//div[contains(text(),'Choose File')]
+[DEBUG] 22-11-2026 00:52:56.867 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:53] - [WebDriver] Click done in 33 ms
+[INFO ] 22-11-2026 00:52:56.867 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //label[normalize-space()='Meta Image']/following-sibling::div//div[contains(text(),'Choose File')]
+[DEBUG] 22-11-2026 00:52:56.882 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:57.139 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:57.400 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:57.670 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:57.928 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:58.187 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:58.446 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:58.709 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:58.967 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:59.226 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:59.494 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:52:59.764 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:53:00.028 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:53:00.286 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:53:00.545 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:53:00.805 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:53:01.073 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:53:01.341 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:53:01.609 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:53:01.867 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:53:02.126 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:53:02.395 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:53:02.654 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:53:02.917 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:53:03.174 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:53:03.432 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[DEBUG] 22-11-2026 00:53:03.690 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//input[@placeholder='Search your files']"}
+[INFO ] 22-11-2026 00:53:03.966 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //input[@placeholder='Search your files']]}
+[DEBUG] 22-11-2026 00:53:03.982 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'gio-qua-2' into: xpath: //input[@placeholder='Search your files']
+[INFO ] 22-11-2026 00:53:04.066 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2608] - Set text gio-qua-2 on By.xpath: //input[@placeholder='Search your files'] and press key ENTER
+[INFO ] 22-11-2026 00:53:19.878 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElementWithJs:2756] - Click on element with JS: By.xpath: (//img[@class='img-fit'])[2]
+[INFO ] 22-11-2026 00:53:19.935 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElementWithJs:2756] - Click on element with JS: By.xpath: //button[normalize-space()='Add Files']
+[DEBUG] 22-11-2026 00:53:19.985 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"css selector","selector":"#aizUploaderModal"}
+[INFO ] 22-11-2026 00:53:20.003 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2274] - Scroll to element completely centered: By.xpath: //span[@aria-placeholder='Type and hit enter to add a tag']
+[INFO ] 22-11-2026 00:53:20.029 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtCenter:2311] - Scroll to element completely centered: Decorated {[[ChromeDriver: chrome on windows (8b42e828f66820b618c1937b464378bf)] -> xpath: //span[@aria-placeholder='Type and hit enter to add a tag']]}
+[DEBUG] 22-11-2026 00:53:20.040 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeSendKeys:128] - [WebDriver] Type 'quatet' into: xpath: //span[@aria-placeholder='Type and hit enter to add a tag']
+[INFO ] 22-11-2026 00:53:20.097 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.setText:2608] - Set text quatet on By.xpath: //span[@aria-placeholder='Type and hit enter to add a tag'] and press key ENTER
+[INFO ] 22-11-2026 00:53:20.121 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.scrollToElementAtBottom:2286] - Scroll to element By.xpath: //button[normalize-space()='Save & Publish']
+[DEBUG] 22-11-2026 00:53:20.150 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.beforeClick:112] - [WebDriver] Click: xpath: //button[normalize-space()='Save & Publish']
+[WARN ] 22-11-2026 00:54:27.655 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.logDone:51] - [WebDriver] SLOW Click took 67504 ms
+[INFO ] 22-11-2026 00:54:27.657 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.clickElement:2729] - Clicked on the element By.xpath: //button[normalize-space()='Save & Publish']
+[INFO ] 22-11-2026 00:54:27.663 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.verifyElementVisible:2118] - Verify element visible By.xpath: //span[@data-notify='message']
+[DEBUG] 22-11-2026 00:54:27.677 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:27.934 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:28.202 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:28.459 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:28.717 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:28.977 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:29.235 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:29.491 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:29.748 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:30.006 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:30.262 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:30.525 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:30.783 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:31.047 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:31.304 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:31.568 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:31.825 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:32.101 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:32.359 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:32.616 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:32.880 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:33.149 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:33.418 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:33.687 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:33.955 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:34.212 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:34.478 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:34.736 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:34.999 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:35.267 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:35.525 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:35.789 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:36.057 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:36.326 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:36.595 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:36.852 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:37.117 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:37.373 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:37.638 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[DEBUG] 22-11-2026 00:54:37.895 [main] [AddProductTest.TC_AddNewProductAdmin] [DriverEventListener.onError:174] - [WebDriver] Error on findElement: NoSuchElementException - no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}
+[ERROR] 22-11-2026 00:54:37.896 [main] [AddProductTest.TC_AddNewProductAdmin] [WebUI.failStep:182] - Add Product is failedBy.xpath: //span[@data-notify='message']
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element found by By.xpath: //span[@data-notify='message'], but... org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//span[@data-notify='message']"}.
+(tried for 10 seconds with 250 milliseconds interval)
+Build info: version: '4.53.0', revision: '0501530 05015309ae5a7496b80e496f540d2ecf969532c7'
+System info: os.name: 'Windows Server 2025', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.13.1'
+Driver info: jdk.proxy10.$Proxy68
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 157.0.8103.79, chrome: {chromedriverVersion: 157.0.8103.78 (4b3d0dabb825..., userDataDir: C:\Windows\SystemTemp\scope...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:57335}, goog:processID: 11824, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:57335/devtoo..., se:cdpVersion: 157.0.8103.79, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10...., webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 8b42e828f66820b618c1937b464378bf
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:85)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at com.anhtester.keywords.WebUI.verifyElementVisible(WebUI.java:2121)
+	at com.anhtester.projects.cms.admin.pages.products.AddProductPage.addProduct(AddProductPage.java:139)
+	at com.anhtester.projects.cms.testcases.AddProductTest.TC_AddNewProductAdmin(AddProductTest.java:25)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:697)
+	at org.testng.internal.invokers.TestInvoker.retryFailed(TestInvoker.java:280)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:76)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:1005)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:744)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+	at org.testng.TestNG.runSuites(TestNG.java:1112)
+	at org.testng.TestNG.run(TestNG.java:1079)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+[INFO ] 22-11-2026 00:56:38.540 [main] [AddProductTest.TC_AddNewProductAdmin] [ScreencastRecorder.end:236] - Video saved: D:\a\AutomationFrameworkSelenium\AutomationFrameworkSelenium\exports\ExportData\Videos\tc_addnewproductadmin_22-11-2026_00-54-37.mp4 (2028 frames, encoded in 120560 ms)

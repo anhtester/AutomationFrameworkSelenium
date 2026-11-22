@@ -1,1 +1,0 @@
-Set text 500000 on By.xpath: //input[@placeholder='Unit price']

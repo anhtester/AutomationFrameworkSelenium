@@ -1,1 +1,0 @@
-Set text 300 on By.xpath: //input[@placeholder='Quantity']

@@ -1,0 +1,1788 @@
+<html lang="en"><head>
+	<meta name="csrf-token" content="Ko2x8MCV0kK8j5C7ygGKcsNITCpXGThzk3ywNDSP">
+	<meta name="app-url" content="//cms.anhtester.com/">
+	<meta name="file-base-url" content="//cms.anhtester.com/public/">
+
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Favicon -->
+	<link rel="icon" href="https://cms.anhtester.com/public/uploads/all/HicuyPeD3JsQLcULAHSwtOndZBUmYf2ZLTqcnzRR.png">
+	<title>Active eCommerce CMS | Anh Tester Demo</title>
+
+	<!-- google font -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+
+	<!-- aiz core css -->
+	<link rel="stylesheet" href="https://cms.anhtester.com/public/assets/css/vendors.css">
+    	<link rel="stylesheet" href="https://cms.anhtester.com/public/assets/css/aiz-core.css">
+
+    <style>
+        body {
+            font-size: 12px;
+        }
+    </style>
+	<script>
+    	var AIZ = AIZ || {};
+        AIZ.local = {
+            nothing_selected: 'Nothing selected',
+            nothing_found: 'Nothing found',
+            choose_file: 'Choose File',
+            file_selected: 'File selected',
+            files_selected: 'Files selected',
+            add_more_files: 'Add more files',
+            adding_more_files: 'Adding more files',
+            drop_files_here_paste_or: 'Drop files here, paste or',
+            browse: 'Browse',
+            upload_complete: 'Upload complete',
+            upload_paused: 'Upload paused',
+            resume_upload: 'Resume upload',
+            pause_upload: 'Pause upload',
+            retry_upload: 'Retry upload',
+            cancel_upload: 'Cancel upload',
+            uploading: 'Uploading',
+            processing: 'Processing',
+            complete: 'Complete',
+            file: 'File',
+            files: 'Files',
+        }
+	</script>
+
+</head>
+<body class="">
+
+	<div class="aiz-main-wrapper">
+        <style>
+.aiz-side-nav-logo-wrap a {
+    padding: 0px 25px;
+}
+
+.aiz-side-nav-logo-wrap img {
+    height: auto;
+}
+</style>
+
+<div class="aiz-sidebar-wrap">
+    <div class="aiz-sidebar left c-scrollbar">
+        <div class="aiz-side-nav-logo-wrap">
+            <a href="https://cms.anhtester.com/admin" class="d-block text-left">
+                                <img class="mw-100" src="https://cms.anhtester.com/public/uploads/all/L7p2ixDEAwfudjibW5M4wWd4nwUoIExU0IhqCNRG.png" alt="Active eCommerce CMS">
+                            </a>
+        </div>
+        <div class="aiz-side-nav-wrap">
+            <div class="px-20px mb-3">
+                <input class="form-control bg-soft-secondary border-0 form-control-sm text-white" type="text" name="" placeholder="Search in menu" id="menu-search" onkeyup="menuSearch()">
+            </div>
+            <ul class="aiz-side-nav-list" id="search-menu">
+            </ul>
+            <ul class="aiz-side-nav-list metismenu" id="main-menu" data-toggle="aiz-side-menu">
+
+                
+                                <li class="aiz-side-nav-item">
+                    <a href="https://cms.anhtester.com/admin" class="aiz-side-nav-link">
+                        <i class="las la-home aiz-side-nav-icon"></i>
+                        <span class="aiz-side-nav-text">Dashboard</span>
+                    </a>
+                </li>
+                
+                <!-- POS Addon-->
+                                <li class="aiz-side-nav-item">
+                    <a href="#" class="aiz-side-nav-link">
+                        <i class="las la-tasks aiz-side-nav-icon"></i>
+                        <span class="aiz-side-nav-text">POS System</span>
+                                                <span class="aiz-side-nav-arrow"></span>
+                    </a>
+                    <ul class="aiz-side-nav-list level-2 mm-collapse">
+                                                <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/pos" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">POS Manager</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/pos-activation" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">POS Configuration</span>
+                            </a>
+                        </li>
+                                            </ul>
+                </li>
+                
+                <!-- Product -->
+                                <li class="aiz-side-nav-item mm-active">
+                    <a href="#" class="aiz-side-nav-link level-2-active" aria-expanded="true">
+                        <i class="las la-shopping-cart aiz-side-nav-icon"></i>
+                        <span class="aiz-side-nav-text">Products</span>
+                        <span class="aiz-side-nav-arrow"></span>
+                    </a>
+                    <!--Submenu-->
+                    <ul class="aiz-side-nav-list level-2 mm-collapse mm-show">
+                                                <li class="aiz-side-nav-item">
+                            <a class="aiz-side-nav-link" href="https://cms.anhtester.com/admin/products/create">
+                                <span class="aiz-side-nav-text">Add New Product</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/products/all" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">All products</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item mm-active">
+                            <a href="https://cms.anhtester.com/admin/products/admin" class="aiz-side-nav-link active" aria-expanded="true">
+                                <span class="aiz-side-nav-text">In House Products</span>
+                            </a>
+                        </li>
+                                                                                                <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/products/seller" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Seller Products</span>
+                            </a>
+                        </li>
+                                                                                                <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/digitalproducts" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Digital Products</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/product-bulk-upload/index" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">Bulk Import</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/product-bulk-export" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">Bulk Export</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/categories" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Category</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/brands" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Brand</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/attributes" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Attribute</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/colors" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Colors</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/reviews" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">Product Reviews</span>
+                            </a>
+                        </li>
+                                            </ul>
+                </li>
+                
+                <!-- Auction Product -->
+                
+                <!-- Wholesale Product -->
+                
+                <!-- Sale -->
+                                <li class="aiz-side-nav-item">
+                    <a href="#" class="aiz-side-nav-link">
+                        <i class="las la-money-bill aiz-side-nav-icon"></i>
+                        <span class="aiz-side-nav-text">Sales</span>
+                        <span class="aiz-side-nav-arrow"></span>
+                    </a>
+                    <!--Submenu-->
+                    <ul class="aiz-side-nav-list level-2 mm-collapse">
+                                                <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/all_orders" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">All Orders</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/inhouse-orders" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Inhouse orders</span>
+                            </a>
+                        </li>
+                        
+                                                <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/seller_orders" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Seller Orders</span>
+                            </a>
+                        </li>
+                        
+                                                <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/orders_by_pickup_point" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Pick-up Point Order</span>
+                            </a>
+                        </li>
+                                            </ul>
+                </li>
+                
+                <!-- Deliver Boy Addon-->
+                
+                <!-- Refund addon -->
+                
+                <!-- Customers -->
+                                <li class="aiz-side-nav-item">
+                    <a href="#" class="aiz-side-nav-link">
+                        <i class="las la-user-friends aiz-side-nav-icon"></i>
+                        <span class="aiz-side-nav-text">Customers</span>
+                        <span class="aiz-side-nav-arrow"></span>
+                    </a>
+                    <ul class="aiz-side-nav-list level-2 mm-collapse">
+                                                <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/customers" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">Customer list</span>
+                            </a>
+                        </li>
+                                                                    </ul>
+                </li>
+                
+                <!-- Sellers -->
+                                <li class="aiz-side-nav-item">
+                    <a href="#" class="aiz-side-nav-link">
+                        <i class="las la-user aiz-side-nav-icon"></i>
+                        <span class="aiz-side-nav-text">Sellers</span>
+                        <span class="aiz-side-nav-arrow"></span>
+                    </a>
+                    <ul class="aiz-side-nav-list level-2 mm-collapse">
+                                                <li class="aiz-side-nav-item">
+                                                        <a href="https://cms.anhtester.com/admin/sellers" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">All Seller</span>
+                                                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/seller/payments" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">Payouts</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/withdraw_requests_all" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">Payout Requests</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/vendor_commission" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">Seller Commission</span>
+                            </a>
+                        </li>
+                                                                                                <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/seller_packages" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Seller Packages</span>
+                                                            </a>
+                        </li>
+                                                                                                <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/verification/form" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">Seller Verification Form</span>
+                            </a>
+                        </li>
+                                            </ul>
+                </li>
+                
+                
+                <li class="aiz-side-nav-item">
+                    <a href="https://cms.anhtester.com/admin/uploaded-files" class="aiz-side-nav-link ">
+                        <i class="las la-folder-open aiz-side-nav-icon"></i>
+                        <span class="aiz-side-nav-text">Uploaded Files</span>
+                    </a>
+                </li>
+
+                <!-- Reports -->
+                                <li class="aiz-side-nav-item">
+                    <a href="#" class="aiz-side-nav-link">
+                        <i class="las la-file-alt aiz-side-nav-icon"></i>
+                        <span class="aiz-side-nav-text">Reports</span>
+                        <span class="aiz-side-nav-arrow"></span>
+                    </a>
+                    <ul class="aiz-side-nav-list level-2 mm-collapse">
+                                                <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/in_house_sale_report" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">In House Product Sale</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/seller_sale_report" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Seller Products Sale</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/stock_report" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Products Stock</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/wish_report" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Products wishlist</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/user_search_report" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">User Searches</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/commission-log" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">Commission History</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/wallet-history" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">Wallet Recharge History</span>
+                            </a>
+                        </li>
+                                            </ul>
+                </li>
+                
+                <!--Blog System-->
+                                <li class="aiz-side-nav-item">
+                    <a href="#" class="aiz-side-nav-link">
+                        <i class="las la-bullhorn aiz-side-nav-icon"></i>
+                        <span class="aiz-side-nav-text">Blog System</span>
+                        <span class="aiz-side-nav-arrow"></span>
+                    </a>
+                    <ul class="aiz-side-nav-list level-2 mm-collapse">
+                                                <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/blog" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">All Posts</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/blog-category" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Categories</span>
+                            </a>
+                        </li>
+                                            </ul>
+                </li>
+                
+                <!-- marketing -->
+                                <li class="aiz-side-nav-item">
+                    <a href="#" class="aiz-side-nav-link">
+                        <i class="las la-bullhorn aiz-side-nav-icon"></i>
+                        <span class="aiz-side-nav-text">Marketing</span>
+                        <span class="aiz-side-nav-arrow"></span>
+                    </a>
+                    <ul class="aiz-side-nav-list level-2 mm-collapse">
+                                                <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/flash_deals" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Flash deals</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/newsletter" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">Newsletters</span>
+                            </a>
+                        </li>
+                                                                                                <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/subscribers" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">Subscribers</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/coupon" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Coupon</span>
+                            </a>
+                        </li>
+                                            </ul>
+                </li>
+                
+                <!-- Support -->
+                                <li class="aiz-side-nav-item">
+                    <a href="#" class="aiz-side-nav-link">
+                        <i class="las la-link aiz-side-nav-icon"></i>
+                        <span class="aiz-side-nav-text">Support</span>
+                        <span class="aiz-side-nav-arrow"></span>
+                    </a>
+                    <ul class="aiz-side-nav-list level-2 mm-collapse">
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/support_ticket" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Ticket</span>
+                                <span class="badge badge-info">69</span>                            </a>
+                        </li>
+                        
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/conversations" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Product Conversations</span>
+                                                            </a>
+                        </li>
+                                                                    </ul>
+                </li>
+                
+                <!-- Affiliate Addon -->
+                
+                <!-- Offline Payment Addon-->
+                                                <li class="aiz-side-nav-item">
+                    <a href="#" class="aiz-side-nav-link">
+                        <i class="las la-money-check-alt aiz-side-nav-icon"></i>
+                        <span class="aiz-side-nav-text">Offline Payment System</span>
+                                                <span class="aiz-side-nav-arrow"></span>
+                    </a>
+                    <ul class="aiz-side-nav-list level-2 mm-collapse">
+                                                <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/manual_payment_methods" class="aiz-side-nav-link ">
+                                <span class="aiz-side-nav-text">Manual Payment Methods</span>
+                            </a>
+                        </li>
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/offline-wallet-recharge-requests" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">Offline Wallet Recharge</span>
+                            </a>
+                        </li>
+                        
+                                                                        <li class="aiz-side-nav-item">
+                            <a href="https://cms.anhtester.com/admin/offline-seller-package-payment-requests" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">Offline Seller Package Payments</span>
+                                                            </a>
+                        </li>
+                                            </ul>
+                </li>
+                                
+                <!-- Paytm Addon -->
+                
+                <!-- Club Point Addon-->
+                
+                <!--OTP addon -->
+                
+                
+                <!-- Website Setup -->
+                
+                <!-- Setup & Configurations -->
+                
+                <!-- Staffs -->
+                
+                
+                
+                <!-- Addon Manager -->
+                            </ul><!-- .aiz-side-nav -->
+        </div><!-- .aiz-side-nav-wrap -->
+    </div><!-- .aiz-sidebar -->
+    <div class="aiz-sidebar-overlay"></div>
+</div><!-- .aiz-sidebar -->		<div class="aiz-content-wrapper">
+            <div class="aiz-topbar px-15px px-lg-25px d-flex align-items-stretch justify-content-between">
+    <div class="d-flex">
+        <div class="aiz-topbar-nav-toggler d-flex align-items-center justify-content-start mr-2 mr-md-3 ml-0" data-toggle="aiz-mobile-nav">
+            <button class="aiz-mobile-toggler">
+                <span></span>
+            </button>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-stretch flex-grow-xl-1">
+        <div class="d-flex justify-content-around align-items-center align-items-stretch">
+            <div class="d-flex justify-content-around align-items-center align-items-stretch">
+                <div class="aiz-topbar-item">
+                    <div class="d-flex align-items-center">
+                        <a class="btn btn-icon btn-circle btn-light" href="https://cms.anhtester.com" target="_blank" title="Browse Website">
+                            <i class="las la-globe"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+                            <div class="d-flex justify-content-around align-items-center align-items-stretch ml-3">
+                    <div class="aiz-topbar-item">
+                        <div class="d-flex align-items-center">
+                            <a class="btn btn-icon btn-circle btn-light" href="https://cms.anhtester.com/admin/pos" target="_blank" title="POS">
+                                <i class="las la-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                        <div class="d-flex justify-content-around align-items-center align-items-stretch ml-3">
+                <div class="aiz-topbar-item">
+                    <div class="d-flex align-items-center">
+                        <a class="btn btn-soft-danger btn-sm d-flex align-items-center" href="https://cms.anhtester.com/admin/clear-cache">
+                            <i class="las la-hdd fs-20"></i>
+                            <span class="fw-500 ml-1 mr-0 d-none d-md-block">Clear Cache</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-around align-items-center align-items-stretch">
+
+            <div class="aiz-topbar-item ml-2">
+                <div class="align-items-stretch d-flex dropdown">
+                    <a class="dropdown-toggle no-arrow" data-toggle="dropdown" href="javascript:void(0);" role="button" aria-haspopup="false" aria-expanded="false">
+                        <span class="btn btn-icon p-0 d-flex justify-content-center align-items-center">
+                            <span class="d-flex align-items-center position-relative">
+                                <i class="las la-bell fs-24"></i>
+                                                            </span>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-menu-lg py-0">
+                        <div class="p-3 bg-light border-bottom">
+                            <h6 class="mb-0">Notifications</h6>
+                        </div>
+                        <div class="px-3 c-scrollbar-light overflow-auto " style="max-height:300px;">
+                            <ul class="list-group list-group-flush">
+                                                                    <li class="list-group-item">
+                                        <div class="py-4 text-center fs-16">
+                                            No notification found
+                                        </div>
+                                    </li>
+                                                            </ul>
+                        </div>
+                        <div class="text-center border-top">
+                            <a href="https://cms.anhtester.com/admin/all-notification" class="text-reset d-block py-2">
+                                View All Notifications
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+                        <div class="aiz-topbar-item ml-2">
+                <div class="align-items-stretch d-flex dropdown " id="lang-change">
+                    <a class="dropdown-toggle no-arrow" data-toggle="dropdown" href="javascript:void(0);" role="button" aria-haspopup="false" aria-expanded="false">
+                        <span class="btn btn-icon">
+                            <img src="https://cms.anhtester.com/public/assets/img/flags/en.png" height="11">
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-menu-xs">
+
+                                                    <li>
+                                <a href="javascript:void(0)" data-flag="en" class="dropdown-item  active ">
+                                    <img src="https://cms.anhtester.com/public/assets/img/flags/en.png" class="mr-2">
+                                    <span class="language">English</span>
+                                </a>
+                            </li>
+                                                    <li>
+                                <a href="javascript:void(0)" data-flag="vn" class="dropdown-item ">
+                                    <img src="https://cms.anhtester.com/public/assets/img/flags/vn.png" class="mr-2">
+                                    <span class="language">Vietnamese</span>
+                                </a>
+                            </li>
+                                            </ul>
+                </div>
+            </div>
+
+            <div class="aiz-topbar-item ml-2">
+                <div class="align-items-stretch d-flex dropdown">
+                    <a class="dropdown-toggle no-arrow text-dark" data-toggle="dropdown" href="javascript:void(0);" role="button" aria-haspopup="false" aria-expanded="false">
+                        <span class="d-flex align-items-center">
+                            <span class="avatar avatar-sm mr-md-2">
+                                <img src="https://cms.anhtester.com/public/uploads/all/65R4W2FNlNxLJqGIV9UM3ebc3EPy0tGjL6SShsKR.png" onerror="this.onerror=null;this.src='https://cms.anhtester.com/public/assets/img/avatar-place.png';">
+                            </span>
+                            <span class="d-none d-md-block">
+                                <span class="d-block fw-500">Admin Example</span>
+                                <span class="d-block small opacity-60">staff</span>
+                            </span>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-menu-md">
+                        <a href="https://cms.anhtester.com/admin/profile" class="dropdown-item">
+                            <i class="las la-user-circle"></i>
+                            <span>Profile</span>
+                        </a>
+
+                        <a href="https://cms.anhtester.com/logout" class="dropdown-item">
+                            <i class="las la-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div><!-- .aiz-topbar-item -->
+        </div>
+    </div>
+</div><!-- .aiz-topbar -->
+			<div class="aiz-main-content">
+				<div class="px-15px px-lg-25px">
+                    
+
+<div class="aiz-titlebar text-left mt-2 mb-3">
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <h1 class="h3">All products</h1>
+        </div>
+                    <div class="col text-right">
+                <a href="https://cms.anhtester.com/admin/products/create" class="btn btn-circle btn-info">
+                    <span>Add New Product</span>
+                </a>
+            </div>
+            </div>
+</div>
+<br>
+
+<div class="card">
+    <form class="" id="sort_products" action="" method="GET">
+        <div class="card-header row gutters-5">
+            <div class="col">
+                <h5 class="mb-md-0 h6">All Product</h5>
+            </div>
+            
+            <div class="dropdown mb-2 mb-md-0">
+                <button class="btn border dropdown-toggle" type="button" data-toggle="dropdown">
+                    Bulk Action
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#" onclick="bulk_delete()"> Delete selection</a>
+                </div>
+            </div>
+            
+                                    <div class="col-md-2 ml-auto">
+                <div class="dropdown bootstrap-select form-control form-control-sm aiz- mb-2 mb-md-0"><select class="form-control form-control-sm aiz-selectpicker mb-2 mb-md-0" name="type" id="type" onchange="sort_products()" tabindex="-98">
+                    <option value="">Sort by</option>
+                    <option value="rating,desc">Rating (High &gt; Low)</option>
+                    <option value="rating,asc">Rating (Low &gt; High)</option>
+                    <option value="num_of_sale,desc">Num of Sale (High &gt; Low)</option>
+                    <option value="num_of_sale,asc">Num of Sale (Low &gt; High)</option>
+                    <option value="unit_price,desc">Base Price (High &gt; Low)</option>
+                    <option value="unit_price,asc">Base Price (Low &gt; High)</option>
+                </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-1" aria-haspopup="listbox" aria-expanded="false" data-id="type" title="Sort by"><div class="filter-option"><div class="filter-option-inner"><div class="filter-option-inner-inner">Sort by</div></div> </div></button><div class="dropdown-menu " style="max-height: 198px; overflow: hidden;"><div class="inner show" role="listbox" id="bs-select-1" tabindex="-1" aria-activedescendant="bs-select-1-0" style="max-height: 180px; overflow-y: auto;"><ul class="dropdown-menu inner show" role="presentation" style="margin-top: 0px; margin-bottom: 0px;"><li class="selected active"><a role="option" class="dropdown-item active selected" id="bs-select-1-0" tabindex="0" aria-setsize="7" aria-posinset="1" aria-selected="true"><span class="text">Sort by</span></a></li><li><a role="option" class="dropdown-item" id="bs-select-1-1" tabindex="0"><span class="text">Rating (High &gt; Low)</span></a></li><li><a role="option" class="dropdown-item" id="bs-select-1-2" tabindex="0"><span class="text">Rating (Low &gt; High)</span></a></li><li><a role="option" class="dropdown-item" id="bs-select-1-3" tabindex="0"><span class="text">Num of Sale (High &gt; Low)</span></a></li><li><a role="option" class="dropdown-item" id="bs-select-1-4" tabindex="0"><span class="text">Num of Sale (Low &gt; High)</span></a></li><li><a role="option" class="dropdown-item" id="bs-select-1-5" tabindex="0"><span class="text">Base Price (High &gt; Low)</span></a></li><li><a role="option" class="dropdown-item" id="bs-select-1-6" tabindex="0"><span class="text">Base Price (Low &gt; High)</span></a></li></ul></div></div></div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group mb-0">
+                    <input type="text" class="form-control form-control-sm" id="search" name="search" placeholder="Type &amp; Enter">
+                </div>
+            </div>
+        </div>
+    
+        <div class="card-body">
+            <table class="table aiz-table mb-0 footable footable-1 breakpoint-xl" style="">
+                <thead>
+                    <tr class="footable-header">
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <th class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group">
+                                    <div class="aiz-checkbox-inline">
+                                        <label class="aiz-checkbox">
+                                            <input type="checkbox" class="check-all">
+                                            <span class="aiz-square-check"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </th><th style="display: table-cell;">Name</th><th data-breakpoints="sm" style="display: table-cell;">Info</th><th data-breakpoints="md" style="display: table-cell;">Total Stock</th><th data-breakpoints="lg" style="display: table-cell;">Todays Deal</th><th data-breakpoints="lg" style="display: table-cell;">Published</th><th data-breakpoints="lg" style="display: table-cell;">Featured</th><th data-breakpoints="sm" class="text-right footable-last-visible" style="display: table-cell;">Options</th></tr>
+                </thead>
+                <tbody>
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                    <tr>
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <td class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group d-inline-block">
+                                    <label class="aiz-checkbox">
+                                        <input type="checkbox" class="check-one" name="id[]" value="5288">
+                                        <span class="aiz-square-check"></span>
+                                    </label>
+                                </div>
+                            </td><td style="display: table-cell;">
+                            <div class="row gutters-5 w-200px w-md-300px mw-100">
+                                <div class="col-auto">
+                                    <img src="https://cms.anhtester.com/public/uploads/all/b7hBVMwIcypzSs04ovAQuvPNaXopo01wBDYaqMPe.jpg" alt="Image" class="size-50px img-fit">
+                                </div>
+                                <div class="col">
+                                    <span class="text-muted text-truncate-2">Giỏ quà Tết LuzVJ</span>
+                                </div>
+                            </div>
+                        </td><td style="display: table-cell;">
+                            <strong>Num of Sale:</strong> 0 Times <br>
+                            <strong>Base Price:</strong> $500,000.00 <br>
+                            <strong>Rating:</strong> 0 <br>
+                        </td><td style="display: table-cell;">
+                            300                                                    </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_todays_deal(this)" value="5288" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_published(this)" value="5288" type="checkbox" checked="">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_featured(this)" value="5288" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td class="text-right footable-last-visible" style="display: table-cell;">
+                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/product/gio-qua-tet-luzvj" target="_blank" title="View">
+                                <i class="las la-eye"></i>
+                            </a>
+                                                                                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/admin/5288/edit?lang=en" title="Edit">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                                                                                                        <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/duplicate/5288?type=In%20House" title="Duplicate">
+                                    <i class="las la-copy"></i>
+                                </a>
+                                                                                        <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://cms.anhtester.com/admin/products/destroy/5288" title="Delete">
+                                    <i class="las la-trash"></i>
+                                </a>
+                                                    </td></tr><tr>
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <td class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group d-inline-block">
+                                    <label class="aiz-checkbox">
+                                        <input type="checkbox" class="check-one" name="id[]" value="5287">
+                                        <span class="aiz-square-check"></span>
+                                    </label>
+                                </div>
+                            </td><td style="display: table-cell;">
+                            <div class="row gutters-5 w-200px w-md-300px mw-100">
+                                <div class="col-auto">
+                                    <img src="https://cms.anhtester.com/public/uploads/all/e6BYmJGyb0zOXMFgyx5MzjtUsui9IX9enO8zDelZ.jpg" alt="Image" class="size-50px img-fit">
+                                </div>
+                                <div class="col">
+                                    <span class="text-muted text-truncate-2">Giỏ quà Tết iFukV</span>
+                                </div>
+                            </div>
+                        </td><td style="display: table-cell;">
+                            <strong>Num of Sale:</strong> 0 Times <br>
+                            <strong>Base Price:</strong> $500,000.00 <br>
+                            <strong>Rating:</strong> 0 <br>
+                        </td><td style="display: table-cell;">
+                            300                                                    </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_todays_deal(this)" value="5287" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_published(this)" value="5287" type="checkbox" checked="">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_featured(this)" value="5287" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td class="text-right footable-last-visible" style="display: table-cell;">
+                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/product/gio-qua-tet-ifukv" target="_blank" title="View">
+                                <i class="las la-eye"></i>
+                            </a>
+                                                                                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/admin/5287/edit?lang=en" title="Edit">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                                                                                                        <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/duplicate/5287?type=In%20House" title="Duplicate">
+                                    <i class="las la-copy"></i>
+                                </a>
+                                                                                        <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://cms.anhtester.com/admin/products/destroy/5287" title="Delete">
+                                    <i class="las la-trash"></i>
+                                </a>
+                                                    </td></tr><tr>
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <td class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group d-inline-block">
+                                    <label class="aiz-checkbox">
+                                        <input type="checkbox" class="check-one" name="id[]" value="5286">
+                                        <span class="aiz-square-check"></span>
+                                    </label>
+                                </div>
+                            </td><td style="display: table-cell;">
+                            <div class="row gutters-5 w-200px w-md-300px mw-100">
+                                <div class="col-auto">
+                                    <img src="https://cms.anhtester.com/public/uploads/all/e6BYmJGyb0zOXMFgyx5MzjtUsui9IX9enO8zDelZ.jpg" alt="Image" class="size-50px img-fit">
+                                </div>
+                                <div class="col">
+                                    <span class="text-muted text-truncate-2">Giỏ quà Tết onAQX</span>
+                                </div>
+                            </div>
+                        </td><td style="display: table-cell;">
+                            <strong>Num of Sale:</strong> 0 Times <br>
+                            <strong>Base Price:</strong> $500,000.00 <br>
+                            <strong>Rating:</strong> 0 <br>
+                        </td><td style="display: table-cell;">
+                            300                                                    </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_todays_deal(this)" value="5286" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_published(this)" value="5286" type="checkbox" checked="">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_featured(this)" value="5286" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td class="text-right footable-last-visible" style="display: table-cell;">
+                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/product/gio-qua-tet-onaqx" target="_blank" title="View">
+                                <i class="las la-eye"></i>
+                            </a>
+                                                                                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/admin/5286/edit?lang=en" title="Edit">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                                                                                                        <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/duplicate/5286?type=In%20House" title="Duplicate">
+                                    <i class="las la-copy"></i>
+                                </a>
+                                                                                        <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://cms.anhtester.com/admin/products/destroy/5286" title="Delete">
+                                    <i class="las la-trash"></i>
+                                </a>
+                                                    </td></tr><tr>
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <td class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group d-inline-block">
+                                    <label class="aiz-checkbox">
+                                        <input type="checkbox" class="check-one" name="id[]" value="5285">
+                                        <span class="aiz-square-check"></span>
+                                    </label>
+                                </div>
+                            </td><td style="display: table-cell;">
+                            <div class="row gutters-5 w-200px w-md-300px mw-100">
+                                <div class="col-auto">
+                                    <img src="https://cms.anhtester.com/public/uploads/all/0FAJ1eFNGn21Ekamceeav3VzBuI4mtPpsClGwYRh.jpg" alt="Image" class="size-50px img-fit">
+                                </div>
+                                <div class="col">
+                                    <span class="text-muted text-truncate-2">Giỏ quà Tết jRagF</span>
+                                </div>
+                            </div>
+                        </td><td style="display: table-cell;">
+                            <strong>Num of Sale:</strong> 0 Times <br>
+                            <strong>Base Price:</strong> $500,000.00 <br>
+                            <strong>Rating:</strong> 0 <br>
+                        </td><td style="display: table-cell;">
+                            300                                                    </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_todays_deal(this)" value="5285" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_published(this)" value="5285" type="checkbox" checked="">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_featured(this)" value="5285" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td class="text-right footable-last-visible" style="display: table-cell;">
+                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/product/gio-qua-tet-jragf" target="_blank" title="View">
+                                <i class="las la-eye"></i>
+                            </a>
+                                                                                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/admin/5285/edit?lang=en" title="Edit">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                                                                                                        <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/duplicate/5285?type=In%20House" title="Duplicate">
+                                    <i class="las la-copy"></i>
+                                </a>
+                                                                                        <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://cms.anhtester.com/admin/products/destroy/5285" title="Delete">
+                                    <i class="las la-trash"></i>
+                                </a>
+                                                    </td></tr><tr>
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <td class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group d-inline-block">
+                                    <label class="aiz-checkbox">
+                                        <input type="checkbox" class="check-one" name="id[]" value="5284">
+                                        <span class="aiz-square-check"></span>
+                                    </label>
+                                </div>
+                            </td><td style="display: table-cell;">
+                            <div class="row gutters-5 w-200px w-md-300px mw-100">
+                                <div class="col-auto">
+                                    <img src="https://cms.anhtester.com/public/uploads/all/on9CdoChCGwerP2MnMlWMdru935EUGLjbbaYaain.jpg" alt="Image" class="size-50px img-fit">
+                                </div>
+                                <div class="col">
+                                    <span class="text-muted text-truncate-2">Giỏ quà Tết dnIvy</span>
+                                </div>
+                            </div>
+                        </td><td style="display: table-cell;">
+                            <strong>Num of Sale:</strong> 0 Times <br>
+                            <strong>Base Price:</strong> $500,000.00 <br>
+                            <strong>Rating:</strong> 0 <br>
+                        </td><td style="display: table-cell;">
+                            300                                                    </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_todays_deal(this)" value="5284" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_published(this)" value="5284" type="checkbox" checked="">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_featured(this)" value="5284" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td class="text-right footable-last-visible" style="display: table-cell;">
+                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/product/gio-qua-tet-dnivy" target="_blank" title="View">
+                                <i class="las la-eye"></i>
+                            </a>
+                                                                                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/admin/5284/edit?lang=en" title="Edit">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                                                                                                        <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/duplicate/5284?type=In%20House" title="Duplicate">
+                                    <i class="las la-copy"></i>
+                                </a>
+                                                                                        <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://cms.anhtester.com/admin/products/destroy/5284" title="Delete">
+                                    <i class="las la-trash"></i>
+                                </a>
+                                                    </td></tr><tr>
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <td class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group d-inline-block">
+                                    <label class="aiz-checkbox">
+                                        <input type="checkbox" class="check-one" name="id[]" value="5283">
+                                        <span class="aiz-square-check"></span>
+                                    </label>
+                                </div>
+                            </td><td style="display: table-cell;">
+                            <div class="row gutters-5 w-200px w-md-300px mw-100">
+                                <div class="col-auto">
+                                    <img src="https://cms.anhtester.com/public/uploads/all/Pnj3hax4KPpfyrem5UlVfKj4ki3Pnhvg3ZVnbG05.jpg" alt="Image" class="size-50px img-fit">
+                                </div>
+                                <div class="col">
+                                    <span class="text-muted text-truncate-2">Giỏ quà Tết eeJdR</span>
+                                </div>
+                            </div>
+                        </td><td style="display: table-cell;">
+                            <strong>Num of Sale:</strong> 0 Times <br>
+                            <strong>Base Price:</strong> $500,000.00 <br>
+                            <strong>Rating:</strong> 0 <br>
+                        </td><td style="display: table-cell;">
+                            300                                                    </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_todays_deal(this)" value="5283" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_published(this)" value="5283" type="checkbox" checked="">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_featured(this)" value="5283" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td class="text-right footable-last-visible" style="display: table-cell;">
+                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/product/gio-qua-tet-eejdr" target="_blank" title="View">
+                                <i class="las la-eye"></i>
+                            </a>
+                                                                                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/admin/5283/edit?lang=en" title="Edit">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                                                                                                        <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/duplicate/5283?type=In%20House" title="Duplicate">
+                                    <i class="las la-copy"></i>
+                                </a>
+                                                                                        <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://cms.anhtester.com/admin/products/destroy/5283" title="Delete">
+                                    <i class="las la-trash"></i>
+                                </a>
+                                                    </td></tr><tr>
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <td class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group d-inline-block">
+                                    <label class="aiz-checkbox">
+                                        <input type="checkbox" class="check-one" name="id[]" value="5282">
+                                        <span class="aiz-square-check"></span>
+                                    </label>
+                                </div>
+                            </td><td style="display: table-cell;">
+                            <div class="row gutters-5 w-200px w-md-300px mw-100">
+                                <div class="col-auto">
+                                    <img src="https://cms.anhtester.com/public/uploads/all/ryzSzngom2MqorXVxcLQNQwNSwD9Xl3Hgdnal4Xo.jpg" alt="Image" class="size-50px img-fit">
+                                </div>
+                                <div class="col">
+                                    <span class="text-muted text-truncate-2">Giỏ quà Tết QczNO</span>
+                                </div>
+                            </div>
+                        </td><td style="display: table-cell;">
+                            <strong>Num of Sale:</strong> 0 Times <br>
+                            <strong>Base Price:</strong> $500,000.00 <br>
+                            <strong>Rating:</strong> 0 <br>
+                        </td><td style="display: table-cell;">
+                            300                                                    </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_todays_deal(this)" value="5282" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_published(this)" value="5282" type="checkbox" checked="">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_featured(this)" value="5282" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td class="text-right footable-last-visible" style="display: table-cell;">
+                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/product/gio-qua-tet-qczno" target="_blank" title="View">
+                                <i class="las la-eye"></i>
+                            </a>
+                                                                                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/admin/5282/edit?lang=en" title="Edit">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                                                                                                        <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/duplicate/5282?type=In%20House" title="Duplicate">
+                                    <i class="las la-copy"></i>
+                                </a>
+                                                                                        <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://cms.anhtester.com/admin/products/destroy/5282" title="Delete">
+                                    <i class="las la-trash"></i>
+                                </a>
+                                                    </td></tr><tr>
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <td class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group d-inline-block">
+                                    <label class="aiz-checkbox">
+                                        <input type="checkbox" class="check-one" name="id[]" value="5281">
+                                        <span class="aiz-square-check"></span>
+                                    </label>
+                                </div>
+                            </td><td style="display: table-cell;">
+                            <div class="row gutters-5 w-200px w-md-300px mw-100">
+                                <div class="col-auto">
+                                    <img src="https://cms.anhtester.com/public/uploads/all/YlyK7SeArLvQcw8gMi3CDaNK59uhgyydMPyA7VJf.jpg" alt="Image" class="size-50px img-fit">
+                                </div>
+                                <div class="col">
+                                    <span class="text-muted text-truncate-2">Giỏ quà Tết Wexeh</span>
+                                </div>
+                            </div>
+                        </td><td style="display: table-cell;">
+                            <strong>Num of Sale:</strong> 0 Times <br>
+                            <strong>Base Price:</strong> $500,000.00 <br>
+                            <strong>Rating:</strong> 0 <br>
+                        </td><td style="display: table-cell;">
+                            300                                                    </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_todays_deal(this)" value="5281" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_published(this)" value="5281" type="checkbox" checked="">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_featured(this)" value="5281" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td class="text-right footable-last-visible" style="display: table-cell;">
+                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/product/gio-qua-tet-wexeh" target="_blank" title="View">
+                                <i class="las la-eye"></i>
+                            </a>
+                                                                                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/admin/5281/edit?lang=en" title="Edit">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                                                                                                        <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/duplicate/5281?type=In%20House" title="Duplicate">
+                                    <i class="las la-copy"></i>
+                                </a>
+                                                                                        <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://cms.anhtester.com/admin/products/destroy/5281" title="Delete">
+                                    <i class="las la-trash"></i>
+                                </a>
+                                                    </td></tr><tr>
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <td class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group d-inline-block">
+                                    <label class="aiz-checkbox">
+                                        <input type="checkbox" class="check-one" name="id[]" value="5280">
+                                        <span class="aiz-square-check"></span>
+                                    </label>
+                                </div>
+                            </td><td style="display: table-cell;">
+                            <div class="row gutters-5 w-200px w-md-300px mw-100">
+                                <div class="col-auto">
+                                    <img src="https://cms.anhtester.com/public/uploads/all/AxsCsiptYuBoE74yurz7Znsr0cfGcLGScZdRi7fv.jpg" alt="Image" class="size-50px img-fit">
+                                </div>
+                                <div class="col">
+                                    <span class="text-muted text-truncate-2">Giỏ quà Tết EYrVU</span>
+                                </div>
+                            </div>
+                        </td><td style="display: table-cell;">
+                            <strong>Num of Sale:</strong> 0 Times <br>
+                            <strong>Base Price:</strong> $500,000.00 <br>
+                            <strong>Rating:</strong> 0 <br>
+                        </td><td style="display: table-cell;">
+                            300                                                    </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_todays_deal(this)" value="5280" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_published(this)" value="5280" type="checkbox" checked="">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_featured(this)" value="5280" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td class="text-right footable-last-visible" style="display: table-cell;">
+                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/product/gio-qua-tet-eyrvu" target="_blank" title="View">
+                                <i class="las la-eye"></i>
+                            </a>
+                                                                                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/admin/5280/edit?lang=en" title="Edit">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                                                                                                        <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/duplicate/5280?type=In%20House" title="Duplicate">
+                                    <i class="las la-copy"></i>
+                                </a>
+                                                                                        <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://cms.anhtester.com/admin/products/destroy/5280" title="Delete">
+                                    <i class="las la-trash"></i>
+                                </a>
+                                                    </td></tr><tr>
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <td class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group d-inline-block">
+                                    <label class="aiz-checkbox">
+                                        <input type="checkbox" class="check-one" name="id[]" value="5279">
+                                        <span class="aiz-square-check"></span>
+                                    </label>
+                                </div>
+                            </td><td style="display: table-cell;">
+                            <div class="row gutters-5 w-200px w-md-300px mw-100">
+                                <div class="col-auto">
+                                    <img src="https://cms.anhtester.com/public/uploads/all/C8Kba6Rn7MLizQc6mA1UP90YiRo3m9tWRRB3IX8c.jpg" alt="Image" class="size-50px img-fit">
+                                </div>
+                                <div class="col">
+                                    <span class="text-muted text-truncate-2">Giỏ quà Tết WTWty</span>
+                                </div>
+                            </div>
+                        </td><td style="display: table-cell;">
+                            <strong>Num of Sale:</strong> 0 Times <br>
+                            <strong>Base Price:</strong> $500,000.00 <br>
+                            <strong>Rating:</strong> 0 <br>
+                        </td><td style="display: table-cell;">
+                            300                                                    </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_todays_deal(this)" value="5279" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_published(this)" value="5279" type="checkbox" checked="">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_featured(this)" value="5279" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td class="text-right footable-last-visible" style="display: table-cell;">
+                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/product/gio-qua-tet-wtwty" target="_blank" title="View">
+                                <i class="las la-eye"></i>
+                            </a>
+                                                                                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/admin/5279/edit?lang=en" title="Edit">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                                                                                                        <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/duplicate/5279?type=In%20House" title="Duplicate">
+                                    <i class="las la-copy"></i>
+                                </a>
+                                                                                        <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://cms.anhtester.com/admin/products/destroy/5279" title="Delete">
+                                    <i class="las la-trash"></i>
+                                </a>
+                                                    </td></tr><tr>
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <td class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group d-inline-block">
+                                    <label class="aiz-checkbox">
+                                        <input type="checkbox" class="check-one" name="id[]" value="5278">
+                                        <span class="aiz-square-check"></span>
+                                    </label>
+                                </div>
+                            </td><td style="display: table-cell;">
+                            <div class="row gutters-5 w-200px w-md-300px mw-100">
+                                <div class="col-auto">
+                                    <img src="https://cms.anhtester.com/public/uploads/all/pd75K0ljEsWhq3pzdQXwl6NJMGiYX3qxGsnFCcbs.jpg" alt="Image" class="size-50px img-fit">
+                                </div>
+                                <div class="col">
+                                    <span class="text-muted text-truncate-2">Giỏ quà Tết YPGTQ</span>
+                                </div>
+                            </div>
+                        </td><td style="display: table-cell;">
+                            <strong>Num of Sale:</strong> 0 Times <br>
+                            <strong>Base Price:</strong> $5,000,000.00 <br>
+                            <strong>Rating:</strong> 0 <br>
+                        </td><td style="display: table-cell;">
+                            3000                                                    </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_todays_deal(this)" value="5278" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_published(this)" value="5278" type="checkbox" checked="">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_featured(this)" value="5278" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td class="text-right footable-last-visible" style="display: table-cell;">
+                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/product/gio-qua-tet-ypgtq" target="_blank" title="View">
+                                <i class="las la-eye"></i>
+                            </a>
+                                                                                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/admin/5278/edit?lang=en" title="Edit">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                                                                                                        <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/duplicate/5278?type=In%20House" title="Duplicate">
+                                    <i class="las la-copy"></i>
+                                </a>
+                                                                                        <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://cms.anhtester.com/admin/products/destroy/5278" title="Delete">
+                                    <i class="las la-trash"></i>
+                                </a>
+                                                    </td></tr><tr>
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <td class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group d-inline-block">
+                                    <label class="aiz-checkbox">
+                                        <input type="checkbox" class="check-one" name="id[]" value="5277">
+                                        <span class="aiz-square-check"></span>
+                                    </label>
+                                </div>
+                            </td><td style="display: table-cell;">
+                            <div class="row gutters-5 w-200px w-md-300px mw-100">
+                                <div class="col-auto">
+                                    <img src="https://cms.anhtester.com/public/uploads/all/RBxgyG4FDvQiQJeG2e24eE4mQYYb0dBzWt4LbmLo.jpg" alt="Image" class="size-50px img-fit">
+                                </div>
+                                <div class="col">
+                                    <span class="text-muted text-truncate-2">Giỏ quà Tết YEKAr</span>
+                                </div>
+                            </div>
+                        </td><td style="display: table-cell;">
+                            <strong>Num of Sale:</strong> 0 Times <br>
+                            <strong>Base Price:</strong> $5,000,000.00 <br>
+                            <strong>Rating:</strong> 0 <br>
+                        </td><td style="display: table-cell;">
+                            3000                                                    </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_todays_deal(this)" value="5277" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_published(this)" value="5277" type="checkbox" checked="">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_featured(this)" value="5277" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td class="text-right footable-last-visible" style="display: table-cell;">
+                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/product/gio-qua-tet-yekar" target="_blank" title="View">
+                                <i class="las la-eye"></i>
+                            </a>
+                                                                                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/admin/5277/edit?lang=en" title="Edit">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                                                                                                        <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/duplicate/5277?type=In%20House" title="Duplicate">
+                                    <i class="las la-copy"></i>
+                                </a>
+                                                                                        <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://cms.anhtester.com/admin/products/destroy/5277" title="Delete">
+                                    <i class="las la-trash"></i>
+                                </a>
+                                                    </td></tr><tr>
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <td class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group d-inline-block">
+                                    <label class="aiz-checkbox">
+                                        <input type="checkbox" class="check-one" name="id[]" value="5276">
+                                        <span class="aiz-square-check"></span>
+                                    </label>
+                                </div>
+                            </td><td style="display: table-cell;">
+                            <div class="row gutters-5 w-200px w-md-300px mw-100">
+                                <div class="col-auto">
+                                    <img src="https://cms.anhtester.com/public/uploads/all/M4IxBU14QWdUDRcbY6RqoMrknlGZjhl8FXbUTxOB.jpg" alt="Image" class="size-50px img-fit">
+                                </div>
+                                <div class="col">
+                                    <span class="text-muted text-truncate-2">Giỏ quà Tết RbcnH</span>
+                                </div>
+                            </div>
+                        </td><td style="display: table-cell;">
+                            <strong>Num of Sale:</strong> 0 Times <br>
+                            <strong>Base Price:</strong> $5,000,000.00 <br>
+                            <strong>Rating:</strong> 0 <br>
+                        </td><td style="display: table-cell;">
+                            3000                                                    </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_todays_deal(this)" value="5276" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_published(this)" value="5276" type="checkbox" checked="">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_featured(this)" value="5276" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td class="text-right footable-last-visible" style="display: table-cell;">
+                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/product/gio-qua-tet-rbcnh" target="_blank" title="View">
+                                <i class="las la-eye"></i>
+                            </a>
+                                                                                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/admin/5276/edit?lang=en" title="Edit">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                                                                                                        <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/duplicate/5276?type=In%20House" title="Duplicate">
+                                    <i class="las la-copy"></i>
+                                </a>
+                                                                                        <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://cms.anhtester.com/admin/products/destroy/5276" title="Delete">
+                                    <i class="las la-trash"></i>
+                                </a>
+                                                    </td></tr><tr>
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <td class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group d-inline-block">
+                                    <label class="aiz-checkbox">
+                                        <input type="checkbox" class="check-one" name="id[]" value="5275">
+                                        <span class="aiz-square-check"></span>
+                                    </label>
+                                </div>
+                            </td><td style="display: table-cell;">
+                            <div class="row gutters-5 w-200px w-md-300px mw-100">
+                                <div class="col-auto">
+                                    <img src="https://cms.anhtester.com/public/uploads/all/N8hskCiW9MiyHkSiirGACN02u6dnVvYwNJxx2nf2.jpg" alt="Image" class="size-50px img-fit">
+                                </div>
+                                <div class="col">
+                                    <span class="text-muted text-truncate-2">Giỏ quà Tết vWqBW</span>
+                                </div>
+                            </div>
+                        </td><td style="display: table-cell;">
+                            <strong>Num of Sale:</strong> 0 Times <br>
+                            <strong>Base Price:</strong> $5,000,000.00 <br>
+                            <strong>Rating:</strong> 0 <br>
+                        </td><td style="display: table-cell;">
+                            3000                                                    </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_todays_deal(this)" value="5275" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_published(this)" value="5275" type="checkbox" checked="">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_featured(this)" value="5275" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td class="text-right footable-last-visible" style="display: table-cell;">
+                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/product/gio-qua-tet-vwqbw" target="_blank" title="View">
+                                <i class="las la-eye"></i>
+                            </a>
+                                                                                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/admin/5275/edit?lang=en" title="Edit">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                                                                                                        <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/duplicate/5275?type=In%20House" title="Duplicate">
+                                    <i class="las la-copy"></i>
+                                </a>
+                                                                                        <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://cms.anhtester.com/admin/products/destroy/5275" title="Delete">
+                                    <i class="las la-trash"></i>
+                                </a>
+                                                    </td></tr><tr>
+                                                    
+                                                
+                                                
+                        
+                        
+                        
+                                                
+                        
+                    <td class="footable-first-visible" style="display: table-cell;">
+                                <div class="form-group d-inline-block">
+                                    <label class="aiz-checkbox">
+                                        <input type="checkbox" class="check-one" name="id[]" value="5274">
+                                        <span class="aiz-square-check"></span>
+                                    </label>
+                                </div>
+                            </td><td style="display: table-cell;">
+                            <div class="row gutters-5 w-200px w-md-300px mw-100">
+                                <div class="col-auto">
+                                    <img src="https://cms.anhtester.com/public/uploads/all/MxmW445DSBi8FZbwlscms1VCG8kGY3Tn8CxFTYTF.jpg" alt="Image" class="size-50px img-fit">
+                                </div>
+                                <div class="col">
+                                    <span class="text-muted text-truncate-2">Giỏ quà Tết UPeUP</span>
+                                </div>
+                            </div>
+                        </td><td style="display: table-cell;">
+                            <strong>Num of Sale:</strong> 0 Times <br>
+                            <strong>Base Price:</strong> $5,000,000.00 <br>
+                            <strong>Rating:</strong> 0 <br>
+                        </td><td style="display: table-cell;">
+                            3000                                                    </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_todays_deal(this)" value="5274" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_published(this)" value="5274" type="checkbox" checked="">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td style="display: table-cell;">
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input onchange="update_featured(this)" value="5274" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td><td class="text-right footable-last-visible" style="display: table-cell;">
+                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/product/gio-qua-tet-upeup" target="_blank" title="View">
+                                <i class="las la-eye"></i>
+                            </a>
+                                                                                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/admin/5274/edit?lang=en" title="Edit">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                                                                                                        <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://cms.anhtester.com/admin/products/duplicate/5274?type=In%20House" title="Duplicate">
+                                    <i class="las la-copy"></i>
+                                </a>
+                                                                                        <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://cms.anhtester.com/admin/products/destroy/5274" title="Delete">
+                                    <i class="las la-trash"></i>
+                                </a>
+                                                    </td></tr></tbody>
+            </table>
+            <div class="aiz-pagination">
+                <nav>
+        <ul class="pagination">
+            
+                            <li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
+                    <span class="page-link" aria-hidden="true">‹</span>
+                </li>
+            
+            
+                            
+                
+                
+                                                                                        <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                                                                                                <li class="page-item"><a class="page-link" href="https://cms.anhtester.com/admin/products/admin?page=2">2</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="https://cms.anhtester.com/admin/products/admin?page=3">3</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="https://cms.anhtester.com/admin/products/admin?page=4">4</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="https://cms.anhtester.com/admin/products/admin?page=5">5</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="https://cms.anhtester.com/admin/products/admin?page=6">6</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="https://cms.anhtester.com/admin/products/admin?page=7">7</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="https://cms.anhtester.com/admin/products/admin?page=8">8</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="https://cms.anhtester.com/admin/products/admin?page=9">9</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="https://cms.anhtester.com/admin/products/admin?page=10">10</a></li>
+                                                                                        
+                                    <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
+                
+                
+                                            
+                
+                
+                                                                                        <li class="page-item"><a class="page-link" href="https://cms.anhtester.com/admin/products/admin?page=82">82</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="https://cms.anhtester.com/admin/products/admin?page=83">83</a></li>
+                                                                        
+            
+                            <li class="page-item">
+                    <a class="page-link" href="https://cms.anhtester.com/admin/products/admin?page=2" rel="next" aria-label="Next »">›</a>
+                </li>
+                    </ul>
+    </nav>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+				</div>
+				<div class="bg-white text-center py-3 px-15px px-lg-25px mt-auto">
+					<p class="mb-0">© Active eCommerce CMS v7.1.0</p>
+				</div>
+			</div><!-- .aiz-main-content -->
+		</div><!-- .aiz-content-wrapper -->
+	</div><!-- .aiz-main-wrapper -->
+
+        <!-- delete Modal -->
+<div id="delete-modal" class="modal fade">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title h6">Delete Confirmation</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p class="mt-1">Are you sure to delete this?</p>
+                <button type="button" class="btn btn-link mt-2" data-dismiss="modal">Cancel</button>
+                <a href="" id="delete-link" class="btn btn-primary mt-2">Delete</a>
+            </div>
+        </div>
+    </div>
+</div><!-- /.modal -->
+
+
+	<script src="https://cms.anhtester.com/public/assets/js/vendors.js"></script>
+	<script src="https://cms.anhtester.com/public/assets/js/aiz-core.js"></script>
+
+        <script type="text/javascript">
+        
+        $(document).on("change", ".check-all", function() {
+            if(this.checked) {
+                // Iterate each checkbox
+                $('.check-one:checkbox').each(function() {
+                    this.checked = true;                        
+                });
+            } else {
+                $('.check-one:checkbox').each(function() {
+                    this.checked = false;                       
+                });
+            }
+          
+        });
+
+        $(document).ready(function(){
+            //$('#container').removeClass('mainnav-lg').addClass('mainnav-sm');
+        });
+
+        function update_todays_deal(el){
+            if(el.checked){
+                var status = 1;
+            }
+            else{
+                var status = 0;
+            }
+            $.post('https://cms.anhtester.com/admin/products/todays_deal', {_token:'Ko2x8MCV0kK8j5C7ygGKcsNITCpXGThzk3ywNDSP', id:el.value, status:status}, function(data){
+                if(data == 1){
+                    AIZ.plugins.notify('success', 'Todays Deal updated successfully');
+                }
+                else{
+                    AIZ.plugins.notify('danger', 'Something went wrong!');
+                }
+            });
+        }
+
+        function update_published(el){
+            if(el.checked){
+                var status = 1;
+            }
+            else{
+                var status = 0;
+            }
+            $.post('https://cms.anhtester.com/admin/products/published', {_token:'Ko2x8MCV0kK8j5C7ygGKcsNITCpXGThzk3ywNDSP', id:el.value, status:status}, function(data){
+                if(data == 1){
+                    AIZ.plugins.notify('success', 'Published products updated successfully');
+                }
+                else{
+                    AIZ.plugins.notify('danger', 'Something went wrong!');
+                }
+            });
+        }
+        
+        function update_approved(el){
+            if(el.checked){
+                var approved = 1;
+            }
+            else{
+                var approved = 0;
+            }
+            $.post('https://cms.anhtester.com/admin/products/approved', {
+                _token      :   'Ko2x8MCV0kK8j5C7ygGKcsNITCpXGThzk3ywNDSP', 
+                id          :   el.value, 
+                approved    :   approved
+            }, function(data){
+                if(data == 1){
+                    AIZ.plugins.notify('success', 'Product approval update successfully');
+                }
+                else{
+                    AIZ.plugins.notify('danger', 'Something went wrong!');
+                }
+            });
+        }
+
+        function update_featured(el){
+            if(el.checked){
+                var status = 1;
+            }
+            else{
+                var status = 0;
+            }
+            $.post('https://cms.anhtester.com/admin/products/featured', {_token:'Ko2x8MCV0kK8j5C7ygGKcsNITCpXGThzk3ywNDSP', id:el.value, status:status}, function(data){
+                if(data == 1){
+                    AIZ.plugins.notify('success', 'Featured products updated successfully');
+                }
+                else{
+                    AIZ.plugins.notify('danger', 'Something went wrong!');
+                }
+            });
+        }
+
+        function sort_products(el){
+            $('#sort_products').submit();
+        }
+        
+        function bulk_delete() {
+            var data = new FormData($('#sort_products')[0]);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "https://cms.anhtester.com/admin/bulk-product-delete",
+                type: 'POST',
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if(response == 1) {
+                        location.reload();
+                    }
+                }
+            });
+        }
+
+    </script>
+
+    <script type="text/javascript">
+	    	        AIZ.plugins.notify('success', 'Product has been inserted successfully');
+	    
+
+        if ($('#lang-change').length > 0) {
+            $('#lang-change .dropdown-menu a').each(function() {
+                $(this).on('click', function(e){
+                    e.preventDefault();
+                    var $this = $(this);
+                    var locale = $this.data('flag');
+                    $.post('https://cms.anhtester.com/language',{_token:'Ko2x8MCV0kK8j5C7ygGKcsNITCpXGThzk3ywNDSP', locale:locale}, function(data){
+                        location.reload();
+                    });
+
+                });
+            });
+        }
+        function menuSearch(){
+			var filter, item;
+			filter = $("#menu-search").val().toUpperCase();
+			items = $("#main-menu").find("a");
+			items = items.filter(function(i,item){
+				if($(item).find(".aiz-side-nav-text")[0].innerText.toUpperCase().indexOf(filter) > -1 && $(item).attr('href') !== '#'){
+					return item;
+				}
+			});
+
+			if(filter !== ''){
+				$("#main-menu").addClass('d-none');
+				$("#search-menu").html('')
+				if(items.length > 0){
+					for (i = 0; i < items.length; i++) {
+						const text = $(items[i]).find(".aiz-side-nav-text")[0].innerText;
+						const link = $(items[i]).attr('href');
+						 $("#search-menu").append(`<li class="aiz-side-nav-item"><a href="${link}" class="aiz-side-nav-link"><i class="las la-ellipsis-h aiz-side-nav-icon"></i><span>${text}</span></a></li`);
+					}
+				}else{
+					$("#search-menu").html(`<li class="aiz-side-nav-item"><span	class="text-center text-muted d-block">Nothing found</span></li>`);
+				}
+			}else{
+				$("#main-menu").removeClass('d-none');
+				$("#search-menu").html('')
+			}
+        }
+    </script>
+
+
+
+</body></html>

@@ -1,0 +1,1 @@
+Clear and Fill 300 on By.xpath: //input[@placeholder='Quantity']
