@@ -2,6 +2,8 @@ package com.anhtester.listeners;
 
 import com.anhtester.driver.DriverManager;
 import com.anhtester.helpers.DiagnosticHelpers;
+import com.anhtester.helpers.ScreencastRecorder;
+import com.anhtester.helpers.VideoMode;
 import com.anhtester.reports.AllureManager;
 import com.anhtester.utils.LogUtils;
 import io.qameta.allure.Allure;
@@ -13,6 +15,9 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
 
 import static com.anhtester.constants.FrameworkConstants.*;
 
@@ -33,8 +38,22 @@ public class AllureListener implements TestLifecycleListener {
         if (SCREENSHOT_FAILED_TCS.equals(YES) && failed) {
             attachScreenshot(result.getName() + "_Failed_Screenshot");
         }
+        if (VideoMode.current() != VideoMode.NO) {
+            attachVideo(ScreencastRecorder.stop(VideoMode.keep(status == Status.PASSED)));
+        }
         if (failed && YES.equalsIgnoreCase(FAILURE_DIAGNOSTICS)) {
             AllureManager.attachFailureDiagnostics(DiagnosticHelpers.collectOnce(), LogUtils.readTestLog(LogUtils.getTestContext(), 1000));
+        }
+    }
+
+    private static void attachVideo(File video) {
+        if (video == null || !video.isFile()) {
+            return;
+        }
+        try (InputStream input = Files.newInputStream(video.toPath())) {
+            Allure.addAttachment("Video", "video/mp4", input, "mp4");
+        } catch (Exception e) {
+            LogUtils.warn("Can not attach the video to Allure: " + e.getMessage());
         }
     }
 

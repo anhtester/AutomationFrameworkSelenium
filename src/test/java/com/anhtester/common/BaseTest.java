@@ -4,6 +4,7 @@ import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.driver.DriverManager;
 import com.anhtester.driver.TargetFactory;
 import com.anhtester.helpers.PropertiesHelpers;
+import com.anhtester.helpers.ScreencastRecorder;
 import com.anhtester.listeners.TestListener;
 import com.anhtester.utils.LogUtils;
 import org.openqa.selenium.Dimension;
@@ -35,6 +36,7 @@ public class BaseTest {
     */
    @AfterMethod(alwaysRun = true)
    public void closeDriver() {
+      ScreencastRecorder.reset();
       DriverManager.quit();
    }
 

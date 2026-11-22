@@ -1,1 +1,2 @@
 com.anhtester.listeners.AnnotationTransformer
+com.anhtester.listeners.SuiteConfigurator

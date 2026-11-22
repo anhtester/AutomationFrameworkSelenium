@@ -3,11 +3,12 @@ package com.anhtester.projects.cms.testcases;
 import com.anhtester.projects.cms.BaseTestCMS;
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.helpers.ExcelHelpers;
+import com.anhtester.constants.TestGroups;
 import org.testng.annotations.Test;
 
 public class ProfileTest extends BaseTestCMS {
 
-    @Test(priority = 1)
+    @Test(priority = 1, groups = TestGroups.REGRESSION)
     public void TC_UpdateProfile() {
         ExcelHelpers excel = new ExcelHelpers();
         excel.setExcelFile(FrameworkConstants.EXCEL_CMS_LOGIN, "Login");
@@ -23,7 +24,7 @@ public class ProfileTest extends BaseTestCMS {
 //        getProfilePage().updateEmail();
 //    }
 
-    @Test(priority = 3)
+    @Test(priority = 3, groups = TestGroups.REGRESSION)
     public void TC_AddNewAddress() {
         ExcelHelpers excel = new ExcelHelpers();
         excel.setExcelFile(FrameworkConstants.EXCEL_CMS_LOGIN, "Login");

@@ -45,23 +45,20 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
    private ScreenRecorderHelpers screenRecorder;
 
+   /**
+    * Monte screen recorder: only for browsers without DevTools screencast (Firefox, Safari) and a visible screen.
+    */
+   private final ThreadLocal<Boolean> monteRecording = ThreadLocal.withInitial(() -> false);
+
    public TestListener() {
       try {
-         boolean enableRecord = YES.equalsIgnoreCase(VIDEO_RECORD);
-
-         if (enableRecord && !GraphicsEnvironment.isHeadless()) {
+         if (VideoMode.current() != VideoMode.NO && !GraphicsEnvironment.isHeadless()) {
             screenRecorder = new ScreenRecorderHelpers();
-            LogUtils.info("Screen recorder initialized.");
-         } else if (enableRecord) {
-            LogUtils.warn("Skip screen recorder: VIDEO_RECORD=" + VIDEO_RECORD + " but the environment is headless.");
+            LogUtils.info("Screen recorder (Monte) initialized for browsers without screencast.");
          }
       } catch (Exception e) {
          LogUtils.error("Failed to init ScreenRecorder: " + e.getMessage(), e);
       }
-   }
-
-   private boolean isRecording() {
-      return screenRecorder != null;
    }
 
    public String getTestName(ITestResult result) {
@@ -168,6 +165,8 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
    }
 
    private static void logRunConfiguration() {
+      LogUtils.info("Environment: " + (PropertiesHelpers.getEnvironmentName() == null ? "default (config.properties)" : PropertiesHelpers.getEnvironmentName())
+              + " | URL: " + URL_CMS_USER);
       LogUtils.info("Java: " + System.getProperty("java.version") + " | OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version"));
       LogUtils.info(String.format("Browser: %s | Target: %s | Headless: %s | Remote: %s:%s",
               TargetFactory.resolveBrowser(null), TARGET, HEADLESS, REMOTE_URL, REMOTE_PORT));
@@ -250,9 +249,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
       ExtentReportManager.addDevices();
       ExtentReportManager.info(BrowserInfoUtils.getOSInfo());
 
-      if (isRecording()) {
-         screenRecorder.startRecording(getTestName(iTestResult));
-      }
+      startVideo(getTestName(iTestResult));
    }
 
    @Override
@@ -266,7 +263,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
       }
 
       ExtentReportManager.logMessage(Status.PASS, "Test case: " + getTestName(iTestResult) + " is passed.");
-      stopRecording();
+      finishVideo(iTestResult);
    }
 
    @Override
@@ -297,7 +294,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
          ExtentReportManager.logCodeBlock(Status.INFO, "Test log (last 200 lines)", LogUtils.readTestLog(LogUtils.getTestContext(), 200));
       }
 
-      stopRecording();
+      finishVideo(iTestResult);
    }
 
    @Override
@@ -306,7 +303,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
          // This attempt failed and will be executed again: it is neither a final failure nor a real skip
          count_retriedTCs.incrementAndGet();
          LogUtils.warn("Test case: " + getTestName(iTestResult) + " failed and will be RETRIED.", iTestResult.getThrowable());
-         stopRecording();
+         finishVideo(iTestResult);
          // Keep only the last attempt in the Extent report (Allure shows the retries in its own tab)
          ExtentReportManager.removeCurrentTest();
          return;
@@ -323,14 +320,40 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
       if (iTestResult.getThrowable() != null) {
          ExtentReportManager.logThrowable(Status.SKIP, iTestResult.getThrowable());
       }
-      stopRecording();
+      finishVideo(iTestResult);
    }
 
-   private void stopRecording() {
-      if (isRecording()) {
+   /**
+    * VIDEO_RECORD = no | yes (keep all videos) | failed (keep only failed and retried tests).
+    * Chrome/Edge: DevTools screencast to MP4 (also headless/CI/Grid). Other browsers: Monte (visible screen only).
+    */
+   private void startVideo(String testName) {
+      if (VideoMode.current() == VideoMode.NO) {
+         return;
+      }
+      if (ScreencastRecorder.start(testName)) {
+         return;
+      }
+      if (screenRecorder != null && !Boolean.parseBoolean(HEADLESS)) {
+         // The screen recorder records the desktop: only useful when the browser window is visible
+         screenRecorder.startRecording(testName);
+         monteRecording.set(true);
+      } else {
+         LogUtils.warn("No video for " + testName + ": this browser has no screencast and there is no visible screen for Monte.");
+      }
+   }
+
+   private void finishVideo(ITestResult result) {
+      boolean keep = VideoMode.keep(result.getStatus() == ITestResult.SUCCESS);
+      File video = ScreencastRecorder.stop(keep);
+      if (video != null) {
+         ExtentReportManager.info("Video: " + video.getAbsolutePath());
+      }
+      if (monteRecording.get()) {
+         monteRecording.set(false);
          try {
             WebUI.sleep(2); // keep the last state of the screen in the video
-            screenRecorder.stopRecording(true);
+            screenRecorder.stopRecording(keep);
          } catch (Exception e) {
             LogUtils.warn("Can not stop screen recording: " + e.getMessage(), e);
          }

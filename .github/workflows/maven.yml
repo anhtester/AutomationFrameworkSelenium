@@ -11,6 +11,15 @@ on:
    pull_request:
       branches: [ "main" ]
    workflow_dispatch:
+      inputs:
+         groups:
+            description: 'TestNG groups to run (ex: smoke). Empty = all'
+            required: false
+            default: ''
+         env:
+            description: 'Environment file config/env/<env>.properties (ex: demo). Empty = default config'
+            required: false
+            default: ''
 
 permissions:
    contents: write # needed to publish reports to the gh-pages branch
@@ -23,17 +32,45 @@ concurrency:
 jobs:
    build:
       name: Test on ${{ matrix.browser }}
-      runs-on: windows-latest
+      runs-on: ${{ matrix.os }}
       timeout-minutes: 60
 
       strategy:
          fail-fast: false
-         # Browsers run one after the other: the CMS demo accounts (cart, orders) are shared
-         max-parallel: 1
+         # Chrome, Edge, Firefox, Safari and the Grid job run at the same time. Tests of the group "single-run" change data shared
+         # by all runs (cart and orders of the demo account): they run only in the Chrome job.
+         # Safari (WebKit) exists only on macOS, has no headless mode and one automation session at a time.
          matrix:
-            browser: [ chrome, edge ]
+            include:
+               -  browser: chrome
+                  os: windows-latest
+                  target: local
+                  headless: 'true'
+                  threads: ''
+                  excluded-groups: ''
+               -  browser: edge
+                  os: windows-latest
+                  target: local
+                  headless: 'true'
+                  threads: ''
+                  excluded-groups: single-run
+               -  browser: firefox
+                  os: windows-latest
+                  target: local
+                  headless: 'true'
+                  threads: ''
+                  excluded-groups: single-run
+               # Safari through a Selenium Grid started on the macOS runner (Safari can not run in Docker)
+               -  browser: safari
+                  os: macos-latest
+                  target: remote
+                  headless: 'false'
+                  threads: '1'
+                  excluded-groups: single-run
 
       env:
+         GROUPS: ${{ github.event.inputs.groups }}
+         ENV: ${{ github.event.inputs.env }}
          PUBLISH_REPORTS: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && matrix.browser == 'chrome' }}
 
       steps:
@@ -42,15 +79,37 @@ jobs:
                submodules: recursive
                fetch-depth: 0
 
-         -  name: Set up JDK 17
+         -  name: Set up JDK 21
             uses: actions/setup-java@v4
             with:
                distribution: 'corretto'
-               java-version: '17'
+               java-version: '21'
                cache: maven
 
+         -  name: Enable Safari WebDriver
+            if: matrix.browser == 'safari'
+            run: sudo safaridriver --enable
+
+         -  name: Start Selenium Grid on macOS (Safari node)
+            if: matrix.target == 'remote'
+            shell: bash
+            run: |
+               version=$(grep -m1 -o '<selenium.version>[^<]*' pom.xml | cut -d'>' -f2)
+               echo "Selenium Grid $version"
+               curl -sfL -o selenium-server.jar "https://github.com/SeleniumHQ/selenium/releases/download/selenium-${version}/selenium-server-${version}.jar"
+               mkdir -p exports/logs
+               nohup java -jar selenium-server.jar standalone --port 4444 > exports/logs/selenium-grid.log 2>&1 &
+               for i in $(seq 1 60); do
+                  if curl -sf http://localhost:4444/status | grep -q '"ready": *true'; then
+                     echo "Selenium Grid is ready"; curl -s http://localhost:4444/status | head -c 600; exit 0
+                  fi
+                  sleep 2
+               done
+               cat exports/logs/selenium-grid.log
+               exit 1
+
          -  name: Run test with Maven (${{ matrix.browser }})
-            run: mvn clean test --file pom.xml -DBROWSER=${{ matrix.browser }} -DHEADLESS=true
+            run: mvn clean test --file pom.xml -DBROWSER=${{ matrix.browser }} -DTARGET=${{ matrix.target }} -DREMOTE_URL=localhost -DREMOTE_PORT=4444 -DHEADLESS=${{ matrix.headless }} -DVIDEO_RECORD=failed "-DEXCLUDED_GROUPS=${{ matrix.excluded-groups }}" "-DTHREAD_COUNT=${{ matrix.threads }}"
 
          -  name: Get Allure history
             uses: actions/checkout@v4
@@ -156,5 +215,89 @@ jobs:
                fi
                if [ "${passed:-0}" -eq 0 ]; then
                   echo "::error::No test passed on ${{ matrix.browser }}"
+                  exit 1
+               fi
+
+   # Same regression on Selenium Grid in Docker (remote execution, Linux browsers, video of failed tests).
+   # Runs at the same time as the "build" job, without the "single-run" tests (shared cart/orders of the demo account).
+   grid:
+      name: Test on Selenium Grid (Docker, chrome)
+      runs-on: ubuntu-latest
+      timeout-minutes: 45
+
+      env:
+         GROUPS: ${{ github.event.inputs.groups }}
+         ENV: ${{ github.event.inputs.env }}
+
+      steps:
+         -  uses: actions/checkout@v4
+            with:
+               submodules: recursive
+
+         -  name: Set up JDK 21
+            uses: actions/setup-java@v4
+            with:
+               distribution: 'corretto'
+               java-version: '21'
+               cache: maven
+
+         -  name: Start Selenium Grid (hub + chrome node)
+            run: docker compose up -d selenium-hub chrome
+
+         -  name: Wait until the Grid is ready
+            run: |
+               for i in $(seq 1 60); do
+                  if curl -sf http://localhost:4444/status | grep -q '"ready": *true'; then
+                     echo "Selenium Grid is ready"; exit 0
+                  fi
+                  sleep 2
+               done
+               docker compose logs
+               exit 1
+
+         -  name: Run test on the Grid
+            run: >-
+               mvn clean test -B
+               -DTARGET=remote -DREMOTE_URL=localhost -DREMOTE_PORT=4444
+               -DBROWSER=chrome -DHEADLESS=true -DVIDEO_RECORD=failed -DEXCLUDED_GROUPS=single-run
+
+         -  name: Upload logs, videos and Allure results (Grid)
+            if: always()
+            uses: actions/upload-artifact@v4
+            with:
+               name: grid-results
+               path: |
+                  exports/logs
+                  exports/ExportData/Videos
+                  target/allure-results
+               if-no-files-found: ignore
+
+         -  name: Grid logs
+            if: failure()
+            run: docker compose logs --tail=200
+
+         -  name: Stop Selenium Grid
+            if: always()
+            run: docker compose down
+
+         -  name: Fail the job if any test failed
+            if: always()
+            shell: bash
+            run: |
+               f=target/surefire-reports/testng-results.xml
+               if [ ! -f "$f" ]; then
+                  echo "::error::TestNG results not found ($f): tests did not run"
+                  exit 1
+               fi
+               header=$(grep -o '<testng-results[^>]*>' "$f" | head -1)
+               echo "TestNG results: $header"
+               failed=$(grep -c 'status="FAIL"' "$f" || true)
+               passed=$(echo "$header" | grep -o 'passed="[0-9]*"' | grep -o '[0-9]\+')
+               if [ "${failed:-0}" -gt 0 ]; then
+                  echo "::error::${failed} test/configuration method(s) failed on Selenium Grid"
+                  exit 1
+               fi
+               if [ "${passed:-0}" -eq 0 ]; then
+                  echo "::error::No test passed on Selenium Grid"
                   exit 1
                fi

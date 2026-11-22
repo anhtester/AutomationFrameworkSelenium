@@ -3,12 +3,13 @@
 <!--
   One suite for the CMS regression (default suite of mvn test and CI).
   All tests are grouped under "Regression Tests CMS" in Allure/Extent.
-  The <test> blocks run one after the other: the demo accounts (cart, orders) are shared.
+  The <test> blocks run one after the other: Login and Order use the same demo customer account.
+  The Login test cases run in parallel (thread-count, or -DTHREAD_COUNT). CI runs the browsers in parallel jobs.
 -->
 <suite name="Regression Tests CMS">
 
 
-    <test name="Login Test CMS" parallel="methods">
+    <test name="Login Test CMS" parallel="methods" thread-count="3">
         <parameter name="BROWSER" value="chrome"/>
         <classes>
             <class name="com.anhtester.projects.cms.testcases.LoginTest"/>

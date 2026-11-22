@@ -6,6 +6,7 @@ import com.anhtester.dataprovider.DataProviderAddProduct;
 import com.anhtester.helpers.ExcelHelpers;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import com.anhtester.constants.TestGroups;
 import org.testng.annotations.Test;
 
 import java.util.Hashtable;
@@ -14,7 +15,7 @@ import java.util.Hashtable;
 @Feature("Add Product Test")
 public class AddProductTest extends BaseTestCMS {
 
-    @Test(dataProvider = "data_provider_add_product", dataProviderClass = DataProviderAddProduct.class)
+    @Test(dataProvider = "data_provider_add_product", dataProviderClass = DataProviderAddProduct.class, groups = {TestGroups.SMOKE, TestGroups.REGRESSION})
     public void TC_AddNewProductAdmin(Hashtable<String, String> data) {
         ExcelHelpers excelLogin = new ExcelHelpers();
         ExcelHelpers excelAddProduct = new ExcelHelpers();

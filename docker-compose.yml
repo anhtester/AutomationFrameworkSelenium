@@ -34,6 +34,8 @@ services:
       - SE_NODE_MAX_SESSIONS=2
       - SE_NODE_OVERRIDE_MAX_SESSIONS=true
       - SE_NODE_SESSION_TIMEOUT=300
+      # DevTools (video screencast) and BiDi URLs point to the hub, reachable from the test machine
+      - SE_NODE_GRID_URL=http://localhost:4444
 
   edge:
     image: selenium/node-edge:4.53.0
@@ -48,6 +50,8 @@ services:
       - SE_NODE_MAX_SESSIONS=2
       - SE_NODE_OVERRIDE_MAX_SESSIONS=true
       - SE_NODE_SESSION_TIMEOUT=300
+      # DevTools (video screencast) and BiDi URLs point to the hub, reachable from the test machine
+      - SE_NODE_GRID_URL=http://localhost:4444
 
   firefox:
     image: selenium/node-firefox:4.53.0
@@ -62,3 +66,5 @@ services:
       - SE_NODE_MAX_SESSIONS=2
       - SE_NODE_OVERRIDE_MAX_SESSIONS=true
       - SE_NODE_SESSION_TIMEOUT=300
+      # DevTools (video screencast) and BiDi URLs point to the hub, reachable from the test machine
+      - SE_NODE_GRID_URL=http://localhost:4444

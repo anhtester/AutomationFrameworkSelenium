@@ -1,5 +1,6 @@
 package com.anhtester.projects.cms.admin.pages.products;
 
+import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.driver.DriverManager;
 import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.keywords.WebUI;
@@ -8,7 +9,9 @@ import com.anhtester.utils.LogUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.nio.file.Paths;
 import java.util.Random;
 
 public class AddProductPage extends CommonPageCMS {
@@ -52,7 +55,8 @@ public class AddProductPage extends CommonPageCMS {
     private By messageAddProductSuccess = By.xpath("//span[@data-notify='message']");
     private By allCategoriesTabUI = By.xpath("//a[normalize-space()='All categories']");
     private By unitUI = By.xpath("//span[@class='opacity-70']");
-    private By descriptionUI = By.xpath("//div[@class = 'mw-100 overflow-auto text-left aiz-editor-data']//p");
+    // The whole description block, not its <p>: Firefox types the text after the editor's empty <p><br></p>
+    private By descriptionUI = By.xpath("//div[@class = 'mw-100 overflow-auto text-left aiz-editor-data']");
 
     int randomNumber = new Random().nextInt(1000000);
     private By menuAllProducts = By.xpath("//span[normalize-space()='All products']");
@@ -74,14 +78,14 @@ public class AddProductPage extends CommonPageCMS {
         WebUI.setText(inputSearchCategory, category, Keys.ENTER);
         WebUI.setText(inputUnit, unit);
         WebUI.setText(inputWeight, String.valueOf(weight));
-        WebUI.setText(inputTags, tags);
         WebUI.verifyElementVisible(blockProductImages, "Product Images block is not displayed");
         WebUI.clickElement(selectChooseGalleryImgs);
         WebUI.clickElement(uploadNewImageTab);
         //Upload images Gallery with Form
-        //WebUI.uploadFileWithLocalForm(buttonBrowseImages, SystemHelpers.getCurrentDir() + "src\\test\\resources\\testdataCMS\\" + imgName);
-        //Upload images Gallery with sendKeys
-        DriverManager.getDriver().findElement(inputGalleryImages).sendKeys(SystemHelpers.getCurrentDir() + "src\\test\\resources\\testdataCMS\\" + imgName);
+        //WebUI.uploadFileWithLocalForm(buttonBrowseImages, imagePath);
+        //Upload images Gallery with sendKeys (path works on Windows/Linux/macOS, sent to the Grid node by LocalFileDetector)
+        String imagePath = Paths.get(SystemHelpers.getCurrentDir(), "src", "test", "resources", "testdataCMS", imgName).toString();
+        DriverManager.getDriver().findElement(inputGalleryImages).sendKeys(imagePath);
         WebUI.clickElement(selectFileTab);
         LogUtils.info(imgName);
         LogUtils.info(SystemHelpers.splitString(imgName, "[.]"));
@@ -92,6 +96,7 @@ public class AddProductPage extends CommonPageCMS {
         WebUI.sleep(2);
         WebUI.clickElementWithJs(selectGalleryImages);
         WebUI.clickElement(buttonAddFileImgs);
+        waitForUploaderClosed();
         WebUI.waitForPageLoaded();
         WebUI.sleep(2);
         WebUI.clickElement(selectChooseThumbnailImgs);
@@ -100,15 +105,18 @@ public class AddProductPage extends CommonPageCMS {
         WebUI.sleep(2);
         WebUI.clickElementWithJs(selectThumbnailImages);
         WebUI.clickElement(buttonAddFileImgs);
+        waitForUploaderClosed();
         WebUI.waitForPageLoaded();
         WebUI.verifyElementVisible(blockProductPrice, "Product price block is NOT displayed");
-        WebUI.setText(inputUnitPrice, String.valueOf(unitPrice));
+        WebUI.clearAndFillText(inputUnitPrice, String.valueOf(unitPrice));
+        // The date range picker opens on click (Firefox/Safari do not open it when typing only)
+        WebUI.clickElement(selectDate);
         WebUI.setText(selectDate, discountDate);
         WebUI.clickElement(buttonSelectDiscountDate);
-        WebUI.setText(inputDiscount, String.valueOf(discount));
+        WebUI.clearAndFillText(inputDiscount, String.valueOf(discount));
         WebUI.clickElement(selectUnitDiscount);
         WebUI.clickElement(selectUnitDiscountPercent);
-        WebUI.setText(inputQuantity, String.valueOf(quantity));
+        WebUI.clearAndFillText(inputQuantity, String.valueOf(quantity));
         WebUI.setText(inputSKU, String.valueOf(randomNumber));
         WebUI.verifyElementVisible(blockProductDescription, "Product description is not displayed");
         WebUI.setText(inputMetaTitle, productName);
@@ -119,6 +127,11 @@ public class AddProductPage extends CommonPageCMS {
         WebUI.sleep(2);
         WebUI.clickElementWithJs(selectThumbnailImages);
         WebUI.clickElementWithJs(buttonAddFileImgs);
+        waitForUploaderClosed();
+        // Tags (Tagify) as the LAST field: in Firefox it keeps the keyboard focus after typing, every next field
+        // would be typed into the tags. ENTER adds the tag.
+        WebUI.scrollToElementAtCenter(inputTags);
+        WebUI.setText(inputTags, tags, Keys.ENTER);
         //Click Save & Publish
         WebUI.waitForPageLoaded();
         WebUI.scrollToElementAtBottom(buttonSavePublish);
@@ -131,6 +144,16 @@ public class AddProductPage extends CommonPageCMS {
         WebUI.sleep(2);
         WebUI.waitForElementVisible(newProduct);
         nameProductVerify = WebUI.getTextElement(newProduct);
+    }
+
+    private By uploaderModal = By.id("aizUploaderModal");
+
+    /**
+     * The file uploader modal closes with an animation: until it is hidden it covers the page
+     * (Firefox: "Save &amp; Publish is not clickable because aizUploaderModal obscures it").
+     */
+    private void waitForUploaderClosed() {
+        WebUI.getWait(FrameworkConstants.WAIT_EXPLICIT).until(ExpectedConditions.invisibilityOfElementLocated(uploaderModal));
     }
 
     public void verifyNewProduct(String category, String unit, Double unitPrice, String description) {

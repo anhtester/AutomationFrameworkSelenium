@@ -16,6 +16,8 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringDecorator;
 
@@ -148,10 +150,23 @@ public class TargetFactory {
         }
     }
 
-    private RemoteWebDriver createRemoteInstance(MutableCapabilities capability) {
+    private WebDriver createRemoteInstance(MutableCapabilities capability) {
         URL gridUrl = buildGridUrl();
         LogUtils.info("Remote URL: " + gridUrl + " - Browser: " + capability.getBrowserName());
-        return new RemoteWebDriver(gridUrl, capability);
+        RemoteWebDriver remoteWebDriver = new RemoteWebDriver(gridUrl, capability);
+        // Upload with sendKeys(localPath): the file is sent from the test machine to the Grid node
+        remoteWebDriver.setFileDetector(new LocalFileDetector());
+        try {
+            // Add HasDevTools (Chrome/Edge) to the remote driver: video screencast, Basic Auth, console logs
+            WebDriver augmented = new Augmenter().augment(remoteWebDriver);
+            if (augmented instanceof RemoteWebDriver) {
+                ((RemoteWebDriver) augmented).setFileDetector(new LocalFileDetector());
+            }
+            return augmented;
+        } catch (Exception e) {
+            LogUtils.warn("Can not add DevTools to the remote driver, continue without it: " + e.getMessage());
+            return remoteWebDriver;
+        }
     }
 
     private static String firstNonBlank(String... values) {

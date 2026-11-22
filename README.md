@@ -21,17 +21,19 @@ The keyword library **WebUI** is the submodule https://github.com/anhtester/keyw
 3. Main keyword **WebUI**: waits, retry on stale/covered elements, soft assert, logs and reports in one call
 4. Detailed logs: one log file per test case, every WebDriver action with its duration
 5. Allure Report 2 and Extent Report, with stack trace, page source, browser console logs and test log on failure
-6. Screenshot and video record of test cases
+6. Screenshot and video (MP4) of test cases, also in headless mode, on CI and Selenium Grid
 7. Read test data from Excel, CSV, JSON and properties files
 8. Retry failed tests (IRetryAnalyzer + IAnnotationTransformer)
-9. Send report by email and Telegram Bot
-10. Generate test data with DataFaker
-11. Selenium Grid with Docker (`docker-compose.yml`)
-12. CI with GitHub Actions: Chrome + Edge, reports published to GitHub Pages
+9. Run groups of tests (smoke, regression), environments (dev, staging...) and choose the number of threads
+10. Send report by email and Telegram Bot
+11. Generate test data with DataFaker
+12. Selenium Grid with Docker (`docker-compose.yml`)
+13. CI with GitHub Actions in parallel: Chrome, Edge, Firefox (Windows), Safari (macOS, through Selenium Grid),
+    Selenium Grid in Docker (Linux), reports published to GitHub Pages
 
 ### ✳️ **SYSTEM REQUIREMENTS**
 
-- Java JDK 17 or newer
+- Java JDK 21 (LTS). Maven stops with a clear message on an older JDK: set `JAVA_HOME` (and the Project SDK in IntelliJ) to JDK 21
 - Maven 3.9+ (or the Maven bundled with IntelliJ IDEA)
 - Chrome, Edge or Firefox. Browser drivers are downloaded automatically by Selenium Manager (no PATH setting)
 - Allure: nothing to install, Maven downloads Allure Report 2.46.2 (`mvn allure:serve`)
@@ -57,6 +59,17 @@ mvn test "-Dsuite=src/test/resources/suites/SuiteAll.xml"
 ```
 
 - Run a suite XML directly from IntelliJ IDEA: `src/test/resources/suites/`
+- Run a group of tests (TestNG `groups`, names in `com.anhtester.constants.TestGroups`): `smoke` = critical path, `regression` = all,
+  `single-run` = tests that change data shared by every run (cart/orders of the demo account): CI runs them in one job only
+
+```
+mvn test -DGROUPS=smoke
+mvn test -DEXCLUDED_GROUPS=smoke
+```
+
+- Number of threads for the parallel tests (`parallel="methods"` in the suite XML): `mvn test -DTHREAD_COUNT=3`
+- Environments: `mvn test -DENV=staging` loads `src/test/resources/config/env/staging.properties` on top of `config.properties`
+  (only the keys that change: URLs, accounts...). Example: `env/demo.properties`
 
 **2. Config**
 
@@ -100,7 +113,9 @@ mvn test "-Dsuite=src/test/resources/suites/SuiteAll.xml"
 
 - `config.properties`: `SCREENSHOT_PASSED_TCS`, `SCREENSHOT_FAILED_TCS`, `SCREENSHOT_SKIPPED_TCS`, `SCREENSHOT_ALL_STEPS` = yes/no
 - Screenshots: `exports/ExportData/Images`, downloads of the browser: `exports/Downloads`
-- `VIDEO_RECORD=yes`: video of each test in `exports/ExportData/Videos` (needs a visible screen: `-DHEADLESS=false`)
+- `VIDEO_RECORD = no | yes | failed`: MP4 video of each test (`failed` keeps only failed and retried tests) in
+  `exports/ExportData/Videos`, attached to Allure. Chrome/Edge: DevTools screencast, works in headless mode, on CI and Grid.
+  Other browsers: screen recorder, needs a visible screen (`-DHEADLESS=false`)
 
 **7. Read test data**
 
@@ -162,6 +177,7 @@ mvn test -DTARGET=remote -DREMOTE_URL=localhost -DREMOTE_PORT=4444 -DBROWSER=chr
 - Grid console: http://localhost:4444/ui
 - Without Docker: download [selenium-server-4.53.0.jar](https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.53.0/selenium-server-4.53.0.jar) and run `java -jar selenium-server-4.53.0.jar standalone`
 - `REMOTE_URL` can also be a full URL (ex: `https://hub.example.com/wd/hub`)
+- Upload with `sendKeys(path)` works on the Grid (the file is sent from the test machine), video and DevTools work on Chrome/Edge nodes
 
 **13. Generate test data with DataFaker**
 
@@ -171,9 +187,28 @@ mvn test -DTARGET=remote -DREMOTE_URL=localhost -DREMOTE_PORT=4444 -DBROWSER=chr
 
 **14. CI with GitHub Actions**
 
-- `.github/workflows/maven.yml`: run the tests on Chrome then Edge, the job is red when a test fails
+- `.github/workflows/maven.yml`, all jobs at the same time, each job is red when a test fails:
+  - Chrome, Edge, Firefox on Windows (headless)
+  - Safari (WebKit) on macOS through a Selenium Grid started on the runner (`TARGET=remote`, one thread, no headless mode).
+    No Mac needed on your side: Safari runs on the GitHub macOS runner
+  - Chrome on Selenium Grid in Docker (Linux)
+  - The tests of the group `single-run` run only in the Chrome job (shared demo data)
+- Videos of failed tests are kept (`VIDEO_RECORD=failed`, Chrome/Edge)
+- Run by hand (Actions > Run workflow) with a group (ex: `smoke`) and an environment (ex: `demo`)
 - Artifacts of each run: Allure Report, Extent Report, logs, screenshots, videos
 - Allure Report and Javadoc are published to GitHub Pages from the `main` branch: https://anhtester.github.io/AutomationFrameworkSelenium/
+
+**15. Add a new project (website) to the framework**
+
+1. Pages: `src/test/java/com/anhtester/projects/<project>/pages/` (one class per page: locators `By` + actions with `WebUI`)
+2. A base class for the test cases of the project: `projects/<project>/BaseTest<Project>.java` extends `BaseTest`
+   and gives access to the pages (example: `projects/cms/BaseTestCMS.java`)
+3. Test cases: `projects/<project>/testcases/`, add `groups = {TestGroups.SMOKE, TestGroups.REGRESSION}` to `@Test`
+4. Test data: `src/test/resources/testdata<Project>/` and keys in `config/data.properties` (URLs, file paths)
+5. URLs and accounts per environment: `config/env/<env>.properties` (`-DENV=...`), passwords with `-D` / CI secrets
+6. Suite: `src/test/resources/suites/<Project>/Regression<Project>.xml` (one `<suite>`, several `<test>`),
+   run it with `mvn test "-Dsuite=src/test/resources/suites/<Project>/Regression<Project>.xml"` or set it as default in pom.xml
+7. Retry, logs, reports, screenshots, videos and groups work automatically: nothing to register
 
 ### 🔆 Project structure
 
@@ -190,7 +225,8 @@ mvn test -DTARGET=remote -DREMOTE_URL=localhost -DREMOTE_PORT=4444 -DBROWSER=chr
  ┃ ┃ ┃ ┃ ┃ ┣ 📂annotations
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkAnnotation.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂constants
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkConstants.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FrameworkConstants.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestGroups.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂driver
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DriverEventListener.java
@@ -218,8 +254,10 @@ mvn test -DTARGET=remote -DREMOTE_URL=localhost -DREMOTE_PORT=4444 -DBROWSER=chr
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FileHelpers.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JsonHelpers.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PropertiesHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ScreencastRecorder.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ScreenRecorderHelpers.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SystemHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SystemHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜VideoMode.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂keywords
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜README.md
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WebUI.java
@@ -264,6 +302,7 @@ mvn test -DTARGET=remote -DREMOTE_URL=localhost -DREMOTE_PORT=4444 -DBROWSER=chr
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureListener.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AnnotationTransformer.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Retry.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SuiteConfigurator.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestListener.java
  ┃ ┃ ┃ ┃ ┃ ┗ 📂projects
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂cms
@@ -305,6 +344,8 @@ mvn test -DTARGET=remote -DREMOTE_URL=localhost -DREMOTE_PORT=4444 -DBROWSER=chr
  ┃ ┃ ┃ ┃ ┃ ┣ 📜categories.json
  ┃ ┃ ┃ ┃ ┃ ┣ 📜environment.xml
  ┃ ┃ ┃ ┃ ┃ ┗ 📜executor.json
+ ┃ ┃ ┃ ┃ ┣ 📂env
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜demo.properties
  ┃ ┃ ┃ ┃ ┣ 📜allure.properties
  ┃ ┃ ┃ ┃ ┣ 📜config.json
  ┃ ┃ ┃ ┃ ┣ 📜config.properties

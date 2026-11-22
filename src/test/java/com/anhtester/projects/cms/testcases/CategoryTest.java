@@ -7,6 +7,7 @@ import com.anhtester.projects.cms.CommonPageCMS;
 import com.anhtester.projects.cms.admin.pages.category.CategoryPage;
 import com.anhtester.projects.cms.admin.pages.logins.LoginPageCMS;
 import com.anhtester.utils.DataGenerateUtils;
+import com.anhtester.constants.TestGroups;
 import org.testng.annotations.Test;
 
 public class CategoryTest extends BaseTestCMS {
@@ -22,7 +23,7 @@ public class CategoryTest extends BaseTestCMS {
         excelHelpers = new ExcelHelpers();
     }
 
-    @Test
+    @Test(groups = TestGroups.REGRESSION)
     public void TC_AddCategory() {
         loginPageCMS.loginSuccessAdminPage();
         categoryPage = commonPageCMS.clickMenuProducts().clickMenuCategory();

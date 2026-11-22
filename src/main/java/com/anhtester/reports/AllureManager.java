@@ -10,6 +10,7 @@ import com.anhtester.driver.DriverManager;
 import com.anhtester.driver.TargetFactory;
 import com.anhtester.helpers.DiagnosticHelpers;
 import com.anhtester.helpers.FileHelpers;
+import com.anhtester.helpers.PropertiesHelpers;
 import com.anhtester.utils.BrowserInfoUtils;
 import com.anhtester.utils.LogUtils;
 import io.qameta.allure.Allure;
@@ -53,6 +54,7 @@ public class AllureManager {
      */
     public static Map<String, String> getEnvironmentInformation() {
         Map<String, String> environment = new LinkedHashMap<>();
+        environment.put("Environment", String.valueOf(PropertiesHelpers.getEnvironmentName() == null ? "default" : PropertiesHelpers.getEnvironmentName()));
         environment.put("Test URL", FrameworkConstants.URL_CMS_USER);
         environment.put("Target Execution", FrameworkConstants.TARGET);
         environment.put("Browser", TargetFactory.resolveBrowser(null));

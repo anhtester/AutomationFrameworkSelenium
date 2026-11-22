@@ -5,39 +5,40 @@ import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.helpers.ExcelHelpers;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import com.anhtester.constants.TestGroups;
 import org.testng.annotations.Test;
 
 @Epic("Regression Test CMS")
 @Feature("Login Test")
 public class LoginTest extends BaseTestCMS {
 
-    @Test(priority = 1)
+    @Test(priority = 1, groups = TestGroups.REGRESSION)
     public void TC_LoginFailWithEmailNull() {
         getLoginPageCMS().loginFailWithEmailNull();
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2, groups = TestGroups.REGRESSION)
     public void TC_LoginFailWithEmailDoesNotExist() {
         ExcelHelpers excel = new ExcelHelpers();
         excel.setExcelFile(FrameworkConstants.EXCEL_CMS_LOGIN, "Login");
         getLoginPageCMS().loginFailWithEmailDoesNotExist(excel.getCellData(1, "email"), excel.getCellData(1, "password"));
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3, groups = TestGroups.REGRESSION)
     public void TC_LoginFailWithNullPassword() {
         ExcelHelpers excel = new ExcelHelpers();
         excel.setExcelFile(FrameworkConstants.EXCEL_CMS_LOGIN, "Login");
         getLoginPageCMS().loginFailWithNullPassword(excel.getCellData(2, "email"));
     }
 
-    @Test(priority = 4)
+    @Test(priority = 4, groups = TestGroups.REGRESSION)
     public void TC_LoginFailWithIncorrectPassword() {
         ExcelHelpers excel = new ExcelHelpers();
         excel.setExcelFile(FrameworkConstants.EXCEL_CMS_LOGIN, "Login");
         getLoginPageCMS().loginFailWithIncorrectPassword(excel.getCellData(3, "email"), excel.getCellData(3, "password"));
     }
 
-    @Test(priority = 5)
+    @Test(priority = 5, groups = {TestGroups.SMOKE, TestGroups.REGRESSION})
     public void TC_LoginSuccessWithCustomerAccount() {
         ExcelHelpers excel = new ExcelHelpers();
         excel.setExcelFile(FrameworkConstants.EXCEL_CMS_LOGIN, "Login");

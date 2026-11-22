@@ -4,6 +4,7 @@ import com.anhtester.projects.cms.BaseTestCMS;
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.helpers.ExcelHelpers;
 import com.anhtester.helpers.PropertiesHelpers;
+import com.anhtester.constants.TestGroups;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 
 public class ProductInfoTest extends BaseTestCMS {
 
-    @Test
+    @Test(groups = TestGroups.REGRESSION)
     public void TC_GetProductInfo() {
         ExcelHelpers excel = new ExcelHelpers();
         // Write the result into a copy in exports/ExportData: the template in src/test/resources stays unchanged

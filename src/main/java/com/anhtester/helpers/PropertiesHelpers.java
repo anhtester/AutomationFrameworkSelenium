@@ -51,9 +51,45 @@ public class PropertiesHelpers {
                 LogUtils.warn("Warning !! Can not load properties file: " + path, e);
             }
         }
+
+        // Environment file (ENV=staging -> config/env/staging.properties) overrides the base files
+        String env = getEnvironmentName(loaded);
+        if (env != null) {
+            String path = SystemHelpers.getCurrentDir() + ENV_FOLDER + env + ".properties";
+            try (InputStream input = new FileInputStream(path)) {
+                Properties envProp = new Properties();
+                envProp.load(input);
+                loaded.putAll(envProp);
+                LogUtils.info("Loaded environment '" + env + "': " + ENV_FOLDER + env + ".properties (" + envProp.size() + " keys)");
+            } catch (IOException e) {
+                LogUtils.error("ENV=" + env + " but the file " + path + " does not exist: only the base configuration is used.");
+            }
+        }
+
         properties = loaded;
         LogUtils.info("Loaded all properties files.");
         return properties;
+    }
+
+    /**
+     * Folder of the environment files: ENV=staging loads config/env/staging.properties
+     */
+    public static final String ENV_FOLDER = "src/test/resources/config/env/";
+
+    /**
+     * @return the environment name from -DENV / env variable ENV / config.properties, or null when not set
+     */
+    public static String getEnvironmentName() {
+        return getEnvironmentName(properties);
+    }
+
+    private static String getEnvironmentName(Properties base) {
+        String env = getOverride("ENV");
+        if (env == null && base != null) {
+            String fromFile = base.getProperty("ENV");
+            env = (fromFile == null || fromFile.trim().isEmpty()) ? null : fromFile.trim();
+        }
+        return env;
     }
 
     public static Properties getProperties() {

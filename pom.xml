@@ -22,7 +22,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java-compiler.version>17</java-compiler.version>
+        <java-compiler.version>21</java-compiler.version>
         <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
         <selenium.version>4.53.0</selenium.version>
         <testng.version>7.12.0</testng.version>
@@ -41,6 +41,7 @@
         <datafaker.version>2.5.4</datafaker.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <angus-mail.version>2.0.5</angus-mail.version>
+        <jcodec.version>0.2.5</jcodec.version>
         <zip.version>1.17</zip.version>
         <java-telegram-bot-api.version>9.4.1</java-telegram-bot-api.version>
         <commons-lang3.version>3.20.0</commons-lang3.version>
@@ -203,6 +204,13 @@
             <version>${commons-io.version}</version>
         </dependency>
 
+        <!-- Encode the DevTools screencast of Chrome/Edge to MP4 in pure Java (video also in headless mode / CI) -->
+        <!-- https://mvnrepository.com/artifact/org.jcodec/jcodec-javase -->
+        <dependency>
+            <groupId>org.jcodec</groupId>
+            <artifactId>jcodec-javase</artifactId>
+            <version>${jcodec.version}</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/com.github.stephenc.monte/monte-screen-recorder -->
         <dependency>
             <groupId>com.github.stephenc.monte</groupId>
@@ -282,8 +290,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.15.0</version>
                     <configuration>
-                        <source>${java-compiler.version}</source>
-                        <target>${java-compiler.version}</target>
+                        <release>${java-compiler.version}</release>
                     </configuration>
                 </plugin>
 
@@ -331,6 +338,31 @@
 
             </plugins>
         </pluginManagement>
+
+        <plugins>
+            <!-- Stop with a clear message when Maven runs with an older JDK than java-compiler.version -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.7.0</version>
+                <executions>
+                    <execution>
+                        <id>enforce-java</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>[${java-compiler.version},)</version>
+                                    <message>This framework needs JDK ${java-compiler.version} or newer. Set JAVA_HOME (and the Project SDK in IntelliJ IDEA) to JDK ${java-compiler.version}.</message>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

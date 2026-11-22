@@ -3,6 +3,7 @@ v3.0.0
 Nov 22, 2026
 
 BREAKING CHANGES
+* Java 21 is required (maven-enforcer-plugin stops with a clear message on an older JDK), CI uses JDK 21
 * Remove the RISE CRM project (site is down): package projects/crm, suites/CRM, crm_locators.properties,
   testdataCRM/ClientsDataExcel.xlsx, DataProviderManager, URL_CRM and EXCEL_DATA_FILE_PATH
 * BaseTest is generic (no longer extends CommonPageCMS): CMS test classes extend BaseTestCMS
@@ -38,6 +39,10 @@ Stability
 * Tests no longer change tracked test data files (results are written into exports/ or target/)
 * OrderTest empties the cart of the shared demo account before ordering
 * ProfileTest verifies the successful profile update, CategoryTest uses a unique category name
+* Retry failed tests in every run, also when a test class is run from the IDE (AnnotationTransformer registered with ServiceLoader)
+* AddProductPage: click the date range picker before typing, wait until the file uploader is closed (Firefox),
+  upload path works on Windows, Linux and macOS, Tags typed last (Tagify keeps the focus in Firefox),
+  clear the fields with a default "0", read the whole product description (Firefox types it after an empty paragraph)
 
 Logs and reports
 * LogUtils keeps the full stack trace and the real caller (Class.method:line)
@@ -52,7 +57,11 @@ Logs and reports
 * CMS tests are grouped in ONE suite in Allure and Extent (no more "Regression Tests CMS (0)", "(1)")
 
 CI (GitHub Actions)
-* Run on Chrome and Edge one after the other (shared demo accounts), timeout and concurrency
+* Jobs in parallel: Chrome, Edge, Firefox (Windows), Safari (macOS, through a Selenium Grid started on the runner)
+  and Chrome on Selenium Grid in Docker (Linux), with timeout and concurrency
+* Tests of the group "single-run" (shared cart/orders of the demo account) run only in the Chrome job
+* Run by hand with a TestNG group and an environment (workflow_dispatch)
+* Videos of failed tests (VIDEO_RECORD=failed)
 * The job is red when a test or a configuration method fails
 * Upload logs, screenshots, videos and reports for each browser
 * Publish Allure Report and Javadoc to GitHub Pages only from a push on main
@@ -64,6 +73,13 @@ New
 * src/test/resources/objects/locators.properties: object repository for ObjectUtils
 * WebUI keywords: getLastDownloadedFilePathWithJS (Chrome 120+), requireVisibleDesktop, getWait, getSoftAssert, resetSoftAssert
 * Demo tests updated for the current websites (DataTables 2, anhtester.com, demoqa)
+* TestNG groups smoke, regression, single-run (TestGroups): mvn test -DGROUPS=smoke, -DEXCLUDED_GROUPS=... (SuiteConfigurator)
+* Environments: mvn test -DENV=staging loads config/env/staging.properties on top of config.properties (example env/demo.properties)
+* mvn test -DTHREAD_COUNT=n: number of threads of the parallel tests
+* Video VIDEO_RECORD = no | yes | failed: Chrome/Edge DevTools screencast saved as MP4 (JCodec), works in headless mode,
+  on CI and Selenium Grid, attached to Allure
+* Selenium Grid: file upload with LocalFileDetector, DevTools on remote Chrome/Edge (video, Basic Auth)
+* README: guide to add a new project (pages, BaseTest<Project>, groups, environments, suite)
 
 v2.9.0
 ======
