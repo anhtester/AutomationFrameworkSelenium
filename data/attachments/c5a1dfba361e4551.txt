@@ -1,4 +1,0 @@
-URL: https://cms.anhtester.com/admin/products/admin
-Title: Active eCommerce CMS | Anh Tester Demo
-Browser: chrome 157.0.8103.79 on windows
-Browser console errors: 0

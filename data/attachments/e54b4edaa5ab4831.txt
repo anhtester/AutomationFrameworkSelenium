@@ -1,1 +1,0 @@
-Set text Giỏ quà Tết CyrZd on By.xpath: //input[@placeholder='Product Name']

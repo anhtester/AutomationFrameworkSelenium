@@ -1,1 +1,0 @@
-Set text 1500 on By.xpath: //input[@name='weight']
